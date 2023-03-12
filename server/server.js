@@ -1,8 +1,9 @@
-const express = require('express')
-const app = express()
+const express = require('express'),
+PORT = 5000,
+app = express()
 
-app.listen(5000, () => {
-    console.log("Server running on port 5000")
+app.listen(PORT, () => {
+    console.log('Server started running on ' + PORT)
 })
 
 // This is for testing if frontend can fetch data from backend
