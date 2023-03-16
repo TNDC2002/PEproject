@@ -1,5 +1,5 @@
 # vgupe2023_team5
-## Project:
+## Project: [Online Movie Management System](https://docs.google.com/document/d/1spvPDBs7l7YFBG1TLc5Ze3q9_Y5r2wQpQleSmZRkkUA/edit)
 
 ## Members:
  1. 18840 Hà Quách Phú Thành (MapleThanh) (Leader)
