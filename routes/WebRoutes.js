@@ -1,8 +1,18 @@
 import express from "express";
-import controller from "../controller/controller"
+import { Sample_page } from "../controller/controller.js";
 
 let router = express.Router();
-let initWebroutes = (app) => {
+
+let initWebRoutes = (app) => {
+  router.get('/', Sample_page);
+
+  app.use("/", router);
+}
+
+export { initWebRoutes };
+
+
+
     /* rest API:
                 method get khi lấy data
                 router.get('/', controller.<function>)
@@ -16,10 +26,3 @@ let initWebroutes = (app) => {
                 method delete để xóa
                 router.delete('/',controller.<function>)
     */
-    router.get('/', controller.Sample_page)
-
-	 	
-    app.use("/", router)
-}
-
-module.exports = initWebroutes;
