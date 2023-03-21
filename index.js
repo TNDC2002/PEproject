@@ -1,15 +1,20 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { configViewEngine } from "./config/ViewEngine.js";
-import { initWebRoutes } from "./routes/WebRoutes.js";
-import dotenv from "dotenv";
+import cors from "cors";
 import mysql from "mysql"
-
-dotenv.config();
 
 const app = express();
 
-//bodyParser
+
+import { configViewEngine } from "./config/ViewEngine.js";
+import { initWebRoutes } from "./routes/WebRoutes.js";
+import dotenv from "dotenv";
+
+
+dotenv.config();
+
+app.use(cors());
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -32,18 +37,6 @@ app.get("/", (req, res) => {
   res.json("Hello from the backend!")
 })
 
-app.get("/movies", (req, res) => {
-  const q = "SELECT * FROM movies;"
-  db.query(q, (err, data) => {
-    if (err) {
-      console.error('Error fetching data from MySQL database:', err);
-      res.json(err);
-    } else {
-      res.json(data);
-    }
-  })
-})
-
 //config part
 configViewEngine(app);
 initWebRoutes(app);
@@ -63,4 +56,14 @@ app.listen(port,() =>{
     console.log("\x1b[35m|\x1b[0m                     " +         _6969                                   +"                 \x1b[35m|\x1b[0m")
     console.log("\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m")
     console.log(     "\x1b[35m===============================================================================================\x1b[0m")
+})
+
+app.post("/api/insert", (req, res) => {
+  const accountName = req.body.accountName;
+  const accountPassword = req.body.accountPassword;
+    
+  const sqlInsert = "INSERT INTO user_accounts (accountName, accountPassword) VALUES (?, ?)"
+  db.query(sqlInsert, [accountName, accountPassword], (err, result) => {
+    console.log(err);
+  })
 })
