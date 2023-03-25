@@ -1,11 +1,19 @@
-import React from "react"
-import LoginForm from "./components/Login Form/LoginForm"
+import React from "react";
+import { BrowserRouter, Navigate, Routes, Route} from "react-router-dom";
+import HomePage from "scenes/homePage";
+import LoginPage from "scenes/loginPage";
+import ProfilePage from "scenes/profilePage";
 
 function App() {
-  
   return (
-    <div className="page">
-      <LoginForm />
+    <div className="app">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/profile/:userID" element={<ProfilePage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }
