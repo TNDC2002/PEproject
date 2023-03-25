@@ -6,6 +6,7 @@ let router = express.Router();
 let initWebRoutes = (app) => {
   router.get('/', controller.default.Sample);
   router.post('/api/insert', controller.default.Api_insert);
+  router.get("/movies", controller.default.Movies)
   app.use("/", router);
 }
 
