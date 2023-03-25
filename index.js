@@ -33,10 +33,6 @@ db.connect((err) => {
   }
 });
 
-app.get("/", (req, res) => {
-  res.json("Hello from the backend!")
-})
-
 //config part
 configViewEngine(app);
 initWebRoutes(app);
@@ -58,12 +54,3 @@ app.listen(port,() =>{
     console.log(     "\x1b[35m===============================================================================================\x1b[0m")
 })
 
-app.post("/api/insert", (req, res) => {
-  const accountName = req.body.accountName;
-  const accountPassword = req.body.accountPassword;
-    
-  const sqlInsert = "INSERT INTO user_accounts (accountName, accountPassword) VALUES (?, ?)"
-  db.query(sqlInsert, [accountName, accountPassword], (err, result) => {
-    console.log(err);
-  })
-})

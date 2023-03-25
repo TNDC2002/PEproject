@@ -1,11 +1,11 @@
 import express from "express";
-import { Sample_page } from "../controller/controller.js";
+import * as controller from "../controller/controller.js";
 
 let router = express.Router();
 
 let initWebRoutes = (app) => {
-  router.get('/', Sample_page);
-
+  router.get('/', controller.default.Sample);
+  router.post('/api/insert', controller.default.Api_insert);
   app.use("/", router);
 }
 
