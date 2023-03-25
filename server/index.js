@@ -5,12 +5,14 @@ import mongoose from "mongoose"
 import dotenv from "dotenv";
 import path from "path";
 import multer from "multer";
-
+import helmet from "helmet";
+import morgan from "morgan";
 import { fileURLToPath } from "url";
 import { configViewEngine } from "./config/ViewEngine.js";
 import { initWebRoutes } from "./routes/WebRoutes.js";
 import { register } from "./controller/auth.js"
-
+import { verifyToken } from "./middleware/auth.js";
+import authRoutes from "./routes/auth.js";
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,11 +21,11 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-
-configViewEngine(app);
-initWebRoutes(app);
 
 /* FILE STORAGE */
   const storage = multer.diskStorage({
@@ -37,7 +39,10 @@ initWebRoutes(app);
   const upload = multer({ storage });
 
 /* ROUTES FILE */
-app.post("/auth/register", upload.single("pictures", register));
+app.post("/auth/register", upload.single("picture"), register);
+
+/* ROUTES */
+app.use("/auth", authRoutes);
 
 /* SERVER SETUP AND MONGOOSE SETUP */
 let PORT = process.env.PORT || 6969;
