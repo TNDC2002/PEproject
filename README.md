@@ -4,7 +4,7 @@
 ## Members:
  1. 18840 Hà Quách Phú Thành (MapleThanh) (Leader)
  2. 18973 Nguyễn Xuân Khang (khanglun20000)
- 3. 18770 Thái Quang Nam (thqnam)
+ 3. 18770 Thái Quang Nam (tqnam)
  4. 18230 Nguyễn Khắc Hoàng (bob3214y3)
  5. 18334 Phạm Hoàng Việt (hoangviet10101)
  6. 17197 Trần Ngọc Duy Chương (TNDC2002)
