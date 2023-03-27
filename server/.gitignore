@@ -3,6 +3,6 @@
 /.idea
 .idea/
 .env
-/public/assets/.png
-/public/assets/.jpeg
-/public/assets/.jpg
+/public/assets/*.png
+/public/assets/*.jpeg
+/public/assets/*.jpg
