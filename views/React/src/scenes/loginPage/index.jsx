@@ -5,7 +5,6 @@ import {
     useMediaQuery
 } from "@mui/material";
 import Form from "../loginPage/Form"
-import Navbar from "../navbar/index";
 
 const LoginPage = () => {
     const theme = useTheme();
