@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 import "./movie_list.css";
-import { Link } from "react-router-dom";
+import FlexBetween from "../../components/FlexBetween";
+import { useNavigate } from "react-router-dom";
 
 const CATEGORY_API_ENDPOINTS = {
     popular: "popular",
@@ -13,6 +14,7 @@ const CATEGORY_API_ENDPOINTS = {
 
 const MovieList = ({ category }) => {
     const [movies, setMovies] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -26,11 +28,11 @@ const MovieList = ({ category }) => {
       <div>
         <h2>{category.toUpperCase()} MOVIES</h2>
         <ul className="movie-list">
-          {movies.map((movie) => (
+          {movies.map((movie) => (  
             <li key={movie.id}>
-              <Link to={`/movie/${movie.id}`}>
+              <FlexBetween>
                 <MovieCard movie={movie} />
-              </Link>
+              </FlexBetween>
             </li>
           ))}
         </ul>
