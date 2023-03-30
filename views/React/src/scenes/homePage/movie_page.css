@@ -1,0 +1,44 @@
+.movie-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .movie-details img {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .movie-details h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .movie-details p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .movie-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .rent-button, .buy-button {
+    background-color: #0077FF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .rent-button:hover, .buy-button:hover {
+    background-color: #0066CC;
+  }
+  
+  

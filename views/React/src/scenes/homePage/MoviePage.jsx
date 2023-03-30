@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import './movie_page.css';
 
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
@@ -21,13 +22,19 @@ const MoviePage = () => {
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
   return (
-    <div>
-      <img src={imageUrl} alt={`${movie.title} poster`} />
-      <h3>{movie.title}</h3>
-      <p>Rating: {movie.vote_average}</p>
-      <p>Overview: {movie.overview}</p>
-      <p>Movie Id: {movie.id}</p>
+  <div className="movie-details">
+    <img src={imageUrl} alt={`${movie.title} poster`} />
+    <h3>{movie.title}</h3>
+    <p>Rating: {movie.vote_average}</p>
+    <p>Overview: {movie.overview}</p>
+    <p>Movie Id: {movie.id}</p>
+    <div className="movie-actions">
+      <button className="rent-button">Rent</button>
+      <button className="buy-button">Buy</button>
     </div>
+  </div>
+
+
   );
 };
 
