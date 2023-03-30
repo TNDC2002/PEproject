@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from './theme';
-import MoviePage from "./scenes/MoviePage";
+import MoviePage from "./scenes/moviePage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
