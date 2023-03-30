@@ -24,6 +24,12 @@ const MovieCard = ({ movie }) => {
       backgroundColor={neutralLight}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => navigate(`/movie/${movie.id}`)}
+      sx={{
+        "&:hover":{
+        cursor: "pointer"
+        }
+      }}
       >
         <Image 
           src={imageUrl}
@@ -39,12 +45,7 @@ const MovieCard = ({ movie }) => {
                 fontWeight="bold"
                 fontSize="clamp(1rem, 1.5rem, 2rem)"
                 color="primary"
-                onClick={() => navigate(`/movie/${movie.id}`)}
-                sx={{
-                    "&:hover":{
-                    cursor: "pointer"
-                    }
-                }}>
+              >
                   {movie.title}
               </Typography>
             </Box>
