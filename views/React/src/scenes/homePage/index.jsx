@@ -1,3 +1,5 @@
+import { useMediaQuery } from "@mui/material";
+import { useSelector } from "react-redux";
 import Navbar from "../navbar";
 import MovieList from "./MovieList";
 

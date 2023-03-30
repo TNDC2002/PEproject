@@ -25,9 +25,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../states";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
+import UserImage from "../../components/UserImage";
 
 
-const Navbar = () => {
+const Navbar = ({picturePath}) => {
     const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -61,7 +62,7 @@ const Navbar = () => {
                     VNGU Films
                 </Typography>
                 {isNonMobileScreens && (
-                    <FlexBetween backgroundColor={neutralLight} borderRadius="9px" gap="3rem" padding="0.1rem 1.5rem">
+                    <FlexBetween backgroundColor={neutralLight} borderRadius="15px" gap="3rem" padding="0.1rem 1.5rem">
                         <InputBase placeholder="Search..."/>
                         <IconButton>
                             <Search/>
@@ -80,7 +81,6 @@ const Navbar = () => {
                             <LightMode sx={{ color:dark, fontSize: "25px"}}/>
                         )}
                     </IconButton>
-                    <Message sx={{ fontSize: "25px"}}/>
                     <Notifications sx={{ fontSize: "25px"}}/>
                     <Help sx={{ fontSize: "25px"}}/>
                     <FormControl variant="standard" value = {fullName}>
@@ -89,7 +89,7 @@ const Navbar = () => {
                         sx = {{
                             backgroundColor: neutralLight,
                             width: "150px",
-                            borderRadius: "0.25rem",
+                            borderRadius: "1rem",
                             p: "0.25rem 1rem",
                             "& .MuiSvgIcon-root": {
                                 pr:"0.25rem",
@@ -149,7 +149,6 @@ const Navbar = () => {
                             <LightMode sx={{ color:dark, fontSize: "25px"}}/>
                         )}
                     </IconButton>
-                    <Message sx={{ fontSize: "25px"}}/>
                     <Notifications sx={{ fontSize: "25px"}}/>
                     <Help sx={{ fontSize: "25px"}}/>
                     <FormControl variant="standard" value = {fullName}>
@@ -158,7 +157,7 @@ const Navbar = () => {
                         sx = {{
                             backgroundColor: neutralLight,
                             width: "150px",
-                            borderRadius: "0.25rem",
+                            borderRadius: "1rem",
                             p: "0.25rem 1rem",
                             "& .MuiSvgIcon-root": {
                                 pr:"0.25rem",
