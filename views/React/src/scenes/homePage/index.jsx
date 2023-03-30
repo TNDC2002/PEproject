@@ -1,8 +1,16 @@
 import Navbar from "../navbar";
+import MovieList from "./MovieList";
+
 const HomePage = () => {
-    return <box> 
-        <Navbar/>    
-    </box>;
+    return (
+        <div>
+            <Navbar/>
+            <MovieList category="popular" />
+            <MovieList category="nowPlaying" />
+            <MovieList category="topRated" />
+            <MovieList category="upcoming" />
+        </div>
+    );
 };
 
 export default HomePage;

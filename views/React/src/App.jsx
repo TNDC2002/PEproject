@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from './theme';
+import MoviePage from "./scenes/MoviePage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -17,17 +18,18 @@ function App() {
   return (
     <div className="app">
       <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/home" element={isAuth ? <HomePage /> :  <Navigate to="/" />} />
-            <Route path="/profile" element={isAuth ? <ProfilePage /> :  <Navigate to="/" />} />
+            <Route path="/profile/:userID" element={isAuth ? <ProfilePage /> :  <Navigate to="/" />} />
+            <Route path="/movie/:movieID" element={isAuth ? <MoviePage /> : <Navigate to="/" />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
 export default App
