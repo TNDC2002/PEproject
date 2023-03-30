@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 import "./movie_list.css";
-
+import { Link } from "react-router-dom";
 
 const CATEGORY_API_ENDPOINTS = {
     popular: "popular",
@@ -23,17 +23,19 @@ const MovieList = ({ category }) => {
     }, [category]);
 
     return (
-        <div>
-          <h2>{category.toUpperCase()} MOVIES</h2>
-          <ul className="movie-list">
-            {movies.map((movie) => (
-              <li key={movie.id}>
+      <div>
+        <h2>{category.toUpperCase()} MOVIES</h2>
+        <ul className="movie-list">
+          {movies.map((movie) => (
+            <li key={movie.id}>
+              <Link to={`/movie/${movie.id}`}>
                 <MovieCard movie={movie} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
 };
 
 export default MovieList;
