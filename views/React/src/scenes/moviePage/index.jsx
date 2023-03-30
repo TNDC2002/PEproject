@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './movie_page.css';
 
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
@@ -27,7 +26,6 @@ const MoviePage = () => {
     <h3>{movie.title}</h3>
     <p>Rating: {movie.vote_average}</p>
     <p>Overview: {movie.overview}</p>
-    <p>Movie Id: {movie.id}</p>
     <div className="movie-actions">
       <button className="rent-button">Rent</button>
       <button className="buy-button">Buy</button>
