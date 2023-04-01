@@ -10,12 +10,12 @@ const UserRateMovieSchema = new mongoose.Schema({
     required: true
    },
    rating: {
-    type: Int16Array,
+    type: Number,
     required: true
    }
 }, 
     { timestamps: true }
 );
 
-const UserRateMovie = mongoose.model("User-Movie Rental", UserRateMovieSchema);
+const UserRateMovie = mongoose.model("User-Movie Rating", UserRateMovieSchema);
 export default UserRateMovie;
