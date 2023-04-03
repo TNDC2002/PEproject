@@ -9,7 +9,9 @@ import {
     FormControl,
     useTheme,
     useMediaQuery,
-    Avatar
+    Avatar,
+    Autocomplete,
+    TextField
 } from "@mui/material";
 import {
     Search,
@@ -26,7 +28,7 @@ import { setMode, setLogout } from "../../states";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
 import UserImage from "../../components/UserImage";
-
+import SearchBar from "./SearchBar";
 
 const Navbar = ({picturePath}) => {
     const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -63,10 +65,7 @@ const Navbar = ({picturePath}) => {
                 </Typography>
                 {isNonMobileScreens && (
                     <FlexBetween backgroundColor={neutralLight} borderRadius="15px" gap="3rem" padding="0.1rem 1.5rem">
-                        <InputBase placeholder="Search..."/>
-                        <IconButton>
-                            <Search/>
-                        </IconButton>
+                      <SearchBar/>
                     </FlexBetween>
                 )}
             </FlexBetween>
