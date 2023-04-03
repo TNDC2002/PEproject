@@ -23,7 +23,7 @@ const MoviePage = () => {
   const [movie, setMovie] = useState(null);
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);
-
+  const [trailerVideoId, setTrailerVideoId] = useState(null);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
 
@@ -86,6 +86,16 @@ const MoviePage = () => {
     return <Typography>Loading...</Typography>;
   }
 
+  const fetchTrailer = async () => {
+    const response = await axios.get(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(movie.title)}+trailer&type=video&videoDefinition=high&key=AIzaSyABHNptc-h_5NQ5Zg06EASYh6COes4i-hE`
+    );
+    if (response.data.items.length > 0) {
+      setTrailerVideoId(response.data.items[0].id.videoId);
+    }
+  };
+  fetchTrailer();
+
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
   return (
@@ -104,7 +114,7 @@ const MoviePage = () => {
           )}
         </IconButton>
       </Box>
-      <YouTubePlayer videoId={"pm6LW_KlJvY"}/>
+      <YouTubePlayer videoId={trailerVideoId}/>
   </FlexBetween>
 
 
