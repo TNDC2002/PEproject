@@ -13,7 +13,8 @@ import { initWebRoutes } from "./routes/WebRoutes.js";
 import { register } from "./controller/auth.js"
 import { verifyToken } from "./middleware/auth.js";
 import authRoutes from "./routes/auth.js";
-import movieRoutes from "./routes/movieAPI.js"
+import movieRoutes from "./routes/movieAPI.js";
+import profileRoutes from "./routes/users.js";
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,15 +30,15 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 /* FILE STORAGE */
-  const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "public/assets");
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    }
-  });
-  const upload = multer({ storage });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/assets");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+const upload = multer({ storage });
 
 /* ROUTES FILE */
 app.post("/auth/register", upload.single("picture"), register);
@@ -45,6 +46,7 @@ app.post("/auth/register", upload.single("picture"), register);
 /* ROUTES */
 app.use("/auth", authRoutes);
 app.use("/movie", movieRoutes);
+app.use("/profile", profileRoutes);
 /* SERVER SETUP AND MONGOOSE SETUP */
 let PORT = process.env.PORT || 6969;
 
@@ -52,17 +54,17 @@ mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
-  app.listen(PORT,() =>{
+  app.listen(PORT, () => {
     let notification = "\x1b[1m\x1b[90mWelcome to the internet!!! \x1b[37mPORT: \x1b[36m\x1b[4m" + PORT + '\x1b[0m'
-    let _6969 =        "\x1b[1m\x1b[90mIf the U see \x1b[37mPORT: \x1b[36m\x1b[4m6969\x1b[0m\x1b[1m\x1b[90m! then you FUCKED UP \x1b[33mヽ(*・ω・)ﾉ\x1b[0m"
+    let _6969 = "\x1b[1m\x1b[90mIf the U see \x1b[37mPORT: \x1b[36m\x1b[4m6969\x1b[0m\x1b[1m\x1b[90m! then you FUCKED UP \x1b[33mヽ(*・ω・)ﾉ\x1b[0m"
 
-    console.log(      "\x1b[35m===============================================================================================\x1b[0m")
+    console.log("\x1b[35m===============================================================================================\x1b[0m")
     console.log("\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m")
     console.log("\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m")
-    console.log("\x1b[35m|\x1b[0m                          " + notification                   +"                              \x1b[35m|\x1b[0m")
-    console.log("\x1b[35m|\x1b[0m                     " +         _6969                                   +"                 \x1b[35m|\x1b[0m")
+    console.log("\x1b[35m|\x1b[0m                          " + notification + "                              \x1b[35m|\x1b[0m")
+    console.log("\x1b[35m|\x1b[0m                     " + _6969 + "                 \x1b[35m|\x1b[0m")
     console.log("\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m")
-    console.log(     "\x1b[35m===============================================================================================\x1b[0m")
+    console.log("\x1b[35m===============================================================================================\x1b[0m")
   })
 }).catch((error) => console.log(error))
 
