@@ -2,6 +2,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Navbar from "../navbar";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
@@ -26,6 +27,7 @@ const ProfilePage = () => {
 
     return (
         <div>
+            <Navbar />
             <h1>User Profile</h1>
             <p><strong>Username:</strong> {`${user.firstName}${user.lastName}`} </p>
             <p><strong>Password:</strong> {user.password}</p>
