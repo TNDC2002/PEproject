@@ -17,6 +17,7 @@ import FavoriteBorderOutlinedIcon
 from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon 
 from '@mui/icons-material/FavoriteOutlined';
+import YouTubePlayer from "./YoutubeVideo";
 
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
@@ -103,6 +104,7 @@ const MoviePage = () => {
           )}
         </IconButton>
       </Box>
+      <YouTubePlayer videoId={"pm6LW_KlJvY"}/>
   </FlexBetween>
 
 
