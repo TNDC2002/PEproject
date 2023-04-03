@@ -5,13 +5,12 @@ import { useParams } from "react-router-dom";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
-    const { userId } = useParams();
+    const userID = useSelector((state) => state.user._id);
     const token = useSelector((state) => state.token);
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
     const getUser = async () => {
-        console.log(userId);
-        const response = await fetch(`http://localhost:5000/profile/${userId}`, {
+        const response = await fetch(`http://localhost:5000/profile/${userID}`, {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -28,9 +27,9 @@ const ProfilePage = () => {
     return (
         <div>
             <h1>User Profile</h1>
-            <p><strong>Username:</strong> {user.userId} </p>
-            <p><strong>Password:</strong> {user.userId}</p>
-            <p><strong>Email:</strong> {user.userId}</p>
+            <p><strong>Username:</strong> {`${user.firstName}${user.lastName}`} </p>
+            <p><strong>Password:</strong> {user.password}</p>
+            <p><strong>Email:</strong> {user.email}</p>
         </div>
     );
 };
