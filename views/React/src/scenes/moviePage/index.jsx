@@ -4,6 +4,7 @@ import axios from 'axios';
 import Image from 'mui-image';
 import { useSelector } from 'react-redux';
 import FlexBetween from '../../components/FlexBetween';
+import Navbar from "../navbar";
 import {
   Box,
   Button,
@@ -13,10 +14,11 @@ import {
   Typography,
   useTheme
 } from "@mui/material";
-import FavoriteBorderOutlinedIcon 
-from '@mui/icons-material/FavoriteBorderOutlined';
-import FavoriteOutlinedIcon 
-from '@mui/icons-material/FavoriteOutlined';
+import FavoriteBorderOutlinedIcon
+  from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteOutlinedIcon
+  from '@mui/icons-material/FavoriteOutlined';
+
 
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
@@ -40,7 +42,7 @@ const MoviePage = () => {
       }
     );
   };
-  
+
   const checkFavorite = async (userID, movieID) => {
     const requestData = {
       userID: userID,
@@ -57,7 +59,7 @@ const MoviePage = () => {
     const result = await checkFavoriteResponse.json();
     return result.favorited;
   };
-  
+
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -88,22 +90,25 @@ const MoviePage = () => {
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
   return (
-    <FlexBetween>
-      <Box>
-        <Image width = "300px" height="500px" src={imageUrl} alt={`${movie.title} post   er`} />
-      </Box>
-      <Box>
-        <IconButton onClick={handleFavouriteClick}>
-          {!isFavourited ? (
-            <FavoriteBorderOutlinedIcon
-              sx={{fontSize:"40px"}}/>
-          ) : (
-            <FavoriteOutlinedIcon 
-            sx={{fontSize:"40px"}}/>
-          )}
-        </IconButton>
-      </Box>
-  </FlexBetween>
+    <Box>
+      <Navbar />
+      <FlexBetween>
+        <Box>
+          <Image width="300px" height="500px" src={imageUrl} alt={`${movie.title} post   er`} />
+        </Box>
+        <Box>
+          <IconButton onClick={handleFavouriteClick}>
+            {!isFavourited ? (
+              <FavoriteBorderOutlinedIcon
+                sx={{ fontSize: "40px" }} />
+            ) : (
+              <FavoriteOutlinedIcon
+                sx={{ fontSize: "40px" }} />
+            )}
+          </IconButton>
+        </Box>
+      </FlexBetween>
+    </Box>
 
 
   );
