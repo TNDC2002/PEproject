@@ -1,11 +1,12 @@
 import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import Navbar from "../navbar";
+import UserImage from "components/UserImage";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
     const userID = useSelector((state) => state.user._id);
     const token = useSelector((state) => state.token);
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -28,10 +29,17 @@ const ProfilePage = () => {
     return (
         <div>
             <Navbar />
+            <UserImage image={`${user.picturePath}`} />
             <h1>User Profile</h1>
-            <p><strong>Username:</strong> {`${user.firstName}${user.lastName}`} </p>
-            <p><strong>Password:</strong> {user.password}</p>
-            <p><strong>Email:</strong> {user.email}</p>
+            <p>
+                <strong>Username:</strong> {`${user.firstName} ${user.lastName}`}
+            </p>
+            <p>
+                <strong>Password:</strong> {user.password}
+            </p>
+            <p>
+                <strong>Email:</strong> {user.email}
+            </p>
         </div>
     );
 };
