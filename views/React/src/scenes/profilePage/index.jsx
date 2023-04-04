@@ -2,7 +2,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Navbar from "../navbar";
-import UserImage from "components/UserImage";
+import UserImage from "../../components/UserImage";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
