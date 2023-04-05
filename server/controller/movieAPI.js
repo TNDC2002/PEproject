@@ -1,7 +1,7 @@
 import UserFavouriteMovie from "../models/UserFavouriteMovie.js"
 import UserRateMovie from "../models/UserRateMovie.js"
 import UserRentMovie from "../models/UserRentMovie.js"
-
+import axios from "axios"
 /* FAVOURITE MOVIE */
 export const favourite = async (req, res) => {
       // Get the payload  
@@ -65,4 +65,16 @@ export const rent = async (req, res) => {
     } catch (err) {
         
     }
+}
+
+/* RETRIEVING MOVIE'S DETAIL */
+export const getDetail = async (req, res) => {
+  try {
+    const {movieID} = req.params;
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    res.json(response.data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 }
