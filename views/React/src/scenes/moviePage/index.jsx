@@ -62,8 +62,13 @@ const MoviePage = () => {
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=37be93e690e7adb076e5110e93fda06f&language=en-US`);
-      setMovie(response.data);
+      try {
+        const response = await fetch(`http://localhost:5000/movie/detail/${movieID}`);
+        const data = await response.json();
+        setMovie(data);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchMovieDetails();
   }, [movieID]);
