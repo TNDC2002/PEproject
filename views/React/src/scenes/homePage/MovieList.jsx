@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import MovieCard from "./MovieCard";
 import "./movie_list.css";
 import FlexBetween from "../../components/FlexBetween";
@@ -16,8 +15,13 @@ const MovieList = ({ category }) => {
 
     useEffect(() => {
         const fetchMovies = async () => {
-            const response = await axios.get(`https://api.themoviedb.org/3/movie/${CATEGORY_API_ENDPOINTS[category]}?api_key=37be93e690e7adb076e5110e93fda06f&language=en-US`);
-            setMovies(response.data.results);
+          try {
+            const response = await fetch(`http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS[category]}`);
+            const data = await response.json();
+            setMovies(data.results);
+          } catch (error) {
+            console.error(error);
+          }
             };
         fetchMovies();
     }, [category]);
