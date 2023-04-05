@@ -6,6 +6,7 @@ import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
 dotenv.config()
 import { v4 as uuidv4 } from 'uuid';
+const path = require("path");
 //transporter stuff
 let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -117,13 +118,38 @@ export const verify = async (req,res) =>{
         let {userId, uniqueString} = req.params;
 
         EmailVerification.find(userId)
-        .then()
+        .then((result) => {
+            if(result.length > 0){
+                const {expiresAt} =resul[0];
+
+                if(expiresAt< Date.now()){
+                    EmailVerification.deleteOne({userId})
+                    .then()
+                    .catch((error) =>{
+                        let message = "An error occured when clearing user data";
+                        res.redirect(`/user/verified/error=true&message=${message}`);
+                    })
+                }
+            }else{
+            let message = "Account does not exist or have registered already!";
+            res.redirect(`/user/verified/error=true&message=${message}`);
+            }
+        })
         .catch((error)=>{
             console.log(error);
+            let message = "An error occured when checking for existing user verification record";
+            res.redirect(`/user/verified/error=true&message=${message}`);
         })
     }catch(error){
         
     }
+}
+
+export const verified = async(req,res) =>{
+    try{
+        res.sendfile.join(__dirname, "./../views/verified.html");
+    } catch(err)
+    {}
 }
     /* LOGGING IN */
 export const login = async (req, res) => {
