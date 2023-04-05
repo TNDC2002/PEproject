@@ -66,7 +66,7 @@ const sendVerificationEmail = ({_id,email},res) =>{
         <b>expires in 6 hours</b>.</p><p>Press <a hresf=${currentUrl + "user/verify/" + _id + "/" + uniqueString}>
         here</a> to proceed.</p>`
     }
-};
+
 //save to DB
 const saltRounds = 10;
 bcrypt
@@ -108,6 +108,8 @@ bcrypt
             message: "An error occured while hashing email data..."
         });
     })
+};
+
 
 
 export const verify = async (req,res) =>{
