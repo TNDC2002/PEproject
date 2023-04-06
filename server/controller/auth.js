@@ -120,13 +120,45 @@ export const verify = async (req,res) =>{
         EmailVerification.find(userId)
         .then((result) => {
             if(result.length > 0){
-                const {expiresAt} =resul[0];
+                const {expiresAt} =result[0];
+                const hashedUniqueString = result[0].uniqueString;
 
                 if(expiresAt< Date.now()){
                     EmailVerification.deleteOne({userId})
-                    .then()
+                    .then(result => {
+                        User.deleteOne({_id: userId})
+                        .then(()=>{
+                            let message = "Link has expired, please sign up again";
+                            res.redirect(`/user/verified/error=true&message=${message}`);
+                        })
+                    })
                     .catch((error) =>{
                         let message = "An error occured when clearing user data";
+                        res.redirect(`/user/verified/error=true&message=${message}`);
+                    })
+                }else{
+                    //valid user exists
+                    //compare
+                    bcrypt.compare(uniqueString, hashedUniqueString)
+                    .then(result =>{
+                        if(result){
+                            User.updateOne({_id: userId},{verified: true})
+                            .then(()=>{
+                                res.sendfile(path.join(__dirname, "./../views/verified.html"));
+                            })
+                            .catch((error)=>{
+                                console.log(error);
+                                let message = "An error occured while updating records";
+                                res.redirect(`/user/verified/error=true&message=${message}`);
+                            })
+                        }else{
+                            let message = "invalid strings";
+                            res.redirect(`/user/verified/error=true&message=${message}`);
+                        }
+                    })
+                    .catch((error)=>{
+                        console.log(error);
+                        let message = "An error occured when checking unique strings";
                         res.redirect(`/user/verified/error=true&message=${message}`);
                     })
                 }
@@ -156,7 +188,19 @@ export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email:email });
-        if (!user) return res.status(400).json({ msg: "User does not exist."});
+        if (!user) return res.status(400).json({ msg: "User does not exist."})
+
+        User.find({email})
+        .then((data)=>{
+            if(data.length){
+                if(!data[0].verified){
+                    res.json({
+                        status: "FAILED",
+                        message: "Email hasn't been verified yet!"
+                    });
+                }
+            }
+        });
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ msg: "Invalid credentials."})
