@@ -6,7 +6,7 @@ import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
 dotenv.config()
 import { v4 as uuidv4 } from 'uuid';
-const path = require("path");
+import * as path from 'path';
 //transporter stuff
 let transporter = nodemailer.createTransport({
     service: "gmail",
