@@ -71,6 +71,21 @@ const MoviePage = () => {
       }
     };
     fetchMovieDetails();
+    const fetchTrailerID = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/movie/trailer/${movieID}`,{
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          }
+        );
+        const data = await response.json();
+        setTrailerVideoId(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchTrailerID();
   }, [movieID]);
 
   useEffect(() => {
@@ -91,18 +106,7 @@ const MoviePage = () => {
     return <Typography>Loading...</Typography>;
   }
 
-  const fetchTrailer = async () => {
-    const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(movie.title)}+trailer&type=video&videoDefinition=high&key=AIzaSyABHNptc-h_5NQ5Zg06EASYh6COes4i-hE`
-    );
-    if (response.data.items.length > 0) {
-      setTrailerVideoId(response.data.items[0].id.videoId);
-    }
-  };
-  fetchTrailer();
-
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-
   return (
     <FlexBetween>
       <Box>
