@@ -35,7 +35,7 @@ export const register = async (req, res) => {
             password,
             picturePath
         } = req.body;
-        
+        console.log(req.body);
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
 
@@ -63,8 +63,8 @@ const sendVerificationEmail = ({_id,email},res) =>{
         from: process.env.AUTH_EMAIL,
         to: email,
         subject: "Verify your Email",
-        html: `<p>Verify your email address to complete the signup and login to ypur account.</p><p>This link 
-        <b>expires in 6 hours</b>.</p><p>Press <a hresf=${currentUrl + "user/verify/" + _id + "/" + uniqueString}>
+        html: `<p>Verify your email address to complete the signup and login to your account.</p><p>This link 
+        <b>expires in 6 hours</b>.</p><p>Press <a href=${currentUrl + "user/verify/" + _id + "/" + uniqueString}>
         here</a> to proceed.</p>`
     }
 
@@ -189,18 +189,7 @@ export const login = async (req, res) => {
         const { email, password } = req.body;
         const user = await User.findOne({ email:email });
         if (!user) return res.status(400).json({ msg: "User does not exist."})
-
-        User.find({email})
-        .then((data)=>{
-            if(data.length){
-                if(!data[0].verified){
-                    res.json({
-                        status: "FAILED",
-                        message: "Email hasn't been verified yet!"
-                    });
-                }
-            }
-        });
+        if (user.verified==false) return res.status(400).json({ msg: "User not verified yet."})
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ msg: "Invalid credentials."})
