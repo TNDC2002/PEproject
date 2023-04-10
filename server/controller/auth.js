@@ -31,7 +31,7 @@ export const register = async (req, res) => {
     }
 };
 
-    /* LOGGING IN */
+/* LOGGING IN */
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -48,3 +48,17 @@ export const login = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+/* CHECKING EMAIL */
+export const checkEmail = async (req, res) => {
+    try {
+      const { email } = req.params;
+
+      const existingUser = await User.findOne({ email });
+      
+      res.json({ emailExists: !!existingUser });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
