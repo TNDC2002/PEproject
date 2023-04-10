@@ -1,6 +1,8 @@
 import { useState } from "react";
 import React from "react";
 
+import { sizing } from '@mui/system';
+
 import {
   Box,
   Button,
@@ -18,8 +20,9 @@ import {
 import AppRegistrationTwoToneIcon from "@mui/icons-material/AppRegistrationTwoTone";
 import LoginIcon from "@mui/icons-material/Login";
 
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Image from "../../images/background.png";
-import Card from "../../images/logoCard4.png";
+import Card from "../../images/SmashBruh.png";
 
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import { Formik } from "formik";
@@ -69,8 +72,8 @@ const NewDesign = () => {
 
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
-  /*const picRegister = pageType === "picRegister";
-  const newAcc = pageType === "newAcc"; */
+  const picRegister = pageType === "picRegister";
+  const newAcc = pageType === "newAcc";
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
@@ -166,10 +169,11 @@ const NewDesign = () => {
                     component={Paper}
                     elevation={6}
                     square
-                    sx={{ backgroundColor: "whitesmoke", opacity: "0.9" }}
+                    sx={{ height: '100%', backgroundColor: "whitesmoke", opacity: "0.9" }}
                   >
                     <Box
                       sx={{
+                        height: '100%',
                         backgroundColor: "transparent",
                         my: 10,
                         mx: 4,
@@ -184,11 +188,11 @@ const NewDesign = () => {
                         justifyContent="center"
                       >
                         <Typography style={{ color: "#B3005E" }} fontSize={40}>
-                          PM
+                          Smash
                         </Typography>
 
                         <Typography style={{ color: "#060047" }} fontSize={40}>
-                          oon
+                          Bruh
                         </Typography>
                       </Stack>
 
@@ -215,31 +219,37 @@ const NewDesign = () => {
                             color: "#B3005E",
                           }}
                         >
-                        {isLogin ? (
-                          <Typography
-                            sx={{
-                              color: "#B3005E",
-                              textDecoration: "underline",
-                              "&:hover": { textDecoration: "underline black" },
-                            }}
-                            display="inline"
-                            style={{ color: "#B3005E" }}
-                            fontSize={20}
-                          >
-                            Sign in
-                          </Typography>
-                        ):(<Typography
-                            sx={{
-                              color: "#B3005E",
-                              
-                              "&:hover": { textDecoration: "underline black" },
-                            }}
-                            display="inline"
-                            style={{ color: "#B3005E" }}
-                            fontSize={20}
-                          >
-                            Sign in
-                          </Typography>)}
+                          {isLogin ? (
+                            <Typography
+                              sx={{
+                                color: "#B3005E",
+                                textDecoration: "underline",
+                                "&:hover": {
+                                  textDecoration: "underline black",
+                                },
+                              }}
+                              display="inline"
+                              style={{ color: "#B3005E" }}
+                              fontSize={20}
+                            >
+                              Sign in
+                            </Typography>
+                          ) : (
+                            <Typography
+                              sx={{
+                                color: "#B3005E",
+
+                                "&:hover": {
+                                  textDecoration: "underline black",
+                                },
+                              }}
+                              display="inline"
+                              style={{ color: "#B3005E" }}
+                              fontSize={20}
+                            >
+                              Sign in
+                            </Typography>
+                          )}
                         </Button>
 
                         <Button
@@ -251,7 +261,6 @@ const NewDesign = () => {
                             minWidth: "30px",
                             minHeight: "30px",
                           }}
-                          
                           onClick={() => {
                             setPageType("register");
                             resetForm();
@@ -265,36 +274,45 @@ const NewDesign = () => {
                             },
                           }}
                         >
-                        {isLogin ? (
-                          <Typography
-                          sx={{
-                            color: "#B3005E",
-                            
-                            "&:hover": { textDecoration: "underline black" },
-                          }}
-                          display="inline"
-                          style={{ color: "#B3005E" }}
-                          fontSize={20}
-                          >
-                            Registrate
-                          </Typography>):
-                          (<Typography
-                            sx={{
+                          {isLogin ? (
+                            <Typography
+                              sx={{
                                 color: "#B3005E",
-                                textDecoration: "underline",
-                                "&:hover": { textDecoration: "underline black" },
+
+                                "&:hover": {
+                                  textDecoration: "underline black",
+                                },
                               }}
                               display="inline"
                               style={{ color: "#B3005E" }}
                               fontSize={20}
-                          >
-                            Registrate
-                          </Typography>)}
+                            >
+                              Registrate
+                            </Typography>
+                          ) : (
+                            <Typography
+                              sx={{
+                                color: "#B3005E",
+                                textDecoration: "underline",
+                                "&:hover": {
+                                  textDecoration: "underline black",
+                                },
+                              }}
+                              display="inline"
+                              style={{ color: "#B3005E" }}
+                              fontSize={20}
+                            >
+                              Registrate
+                            </Typography>
+                          )}
                         </Button>
                       </Stack>
                       <Box sx={{ my: 2 }}>
                         {isRegister ? (
                           <Box>
+                            <Typography fontSize={20}>
+                                What is your name? 
+                            </Typography>
                             <TextField
                               label="First Name"
                               onBlur={handleBlur}
@@ -328,78 +346,31 @@ const NewDesign = () => {
                               required
                               fullWidth
                             />
-                            <Box
-                              gridColumn="span 4"
-                              border={`1px solid #B3005E`}
-                              borderRadius="5px"
-                              p="1rem"
+                            <Stack
+                        direction="row"
+                        spacing={8}
+                        justifyContent="right"
+                      >
+                            <Button
+                              variant="text"
+                              endIcon={<NavigateNextIcon />}
+                              sx={{
+                                height: 70,
+                                color: "#B3005E",
+                              }}
+                              onClick={() => {
+                                setPageType("picRegister");
+                                resetForm();
+                            }}
                             >
-                              <Dropzone
-                                acceptedFiles=".jpg,.jpeg,.png"
-                                multiple={false}
-                                onDrop={(acceptedFiles) =>
-                                  setFieldValue("picture", acceptedFiles[0])
-                                }
-                              >
-                                {({ getRootProps, getInputProps }) => (
-                                  <Box
-                                    {...getRootProps()}
-                                    border={`2px dashed #B3005E`}
-                                    p="1rem"
-                                    sx={{ "&:hover": { cursor: "pointer" } }}
-                                  >
-                                    <input
-                                      {...getInputProps()}
-                                      name="picture"
-                                    />
-                                    {!values.picture ? (
-                                      <p>Add Picture Here</p>
-                                    ) : (
-                                      <FlexBetween>
-                                        <Typography>
-                                          {values.picture.name}
-                                        </Typography>
-                                        <ModeEditOutlinedIcon />
-                                      </FlexBetween>
-                                    )}
-                                  </Box>
-                                )}
-                              </Dropzone>
-                            </Box>
-                            <TextField
-                              label="Email Address"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              value={values.email}
-                              name="email"
-                              error={
-                                Boolean(touched.email) && Boolean(errors.email)
-                              }
-                              helperText={touched.email && errors.email}
-                              sx={{ gridColumn: "span 4" }}
-                              margin="normal"
-                              required
-                              fullWidth
-                            />
-                            <TextField
-                              label="Password"
-                              type="password"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              value={values.password}
-                              name="password"
-                              error={
-                                Boolean(touched.password) &&
-                                Boolean(errors.password)
-                              }
-                              helperText={touched.password && errors.password}
-                              sx={{ gridColumn: "span 4" }}
-                              margin="normal"
-                              required
-                              fullWidth
-                            />
+                               
+                          Next step 
+                       
+                            </Button>
+                            </Stack>
+                            
                           </Box>
-                        ) : (
+                        ) : isLogin ? (
                           <Box>
                             <TextField
                               label="Email Address"
@@ -440,32 +411,95 @@ const NewDesign = () => {
                               }
                               label="Remember me"
                             />
-                          </Box>
-                        )}
-
-                        
-                        <Button
+                            <Button
                           type="submit"
                           fullWidth
                           variant="contained"
-                          sx={{ height: 40, mt: 3, mb: 2 }}
+                          
+                          sx={{ height: 40, mt: 3, mb: 2, }}
                         >
-                          {isLogin ? (
+                          
                             <Typography
                               style={{ color: "whitesmoke" }}
                               fontSize={15}
                             >
                               Sign in
                             </Typography>
-                          ) : (
-                            <Typography
-                              style={{ color: "whitesmoke" }}
-                              fontSize={15}
-                            >
-                              Register
-                            </Typography>
-                          )}
+                          
                         </Button>
+                          </Box>
+                        ) : picRegister ? (
+                          <Box
+                            gridColumn="span 4"
+                            border={`1px solid #B3005E`}
+                            borderRadius="5px"
+                            p="1rem"
+                          >
+                            <Dropzone
+                              acceptedFiles=".jpg,.jpeg,.png"
+                              multiple={false}
+                              onDrop={(acceptedFiles) =>
+                                setFieldValue("picture", acceptedFiles[0])
+                              }
+                            >
+                              {({ getRootProps, getInputProps }) => (
+                                <Box
+                                  {...getRootProps()}
+                                  border={`2px dashed #B3005E`}
+                                  p="1rem"
+                                  sx={{ "&:hover": { cursor: "pointer" } }}
+                                >
+                                  <input {...getInputProps()} name="picture" />
+                                  {!values.picture ? (
+                                    <p>Add Picture Here</p>
+                                  ) : (
+                                    <FlexBetween>
+                                      <Typography>
+                                        {values.picture.name}
+                                      </Typography>
+                                      <ModeEditOutlinedIcon />
+                                    </FlexBetween>
+                                  )}
+                                </Box>
+                              )}
+                            </Dropzone>
+                          </Box>
+                        ) : (
+                          <Box>
+                            <TextField
+                              label="Email Address"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.email}
+                              name="email"
+                              error={
+                                Boolean(touched.email) && Boolean(errors.email)
+                              }
+                              helperText={touched.email && errors.email}
+                              sx={{ gridColumn: "span 4" }}
+                              margin="normal"
+                              required
+                              fullWidth
+                            />
+                            <TextField
+                              label="Password"
+                              type="password"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.password}
+                              name="password"
+                              error={
+                                Boolean(touched.password) &&
+                                Boolean(errors.password)
+                              }
+                              helperText={touched.password && errors.password}
+                              sx={{ gridColumn: "span 4" }}
+                              margin="normal"
+                              required
+                              fullWidth
+                            />
+                          </Box>
+                        )}
                       </Box>
                     </Box>
                   </Grid>
