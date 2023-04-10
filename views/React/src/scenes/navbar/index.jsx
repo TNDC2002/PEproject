@@ -9,7 +9,8 @@ import {
     FormControl,
     useTheme,
     useMediaQuery,
-    Icon
+    Icon,
+    Link
 } from "@mui/material";
 import {
     Search,
@@ -26,6 +27,9 @@ import { setMode, setLogout } from "../../states";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
 import UserImage from "../../components/UserImage";
+import logo from "../../images/SmashBruh.png";
+import Image from "mui-image";
+import { spacing } from "@mui/system";
 
 
 const Navbar = ({picturePath}) => {
@@ -35,6 +39,16 @@ const Navbar = ({picturePath}) => {
     const user = useSelector((state) => state.user);
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
+    const linkStyle ={
+        fontSize: '1rem',
+        fontFamily: 'Tahoma',
+        fontWeight: 'bold',
+        color: 'black',
+        '&:hover': {
+            opacity: 0.5,
+            cursor: "pointer",
+          },
+    };
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
     const dark = theme.palette.neutral.dark;
@@ -45,22 +59,40 @@ const Navbar = ({picturePath}) => {
     const fullName = `${user.firstName} ${user.lastName}`;
     
     return (
-        <FlexBetween padding="1rem 6%" backgroundColor = {alt}>
+        <FlexBetween padding="0.5rem 3rem" backgroundColor = {alt}>
             <FlexBetween gap="1.75rem">
-                <Typography 
-                fontWeight="bold"
-                fontSize="clamp(1rem, 2rem, 2.2rem)"
-                color="primary"
-                onClick={() => navigate("/home")}
-                sx={{
-                    "&:hover":{
-                    color: primaryLight,
-                    cursor: "pointer",
-                    }
-                }}
-                >
-                    VNGU Films
-                </Typography>
+                <Link href="/home" underline="none">
+                    <Box
+                    component="img"
+                    right="0"
+                    bottom="0"
+                    height="auto"
+                    zIndex="10"
+                    maxWidth="7rem"
+                    minWidth="5rem"
+                    src={ logo } 
+                    alt="logo" 
+                    max-width="100%"
+                    href="/home"
+                    sx={{
+                        cursor: 'pointer',
+                        '&hover':{
+                            opacity: 0.5,
+                        }
+                    }}
+                />
+                </Link>
+                <Box display="flex" gap="1.5rem">
+                    <Link href="/home" underline="none" sx={linkStyle}>Home</Link>
+                    <Link href="home/movies" underline="none" sx={linkStyle}>Feature Movies</Link>
+                    <Link href="home/tv" underline="none" sx={linkStyle}>TV Shows</Link>
+                    <Link href="home/mylist" underline="none" sx={linkStyle}>My List</Link>   
+                </Box>
+            </FlexBetween>
+
+            {/*DESKTOP NAV*/}
+            {isNonMobileScreens ? (
+                <FlexBetween gap="2rem"> 
                 {isNonMobileScreens && (
                     <FlexBetween backgroundColor={neutralLight} borderRadius="15px" gap="3rem" padding="0.1rem 1.5rem">
                         <InputBase placeholder="Search..."/>
@@ -69,11 +101,6 @@ const Navbar = ({picturePath}) => {
                         </IconButton>
                     </FlexBetween>
                 )}
-            </FlexBetween>
-
-            {/*DESKTOP NAV*/}
-            {isNonMobileScreens ? (
-                <FlexBetween gap="2rem"> 
                     <IconButton onClick={() => dispatch(setMode())}>
                         {theme.palette.mode === "dark" ? (
                             <DarkMode sx={{ fontSize: "25px"}}/>
