@@ -21,6 +21,7 @@ import YouTubePlayer from "./YoutubeVideo";
 
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
+  const [recommendations, setRecommendations] = useState(null);
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);
   const [trailerVideoId, setTrailerVideoId] = useState(null);
@@ -88,6 +89,19 @@ const MoviePage = () => {
     fetchTrailerID();
   }, [movieID]);
 
+  const fetchRecommendations = async () => {
+    try {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/recommendations?api_key=37be93e690e7adb076e5110e93fda06f`);
+      setRecommendations(response.data.results);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRecommendations();
+  }, [movieID]);
+  
   useEffect(() => {
     const fetchFavourite = async () => {
       const response = await checkFavorite(user._id, movieID);
@@ -110,7 +124,36 @@ const MoviePage = () => {
   return (
     <FlexBetween>
       <Box>
-        <Image width = "300px" height="500px" src={imageUrl} alt={`${movie.title} post   er`} />
+        <Image width = "300px" height="500px" src={imageUrl} alt={`${movie.title} poster`} />
+        <Typography>Title: {movie.title}</Typography>
+        <Typography>Overview: {movie.overview}</Typography>
+        <Typography>Adult: {movie.adult.toString()}</Typography>
+        <Typography>Release Date: {movie.release_date}</Typography>
+        <Typography>Id: {movie.id}</Typography>
+        <Typography>Original Title: {movie.original_title}</Typography>
+        <Typography>Original Language: {movie.original_language}</Typography>
+        <Typography>Popularity: {movie.popularity}</Typography>
+        <Typography>Vote Count: {movie.vote_count}</Typography>
+        <Typography>Vote Average: {movie.vote_average}</Typography>
+
+        {recommendations && (
+          <>
+            <Typography>Recommendations:</Typography>
+            {recommendations.map((recommendation) => (
+              <div key={recommendation.id}>
+                <Image 
+                  width="150px" 
+                  height="250px" 
+                  src={recommendation.poster_path ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}` : "https://via.placeholder.com/150x250.png?text=No+Image"} 
+                  alt={`${recommendation.title} poster`} 
+                />
+                <Typography>{recommendation.title}</Typography>
+              </div>
+            ))}
+          </>
+        )}
+
+
       </Box>
       <Box>
         <IconButton onClick={handleFavouriteClick}>
@@ -131,3 +174,22 @@ const MoviePage = () => {
 };
 
 export default MoviePage;
+
+
+/* API DOCUMENTATION
+For Movie:
+  <Typography>Title: {movie.title}</Typography>
+  <Typography>Overview: {movie.overview}</Typography>
+  <Typography>Adult: {movie.adult.toString()}</Typography>
+  <Typography>Release Date: {movie.release_date}</Typography>
+  <Typography>Id: {movie.id}</Typography>
+  <Typography>Original Title: {movie.original_title}</Typography>
+  <Typography>Original Language: {movie.original_language}</Typography>
+  <Typography>Popularity: {movie.popularity}</Typography>
+  <Typography>Vote Count: {movie.vote_count}</Typography>
+  <Typography>Vote Average: {movie.vote_average}</Typography>
+
+
+For Recomendation is the same as movie.
+Example {recommedation.title}
+*/
