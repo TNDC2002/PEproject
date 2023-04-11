@@ -21,8 +21,8 @@ import AppRegistrationTwoToneIcon from "@mui/icons-material/AppRegistrationTwoTo
 import LoginIcon from "@mui/icons-material/Login";
 
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import Image from "../../images/background.png";
-import Card from "../../images/SmashBruh.png";
+import Image from "../../assets/images/background.png";
+import Card from "../../assets/images/SmashBruh.png";
 
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import { Formik } from "formik";
