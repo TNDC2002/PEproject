@@ -173,6 +173,9 @@ const MoviePage = () => {
         </IconButton>
       </Box>
       <YouTubePlayer videoId={trailerVideoId}/>
+      <Link to={`/home`}>
+            <button>Home</button>
+      </Link>
   </FlexBetween>
   );
 };
