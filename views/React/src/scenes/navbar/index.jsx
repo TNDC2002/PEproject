@@ -101,13 +101,13 @@ const Navbar = ({picturePath}) => {
                         </IconButton>
                     </FlexBetween>
                 )}
-                    <IconButton onClick={() => dispatch(setMode())}>
+                    {/* <IconButton onClick={() => dispatch(setMode())}> THIS IS "DARK MODE" BUTTON (IMPLEMENT LATER)
                         {theme.palette.mode === "dark" ? (
                             <DarkMode sx={{ fontSize: "25px"}}/>
                         ) : (
                             <LightMode sx={{ color:dark, fontSize: "25px"}}/>
                         )}
-                    </IconButton>
+                    </IconButton> */}
                     <Notifications sx={{ fontSize: "25px"}}/>
                     <Help sx={{ fontSize: "25px"}}/>
                     <FormControl variant="standard" value = {fullName}>
@@ -169,13 +169,13 @@ const Navbar = ({picturePath}) => {
                     justifyContent="center" 
                     gap="3rem"
                     > 
-                    <IconButton onClick={() => dispatch(setMode())}>
+                    {/* <IconButton onClick={() => dispatch(setMode())}> THIS IS "DARK MODE" BUTTON (IMPLEMENT LATER)
                         {theme.palette.mode === "dark" ? (
                             <DarkMode sx={{ fontSize: "25px"}}/>
                         ) : (
                             <LightMode sx={{ color:dark, fontSize: "25px"}}/>
                         )}
-                    </IconButton>
+                    </IconButton> */}
                     <Notifications sx={{ fontSize: "25px"}}/>
                     <Help sx={{ fontSize: "25px"}}/>
                     <FormControl variant="standard" value = {fullName}>
