@@ -9,7 +9,9 @@ import {
     FormControl,
     useTheme,
     useMediaQuery,
-    Icon
+    Icon,
+    Link,
+    Tooltip
 } from "@mui/material";
 import {
     Search,
@@ -19,13 +21,20 @@ import {
     Notifications,
     Help,
     Menu,
-    Close
+    Close,
+    Person,
+    Settings,
+    Logout
 } from "@mui/icons-material"
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../states";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
 import UserImage from "../../components/UserImage";
+import logo from "../../images/Logo.png";
+import textLogo from "../../images/textLogo.png";
+import Image from "mui-image";
+import { spacing } from "@mui/system";
 
 
 const Navbar = ({picturePath}) => {
@@ -35,32 +44,55 @@ const Navbar = ({picturePath}) => {
     const user = useSelector((state) => state.user);
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
+    const linkStyle ={
+        fontSize: '1rem',
+        fontFamily: 'Tahoma',
+        fontWeight: 'bold',
+        color: 'white',
+        '&:hover': {
+            opacity: 0.5,
+            cursor: "pointer",
+          },
+    };
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
-    const dark = theme.palette.neutral.dark;
-    const background = theme.palette.background.default;
-    const primaryLight = theme.palette.primary.light;
-    const alt = theme.palette.background.alt;
-    
+    const background = theme.palette.primary.dark;
+
     const fullName = `${user.firstName} ${user.lastName}`;
     
     return (
-        <FlexBetween padding="1rem 6%" backgroundColor = {alt}>
-            <FlexBetween gap="1.75rem">
-                <Typography 
-                fontWeight="bold"
-                fontSize="clamp(1rem, 2rem, 2.2rem)"
-                color="primary"
-                onClick={() => navigate("/home")}
-                sx={{
-                    "&:hover":{
-                    color: primaryLight,
-                    cursor: "pointer",
-                    }
-                }}
-                >
-                    VNGU Films
-                </Typography>
+        <FlexBetween padding="0.25rem 2rem" backgroundColor ="black">
+            <FlexBetween gap="2.5rem">
+                    <Box
+                    component="img"
+                    right="0"
+                    bottom="0"
+                    height="4.5rem"
+                    zIndex="10"
+                    src={ logo  } 
+                    alt="logo" 
+                    href="/home"
+                    sx={{
+                        cursor: 'pointer',
+                        '&hover':{
+                            opacity: 0.5,
+                        }
+                    }}
+                    onClick={() =>{
+                        window.location.href="/home";
+                    }}
+                />
+                <Box display="flex" gap="1.5rem">
+                    <Link href="/home" underline="none" sx={linkStyle}>Home</Link>
+                    <Link href="home/movies" underline="none" sx={linkStyle}>Feature Movies</Link>
+                    <Link href="home/tv" underline="none" sx={linkStyle}>TV Shows</Link>
+                    <Link href="home/mylist" underline="none" sx={linkStyle}>My List</Link>   
+                </Box>
+            </FlexBetween>
+
+            {/*DESKTOP NAV*/}
+            {isNonMobileScreens ? (
+                <FlexBetween gap="2rem"> 
                 {isNonMobileScreens && (
                     <FlexBetween backgroundColor={neutralLight} borderRadius="15px" gap="3rem" padding="0.1rem 1.5rem">
                         <InputBase placeholder="Search..."/>
@@ -69,20 +101,6 @@ const Navbar = ({picturePath}) => {
                         </IconButton>
                     </FlexBetween>
                 )}
-            </FlexBetween>
-
-            {/*DESKTOP NAV*/}
-            {isNonMobileScreens ? (
-                <FlexBetween gap="2rem"> 
-                    <IconButton onClick={() => dispatch(setMode())}>
-                        {theme.palette.mode === "dark" ? (
-                            <DarkMode sx={{ fontSize: "25px"}}/>
-                        ) : (
-                            <LightMode sx={{ color:dark, fontSize: "25px"}}/>
-                        )}
-                    </IconButton>
-                    <Notifications sx={{ fontSize: "25px"}}/>
-                    <Help sx={{ fontSize: "25px"}}/>
                     <FormControl variant="standard" value = {fullName}>
                         <Select 
                         value = {fullName}
@@ -96,7 +114,7 @@ const Navbar = ({picturePath}) => {
                                 width: "3rem"
                             },
                             "& .MuiSelect-select:focus": {
-                                backgroundColor: neutralLight
+                                backgroundColor: neutralLight,
                             }
                         }}
                         input={<InputBase/>}
@@ -142,13 +160,13 @@ const Navbar = ({picturePath}) => {
                     justifyContent="center" 
                     gap="3rem"
                     > 
-                    <IconButton onClick={() => dispatch(setMode())}>
+                    {/* <IconButton onClick={() => dispatch(setMode())}> THIS IS "DARK MODE" BUTTON (IMPLEMENT LATER)
                         {theme.palette.mode === "dark" ? (
                             <DarkMode sx={{ fontSize: "25px"}}/>
                         ) : (
                             <LightMode sx={{ color:dark, fontSize: "25px"}}/>
                         )}
-                    </IconButton>
+                    </IconButton> */}
                     <Notifications sx={{ fontSize: "25px"}}/>
                     <Help sx={{ fontSize: "25px"}}/>
                     <FormControl variant="standard" value = {fullName}>
