@@ -3,9 +3,12 @@
 
 
 import express from "express";
+import * as uploader from "../middleware/FileUploader.js"
+//uploader setup
+var upload = uploader.default()
+
 /* Import your controller here by syntax:
     import * as <your controller name> from "../controller/<ControllerFile>.js" */
-
 import * as SampleController from "../controller/SampleController.js";
 import * as auth from "../controller/auth.js";
 
@@ -29,6 +32,7 @@ let initWebRoutes = (app) => {
   
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
+      app.post("/auth/register", upload.single("picture"), auth.default.register);
       router.post("/auth/login", auth.default.login);
       router.post('/', SampleController.default.Sample_handler_POST);
   
