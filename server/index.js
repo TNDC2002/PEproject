@@ -12,7 +12,6 @@ import { configViewEngine } from "./config/ViewEngine.js";
 import { initWebRoutes } from "./routes/WebRoutes.js";
 import { register } from "./controller/auth.js"
 import { verifyToken } from "./middleware/auth.js";
-import authRoutes from "./routes/auth.js";
 import movieRoutes from "./routes/movieAPI.js"
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
@@ -45,7 +44,6 @@ app.post("/auth/register", upload.single("picture"), register);
 /* ROUTES */
 configViewEngine(app)
 initWebRoutes(app)
-app.use("/auth", authRoutes);
 app.use("/movie", movieRoutes);
 /* SERVER SETUP AND MONGOOSE SETUP */
 let PORT = process.env.PORT || 6969;
