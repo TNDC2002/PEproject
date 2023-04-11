@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Image from 'mui-image';
 import { useSelector } from 'react-redux';
@@ -140,15 +140,21 @@ const MoviePage = () => {
           <>
             <Typography>Recommendations:</Typography>
             {recommendations.map((recommendation) => (
-              <div key={recommendation.id}>
-                <Image 
-                  width="150px" 
-                  height="250px" 
-                  src={recommendation.poster_path ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}` : "https://via.placeholder.com/150x250.png?text=No+Image"} 
-                  alt={`${recommendation.title} poster`} 
-                />
-                <Typography>{recommendation.title}</Typography>
-              </div>
+              <Link to={`/movie/${recommendation.id}`}>
+                <Box
+                  key={recommendation.id}
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                >
+                  <Image 
+                    width="150px" 
+                    height="250px" 
+                    src={recommendation.poster_path ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}` : "https://via.placeholder.com/150x250.png?text=No+Image"} 
+                    alt={`${recommendation.title} poster`} 
+                  />
+                </Box>
+              </Link>
             ))}
           </>
         )}
@@ -168,8 +174,6 @@ const MoviePage = () => {
       </Box>
       <YouTubePlayer videoId={trailerVideoId}/>
   </FlexBetween>
-
-
   );
 };
 
