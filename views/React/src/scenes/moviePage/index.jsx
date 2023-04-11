@@ -173,7 +173,9 @@ const MoviePage = () => {
           )}
         </IconButton>
       </Box>
-      <YouTubePlayer videoId={trailerVideoId}/>
+      <Box>
+        <YouTubePlayer videoId={trailerVideoId}/>
+      </Box>
       <Link to={`/home`}>
             <button>Home</button>
       </Link>
