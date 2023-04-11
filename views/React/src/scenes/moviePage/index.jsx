@@ -135,6 +135,7 @@ const MoviePage = () => {
         <Typography>Popularity: {movie.popularity}</Typography>
         <Typography>Vote Count: {movie.vote_count}</Typography>
         <Typography>Vote Average: {movie.vote_average}</Typography>
+        <Button variant='contained'>Rent</Button>
 
         {recommendations && (
           <>
