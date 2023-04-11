@@ -17,10 +17,6 @@ const MovieCard = ({ movie }) => {
 
     return (
       <Box 
-      height="100%"
-      zIndex="10"
-      maxWidth="500px"
-      minWidth="100px"
       backgroundColor={neutralLight}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -33,26 +29,11 @@ const MovieCard = ({ movie }) => {
       >
         <Image 
           src={imageUrl}
-          width={200}
-          height={300}
+          width={200 / 1.5}
+          height={300 / 1.5}
           alt={`${movie.title} poster`}
-        
         />
-        {
-          isHovered && (
-            <Box>
-              <Typography
-                fontWeight="bold"
-                fontSize="clamp(1rem, 1.5rem, 2rem)"
-                color="primary"
-              >
-                  {movie.title}
-              </Typography>
-            </Box>
-          )
-        }
       </Box>
-
     );
   };
   
