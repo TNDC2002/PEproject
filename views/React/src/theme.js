@@ -19,10 +19,7 @@ export const colorTokens = {
     50: "#FF5F9E",
     100: "#E90064",
     200: "#B3005E",
-  },
-  alternative: {
-    50: "#0c0180",
-    100: "#060047",
+    500: "#060047", // THIS IS BACKGROUND COLOR (DARK BLUE)
   },
 };
 
@@ -45,8 +42,7 @@ export const themeSettings = (mode) => {
         light: colorTokens.grey[50],
       },
       background: {
-        default: colorTokens.alternative[100],
-        alt: colorTokens.alternative[50],
+        default: colorTokens.primary[500],
       },
     },
     typography: {
