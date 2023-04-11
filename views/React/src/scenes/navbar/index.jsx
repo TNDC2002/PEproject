@@ -10,7 +10,8 @@ import {
     useTheme,
     useMediaQuery,
     Icon,
-    Link
+    Link,
+    Tooltip
 } from "@mui/material";
 import {
     Search,
@@ -20,14 +21,18 @@ import {
     Notifications,
     Help,
     Menu,
-    Close
+    Close,
+    Person,
+    Settings,
+    Logout
 } from "@mui/icons-material"
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../states";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
 import UserImage from "../../components/UserImage";
-import logo from "../../images/SmashBruh.png";
+import logo from "../../images/Logo.png";
+import textLogo from "../../images/textLogo.png";
 import Image from "mui-image";
 import { spacing } from "@mui/system";
 
@@ -43,7 +48,7 @@ const Navbar = ({picturePath}) => {
         fontSize: '1rem',
         fontFamily: 'Tahoma',
         fontWeight: 'bold',
-        color: 'black',
+        color: 'white',
         '&:hover': {
             opacity: 0.5,
             cursor: "pointer",
@@ -51,28 +56,21 @@ const Navbar = ({picturePath}) => {
     };
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
-    const dark = theme.palette.neutral.dark;
-    const background = theme.palette.background.default;
-    const primaryLight = theme.palette.primary.light;
-    const alt = theme.palette.background.alt;
-    
+    const background = theme.palette.primary.dark;
+
     const fullName = `${user.firstName} ${user.lastName}`;
     
     return (
-        <FlexBetween padding="0.5rem 3rem" backgroundColor = {alt}>
-            <FlexBetween gap="1.75rem">
-                <Link href="/home" underline="none">
+        <FlexBetween padding="0.25rem 2rem" backgroundColor ="black">
+            <FlexBetween gap="2.5rem">
                     <Box
                     component="img"
                     right="0"
                     bottom="0"
-                    height="auto"
+                    height="4.5rem"
                     zIndex="10"
-                    maxWidth="7rem"
-                    minWidth="5rem"
-                    src={ logo } 
+                    src={ logo  } 
                     alt="logo" 
-                    max-width="100%"
                     href="/home"
                     sx={{
                         cursor: 'pointer',
@@ -80,8 +78,10 @@ const Navbar = ({picturePath}) => {
                             opacity: 0.5,
                         }
                     }}
+                    onClick={() =>{
+                        window.location.href="/home";
+                    }}
                 />
-                </Link>
                 <Box display="flex" gap="1.5rem">
                     <Link href="/home" underline="none" sx={linkStyle}>Home</Link>
                     <Link href="home/movies" underline="none" sx={linkStyle}>Feature Movies</Link>
@@ -101,15 +101,6 @@ const Navbar = ({picturePath}) => {
                         </IconButton>
                     </FlexBetween>
                 )}
-                    {/* <IconButton onClick={() => dispatch(setMode())}> THIS IS "DARK MODE" BUTTON (IMPLEMENT LATER)
-                        {theme.palette.mode === "dark" ? (
-                            <DarkMode sx={{ fontSize: "25px"}}/>
-                        ) : (
-                            <LightMode sx={{ color:dark, fontSize: "25px"}}/>
-                        )}
-                    </IconButton> */}
-                    <Notifications sx={{ fontSize: "25px"}}/>
-                    <Help sx={{ fontSize: "25px"}}/>
                     <FormControl variant="standard" value = {fullName}>
                         <Select 
                         value = {fullName}
@@ -123,7 +114,7 @@ const Navbar = ({picturePath}) => {
                                 width: "3rem"
                             },
                             "& .MuiSelect-select:focus": {
-                                backgroundColor: neutralLight
+                                backgroundColor: neutralLight,
                             }
                         }}
                         input={<InputBase/>}
