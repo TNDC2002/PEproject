@@ -113,7 +113,10 @@ bcrypt
 
 
 
-export const verify = async (req,res) =>{
+
+//export
+
+const verify = async (req,res) =>{
     try{
         let {userId, uniqueString} = req.params;
 
@@ -177,14 +180,14 @@ export const verify = async (req,res) =>{
     }
 }
 
-export const verified = async(req,res) =>{
+const verified = async(req,res) =>{
     try{
         res.sendfile.join(__dirname, "./../views/verified.html");
     } catch(err)
     {}
 }
     /* LOGGING IN */
-export const login = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email:email });
@@ -201,3 +204,11 @@ export const login = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+var output = {
+    verify,
+    verified,
+    login
+}
+
+export default output
