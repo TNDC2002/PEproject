@@ -10,7 +10,7 @@ import morgan from "morgan";
 import { fileURLToPath } from "url";
 import { configViewEngine } from "./config/ViewEngine.js";
 import { initWebRoutes } from "./routes/WebRoutes.js";
-import { register } from "./controller/auth.js"
+import * as auth from "./controller/auth.js"
 import { verifyToken } from "./middleware/auth.js";
 import movieRoutes from "./routes/movieAPI.js"
 /* CONFIGURATIONS SETUP */
@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
   const upload = multer({ storage });
 
 /* ROUTES FILE */
-app.post("/auth/register", upload.single("picture"), register);
+app.post("/auth/register", upload.single("picture"), auth.default.register);
 
 /* ROUTES */
 configViewEngine(app)

@@ -26,7 +26,7 @@ transporter.verify((error, success) => {
 })
 
 /* REGISTER USER */
-export const register = async (req, res) => {
+const register = async (req, res) => {
     try {
         const {
             firstName,
@@ -208,7 +208,8 @@ const login = async (req, res) => {
 var output = {
     verify,
     verified,
-    login
+    login,
+    register
 }
 
 export default output
