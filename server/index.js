@@ -43,6 +43,8 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.post("/auth/register", upload.single("picture"), register);
 
 /* ROUTES */
+configViewEngine(app)
+initWebRoutes(app)
 app.use("/auth", authRoutes);
 app.use("/movie", movieRoutes);
 /* SERVER SETUP AND MONGOOSE SETUP */

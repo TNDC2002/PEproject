@@ -89,10 +89,10 @@ bcrypt
                 });
             })
             .catch((error)=>{
-                res.json({
-                    status: "FAILED",
-                    message: "Verification of email failed..."
-                });
+                // res.json({
+                //     status: "FAILED",
+                //     message: "Verification of email failed..."
+                // });
             })
         })
         .catch((error) => {
