@@ -11,7 +11,12 @@ import {
     useMediaQuery,
     Icon,
     Link,
-    Tooltip
+    Tooltip,
+    Popover,
+    Button,
+    Menu,
+    Divider,
+    Badge
 } from "@mui/material";
 import {
     Search,
@@ -20,12 +25,11 @@ import {
     LightMode,
     Notifications,
     Help,
-    Menu,
     Close,
-    Person,
+    AccountCircle,
     Settings,
     Logout
-} from "@mui/icons-material"
+} from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../states";
 import { useNavigate } from "react-router-dom";
@@ -34,19 +38,35 @@ import UserImage from "../../components/UserImage";
 import logo from "../../images/Logo.png";
 import textLogo from "../../images/textLogo.png";
 import Image from "mui-image";
-import { spacing } from "@mui/system";
+import { fontSize, spacing } from "@mui/system";
 
 
-const Navbar = ({picturePath}) => {
+const Navbar = ({}) => {
     const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.user);
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const redirectAccount =()=>{ navigate('/account') };
+    const redirectSettings =()=>{ navigate('/settings') };
+    const redirectNotification =()=>{ navigate('/notification') };
+    const redirectHelp =()=>{ navigate('/help') };
+
+
     const linkStyle ={
-        fontSize: '1rem',
-        fontFamily: 'Tahoma',
+        fontSize: '1.05rem',
         fontWeight: 'bold',
         color: 'white',
         '&:hover': {
@@ -56,9 +76,13 @@ const Navbar = ({picturePath}) => {
     };
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
+    const primaryPink = theme.palette.primary.main;
+    const lightPink = theme.palette.primary.light;
     const background = theme.palette.primary.dark;
 
     const fullName = `${user.firstName} ${user.lastName}`;
+    const firstName =`${user.firstName}`;
+    const email = `${user.email}`;
     
     return (
         <FlexBetween padding="0.25rem 2rem" backgroundColor ="black">
@@ -71,7 +95,6 @@ const Navbar = ({picturePath}) => {
                     zIndex="10"
                     src={ logo  } 
                     alt="logo" 
-                    href="/home"
                     sx={{
                         cursor: 'pointer',
                         '&hover':{
@@ -83,10 +106,10 @@ const Navbar = ({picturePath}) => {
                     }}
                 />
                 <Box display="flex" gap="1.5rem">
-                    <Link href="/home" underline="none" sx={linkStyle}>Home</Link>
-                    <Link href="home/movies" underline="none" sx={linkStyle}>Feature Movies</Link>
-                    <Link href="home/tv" underline="none" sx={linkStyle}>TV Shows</Link>
-                    <Link href="home/mylist" underline="none" sx={linkStyle}>My List</Link>   
+                    <Link href="/home" underline="none" sx={ linkStyle }>Home</Link>
+                    <Link href="home/movies" underline="none" sx={ linkStyle }>Feature Movies</Link>
+                    <Link href="home/tv" underline="none" sx={ linkStyle }>TV Shows</Link>
+                    <Link href="home/mylist" underline="none" sx={ linkStyle }>My List</Link>   
                 </Box>
             </FlexBetween>
 
@@ -101,30 +124,70 @@ const Navbar = ({picturePath}) => {
                         </IconButton>
                     </FlexBetween>
                 )}
-                    <FormControl variant="standard" value = {fullName}>
-                        <Select 
-                        value = {fullName}
-                        sx = {{
-                            backgroundColor: neutralLight,
-                            width: "150px",
-                            borderRadius: "1rem",
-                            p: "0.25rem 1rem",
-                            "& .MuiSvgIcon-root": {
-                                pr:"0.25rem",
-                                width: "3rem"
-                            },
-                            "& .MuiSelect-select:focus": {
-                                backgroundColor: neutralLight,
-                            }
-                        }}
-                        input={<InputBase/>}
+                    <Tooltip title={ firstName }>
+                        <IconButton onClick={ handleClick }>
+                            <Badge badgeContent={4} sx={{ color: 'red' }}>
+                            <AccountCircle style={{ color: 'white', fontSize: '2.5rem'}}/>
+                            </Badge>    
+                        </IconButton>
+                    </Tooltip>
+                        <Menu 
+                            id="account"
+                            anchorEl={anchorEl}
+                            open={open} 
+                            onClose={handleClose}   
+                            sx={{
+                                width: "30%",
+                            }}
                         >
-                            <MenuItem value={fullName}>
-                                <Typography>{fullName}</Typography>
+                            <Typography
+                            sx = {{
+                                color: 'primaryPink',
+                                padding: "1rem 1rem 0",
+                                textAlign: "center" ,
+                                variant: "h3",
+                                fontWeight: 'bold'
+                            }}
+                            >{ fullName }
+                            </Typography>
+                            <Typography sx={{
+                                padding: "0.5rem 0",
+                                textAlign:"center",
+                                variant: "h4"
+                            }}>{ email }</Typography>
+                            <MenuItem onClick={redirectAccount}>
+                                <Typography 
+                                sx = {{ 
+                                    color: 'white',
+                                    padding: "0.5rem",
+                                    backgroundColor: "grey",
+                                    border: "1px solid black",
+                                    borderRadius: "10px"
+                                }}>Manage your SmashBruh Account
+                                </Typography>
                             </MenuItem>
-                            <MenuItem onClick={() => dispatch(setLogout())}>Log out</MenuItem>
-                        </Select>
-                    </FormControl>
+                            <Divider />
+                            <MenuItem onClick={redirectSettings}>
+                                    <Settings/>
+                                <Typography padding="0.25rem 1rem">Settings</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={redirectNotification}>
+                                <Badge badgeContent={4} sx ={{ color: 'red' }}>
+                                    <Notifications/>
+                                </Badge>
+                                <Typography padding="0.25rem 1rem">Notifications</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={redirectHelp}>
+                                <Help/>
+                                <Typography padding="0.25rem 1rem">Help</Typography>
+                            </MenuItem>
+                            <Divider />
+                            <MenuItem onClick={()=> dispatch(setLogout())}>
+                                <Logout/>
+                                <Typography padding="0.25rem 1rem">Logout</Typography>
+                            </MenuItem>
+                        </Menu>
+                    
                 </FlexBetween>
             ) : (
                 <IconButton
@@ -134,7 +197,9 @@ const Navbar = ({picturePath}) => {
                 </IconButton>
             )}
             
-            {/* MOBILE NAV */}
+            {/*                                                           MOBILE NAV                                                           */}
+
+
             {!isNonMobileScreens && isMobileMenuToggled && (
                 <Box
                 position="fixed"
@@ -146,54 +211,8 @@ const Navbar = ({picturePath}) => {
                 minWidth="100px"
                 backgroundColor={background}
                 >
-                    {/* CLOSE ICON */}
-                    <Box display="flex" justifyContent="flex-end" p="1rem">
-                        <IconButton
-                        onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
-                        >
-                            <Close />
-                        </IconButton>
-                    </Box>
-                    {/* MENU ITEMS */}
-                    <FlexBetween display="flex"
-                    flexDirection="column" 
-                    justifyContent="center" 
-                    gap="3rem"
-                    > 
-                    {/* <IconButton onClick={() => dispatch(setMode())}> THIS IS "DARK MODE" BUTTON (IMPLEMENT LATER)
-                        {theme.palette.mode === "dark" ? (
-                            <DarkMode sx={{ fontSize: "25px"}}/>
-                        ) : (
-                            <LightMode sx={{ color:dark, fontSize: "25px"}}/>
-                        )}
-                    </IconButton> */}
-                    <Notifications sx={{ fontSize: "25px"}}/>
-                    <Help sx={{ fontSize: "25px"}}/>
-                    <FormControl variant="standard" value = {fullName}>
-                        <Select 
-                        value = {fullName}
-                        sx = {{
-                            backgroundColor: neutralLight,
-                            width: "150px",
-                            borderRadius: "1rem",
-                            p: "0.25rem 1rem",
-                            "& .MuiSvgIcon-root": {
-                                pr:"0.25rem",
-                                width: "3rem"
-                            },
-                            "& .MuiSelect-select:focus": {
-                                backgroundColor: neutralLight
-                            }
-                        }}
-                        input={<InputBase/>}
-                        >
-                            <MenuItem value={fullName}>
-                                <Typography>{fullName}</Typography>
-                            </MenuItem>
-                            <MenuItem onClick={() => dispatch(setLogout())}>Log out</MenuItem>
-                        </Select>
-                    </FormControl>
-                </FlexBetween>
+                    
+                    
                 </Box>
             )}
         </FlexBetween>
