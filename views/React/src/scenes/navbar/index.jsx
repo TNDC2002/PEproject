@@ -93,7 +93,7 @@ const Navbar = ({}) => {
                     bottom="0"
                     height="4.5rem"
                     zIndex="10"
-                    src={ logo  } 
+                    src={ textLogo  } 
                     alt="logo" 
                     sx={{
                         cursor: 'pointer',
@@ -137,34 +137,47 @@ const Navbar = ({}) => {
                             open={open} 
                             onClose={handleClose}   
                             sx={{
-                                width: "30%",
+                                width: 'auto',
                             }}
                         >
-                            <Typography color={ primaryPink }
+                            <Typography 
+                            color={ primaryPink }
+                            variant="h4"
                             sx = {{
                                 padding: "1rem 1rem 0",
-                                textAlign: "center" ,
-                                variant: "h3",
+                                textAlign: "center",
                                 fontWeight: 'bold'
                             }}
                             >{ fullName }
                             </Typography>
-                            <Typography sx={{
+                            <Typography 
+                            variant= "h6"
+                            sx={{
                                 padding: "0.5rem 0",
                                 textAlign:"center",
-                                variant: "h4"
+                                
                             }}>{ email }</Typography>
-                            <MenuItem onClick={redirectAccount}>
-                                <Typography 
-                                sx = {{ 
+                            <Box sx={{
+                                display: 'flex'
+                            }}>
+                            <Button onClick={redirectAccount} 
+                            sx={{
+                                border: "2px solid black",
+                                borderRadius: '10px',
+                                margin: '1rem',
+                                backgroundColor: 'gray',
+                                width: '100%',
+                                '&:hover': {
+                                    backgroundColor: 'dimgrey'
+                                }
+                            }}>
+                                <Typography sx={{
                                     color: 'white',
-                                    padding: "0.5rem",
-                                    backgroundColor: "grey",
-                                    border: "1px solid black",
-                                    borderRadius: "10px"
-                                }}>Manage your SmashBruh Account
-                                </Typography>
-                            </MenuItem>
+                                    flexGrow: 1,
+                                    textTransform: 'none'
+                                }}>Manage your SmashBruh Account</Typography>
+                            </Button>
+                            </Box>
                             <Divider />
                             <MenuItem onClick={redirectSettings}>
                                     <Settings/>
