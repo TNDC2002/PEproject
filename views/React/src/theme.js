@@ -16,10 +16,10 @@ export const colorTokens = {
     1000: "#000000",
   },
   primary: {
-    50: "#FF5F9E",
-    100: "#E90064",
-    200: "#B3005E",
-    500: "#060047", // THIS IS BACKGROUND COLOR (DARK BLUE)
+    50: "#FF5F9E", //LIGHT PINK
+    100: "#E90064", //PINK
+    200: "#B3005E", //DARK PINK
+    500: "#060047", //DARK BLUE
   },
 };
 
