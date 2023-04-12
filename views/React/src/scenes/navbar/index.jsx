@@ -93,7 +93,7 @@ const Navbar = ({}) => {
                     bottom="0"
                     height="4.5rem"
                     zIndex="10"
-                    src={ textLogo  } 
+                    src={ logo  } 
                     alt="logo" 
                     sx={{
                         cursor: 'pointer',
@@ -141,8 +141,8 @@ const Navbar = ({}) => {
                             }}
                         >
                             <Typography 
-                            color={ primaryPink }
-                            variant="h4"
+                            color= 'black'
+                            variant="h5"
                             sx = {{
                                 padding: "1rem 1rem 0",
                                 textAlign: "center",
