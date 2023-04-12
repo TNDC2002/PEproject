@@ -140,9 +140,8 @@ const Navbar = ({}) => {
                                 width: "30%",
                             }}
                         >
-                            <Typography
+                            <Typography color={ primaryPink }
                             sx = {{
-                                color: 'primaryPink',
                                 padding: "1rem 1rem 0",
                                 textAlign: "center" ,
                                 variant: "h3",
