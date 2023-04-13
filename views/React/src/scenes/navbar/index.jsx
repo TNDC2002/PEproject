@@ -126,8 +126,8 @@ const Navbar = ({}) => {
                 )}
                     <Tooltip title={ firstName }>
                         <IconButton onClick={ handleClick }>
-                            <Badge badgeContent={4} sx={{ color: 'red' }}>
-                            <AccountCircle style={{ color: 'white', fontSize: '2.5rem'}}/>
+                            <Badge color="error" badgeContent="" >
+                            <AccountCircle style={{ color: 'white', fontSize: '3rem'}}/>
                             </Badge>    
                         </IconButton>
                     </Tooltip>
