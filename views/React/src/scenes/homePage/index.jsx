@@ -10,7 +10,7 @@ const HomePage = () => {
     return (
         <div>
             <Navbar/>
-            <YouTubePlayer videoId={"IMUVIzw_vpo"}/>
+            <YouTubePlayer videoId={"eLI3PeE0a6I"}/>
             <MovieList category="popular" />
             <MovieList category="nowPlaying" />
             <MovieList category="topRated" />
