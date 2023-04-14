@@ -13,13 +13,10 @@ const MovieCard = ({ movie }) => {
     const navigate = useNavigate();
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
-    const [isHovered, setIsHovered] = useState(false);
 
     return (
       <Box 
       backgroundColor={neutralLight}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       onClick={() => navigate(`/movie/${movie.id}`)}
       sx={{
         "&:hover":{

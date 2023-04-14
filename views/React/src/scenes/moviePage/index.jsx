@@ -17,7 +17,7 @@ import FavoriteBorderOutlinedIcon
 from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon 
 from '@mui/icons-material/FavoriteOutlined';
-import YouTubePlayer from "./YoutubeVideo";
+import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
@@ -72,6 +72,8 @@ const MoviePage = () => {
       }
     };
     fetchMovieDetails();
+
+
     const fetchTrailerID = async () => {
       try {
         const response = await fetch(
@@ -80,14 +82,15 @@ const MoviePage = () => {
           headers: { "Content-Type": "application/json" },
           }
         );
-        const data = await response.json();
-        setTrailerVideoId(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchTrailerID();
-  }, [movieID]);
+          const data = await response.json();
+          setTrailerVideoId(data);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      fetchTrailerID();
+    }, [movieID]
+    );
 
   const fetchRecommendations = async () => {
     try {

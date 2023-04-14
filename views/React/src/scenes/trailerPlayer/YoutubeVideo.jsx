@@ -4,12 +4,12 @@ import { Box } from '@mui/material';
 
 const YouTubePlayer = ({ videoId }) => {
   return (
-    <Box>
+    <Box sx={{ backgroundColor: 'black', padding: '0 0%' }}>
       <ReactPlayer
         url={`https://www.youtube.com/watch?v=${videoId}`}
-        controls={true}
+        playing={true}
+        volume={1.0}
         width="100%"
-        height="400px"
       />
     </Box>
   );
