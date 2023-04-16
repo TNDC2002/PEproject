@@ -90,7 +90,7 @@ const MoviePage = () => {
   return (
     <FlexBetween>
       <Box>
-        <Image width = "300px" height="500px" src={imageUrl} alt={`${movie.title} post   er`} />
+        <Image width = "300px" height="500px" src={imageUrl} alt={`${movie.title} poster`} />
       </Box>
       <Box>
         <IconButton onClick={handleFavouriteClick}>

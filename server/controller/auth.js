@@ -186,8 +186,9 @@ const verified = async(req,res) =>{
     } catch(err)
     {}
 }
-    /* LOGGING IN */
-const login = async (req, res) => {
+
+/* LOGGING IN */
+export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email:email });
@@ -213,3 +214,15 @@ var output = {
 }
 
 export default output
+/* CHECKING EMAIL */
+export const checkEmail = async (req, res) => {
+    try {
+      const { email } = req.params;
+
+      const existingUser = await User.findOne({ email });
+      
+      res.json({ emailExists: !!existingUser });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };

@@ -9,7 +9,9 @@ import {
     FormControl,
     useTheme,
     useMediaQuery,
-    Icon
+    Avatar,
+    Autocomplete,
+    TextField
 } from "@mui/material";
 import {
     Search,
@@ -26,7 +28,7 @@ import { setMode, setLogout } from "../../states";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
 import UserImage from "../../components/UserImage";
-
+import SearchBar from "./SearchBar";
 
 const Navbar = ({picturePath}) => {
     const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -43,7 +45,7 @@ const Navbar = ({picturePath}) => {
     const alt = theme.palette.background.alt;
     
     const fullName = `${user.firstName} ${user.lastName}`;
-    
+      
     return (
         <FlexBetween padding="1rem 6%" backgroundColor = {alt}>
             <FlexBetween gap="1.75rem">
@@ -63,10 +65,7 @@ const Navbar = ({picturePath}) => {
                 </Typography>
                 {isNonMobileScreens && (
                     <FlexBetween backgroundColor={neutralLight} borderRadius="15px" gap="3rem" padding="0.1rem 1.5rem">
-                        <InputBase placeholder="Search..."/>
-                        <IconButton>
-                            <Search/>
-                        </IconButton>
+                      <SearchBar/>
                     </FlexBetween>
                 )}
             </FlexBetween>
@@ -83,30 +82,37 @@ const Navbar = ({picturePath}) => {
                     </IconButton>
                     <Notifications sx={{ fontSize: "25px"}}/>
                     <Help sx={{ fontSize: "25px"}}/>
-                    <FormControl variant="standard" value = {fullName}>
-                        <Select 
-                        value = {fullName}
-                        sx = {{
+                    <FormControl variant="standard" value={fullName}>
+                        <Select
+                            value={fullName}
+                            renderValue={() => (
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Avatar sx={{ width: 30, height: 30 }} src="https://www.w3schools.com/howto/img_avatar.png" />
+                                <Typography sx={{ marginLeft: '1.5rem' }}>You</Typography>
+                            </Box>
+                            )}
+                            sx={{
                             backgroundColor: neutralLight,
-                            width: "150px",
-                            borderRadius: "1rem",
-                            p: "0.25rem 1rem",
-                            "& .MuiSvgIcon-root": {
-                                pr:"0.25rem",
-                                width: "3rem"
+                            width: '150px',
+                            borderRadius: '1rem',
+                            p: '0.25rem 1rem',
+                            '& .MuiSvgIcon-root': {
+                                pr: '0.25rem',
+                                width: '3rem'
                             },
-                            "& .MuiSelect-select:focus": {
+                            '& .MuiSelect-select:focus': {
                                 backgroundColor: neutralLight
                             }
-                        }}
-                        input={<InputBase/>}
+                            }}
+                        input={<InputBase />}
                         >
                             <MenuItem value={fullName}>
-                                <Typography>{fullName}</Typography>
+                            <Typography>{fullName}</Typography>
                             </MenuItem>
                             <MenuItem onClick={() => dispatch(setLogout())}>Log out</MenuItem>
                         </Select>
                     </FormControl>
+
                 </FlexBetween>
             ) : (
                 <IconButton
