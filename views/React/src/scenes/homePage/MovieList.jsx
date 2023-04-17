@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
-import "./movie_list.css";
 import FlexBetween from "../../components/FlexBetween";
+import { Grid, IconButton, Box, Typography} from "@mui/material";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
 const CATEGORY_API_ENDPOINTS = {
     popular: "popular",
@@ -12,6 +13,8 @@ const CATEGORY_API_ENDPOINTS = {
 
 const MovieList = ({ category }) => {
     const [movies, setMovies] = useState([]);
+    const [page, setPage] = useState(1);
+
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -24,21 +27,53 @@ const MovieList = ({ category }) => {
           }
             };
         fetchMovies();
-    }, [category]);
+    }, [category, page]);
+
+    const handlePrevPage = () => {
+      setPage((prevPage) => prevPage - 1);
+    };
+  
+    const handleNextPage = () => {
+      setPage((prevPage) => prevPage + 1);
+    };
 
     return (
-      <div>
-        <h2>{category.toUpperCase()} MOVIES</h2>
-        <ul className="movie-list">
-          {movies.map((movie) => (  
-            <li key={movie.id}>
-              <FlexBetween>
-                <MovieCard movie={movie} />
-              </FlexBetween>
-            </li>
+      <Box>
+        <Typography variant="h3" sx={{
+          margin: '1rem 1.15rem',
+          fontWeight: 'bold',
+          color: 'white'
+        }}> {category.toUpperCase()} MOVIES </Typography>
+        <Grid container spacing={2.25} justifyContent="center">
+          {movies.map((movie) => (
+            <Grid item key={movie.id}>
+              <MovieCard movie={movie} />
+            </Grid>
           ))}
-        </ul>
-      </div>
+        </Grid>
+        <FlexBetween>
+          <IconButton onClick={handlePrevPage} disabled={page === 1} sx={{
+            padding: '0 0 0 0.5rem'
+          }}>
+            <ArrowBackIos fontSize="30px" sx={{ color: 'white' }}></ArrowBackIos>
+          </IconButton>
+          <Typography sx={{
+            color: 'black',
+            fontWeight: 'bold',
+            fontSize: '1rem',
+            backgroundColor: 'white',
+            padding: '0.5rem',
+            margin: '1rem 0.5rem',
+            border: 'hidden',
+            borderRadius: '0.5rem '
+          }}>{page}</Typography>
+          <IconButton onClick={handleNextPage} sx={{
+            padding: '0 0.5rem 0 0'
+          }}>
+            <ArrowForwardIos sx={{ color: 'white' }}></ArrowForwardIos>
+          </IconButton>
+        </FlexBetween>
+      </Box>
     );
 };
 

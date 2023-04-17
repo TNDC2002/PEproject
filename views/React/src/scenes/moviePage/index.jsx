@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Image from 'mui-image';
 import { useSelector } from 'react-redux';
 import FlexBetween from '../../components/FlexBetween';
 import {
   Box,
+  Grid,
   Button,
   IconButton,
   TextField,
@@ -13,14 +14,13 @@ import {
   Typography,
   useTheme
 } from "@mui/material";
-import FavoriteBorderOutlinedIcon 
-from '@mui/icons-material/FavoriteBorderOutlined';
-import FavoriteOutlinedIcon 
-from '@mui/icons-material/FavoriteOutlined';
-import YouTubePlayer from "./YoutubeVideo";
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
+  const [recommendations, setRecommendations] = useState(null);
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);
   const [trailerVideoId, setTrailerVideoId] = useState(null);
@@ -62,12 +62,48 @@ const MoviePage = () => {
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=37be93e690e7adb076e5110e93fda06f&language=en-US`);
-      setMovie(response.data);
+      try {
+        const response = await fetch(`http://localhost:5000/movie/detail/${movieID}`);
+        const data = await response.json();
+        setMovie(data);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchMovieDetails();
-  }, [movieID]);
 
+
+    const fetchTrailerID = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/movie/trailer/${movieID}`,{
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          }
+        );
+          const data = await response.json();
+          setTrailerVideoId(data);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      fetchTrailerID();
+    }, [movieID]
+    );
+
+  const fetchRecommendations = async () => {
+    try {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/recommendations?api_key=37be93e690e7adb076e5110e93fda06f`);
+      setRecommendations(response.data.results);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRecommendations();
+  }, [movieID]);
+  
   useEffect(() => {
     const fetchFavourite = async () => {
       const response = await checkFavorite(user._id, movieID);
@@ -86,39 +122,86 @@ const MoviePage = () => {
     return <Typography>Loading...</Typography>;
   }
 
-  const fetchTrailer = async () => {
-    const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(movie.title)}+trailer&type=video&videoDefinition=high&key=AIzaSyABHNptc-h_5NQ5Zg06EASYh6COes4i-hE`
-    );
-    if (response.data.items.length > 0) {
-      setTrailerVideoId(response.data.items[0].id.videoId);
-    }
-  };
-  fetchTrailer();
-
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-
   return (
-    <FlexBetween>
-      <Box>
-        <Image width = "300px" height="500px" src={imageUrl} alt={`${movie.title} post   er`} />
-      </Box>
-      <Box>
-        <IconButton onClick={handleFavouriteClick}>
-          {!isFavourited ? (
-            <FavoriteBorderOutlinedIcon
-              sx={{fontSize:"40px"}}/>
-          ) : (
-            <FavoriteOutlinedIcon 
-            sx={{fontSize:"40px"}}/>
+    <Grid container spacing={2}>
+      <Grid item xs={12} md={8}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Image width="300px" height="500px" src={imageUrl} alt={`${movie.title} poster`} />
+          <Typography variant="h5" sx={{ my: 2 }}>Title: {movie.title}</Typography>
+          <Typography variant="body1">Overview: {movie.overview}</Typography>
+          <Typography variant="body1">Adult: {movie.adult.toString()}</Typography>
+          <Typography variant="body1">Release Date: {movie.release_date}</Typography>
+          <Typography variant="body1">Id: {movie.id}</Typography>
+          <Typography variant="body1">Original Title: {movie.original_title}</Typography>
+          <Typography variant="body1">Original Language: {movie.original_language}</Typography>
+          <Typography variant="body1">Popularity: {movie.popularity}</Typography>
+          <Typography variant="body1">Vote Count: {movie.vote_count}</Typography>
+          <Typography variant="body1">Vote Average: {movie.vote_average}</Typography>
+
+          {recommendations && (
+            <Box sx={{ mt: 2 }}>
+              <Typography variant="h6">Recommendations:</Typography>
+              <Grid container spacing={2} sx={{ mt: 2 }}>
+                {recommendations.map((recommendation) => (
+                  <Grid item key={recommendation.id}>
+                    <Link to={`/movie/${recommendation.id}`}>
+                      <Box
+                        onClick={() => {
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                      >
+                        <Image 
+                          width="150px" 
+                          height="250px" 
+                          src={recommendation.poster_path ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}` : "https://via.placeholder.com/150x250.png?text=No+Image"} 
+                          alt={`${recommendation.title} poster`} 
+                        />
+                      </Box>
+                    </Link>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
           )}
-        </IconButton>
-      </Box>
-      <YouTubePlayer videoId={trailerVideoId}/>
-  </FlexBetween>
-
-
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
+            {!isFavourited ? (
+              <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
+            ) : (
+              <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
+            )}
+          </IconButton>
+          <YouTubePlayer videoId={trailerVideoId} />
+          <Link to={`/home`} sx={{ my: 2 }}>
+            <button>Home</button>
+          </Link>
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 
 export default MoviePage;
+
+
+/* API DOCUMENTATION
+For Movie:
+  <Typography>Title: {movie.title}</Typography>
+  <Typography>Overview: {movie.overview}</Typography>
+  <Typography>Adult: {movie.adult.toString()}</Typography>
+  <Typography>Release Date: {movie.release_date}</Typography>
+  <Typography>Id: {movie.id}</Typography>
+  <Typography>Original Title: {movie.original_title}</Typography>
+  <Typography>Original Language: {movie.original_language}</Typography>
+  <Typography>Popularity: {movie.popularity}</Typography>
+  <Typography>Vote Count: {movie.vote_count}</Typography>
+  <Typography>Vote Average: {movie.vote_average}</Typography>
+
+
+For Recomendation is the same as movie.
+Example {recommedation.title}
+*/

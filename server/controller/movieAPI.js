@@ -2,7 +2,6 @@ import UserFavouriteMovie from "../models/UserFavouriteMovie.js"
 import UserRateMovie from "../models/UserRateMovie.js"
 import UserRentMovie from "../models/UserRentMovie.js"
 import axios from "axios"
-
 /* FAVOURITE MOVIE */
 export const favourite = async (req, res) => {
       // Get the payload  
@@ -79,5 +78,33 @@ export const getList = async (req, res) => {
   } catch (err) {
       console.error(err);
       res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+/* RETRIEVING MOVIE'S DETAIL */
+export const getDetail = async (req, res) => {
+  try {
+    const {movieID} = req.params;
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+/* RETRIEVING MOVIE'S TRAILER */
+export const getTrailerID = async (req, res) => {
+  try {
+    const {movieID} = req.params;
+    const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    const movieTitle = movieResponse.data.title;
+    const response = await axios.get(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(movieTitle)}+trailer&type=video&videoDefinition=high&key=${process.env.YOUTUBE_API_KEY2}`
+    );
+    if (response.data.items.length > 0) {
+      res.json(response.data.items[0].id.videoId);
+    }
+  } catch (err) {
+    res.status(500).json({ message: 'Internal server error' });
   }
 }
