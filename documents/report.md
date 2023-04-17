@@ -1,5 +1,5 @@
 # REPORT
-1. Member
+1. ## Member
     | Full Name  | Student Id |
     | ---------  | ---------- |
     | Nguyễn Ngọc Vĩnh  | 18691 |
@@ -10,3 +10,6 @@
     | Nguyễn Khắc Hoàng | 18230 |
     | Lê Duy | 17434 |
     | Trần Ngọc Duy Chương | 17197 |
+
+2. ## Introduction
+   1. 
