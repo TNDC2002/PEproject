@@ -19,7 +19,7 @@ const MovieList = ({ category }) => {
     useEffect(() => {
         const fetchMovies = async () => {
           try {
-            const response = await fetch(`http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS[category]}`);
+            const response = await fetch(`http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS[category]}&page=${page}`);
             const data = await response.json();
             setMovies(data.results);
           } catch (error) {

@@ -2,7 +2,8 @@ import UserFavouriteMovie from "../models/UserFavouriteMovie.js"
 import UserRateMovie from "../models/UserRateMovie.js"
 import UserRentMovie from "../models/UserRentMovie.js"
 import axios from "axios"
-/* FAVOURITE MOVIE */
+
+/* FAVOURITING MOVIE */
 export const favourite = async (req, res) => {
       // Get the payload  
       const { userID, movieID } = req.body;
@@ -35,7 +36,8 @@ export const favourite = async (req, res) => {
         }
     };
 }
-  
+
+/* CHECKING FAVOURITE MOVIE */
 export const checkFavourite = async (req, res) => {
     try {
       const { userID, movieID } = req.body;
@@ -71,8 +73,8 @@ export const rent = async (req, res) => {
 export const getList = async (req, res) => {
   try {
       const { category } = req.query;
-      console.log(category);
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/${category}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+      const { page } = req.query;
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${category}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`);
       res.json(response.data);
 
   } catch (err) {
