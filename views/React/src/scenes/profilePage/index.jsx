@@ -5,6 +5,7 @@ import {
     Container,
     useMediaQuery,
     Typography,
+    Stack,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Formik } from "formik";
@@ -52,50 +53,54 @@ const ProfilePage = () => {
             <Navbar />
             <UserImage image={`${user.picturePath}`} />
             <Container>
-                <Box
-                    display="flex"
+                <Stack direction="column" spacing={2}
+                    
                     minHeight="70vh"
+                    
                     sx={{
-                        flexDirection: "column",
                         backgroundColor: "yellow"
+                        
                     }}
                 >
-
                     <Box
                         minHeight="10vh"
+                        minWidth= "10vh"
                         sx={{
-                            flexDirection: "row",
+                            
                             backgroundColor: "black"
                         }}
                     >
                     </Box>
-
-                    <Box
-                        minHeight="60vh"
+                    <Stack direction= "row" spacing ={30}
+                    minHeight={30}
+                    minWidth={30}>
+                        
+                        
+                        <Box
+                        minHeight="10vh"
+                        minWidth= "10vh"
                         sx={{
-                            flexDirection: "column",
+                            
                             backgroundColor: "red"
                         }}
                     >
-                        <Box
-                            minHeight="20vh"
-                            sx={{
-                                backgroundColor: "blue"
-                            }}
-                        >
-
-                        </Box>
-                        <Box
-                            minHeight="20vh"
-                            sx={{
-                                backgroundColor: "green"
-                            }}
-                        >
-
-                        </Box>
                     </Box>
 
-                </Box>
+                    <Box
+                        minHeight="10vh"
+                        minWidth= "10vh"
+                        sx={{
+                            
+                            backgroundColor: "red"
+                        }}
+                    >
+                    </Box>
+                        
+
+                    </Stack>
+                   
+
+                </Stack>
             </Container >
         </Box >
     );
