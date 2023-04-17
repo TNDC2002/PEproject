@@ -16,12 +16,7 @@ const MovieCard = ({ movie }) => {
 
     return (
       <Box 
-<<<<<<< Updated upstream
       backgroundColor={neutralLight}
-=======
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
->>>>>>> Stashed changes
       onClick={() => navigate(`/movie/${movie.id}`)}
       sx={{
         "&:hover":{
