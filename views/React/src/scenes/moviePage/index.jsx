@@ -13,7 +13,8 @@ import {
   useMediaQuery,
   Typography,
   useTheme,
-  Container
+  Container,
+  Breadcrumbs
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
@@ -134,6 +135,19 @@ const MoviePage = () => {
     <div>
       <Navbar></Navbar>
       <Container>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" >
+          Home
+        </Link>
+        
+        <Link
+          underline="hover"
+          color="inherit"
+        >
+          Movies
+        </Link>
+        <Typography color="text.primary">{movie.title}</Typography>
+      </Breadcrumbs>
         <YouTubePlayer videoId={trailerVideoId} />
         <Grid container spacing={1}>
           <Grid item xs={4}>
@@ -143,7 +157,7 @@ const MoviePage = () => {
           </Grid>
 
           <Grid item xs={8}>
-            <Typography variant="h5" sx={{ my: 2 }}>Title: {movie.title}</Typography>
+            <Typography variant="h5" sx={{ my: 2 }}>{movie.title}</Typography>
             <Typography variant="body1">Overview: {movie.overview}</Typography>
             <Typography variant="body1">Adult: {movie.adult.toString()}</Typography>
             <Typography variant="body1">Release Date: {movie.release_date}</Typography>
@@ -170,7 +184,7 @@ const MoviePage = () => {
       
         {recommendations && (
           <Box sx={{ mt: 2 }}>
-          <Typography variant="h6">Recommendations:</Typography>
+          <Typography variant="h6">You may also like:</Typography>
           <Grid container spacing={2} sx={{ mt: 2 }}>
             {recommendations.map((recommendation) => (
             <Grid item key={recommendation.id}>
