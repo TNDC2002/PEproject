@@ -2,6 +2,7 @@ import UserFavouriteMovie from "../models/UserFavouriteMovie.js"
 import UserRateMovie from "../models/UserRateMovie.js"
 import UserRentMovie from "../models/UserRentMovie.js"
 import axios from "axios"
+
 /* FAVOURITE MOVIE */
 export const favourite = async (req, res) => {
       // Get the payload  
@@ -90,6 +91,17 @@ export const getTrailerID = async (req, res) => {
     if (response.data.items.length > 0) {
       res.json(response.data.items[0].id.videoId);
     }
+  } catch (err) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+/* RETRIEVING TMDB'S RECOMMMENDATIONS */
+export const getRecommendations = async (req, res) => {
+  try {
+    const {movieID} = req.params;
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/recommendations?api_key=${process.env.TMDB_API_KEY}`);
+    res.json(response.data);
   } catch (err) {
     res.status(500).json({ message: 'Internal server error' });
   }
