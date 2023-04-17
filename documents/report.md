@@ -1,5 +1,5 @@
 # REPORT
-## 1. Member
+## Member
     | Full Name  | Student Id |
     | ---------  | ---------- |
     | Nguyễn Ngọc Vĩnh  | 18691 |
@@ -11,5 +11,12 @@
     | Lê Duy | 17434 |
     | Trần Ngọc Duy Chương | 17197 |
 
-## 2. Introduction
-    - Overview:
+## Introduction
+    - Overview
+    - Technology used
+
+## UI
+    - Overview
+    - Each Pages
+    - Image
+## 
