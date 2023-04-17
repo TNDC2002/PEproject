@@ -53,52 +53,118 @@ const ProfilePage = () => {
             <Navbar />
             <UserImage image={`${user.picturePath}`} />
             <Container>
-                <Stack direction="column" spacing={2}
-                    
+                <Stack direction="column"
+
                     minHeight="70vh"
-                    
+
                     sx={{
                         backgroundColor: "yellow"
-                        
+
                     }}
                 >
                     <Box
                         minHeight="10vh"
-                        minWidth= "10vh"
+                        minWidth="10vh"
                         sx={{
-                            
+
                             backgroundColor: "black"
                         }}
                     >
-                    </Box>
-                    <Stack direction= "row" spacing ={30}
-                    minHeight={30}
-                    minWidth={30}>
-                        
-                        
-                        <Box
-                        minHeight="10vh"
-                        minWidth= "10vh"
-                        sx={{
-                            
-                            backgroundColor: "red"
-                        }}
-                    >
-                    </Box>
+                        <Stack
+                            direction="row"
+                            spacing={5}
+                        >
+                            <Button
+                                variant="text"
+                                style={{
+                                    maxWidth: "200px",
+                                    maxHeight: "50px",
+                                    minWidth: "30px",
+                                    minHeight: "30px",
+                                }}
+                                onClick={() => {
+                                    setPageType("login");
+                                    resetForm();
+                                }}
+                                sx={{
+                                    height: 70,
+                                    color: "#B3005E",
+                                }}
+                            >
 
-                    <Box
-                        minHeight="10vh"
-                        minWidth= "10vh"
-                        sx={{
-                            
-                            backgroundColor: "red"
-                        }}
-                    >
+                            </Button>
+
+                            <Button
+                                variant="text"
+                                style={{
+                                    maxWidth: "200px",
+                                    maxHeight: "50px",
+                                    minWidth: "30px",
+                                    minHeight: "30px",
+                                }}
+                                onClick={() => {
+                                }}
+                                sx={{
+                                    height: 70,
+                                    color: "#B3005E",
+                                    "&:hover": {
+                                        backgroundColor: "whitesmoke",
+                                        color: "black",
+                                    },
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        color: "#B3005E",
+
+                                        "&:hover": {
+                                            textDecoration: "underline black",
+                                        },
+                                    }}
+                                    display="inline"
+                                    style={{ color: "#B3005E" }}
+                                    fontSize={20}
+                                >
+                                    Registrate
+                                </Typography>
+                            </Button>
+                            <Button>
+
+                            </Button>
+                            <Button>
+
+                            </Button>
+                        </Stack>
                     </Box>
-                        
+                    <Stack direction="row"
+                        justifyContent="space-between"
+                        minHeight={30}
+                        minWidth={30}>
+
+
+                        <Box
+                            minHeight="60vh"
+                            minWidth="35vh"
+                            sx={{
+
+                                backgroundColor: "red"
+                            }}
+                        >
+                        </Box>
+
+                        <Box
+                            minHeight="60vh"
+                            minWidth="110vh"
+                            sx={{
+
+                                backgroundColor: "red"
+                            }}
+                        >
+                        </Box>
+
 
                     </Stack>
-                   
+
 
                 </Stack>
             </Container >
