@@ -1,6 +1,5 @@
 import express from "express";
-import { favourite, checkFavourite, getList } from "../controller/movieAPI.js";
-import { favourite, checkFavourite, getDetail, getTrailerID } from "../controller/movieAPI.js";
+import { favourite, checkFavourite, getDetail, getTrailerID, getList } from "../controller/movieAPI.js";
 
 const router = express.Router();
 
