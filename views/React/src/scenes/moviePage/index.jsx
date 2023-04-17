@@ -17,6 +17,7 @@ import {
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
+import Navbar from '../navbar';
 
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
@@ -123,7 +124,7 @@ const MoviePage = () => {
   }
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-  return (
+  return (   
     <Grid container spacing={2}>
       <Grid item xs={12} md={8}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -139,7 +140,28 @@ const MoviePage = () => {
           <Typography variant="body1">Vote Count: {movie.vote_count}</Typography>
           <Typography variant="body1">Vote Average: {movie.vote_average}</Typography>
 
-          {recommendations && (
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
+            {!isFavourited ? (
+              <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
+            ) : (
+              <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
+            )}
+          </IconButton>
+
+          <Button variant='contained'>
+              Rent
+          </Button>
+          
+          <Link to={`/home`} sx={{ my: 2 }}>
+            <button>Home</button>
+          </Link>
+        </Box>
+          <YouTubePlayer videoId={trailerVideoId} />
+          
+        </Box>
+      </Grid>
+      {recommendations && (
             <Box sx={{ mt: 2 }}>
               <Typography variant="h6">Recommendations:</Typography>
               <Grid container spacing={2} sx={{ mt: 2 }}>
@@ -164,23 +186,6 @@ const MoviePage = () => {
               </Grid>
             </Box>
           )}
-        </Box>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
-            {!isFavourited ? (
-              <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
-            ) : (
-              <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
-            )}
-          </IconButton>
-          <YouTubePlayer videoId={trailerVideoId} />
-          <Link to={`/home`} sx={{ my: 2 }}>
-            <button>Home</button>
-          </Link>
-        </Box>
-      </Grid>
     </Grid>
   );
 };
