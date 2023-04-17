@@ -158,22 +158,20 @@ const MoviePage = () => {
 
           <Grid item xs={8}>
             <Typography variant="h5" sx={{ my: 2 }}>{movie.title}</Typography>
-            <Typography variant="body1">Overview: {movie.overview}</Typography>
-            <Typography variant="body1">Adult: {movie.adult.toString()}</Typography>
-            <Typography variant="body1">Release Date: {movie.release_date}</Typography>
-            <Typography variant="body1">Id: {movie.id}</Typography>
-            <Typography variant="body1">Original Title: {movie.original_title}</Typography>
-            <Typography variant="body1">Original Language: {movie.original_language}</Typography>
-            <Typography variant="body1">Popularity: {movie.popularity}</Typography>
-            <Typography variant="body1">Vote Count: {movie.vote_count}</Typography>
-            <Typography variant="body1">Vote Average: {movie.vote_average}</Typography>  
+            <Typography variant="body1"><strong>Overview:</strong> {movie.overview}</Typography>
+            <Typography variant="body1"><strong>Adult:</strong> {movie.adult.toString()}</Typography>
+            <Typography variant="body1"><strong></strong>Release Date: {movie.release_date}</Typography>
+            <Typography variant="body1"><strong>Id:</strong> {movie.id}</Typography>
+            <Typography variant="body1"><strong>Popularity:</strong> {movie.popularity}</Typography>
+            <Typography variant="body1"><strong>Vote Count:</strong> {movie.vote_count}</Typography>
+            <Typography variant="body1"><strong>Vote Average:</strong> {movie.vote_average}</Typography>  
+
             <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
-            
-            {!isFavourited ? (
-              <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
-            ) : (
-              <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
-            )}
+              {!isFavourited ? (
+                <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
+              ) : (
+                <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
+              )}
             </IconButton>
 
             <Button variant='contained'>
