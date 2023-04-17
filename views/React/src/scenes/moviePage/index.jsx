@@ -12,7 +12,8 @@ import {
   TextField,
   useMediaQuery,
   Typography,
-  useTheme
+  useTheme,
+  Container
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
@@ -130,11 +131,20 @@ const MoviePage = () => {
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   return (   
-    <Grid container spacing={2}>
-      <Grid item xs={12} md={8}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div>
+      <Navbar></Navbar>
+    <Container>
+          <YouTubePlayer videoId={trailerVideoId} />
+    <Grid container spacing={1}>
+      <Grid item xs={4}>
+        <item>
           <Image width="300px" height="500px" src={imageUrl} alt={`${movie.title} poster`} />
-          <Typography variant="h5" sx={{ my: 2 }}>Title: {movie.title}</Typography>
+        </item>
+
+
+      </Grid>
+      <Grid item xs={8}>
+      <Typography variant="h5" sx={{ my: 2 }}>Title: {movie.title}</Typography>
           <Typography variant="body1">Overview: {movie.overview}</Typography>
           <Typography variant="body1">Adult: {movie.adult.toString()}</Typography>
           <Typography variant="body1">Release Date: {movie.release_date}</Typography>
@@ -143,10 +153,8 @@ const MoviePage = () => {
           <Typography variant="body1">Original Language: {movie.original_language}</Typography>
           <Typography variant="body1">Popularity: {movie.popularity}</Typography>
           <Typography variant="body1">Vote Count: {movie.vote_count}</Typography>
-          <Typography variant="body1">Vote Average: {movie.vote_average}</Typography>
-
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
+          <Typography variant="body1">Vote Average: {movie.vote_average}</Typography>  
+      <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
             {!isFavourited ? (
               <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
             ) : (
@@ -158,13 +166,6 @@ const MoviePage = () => {
               Rent
           </Button>
           
-          <Link to={`/home`} sx={{ my: 2 }}>
-            <button>Home</button>
-          </Link>
-        </Box>
-          <YouTubePlayer videoId={trailerVideoId} />
-          
-        </Box>
       </Grid>
       {recommendations && (
             <Box sx={{ mt: 2 }}>
@@ -192,6 +193,14 @@ const MoviePage = () => {
             </Box>
           )}
     </Grid>
+    </Container>
+    <Box 
+      sx={{
+        height: 150
+      }}>
+
+    </Box>
+    </div>
   );
 };
 
@@ -214,4 +223,9 @@ For Movie:
 
 For Recomendation is the same as movie.
 Example {recommedation.title}
+
+
+
+
+
 */
