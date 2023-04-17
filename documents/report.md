@@ -1,7 +1,7 @@
 # REPORT
 1. Member
     | Full Name  | Student Id |
-    | ------------- | ------------- |
+    | ---------  | ---------- |
     | Nguyễn Ngọc Vĩnh  | 18691 |
     | Hà Quách Phú Thành | 18840 |
     | Thái Quang Nam | 18770 |
