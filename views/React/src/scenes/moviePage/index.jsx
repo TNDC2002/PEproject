@@ -134,7 +134,7 @@ const MoviePage = () => {
   return (   
     <div>
       <Navbar></Navbar>
-      <Container>
+      <Container maxWidth="lg">
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" >
           Home
@@ -158,13 +158,20 @@ const MoviePage = () => {
 
           <Grid item xs={8}>
             <Typography variant="h5" sx={{ my: 2 }}>{movie.title}</Typography>
+
+            <Button variant='contained'>
+              <strong>Vote Count: </strong> {movie.vote_count}
+            </Button>
+
+            <Button variant='contained'>
+              <strong>Popularity:</strong> {movie.popularity}
+            </Button>
+
             <Typography variant="body1"><strong>Overview:</strong> {movie.overview}</Typography>
-            <Typography variant="body1"><strong>Adult:</strong> {movie.adult.toString()}</Typography>
             <Typography variant="body1"><strong></strong>Release Date: {movie.release_date}</Typography>
             <Typography variant="body1"><strong>Id:</strong> {movie.id}</Typography>
-            <Typography variant="body1"><strong>Popularity:</strong> {movie.popularity}</Typography>
-            <Typography variant="body1"><strong>Vote Count:</strong> {movie.vote_count}</Typography>
             <Typography variant="body1"><strong>Vote Average:</strong> {movie.vote_average}</Typography>  
+
 
             <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
               {!isFavourited ? (
