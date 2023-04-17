@@ -2,7 +2,9 @@ import {
     Box,
     Button,
     TextField,
+    Container,
     useMediaQuery,
+    Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Formik } from "formik";
@@ -46,42 +48,56 @@ const ProfilePage = () => {
     }
 
     return (
-        <div>
+        <Box>
             <Navbar />
             <UserImage image={`${user.picturePath}`} />
-            <Formik
-                onSubmit={handleFormSubmit}
-            >
-                {({
-                    values,
-                    errors,
-                    touched,
-                    handleBlur,
-                    handleChange,
-                    handleSubmit,
-                    setFieldValue,
-                    resetForm,
-                }) => (
-                    <TextField
-                        label="FirstName"
-                        type="firstName"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        sx={{ gridColumn: "span 4" }}
-                    />
-                    // <h1>User Profile</h1>
-                    // <p>
-                    //     <strong>Username:</strong> {`${user.firstName} ${user.lastName}`}
-                    // </p>
-                    // <p>
-                    //     <strong>Password:</strong> {user.password}
-                    // </p>
-                    // <p>
-                    //     <strong>Email:</strong> {user.email}
-                    // </p>
-                )}
-            </Formik>
-        </div>
+            <Container>
+                <Box
+                    display="flex"
+                    minHeight="70vh"
+                    sx={{
+                        flexDirection: "column",
+                        backgroundColor: "yellow"
+                    }}
+                >
+
+                    <Box
+                        minHeight="10vh"
+                        sx={{
+                            flexDirection: "row",
+                            backgroundColor: "black"
+                        }}
+                    >
+                    </Box>
+
+                    <Box
+                        minHeight="60vh"
+                        sx={{
+                            flexDirection: "column",
+                            backgroundColor: "red"
+                        }}
+                    >
+                        <Box
+                            minHeight="20vh"
+                            sx={{
+                                backgroundColor: "blue"
+                            }}
+                        >
+
+                        </Box>
+                        <Box
+                            minHeight="20vh"
+                            sx={{
+                                backgroundColor: "green"
+                            }}
+                        >
+
+                        </Box>
+                    </Box>
+
+                </Box>
+            </Container >
+        </Box >
     );
 };
 
