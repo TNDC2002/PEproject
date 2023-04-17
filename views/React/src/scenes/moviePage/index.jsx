@@ -133,72 +133,72 @@ const MoviePage = () => {
   return (   
     <div>
       <Navbar></Navbar>
-    <Container>
-          <YouTubePlayer videoId={trailerVideoId} />
-    <Grid container spacing={1}>
-      <Grid item xs={4}>
-        <item>
-          <Image width="300px" height="500px" src={imageUrl} alt={`${movie.title} poster`} />
-        </item>
+      <Container>
+        <YouTubePlayer videoId={trailerVideoId} />
+        <Grid container spacing={1}>
+          <Grid item xs={4}>
+            <item>
+              <Image width="300px" height="500px" src={imageUrl} alt={`${movie.title} poster`} />
+            </item>
+          </Grid>
 
-
-      </Grid>
-      <Grid item xs={8}>
-      <Typography variant="h5" sx={{ my: 2 }}>Title: {movie.title}</Typography>
-          <Typography variant="body1">Overview: {movie.overview}</Typography>
-          <Typography variant="body1">Adult: {movie.adult.toString()}</Typography>
-          <Typography variant="body1">Release Date: {movie.release_date}</Typography>
-          <Typography variant="body1">Id: {movie.id}</Typography>
-          <Typography variant="body1">Original Title: {movie.original_title}</Typography>
-          <Typography variant="body1">Original Language: {movie.original_language}</Typography>
-          <Typography variant="body1">Popularity: {movie.popularity}</Typography>
-          <Typography variant="body1">Vote Count: {movie.vote_count}</Typography>
-          <Typography variant="body1">Vote Average: {movie.vote_average}</Typography>  
-      <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
+          <Grid item xs={8}>
+            <Typography variant="h5" sx={{ my: 2 }}>Title: {movie.title}</Typography>
+            <Typography variant="body1">Overview: {movie.overview}</Typography>
+            <Typography variant="body1">Adult: {movie.adult.toString()}</Typography>
+            <Typography variant="body1">Release Date: {movie.release_date}</Typography>
+            <Typography variant="body1">Id: {movie.id}</Typography>
+            <Typography variant="body1">Original Title: {movie.original_title}</Typography>
+            <Typography variant="body1">Original Language: {movie.original_language}</Typography>
+            <Typography variant="body1">Popularity: {movie.popularity}</Typography>
+            <Typography variant="body1">Vote Count: {movie.vote_count}</Typography>
+            <Typography variant="body1">Vote Average: {movie.vote_average}</Typography>  
+            <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
+            
             {!isFavourited ? (
               <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
             ) : (
               <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
             )}
-          </IconButton>
+            </IconButton>
 
-          <Button variant='contained'>
+            <Button variant='contained'>
               Rent
-          </Button>
+            </Button>
           
+        </Grid>
+      
+        {recommendations && (
+          <Box sx={{ mt: 2 }}>
+          <Typography variant="h6">Recommendations:</Typography>
+          <Grid container spacing={2} sx={{ mt: 2 }}>
+            {recommendations.map((recommendation) => (
+            <Grid item key={recommendation.id}>
+              <Link to={`/movie/${recommendation.id}`}>
+                <Box
+                  onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                >
+                  <Image 
+                    width="150px" 
+                    height="250px" 
+                    src={recommendation.poster_path ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}` : "https://via.placeholder.com/150x250.png?text=No+Image"} 
+                    alt={`${recommendation.title} poster`} 
+                  />
+                </Box>
+              </Link>
+            </Grid>
+            ))}
+          </Grid>
+          </Box>
+        )}
       </Grid>
-      {recommendations && (
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="h6">Recommendations:</Typography>
-              <Grid container spacing={2} sx={{ mt: 2 }}>
-                {recommendations.map((recommendation) => (
-                  <Grid item key={recommendation.id}>
-                    <Link to={`/movie/${recommendation.id}`}>
-                      <Box
-                        onClick={() => {
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        }}
-                      >
-                        <Image 
-                          width="150px" 
-                          height="250px" 
-                          src={recommendation.poster_path ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}` : "https://via.placeholder.com/150x250.png?text=No+Image"} 
-                          alt={`${recommendation.title} poster`} 
-                        />
-                      </Box>
-                    </Link>
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
-          )}
-    </Grid>
     </Container>
     <Box 
       sx={{
         height: 150
       }}>
-
     </Box>
     </div>
   );
