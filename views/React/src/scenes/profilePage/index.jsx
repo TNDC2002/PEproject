@@ -41,14 +41,16 @@ const ProfilePage = () => {
 
     if (!user) return null;
 
+    const handleFormSubmit = () => {
+
+    }
+
     return (
         <div>
             <Navbar />
             <UserImage image={`${user.picturePath}`} />
             <Formik
                 onSubmit={handleFormSubmit}
-                initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
-                validationSchema={isLogin ? loginSchema : registerSchema}
             >
                 {({
                     values,
