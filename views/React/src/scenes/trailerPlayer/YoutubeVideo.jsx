@@ -7,7 +7,7 @@ const YouTubePlayer = ({ videoId }) => {
     <Box sx={{ backgroundColor: 'black', padding: '0 0%', display: 'flex', justifyContent: 'center' }}>
       <ReactPlayer
         url={`https://www.youtube.com/watch?v=${videoId}`}
-        controls={false}
+        controls={true}
         playing={true}
         volume={1.0}
       />
