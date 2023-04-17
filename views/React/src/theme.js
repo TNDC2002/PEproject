@@ -48,6 +48,7 @@ export const themeSettings = (mode) => {
     typography: {
       fontFamily: ["Montserrat", "Open Sans", "sans-serif"].join(","),
       fontSize: 12,
+      color: "white",
       h1: {
         fontFamily: ["Montserrat", "Open Sans", "sans-serif"].join(","),
         fontSize: 40,
