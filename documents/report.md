@@ -1,14 +1,12 @@
 # REPORT
 1. Member
-    | First Header  | Second Header |
+    | Full Name  | Student Id |
     | ------------- | ------------- |
-    | Content Cell  | Content Cell  |
-    | Content Cell  | Content Cell  |
-    - Nguyễn Ngọc Vĩnh
-    - Hà Quách Phú Thành
-    - Thái Quang Nam
-    - Phạm Hoàng Việt
-    - Nguyễn Xuân Khang
-    - Nguyễn Khắc Hoàng
-    - Lê Duy
-    - Trần Ngọc Duy Chương
+    | Nguyễn Ngọc Vĩnh  | 18691 |
+    | Hà Quách Phú Thành | 18840 |
+    | Thái Quang Nam | 18770 |
+    | Phạm Hoàng Việt | 18334 |
+    | Nguyễn Xuân Khang | 18973 |
+    | Nguyễn Khắc Hoàng | 18230 |
+    | Lê Duy | 17434 |
+    | Trần Ngọc Duy Chương | 17197 |
