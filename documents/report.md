@@ -12,13 +12,13 @@
 | Trần Ngọc Duy Chương | 17197 |
 
 ## Introduction
->- Overview:
-    >- Our movie renting website:
-        >- Allows users to browse through a catalog of available movies and rent specific titles for a limited period of time by paying a rental fee.
-        >- Enables users to create an account on our website to access features such as user reviews and ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles.
-        >- Offers a secure payment system to process transactions.
-        >- Aims to provide a convenient and affordable rental model for our users.
-        >- Strives to offer a diverse and high-quality selection of movies for rent on our website.
+- Overview:
+    - Our movie renting website:
+        - Allows users to browse through a catalog of available movies and rent specific titles for a limited period of time by paying a rental fee.
+        - Enables users to create an account on our website to access features such as user reviews and ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles.
+        - Offers a secure payment system to process transactions.
+        - Aims to provide a convenient and affordable rental model for our users.
+        - Strives to offer a diverse and high-quality selection of movies for rent on our website.
 
 >- Technology:
 
