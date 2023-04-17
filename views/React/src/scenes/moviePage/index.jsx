@@ -73,7 +73,6 @@ const MoviePage = () => {
     };
     fetchMovieDetails();
 
-
     const fetchTrailerID = async () => {
       try {
         const response = await fetch(
@@ -89,19 +88,25 @@ const MoviePage = () => {
         }
       };
       fetchTrailerID();
-    }, [movieID]
-    );
-
-  const fetchRecommendations = async () => {
-    try {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/recommendations?api_key=37be93e690e7adb076e5110e93fda06f`);
-      setRecommendations(response.data.results);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+      
+  }, [movieID]);
 
   useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/movie/recommendations/${movieID}`,{
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const data = await response.json();
+        setRecommendations(data.results);
+   
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchRecommendations();
   }, [movieID]);
   
