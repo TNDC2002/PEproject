@@ -138,8 +138,9 @@ const ProfilePage = () => {
                     </Box>
                     <Stack direction="row"
                         justifyContent="space-between"
-                        minHeight={30}
-                        minWidth={30}>
+                        display = "flex"
+                        height={30}
+                        Width={30}>
 
 
                         <Box
@@ -153,8 +154,9 @@ const ProfilePage = () => {
                         </Box>
 
                         <Box
-                            minHeight="60vh"
-                            minWidth="110vh"
+                            display="flex" 
+                            width= {800}
+                            height= {428}
                             sx={{
 
                                 backgroundColor: "red"
