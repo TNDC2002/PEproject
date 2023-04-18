@@ -18,7 +18,7 @@
 
 ## Member<a name = "member">
 | Full Name  | Student Id | Task |
-| ---------  | :---: | :---: |
+| ---------  | :---: | :--- |
 | Nguyễn Ngọc Vĩnh  | 18691 | Documentation, Data API |
 | Hà Quách Phú Thành | 18840 | Backend |
 | Thái Quang Nam | 18770 | User Interface |
