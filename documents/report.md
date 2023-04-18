@@ -13,6 +13,7 @@
     - [Movie Fetching](#movie-fetching)
     - [Showcase Movie Trailer](#showcase-movie-trailer)
     - [Search Engine](#search-engine)
+    - [Payment System](#payment-system)
   - [Performance and Sercurity](#performance-and-sercurity)
   - [Test Case](#test-case)
   - [Summary](#summary)
@@ -72,6 +73,13 @@
 >- **Utilizing the TMDB API**: Our search engine harnesses the power of the TMDB API to retrieve movie information from a vast database. By leveraging the movie ID, the API can retrieve details such as the movie title, release date, synopsis, cast, and ratings.
 >- **Employing Fuzzy Matching Algorithms**: To help users find the right movies, we use fuzzy matching algorithms that take into account the similarity between the user's search query and the movie titles in our database. This allows us to return a list of search results that are tailored to the user's interests.
 >- **Ranking Results by Popularity and Release Date**: To improve the accuracy of the search results, our search engine uses data such as the movie's popularity and release date to rank the results. This ensures that the most relevant and recent movies appear at the top of the search results.
+### Payment System
+> At our movie renting website, we understand that the payment process needs to be simple, secure, and seamless. That's why we've developed a payment system that is easy to use and ensures that users can rent movies quickly and securely. Here's an overview of how it works:
+>- Payment Gateway Integration: Our payment system integrates with leading payment gateways, such as PayPal and Stripe, to ensure that users can pay using their preferred payment method.
+>- Secure Transactions: We take security seriously and use SSL encryption to ensure that all payment transactions are secure and protected from unauthorized access
+>- User-Friendly Interface: Our payment system has a user-friendly interface that guides users through the payment process step-by-step, making it easy for them to rent movies.
+>- Automatic Billing: To make renting movies even easier, we offer automatic billing, so users don't have to worry about remembering to pay for their rental. Once the rental period is over, we automatically charge the user's payment method on file.
+>- Refunds and Cancellations: We understand that sometimes plans change, so we offer easy refunds and cancellations. Users can cancel their rental or request a refund with just a few clicks, and our customer support team is always available to help if needed.
 
 ## Performance and Sercurity
     - Performance
