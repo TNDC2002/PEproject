@@ -1,21 +1,22 @@
 import { useState } from "react";
-import { useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import Navbar from "../navbar";
 import MovieList from "./MovieList";
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
-
+import backgroundImage from "../../images/background.png";
 
 const HomePage = () => {
     return (
-        <div>
+        <Box>
+            <img src={backgroundImage} height="100%" width="100%"/>
             <Navbar/>
-            <YouTubePlayer videoId={"eLI3PeE0a6I"}/>
+            <YouTubePlayer videoId={"Aza6MSNBadY"}/>
             <MovieList category="popular" />
             <MovieList category="nowPlaying" />
             <MovieList category="topRated" />
-            <MovieList category="upcoming" />
-        </div>
+            <MovieList category="upcoming" />3
+        </Box>
     );
 };
 
