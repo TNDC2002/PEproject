@@ -1,6 +1,5 @@
 # REPORT<a name = "report">
 ## Preface<a name = "preface">
-
 - [REPORT](#report)
   - [Preface](#preface)
   - [Member](#member)
@@ -17,8 +16,6 @@
   - [Performance and Sercurity](#performance-and-sercurity)
   - [Test Case](#test-case)
   - [Summary](#summary)
-
-
 ## Member<a name = "member">
 | Full Name  | Student Id | Task |
 | ---------  | :---: | :--- |
@@ -57,8 +54,6 @@
 >- **Movie Page**: The movie page includes a detailed description of the movie, as well as information such as the cast, director, and release year. It also displays user reviews and ratings, as well as related movies that users may be interested in.
 >- **Settings Page**: The settings page allows users to customize their experience on the website, including options such as language preferences, notification settings, and account information.
 >- **My Favorites Page**: The "My Favorites" page displays a user's saved list of favorite movies, allowing them to easily access and rent them again in the future.
-
-
 ## Functionality<a name = "functionality">
 ### Movie Fetching<a name="movie-fetching">
 > As the world of cinema continues to expand with new movies and genres, navigating it can be an overwhelming task. That's why our system is designed to provide a comprehensive and highly informative platform for movie exploration and discovery, leveraging the extensive data available through the **TMDB database API**.
@@ -72,8 +67,11 @@
 >- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
 >- **YouTube V3 API**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
 >- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.  
-
 ### Search Engine
+> At the heart of our movie renting webpage is a powerful **search engine** that helps users find the movies they want to watch quickly and easily. Here's an overview of how it works:
+>- **Utilizing the TMDB API**: Our search engine harnesses the power of the TMDB API to retrieve movie information from a vast database. By leveraging the movie ID, the API can retrieve details such as the movie title, release date, synopsis, cast, and ratings.
+>- **Employing Fuzzy Matching Algorithms**: To help users find the right movies, we use fuzzy matching algorithms that take into account the similarity between the user's search query and the movie titles in our database. This allows us to return a list of search results that are tailored to the user's interests.
+>- **Ranking Results by Popularity and Release Date**: To improve the accuracy of the search results, our search engine uses data such as the movie's popularity and release date to rank the results. This ensures that the most relevant and recent movies appear at the top of the search results.
 
 ## Performance and Sercurity
     - Performance
