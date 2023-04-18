@@ -1,10 +1,22 @@
 import {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useTheme, Typography } from '@mui/material';
 
-const SearchBar = () => {
+const defaultSearchOptions = 
+            [{label: "original value 1"},
+            {label: "original value 2"}];
+
+const SearchBar = ({ placeholder, data }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [isEmpty, setIsEmpty] = useState(true);
+  const [options, setOptions] = useState(defaultSearchOptions);
+  const theme = useTheme();
+
+  const navigate = useNavigate();
+
   const handleFocus = () => {
     setIsFocused(true);
   };
@@ -13,33 +25,49 @@ const SearchBar = () => {
     setIsFocused(false);
   };
 
-  const options = [
-    { label: 'Option 1' },
-    { label: 'Option 2' },
-    { label: 'Option 3' },
-    { label: 'Option 4' },
-  ];
+  const handleSearch = async (value) => {
+    console.log();
+    //navigate(`/search/${value}`)
+  };
 
-  const handleSearch = (value) => {
-    console.log('Search for:', value.label);
-    // Perform search based on value.label
+  // useEffect(() => {
+  //   const alreadyExists = options.some((option) => option.label === inputValue);
+  //   if (!alreadyExists && inputValue !== "") {
+  //     setOptions([{ label: inputValue }, ...options]);
+  //   }
+  //   setIsEmpty(inputValue === "");
+  // }, [inputValue, options]);
+  
+
+  const handleInputChange = async (event, newInputValue) => {
+    setInputValue(newInputValue);
+    const alreadyExists = options.some((option) => option.label === inputValue);
+    if (!alreadyExists && inputValue !== "") {
+      setOptions([{ label: inputValue }, ...options]);
+    }
+    setIsEmpty(inputValue === "");
+    setOptions(defaultSearchOptions);
   };
 
   return (
     <Autocomplete
+      freeSolo
       options={options}
       getOptionLabel={(option) => option.label}
-      onChange={(event, value) => handleSearch(value)}
+      onChange={(value) => handleSearch(value)}
       inputValue={inputValue}
-      sx={{ width: isFocused ? '500px' : '200px', transition: 'width 0.5s' }}
-      onInputChange={(event, newInputValue) => {
-        setInputValue(newInputValue);
-      }}
+      sx={{ width: '300px' }}
+      onInputChange={handleInputChange}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Search..."
+          label={
+            <Typography color={theme.palette.neutral.dark}>
+              Search
+            </Typography>
+          }
           variant="standard"
+          size='small'
           onClick={handleFocus}
           onBlur={handleBlur}
         />
