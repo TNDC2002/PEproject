@@ -6,7 +6,7 @@ import {
     useMediaQuery,
     Typography,
     Stack,
-    ButtonGroup
+    ButtonGroup,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Formik } from "formik";
@@ -59,94 +59,120 @@ const ProfilePage = () => {
         <Box>
             <Navbar />
             <Container>
-                <Stack
-                    direction={isNonMobileScreens ? "row" : "column"}
-                    justifyContent="space-between"
-                    alignItems="stretch"
-                    sx={{ flex: 1 }}
+                <Box
+                    minHeight="60vh"
+                    minWidth="110vh"
+                    sx={{
+                        backgroundColor: "yellow",
+                        display: "flex",
+                        flexDirection: "column",
+                    }}
                 >
                     <Box
-                        minHeight="60vh"
-                        minWidth="35vh"
                         sx={{
-                            backgroundColor: "red",
+                            backgroundColor: "green",
                             flexGrow: 1,
-                            flexShrink: 1,
+                            width: "100%",
+                            display: "inline-flex",
+                        }}
+                    >
+                        <ButtonGroup variant="text" aria-label="text button group" fullWidth>
+                            <Button>Profile</Button>
+                            <Button>Password</Button>
+                            <Button>Setting</Button>
+                        </ButtonGroup>
+                    </Box>
+                    <Box
+                        sx={{
+                            backgroundColor: "blue",
+                            flexGrow: 10,
+                            height: "100%",
+                            display: "flex",
+                            flexDirection: "column"
                         }}
                     >
                         <Stack
-                            direction="column"
-                            spacing={2}
-                            justifyContent="center"
-                            alignItems="center"
+                            direction={isNonMobileScreens ? "row" : "column"}
+                            justifyContent="space-between"
+                            alignItems="stretch"
+                            sx={{ flex: 1 }}
                         >
-                            <Typography variant="h4" gutterBottom>
-                                My Profile
-                            </Typography>
-                            <UserImage
-                                image={`${user.picturePath}`}
-                                size={isNonMobileScreens ? "large" : "medium"}
-                            />
-                            <Typography variant="h5" gutterBottom>
-                                {user.firstName} {user.lastName}
-                            </Typography>
-                            <Typography variant="subtitle1" gutterBottom>
-                                {user.email}
-                            </Typography>
+                            {/* First Stack */}
+                            <Stack
+                                direction="column"
+                                spacing={2}
+                                justifyContent="start"
+                                alignItems="center"
+                                backgroundColor="red"
+                                sx={{
+                                    width: isNonMobileScreens ? "30%" : "100%",
+                                }}
+                            >
+                                <UserImage
+                                    image={`https://tophinhanhdep.com/wp-content/uploads/2021/10/Rem-Wallpapers.png`}
+                                    size="100px"
+                                />
+                            </Stack>
+
+                            {/* Second Stack */}
+                            <Stack
+                                direction="column"
+                                spacing={1.5}
+                                justifyContent="start"
+                                alignItems="start"
+                                backgroundColor="yellow"
+                                color="white"
+                                sx={{
+                                    paddingTop: "2.5%",
+                                    width: isNonMobileScreens ? "70%" : "100%",
+                                }}
+                            >
+                                <Typography variant="h4" gutterBottom bgcolor={"red"} margin="0" fontWeight="bold">
+                                    Info
+                                    <IconButton>
+                                        <EditIcon />
+                                    </IconButton>
+                                </Typography>
+
+                                <Stack direction="row">
+                                    <Stack
+                                        sx={{
+                                            backgroundColor: "blue",
+                                            width: "180px",
+                                            height: "45px",
+                                            justifyContent: "center",
+                                        }}>
+                                        <Typography fontWeight="bold">First name</Typography>
+                                        <Typography>{user.firstName}</Typography>
+                                    </Stack>
+                                    <Stack
+                                        sx={{
+                                            backgroundColor: "green",
+                                            width: "180px",
+                                            height: "45px",
+                                            justifyContent: "center",
+                                        }}>
+                                        <Typography fontWeight="bold">Last name</Typography>
+                                        <Typography>{user.lastName}</Typography>
+                                    </Stack>
+                                </Stack>
+
+                                <Stack
+                                    sx={{
+                                        backgroundColor: "blue",
+                                        width: "180px",
+                                        height: "45px",
+                                        justifyContent: "center",
+                                    }}>
+                                    <Typography fontWeight="bold">Email</Typography>
+                                    <Typography>{user.email}</Typography>
+                                </Stack>
+                            </Stack>
                         </Stack>
                     </Box>
-                    <Box
-                        minHeight="60vh"
-                        minWidth="110vh"
-                        sx={{
-                            backgroundColor: "yellow",
-                            display: "flex",
-                            flexDirection: "column",
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                backgroundColor: "green",
-                                flexGrow: 1,
-                                width: "100%",
-                                display: "inline-flex",
-                            }}
-                        >
-                            <ButtonGroup variant="text" aria-label="text button group" fullWidth>
-                                <Button>Profile</Button>
-                                <Button>Password</Button>
-                                <Button>Setting</Button>
-                            </ButtonGroup>
-                        </Box>
-                        <Box
-                            sx={{
-                                backgroundColor: "blue",
-                                flexGrow: 10,
-                            }}
-                        >
-                            <Stack direction="column" spacing={2}>
-                                <Typography variant="h5" gutterBottom>
-                                    Personal Information
-                                </Typography>
-                                <Typography variant="subtitle1" gutterBottom>
-                                    First Name: {user.firstName}
-                                </Typography>
-                                <Typography variant="subtitle1" gutterBottom>
-                                    Last Name: {user.lastName}
-                                </Typography>
-                                <Typography variant="subtitle1" gutterBottom>
-                                    Date of Birth: {user.dateOfBirth}
-                                </Typography>
-                                <Typography variant="subtitle1" gutterBottom>
-                                    Gender: {user.gender}
-                                </Typography>
-                                <Typography variant="subtitle1" gutterBottom>
-                                    Phone Number: {user.phoneNumber}
-                                </Typography>
-                            </Stack>
-                        </Box>
-                    </Box>
-                </Stack>
+
+
+                </Box>
             </Container>
         </Box>
 
