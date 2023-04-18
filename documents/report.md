@@ -13,6 +13,7 @@
   - [Functionality](#functionality)
     - [Movie Fetching](#movie-fetching)
     - [Showcase Movie Trailer](#showcase-movie-trailer)
+    - [Search Engine](#search-engine)
   - [Performance and Sercurity](#performance-and-sercurity)
   - [Test Case](#test-case)
   - [Summary](#summary)
@@ -62,26 +63,29 @@
 ### Movie Fetching<a name="movie-fetching">
 > As the world of cinema continues to expand with new movies and genres, navigating it can be an overwhelming task. That's why our system is designed to provide a comprehensive and highly informative platform for movie exploration and discovery, leveraging the extensive data available through the TMDB database API.
 >- Extensive collection of data: The TMDB API offers a vast repository of movie-related data, including plot summaries, cast information, user reviews, and ratings. This wealth of information can be invaluable for users looking to explore the world of cinema.
-```
-useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS[category]}&page=${page}`);
-        const data = await response.json();
-        setMovies(data.results);
-      } catch (error) {
-        console.error(error);
-      }
-        };
-    fetchMovies();
-}, [category, page]);
+  ```
+  useEffect(() => {
+      const fetchMovies = async () => {
+        try {S
+          const response = await fetch(`http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS[category]}&page=${page}`);
+          const data = await response.json();
+          setMovies(data.results);
+        } catch (error) {
+          console.error(error);
+        }
+          };
+      fetchMovies();
+  }, [category, page]);
 
-```
+  ```
 >- Regular updates: The TMDB API is regularly updated with new movie releases, ensuring that users have access to the latest information on new and upcoming movies.
 >- Customizable queries: The TMDB API allows users to customize their queries to retrieve only the data they need. This can save time and resources by reducing the amount of irrelevant data that needs to be processed.
 >- Integration with other applications: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
 >- Community-driven: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
 ### Showcase Movie Trailer
+
+### Search Engine
+
 
 ## Performance and Sercurity
     - Performance
