@@ -138,8 +138,6 @@ const MoviePage = () => {
     return <Typography>Loading...</Typography>;
   }
 
-  console.log(movie)
-
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   return (   
     <div>
