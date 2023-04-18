@@ -1,7 +1,8 @@
 # REPORT
-## Preface
-#### [UX/UI](#UX/UI)!
-## Member
+1. [Member](#member)
+2. [Introduction](#introduction)
+   1. [Overview](#overview1)
+## Member <a name="member"></a>
 | Full Name  | Student Id |
 | ---------  | :---: |
 | Nguyễn Ngọc Vĩnh  | 18691 |
@@ -12,8 +13,8 @@
 | Nguyễn Khắc Hoàng | 18230 |
 | Lê Duy | 17434 |
 | Trần Ngọc Duy Chương | 17197 |
-## Introduction
-### Overview:
+## Introduction <a name="introduction">
+### Overview: <a name="overview1">
 >Our **movie renting website** offers the following features to ensure a diverse and convenient user experience:
 >- **Extensive movie selection**: We strive to offer an extensive and diverse selection of movies from every genre, year, and more, ensuring there is something for every user's taste.
 >- **Rental model**: Users can browse through a vast catalog of available movies and rent specific titles for a limited period by paying a rental fee.
