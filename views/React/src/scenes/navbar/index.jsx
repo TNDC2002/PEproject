@@ -49,6 +49,7 @@ const Navbar = ({}) => {
     const user = useSelector((state) => state.user);
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
+    const [notificationNumber, setNotificationNumber] = useState(0);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -126,7 +127,7 @@ const Navbar = ({}) => {
                         <IconButton onClick={ handleClick }>
                             <Badge 
                                 color="error" 
-                                badgeContent={0} 
+                                badgeContent={notificationNumber} 
                                 overlap="circular" 
                                 anchorOrigin={{
                                     vertical: 'top',
@@ -191,7 +192,7 @@ const Navbar = ({}) => {
                                 <Typography padding="0.25rem 1rem">Settings</Typography>
                             </MenuItem>
                             <MenuItem onClick={redirectNotification}>
-                                <Badge badgeContent={4} sx ={{ color: 'red' }}>
+                                <Badge badgeContent={notificationNumber} sx ={{ color: notificationNumber > 0 ? 'red' : 'white'}}>
                                     <Notifications/>
                                 </Badge>
                                 <Typography padding="0.25rem 1rem">Notifications</Typography>
