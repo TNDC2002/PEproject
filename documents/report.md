@@ -90,4 +90,8 @@
     - Test Case 2
   
 ## Summary
->Our rental movie website offers a vast selection of movies from every genre and year, with a user-friendly search bar and filters to make finding specific titles easy. Users can rent movies for a limited period by paying a rental fee, and personalized recommendations based on viewing history make discovering new movies a breeze. The website also prioritizes user feedback and reviews, making them prominently displayed. With secure payment processing and responsive design optimized for both desktop and mobile devices, our website provides a seamless and convenient rental model with excellent functionality for all users.
+>Our rental movie website offers a vast selection of movies with personalized recommendations, user-friendly search options, and secure payment processing. With a responsive design optimized for all devices and prioritizing user feedback, our service provides a seamless and convenient rental model for all users.
+
+
+
+
