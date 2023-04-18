@@ -1,4 +1,6 @@
 # REPORT
+## Preface
+#### [UX/UI](#UX/UI)!
 ## Member
 | Full Name  | Student Id |
 | ---------  | :---: |
@@ -26,7 +28,7 @@
 >- **Node.js**: a JavaScript runtime environment used to execute server-side code and provide a backend for the website.
 >- **Material-UI (MUI)**: a popular React component library that provides pre-built, customizable UI components for building modern and responsive user interfaces.
 
-## UX/UI
+## UX/UI <a name="UX/UI"></a>
 ### Overview:
 > The **Smash Bruh** movie renting website offers the following features:
 >- **Visually appealing UI**: The website's UI is designed to be visually appealing and user-friendly, providing a pleasant and intuitive browsing experience.
