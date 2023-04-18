@@ -58,8 +58,8 @@
 >- **My Favorites Page**: The "My Favorites" page displays a user's saved list of favorite movies, allowing them to easily access and rent them again in the future.
 
 
-## Functionality
-### Movie Fetching 
+## Functionality<a name = "functionality">
+### Movie Fetching<a name="movie-fetching">
 > As the world of cinema continues to expand with new movies and genres, navigating it can be an overwhelming task. That's why our system is designed to provide a comprehensive and highly informative platform for movie exploration and discovery, leveraging the extensive data available through the TMDB database API.
 >- Extensive collection of data: The TMDB API offers a vast repository of movie-related data, including plot summaries, cast information, user reviews, and ratings. This wealth of information can be invaluable for users looking to explore the world of cinema.
 ```
