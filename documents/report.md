@@ -11,6 +11,8 @@
     - [Overview ](#overview-)
     - [Pages and Images](#pages-and-images)
   - [Functionality](#functionality)
+    - [Movie Fetching](#movie-fetching)
+    - [Showcase Movie Trailer](#showcase-movie-trailer)
   - [Performance and Sercurity](#performance-and-sercurity)
   - [Test Case](#test-case)
   - [Summary](#summary)
@@ -46,11 +48,8 @@
 ### Overview <a name = "overview-1">
 > The **Smash Bruh** movie renting website offers the following features:
 >- **Visually appealing UI**: The website's UI is designed to be visually appealing and user-friendly, providing a pleasant and intuitive browsing experience.
->- **Search function and categories**: The website includes a prominent search bar for quick movie searches, as well as categories and filters to browse through different genres or types of movies.
->- **User reviews and ratings**: User reviews and ratings are given priority and displayed prominently, allowing users to easily leave feedback and providing valuable information for other users.
->- **Rental terms and instructions**: Clear and concise information about rental terms and fees is provided, and instructions for how to rent and watch movies on the platform are easy to follow.
+>- **Easy Navigation**: Users can quickly navigate to different parts of the website, such as the movie page to view details and trailers, the settings page to customize their preferences, or the "My Favorites" page to access their saved movies. 
 >- **Responsive and accessible design**: The website is intuitive and responsive, optimized for both desktop and mobile devices, making it easy for users to navigate and rent movies from any device.
->- **Secure payment system**: A secure and reliable payment system is provided to ensure safe and efficient transactions, protecting users' sensitive information.
 ### Pages and Images<a name="pages-and-images">
 >Our website offers a variety of **user-friendly** and **informative** pages to enhance your movie rental experience. Here are some of the key features of our four main pages:
 >- **Home Page**: The homepage is designed to be user-friendly and informative, featuring relevant images to accompany movie titles and descriptions, as well as a search bar and categories to help users easily find the movies they are interested in.
@@ -60,6 +59,15 @@
 
 
 ## Functionality
+### Movie Fetching
+> We fetch movie data from the TMDB database api, which contains an extensive collections of movie infomation. 
+### Showcase Movie Trailer
+> As the world of cinema continues to expand with new movies and genres, navigating it can be an overwhelming task. That's why our system is designed to provide a comprehensive and highly informative platform for movie exploration and discovery, leveraging the extensive data available through the TMDB database API.
+>- Extensive collection of data: The TMDB API offers a vast repository of movie-related data, including plot summaries, cast information, user reviews, and ratings. This wealth of information can be invaluable for users looking to explore the world of cinema.
+>- Regular updates: The TMDB API is regularly updated with new movie releases, ensuring that users have access to the latest information on new and upcoming movies.
+>- Customizable queries: The TMDB API allows users to customize their queries to retrieve only the data they need. This can save time and resources by reducing the amount of irrelevant data that needs to be processed.
+>- Integration with other applications: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
+>- Community-driven: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
 
 
 ## Performance and Sercurity
