@@ -16,13 +16,12 @@
 >Our movie renting website allows users to browse through a catalog of available movies and rent specific titles for a limited period of time by paying a rental fee. Users can create an account on our website to access features such as user reviews and ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles. Our website offers a secure payment system to process transactions and aims to provide a convenient and affordable rental model for our users. We also strive to offer a diverse and high-quality selection of movies for rent on our website.
 
 ### Technology:
->Our movie renting website is built using the **MERN** stack, which includes the following technologies:
->- MongoDB: a document-based NoSQL database used to store and manage movie data, user data, and transactional data.
->- Express: a web application framework used to build the backend API that communicates with the database and provides functionality for the frontend of the website.
->- React: a front-end JavaScript library used to build the user interface and manage the state of the website.
->- Node.js: a JavaScript runtime environment used to execute server-side code and provide a backend for the website.
-
->**MUI**
+>Our movie renting website is built using the **MERN** stack, with the addition of the **Material-UI** (MUI) library for the user interface. This includes the following technologies:
+>- **MongoDB**: a document-based NoSQL database used to store and manage movie data, user data, and transactional data.
+>- **Express**: a web application framework used to build the backend API that communicates with the database and provides functionality for the frontend of the website.
+>- **React**: a front-end JavaScript library used to build the user interface and manage the state of the website.
+>- **Node.js**: a JavaScript runtime environment used to execute server-side code and provide a backend for the website.
+>- **Material-UI (MUI)**: a popular React component library that provides pre-built, customizable UI components for building modern and responsive user interfaces.
 
 
 ## UI
