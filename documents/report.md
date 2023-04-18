@@ -10,9 +10,8 @@
 | Nguyễn Khắc Hoàng | 18230 |
 | Lê Duy | 17434 |
 | Trần Ngọc Duy Chương | 17197 |
-
-## Introduction
 ***
+## Introduction
 ### Overview:
 >Our **movie renting website** offers the following features to ensure a diverse and convenient user experience:
 >- **Extensive movie selection**: We strive to offer an extensive and diverse selection of movies from every genre, year, and more, ensuring there is something for every user's taste.
