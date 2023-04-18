@@ -6,12 +6,15 @@ import {
     useMediaQuery,
     Typography,
     Stack,
+    ButtonGroup
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Formik } from "formik";
 import { useSelector } from "react-redux";
 import Navbar from "../navbar";
 import UserImage from "../../components/UserImage";
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from '@mui/material/IconButton';
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
@@ -48,127 +51,105 @@ const ProfilePage = () => {
 
     }
 
+    const handleEditProfile = () => {
+
+    }
+
     return (
         <Box>
             <Navbar />
-            <UserImage image={`${user.picturePath}`} />
             <Container>
-                <Stack direction="column"
-
-                    minHeight="70vh"
-
-                    sx={{
-                        backgroundColor: "yellow"
-
-                    }}
+                <Stack
+                    direction={isNonMobileScreens ? "row" : "column"}
+                    justifyContent="space-between"
+                    alignItems="stretch"
+                    sx={{ flex: 1 }}
                 >
                     <Box
-                        minHeight="10vh"
-                        minWidth="10vh"
+                        minHeight="60vh"
+                        minWidth="35vh"
                         sx={{
-
-                            backgroundColor: "black"
+                            backgroundColor: "red",
+                            flexGrow: 1,
+                            flexShrink: 1,
                         }}
                     >
                         <Stack
-                            direction="row"
-                            spacing={5}
+                            direction="column"
+                            spacing={2}
+                            justifyContent="center"
+                            alignItems="center"
                         >
-                            <Button
-                                variant="text"
-                                style={{
-                                    maxWidth: "200px",
-                                    maxHeight: "50px",
-                                    minWidth: "30px",
-                                    minHeight: "30px",
-                                }}
-                                onClick={() => {
-                                    setPageType("login");
-                                    resetForm();
-                                }}
-                                sx={{
-                                    height: 70,
-                                    color: "#B3005E",
-                                }}
-                            >
-
-                            </Button>
-
-                            <Button
-                                variant="text"
-                                style={{
-                                    maxWidth: "200px",
-                                    maxHeight: "50px",
-                                    minWidth: "30px",
-                                    minHeight: "30px",
-                                }}
-                                onClick={() => {
-                                }}
-                                sx={{
-                                    height: 70,
-                                    color: "#B3005E",
-                                    "&:hover": {
-                                        backgroundColor: "whitesmoke",
-                                        color: "black",
-                                    },
-                                }}
-                            >
-                                <Typography
-                                    sx={{
-                                        color: "#B3005E",
-
-                                        "&:hover": {
-                                            textDecoration: "underline black",
-                                        },
-                                    }}
-                                    display="inline"
-                                    style={{ color: "#B3005E" }}
-                                    fontSize={20}
-                                >
-                                    Registrate
-                                </Typography>
-                            </Button>
-                            <Button>
-
-                            </Button>
-                            <Button>
-
-                            </Button>
+                            <Typography variant="h4" gutterBottom>
+                                My Profile
+                            </Typography>
+                            <UserImage
+                                image={`${user.picturePath}`}
+                                size={isNonMobileScreens ? "large" : "medium"}
+                            />
+                            <Typography variant="h5" gutterBottom>
+                                {user.firstName} {user.lastName}
+                            </Typography>
+                            <Typography variant="subtitle1" gutterBottom>
+                                {user.email}
+                            </Typography>
                         </Stack>
                     </Box>
-                    <Stack direction="row"
-                        justifyContent="space-between"
-                        minHeight={30}
-                        minWidth={30}>
-
-
+                    <Box
+                        minHeight="60vh"
+                        minWidth="110vh"
+                        sx={{
+                            backgroundColor: "yellow",
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
                         <Box
-                            minHeight="60vh"
-                            minWidth="35vh"
                             sx={{
-
-                                backgroundColor: "red"
+                                backgroundColor: "green",
+                                flexGrow: 1,
+                                width: "100%",
+                                display: "inline-flex",
                             }}
                         >
+                            <ButtonGroup variant="text" aria-label="text button group" fullWidth>
+                                <Button>Profile</Button>
+                                <Button>Password</Button>
+                                <Button>Setting</Button>
+                            </ButtonGroup>
                         </Box>
-
                         <Box
-                            minHeight="60vh"
-                            minWidth="110vh"
                             sx={{
-
-                                backgroundColor: "red"
+                                backgroundColor: "blue",
+                                flexGrow: 10,
                             }}
                         >
+                            <Stack direction="column" spacing={2}>
+                                <Typography variant="h5" gutterBottom>
+                                    Personal Information
+                                </Typography>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    First Name: {user.firstName}
+                                </Typography>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Last Name: {user.lastName}
+                                </Typography>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Date of Birth: {user.dateOfBirth}
+                                </Typography>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Gender: {user.gender}
+                                </Typography>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Phone Number: {user.phoneNumber}
+                                </Typography>
+                            </Stack>
                         </Box>
-
-
-                    </Stack>
-
-
+                    </Box>
                 </Stack>
-            </Container >
-        </Box >
+            </Container>
+        </Box>
+
     );
 };
 
