@@ -10,7 +10,6 @@
 | Nguyễn Khắc Hoàng | 18230 |
 | Lê Duy | 17434 |
 | Trần Ngọc Duy Chương | 17197 |
-***
 ## Introduction
 ### Overview:
 >Our **movie renting website** offers the following features to ensure a diverse and convenient user experience:
@@ -37,7 +36,11 @@
 >- **Responsive and accessible design**: The website is intuitive and responsive, optimized for both desktop and mobile devices, making it easy for users to navigate and rent movies from any device.
 >- **Secure payment system**: A secure and reliable payment system is provided to ensure safe and efficient transactions, protecting users' sensitive information.
 ### Pages and Images:
->Each page on our website is designed to be user-friendly and informative, with relevant images to accompany movie titles and descriptions.
+>Our website offers a variety of user-friendly and informative pages to enhance your movie rental experience. Here are some of the key features of our four main pages:
+>- Home Page: The homepage is designed to be user-friendly and informative, featuring relevant images to accompany movie titles and descriptions, as well as a search bar and categories to help users easily find the movies they are interested in.
+>- Movie Page: The movie page includes a detailed description of the movie, as well as information such as the cast, director, and release year. It also displays user reviews and ratings, as well as related movies that users may be interested in.
+>- Settings Page: The settings page allows users to customize their experience on the website, including options such as language preferences, notification settings, and account information.
+>- My Favorites Page: The "My Favorites" page displays a user's saved list of favorite movies, allowing them to easily access and rent them again in the future.
 
 
 ## Functionality
