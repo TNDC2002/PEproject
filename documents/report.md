@@ -25,7 +25,7 @@
     - MUI
     - 
 ## UI
-    - Overview
+    >- Overview
       - Visually appealing and easy to navigate
       - Includes a prominent search bar for quick movie searches
       - Provides categories or filters to browse through different genres or types of movies
@@ -34,7 +34,7 @@
       - Intuitive and user-friendly, allowing easy navigation through the rental process
       - Responsive and accessible, optimized for both desktop and mobile devices
       - Provides a secure and reliable payment system to ensure safe and efficient transactions.
-    - Each Pages
+    >- Each Pages
     - Image
 
 ## Functionality
