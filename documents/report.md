@@ -63,17 +63,17 @@
 >- **Customizable queries**: The TMDB API allows users to customize their queries to retrieve only the data they need. This can save time and resources by reducing the amount of irrelevant data that needs to be processed.
 >- **Integration with other applications**: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
 >- **Community-driven**: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
-### Showcase Movie Trailer
+### Showcase Movie Trailer<a name = "showcase-movie-trailer">
 > Our website can utilize the following **APIs** to display **movie trailers** for users:
 >- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
 >- **YouTube V3 API**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
 >- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.  
-### Search Engine
+### Search Engine<a name="search-engine">
 > At the heart of our movie renting webpage is a powerful **search engine** that helps users find the movies they want to watch quickly and easily. Here's an overview of how it works:
 >- **Utilizing the TMDB API**: Our search engine harnesses the power of the TMDB API to retrieve movie information from a vast database. By leveraging the movie ID, the API can retrieve details such as the movie title, release date, synopsis, cast, and ratings.
 >- **Employing Fuzzy Matching Algorithms**: To help users find the right movies, we use fuzzy matching algorithms that take into account the similarity between the user's search query and the movie titles in our database. This allows us to return a list of search results that are tailored to the user's interests.
 >- **Ranking Results by Popularity and Release Date**: To improve the accuracy of the search results, our search engine uses data such as the movie's popularity and release date to rank the results. This ensures that the most relevant and recent movies appear at the top of the search results.
-### Payment System
+### Payment System<a name = "payment-system">
 > At our movie renting website, we understand that the payment process needs to be **simple, secure, and seamless**. That's why we've developed a payment system that is easy to use and ensures that users can rent movies quickly and securely. Here's an overview of how it works:
 >- **Payment Gateway Integration**: Our payment system integrates with leading payment gateways, such as PayPal and Stripe, to ensure that users can pay using their preferred payment method.
 >- **Secure Transactions**: We take security seriously and use SSL encryption to ensure that all payment transactions are secure and protected from unauthorized access
