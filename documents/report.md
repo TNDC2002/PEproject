@@ -64,18 +64,18 @@
 > As the world of cinema continues to expand with new movies and genres, navigating it can be an overwhelming task. That's why our system is designed to provide a comprehensive and highly informative platform for movie exploration and discovery, leveraging the extensive data available through the TMDB database API.
 >- Extensive collection of data: The TMDB API offers a vast repository of movie-related data, including plot summaries, cast information, user reviews, and ratings. This wealth of information can be invaluable for users looking to explore the world of cinema.
 ```
-  useEffect(() => {
-      const fetchMovies = async () => {
-        try {S
-          const response = await fetch(`http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS[category]}&page=${page}`);
-          const data = await response.json();
-          setMovies(data.results);
-        } catch (error) {
-          console.error(error);
-        }
-          };
-      fetchMovies();
-  }, [category, page]);
+useEffect(() => {
+    const fetchMovies = async () => {
+      try {S
+        const response = await fetch(`http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS[category]}&page=${page}`);
+        const data = await response.json();
+        setMovies(data.results);
+      } catch (error) {
+        console.error(error);
+      }
+        };
+    fetchMovies();
+}, [category, page]);
 
 ```
 >- Regular updates: The TMDB API is regularly updated with new movie releases, ensuring that users have access to the latest information on new and upcoming movies.
