@@ -43,6 +43,7 @@ export const themeSettings = (mode) => {
       },
       background: {
         default: colorTokens.primary[500],
+        alt: colorTokens.grey[200],
       },
     },
     typography: {
