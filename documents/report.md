@@ -13,12 +13,12 @@
 
 ## Introduction
 ### Overview:
->Our movie renting website offers the following features to ensure a diverse and convenient user experience:
->- Extensive movie selection: We strive to offer an extensive and diverse selection of movies from every genre, year, and more, ensuring there is something for every user's taste.
->- Rental model: Users can browse through a vast catalog of available movies and rent specific titles for a limited period by paying a rental fee.
->- User account: Users can create an account on our website to access features such as user reviews, ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles.
->- Secure payment system: Our website offers a secure payment system to process transactions and protect users' sensitive information.
->- Affordable rental model: We aim to provide a convenient and affordable rental model for our users, making it accessible to everyone.
+>Our **movie renting website** offers the following features to ensure a diverse and convenient user experience:
+>- **Extensive movie selection**: We strive to offer an extensive and diverse selection of movies from every genre, year, and more, ensuring there is something for every user's taste.
+>- **Rental model**: Users can browse through a vast catalog of available movies and rent specific titles for a limited period by paying a rental fee.
+>- **User account**: Users can create an account on our website to access features such as user reviews, ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles.
+>- **Secure payment system**: Our website offers a secure payment system to process transactions and protect users' sensitive information.
+>- **Affordable rental model**: We aim to provide a convenient and affordable rental model for our users, making it accessible to everyone.
 ***
 ### Technology:
 >Our movie renting website is built using the **MERN** stack, with the addition of the **Material-UI** (MUI) library for the user interface. This includes the following technologies:
