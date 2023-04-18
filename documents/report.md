@@ -33,7 +33,7 @@
 >- **User account**: Users can create an account on our website to access features such as user reviews, ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles.
 >- **Secure payment system**: Our website offers a secure payment system to process transactions and protect users' sensitive information.
 >- **Affordable rental model**: We aim to provide a convenient and affordable rental model for our users, making it accessible to everyone.
-### Technology: <a name="technology">
+### Technology: <a name="technology-">
 >Our movie renting website is built using the **MERN** stack, with the addition of the **Material-UI** (MUI) library for the user interface. This includes the following technologies:
 >- **MongoDB**: a document-based NoSQL database used to store and manage movie data, user data, and transactional data.
 >- **Express**: a web application framework used to build the backend API that communicates with the database and provides functionality for the frontend of the website.
