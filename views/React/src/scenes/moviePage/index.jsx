@@ -138,7 +138,7 @@ const MoviePage = () => {
     <div>
       <Navbar></Navbar>
       <Container maxWidth="lg">
-      <Breadcrumbs aria-label="breadcrumb">
+      <Breadcrumbs aria-label="breadcrumb" sx={{my:2}}>
         <Link underline="hover" color="inherit" >
           Home
         </Link>
@@ -160,21 +160,24 @@ const MoviePage = () => {
           </Grid>
 
           <Grid item xs={8}>
-            <Typography variant="h5" sx={{ my: 2 }}>{movie.title}</Typography>
+            <Typography variant="h5" sx={{ mt: 2 }}>{movie.title}</Typography>
 
-            <Button variant='contained'>
+            <Button variant='contained' sx={{mx:0.5, my:1}}>
               <strong>Vote Count: </strong> {movie.vote_count}
             </Button>
 
-            <Button variant='contained'>
-              <strong>Popularity:</strong> {movie.popularity}
+            <Button variant='contained' sx={{mx:0.5}}>
+              <strong>Popularity: </strong> {movie.popularity}
             </Button>
 
-            <Typography variant="body1"><strong>Overview:</strong> {movie.overview}</Typography>
-            <Typography variant="body1"><strong>Release Date:</strong> {movie.release_date}</Typography>
-            <Typography variant="body1"><strong>Id:</strong> {movie.id}</Typography>
-            <Typography variant="body1"><strong>Vote:</strong> {movie.vote_average}</Typography>
-            <Typography><strong>Genre:</strong> {movie.genres.map(g => g.name).join(', ')}</Typography>  
+            <Typography variant="body1" sx={{my:0.5}}><strong>Overview:</strong> {movie.overview}</Typography>
+            <Typography variant="body1" sx={{my:0.5}}><strong>Release Date:</strong> {movie.release_date}</Typography>
+            <Typography variant="body1" sx={{my:0.5}}><strong>Vote:</strong> {movie.vote_average}</Typography>
+            <Typography variant="body1" sx={{my:0.5}}><strong>Country:</strong> {movie.production_countries.map(g => g.name).join(', ')}</Typography>  
+            <Typography variant="body1" sx={{my:0.5}}><strong>Genre:</strong> {movie.genres.map(g => g.name).join(', ')}</Typography>  
+            <Typography variant="body1" sx={{my:0.5}}><strong>Production:</strong> {movie.production_companies.map(g => g.name).join(', ')}</Typography>  
+            <Typography variant="body1" sx={{my:0.5}}><strong>Duration:</strong> {movie.runtime} min</Typography>  
+
 
 
             <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
@@ -193,8 +196,8 @@ const MoviePage = () => {
       
         {recommendations && (
           <Box sx={{ mt: 2 }}>
-          <Typography variant="h6">You may also like:</Typography>
-          <Grid container spacing={2} sx={{ mt: 2 }}>
+          <Typography variant="h6"><strong>You may also like:</strong></Typography>
+          <Grid container spacing={2} >
             {recommendations.map((recommendation) => (
             <Grid item key={recommendation.id}>
               <Link to={`/movie/${recommendation.id}`}>
