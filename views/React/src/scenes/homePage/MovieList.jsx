@@ -6,24 +6,13 @@ import { Grid, IconButton, Box, Typography} from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
 const CATEGORY_API_ENDPOINTS = {
-    popular: "popular",
-    nowPlaying: "now_playing",
-    topRated: "top_rated",
-    upcoming: "upcoming",
-  };
+  popular: "popular",
+  nowPlaying: "now_playing",
+  topRated: "top_rated",
+  upcoming: "upcoming",
+};
 
-const MovieList = ({ category }) => {
-    const [movies, setMovies] = useState([]);
-    const [page, setPage] = useState(1);
-
-
-    useEffect(() => {
-        const fetchMovies = async () => {
-            const response = await axios.get(`https://api.themoviedb.org/3/movie/${CATEGORY_API_ENDPOINTS[category]}?api_key=37be93e690e7adb076e5110e93fda06f&language=en-US&page=${page}`);
-            setMovies(response.data.results);
-            };
-        fetchMovies();
-    }, [category, page]);
+const MovieList = ({movies, category, page, setPage}) => {
 
     const handlePrevPage = () => {
       setPage((prevPage) => prevPage - 1);
