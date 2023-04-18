@@ -68,7 +68,11 @@
 >- Integration with other applications: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
 >- Community-driven: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
 ### Showcase Movie Trailer
-> Using the TMDB API, we can fetch the movie information by just providing the movie ID. This information includes details such as the movie title, release date, synopsis, and more. With the movie ID, we can search for the corresponding trailer on YouTube using the YouTube V3 API. Once we have found the trailer, we can retrieve its ID and use the React YouTube API to embed the trailer video into our website.
+> Our website can utilize the following APIs to display movie trailers for users:
+>- TMDB API: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
+>- YouTube V3 API: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
+>- React YouTube API: Embeds the trailer video into our website using the retrieved video ID.
+> By using these APIs, our website can provide users with a preview of the movie they are interested in renting, helping them make a more informed decision and increasing the likelihood of them renting the movie. Additionally, it can also enhance the overall user experience on our website, by providing them with a more engaging and informative experience.
 ### Search Engine
 
 ## Performance and Sercurity
