@@ -29,9 +29,15 @@
 >- **Material-UI (MUI)**: a popular React component library that provides pre-built, customizable UI components for building modern and responsive user interfaces.
 
 
-## UI
+## UX/UI
 ### Overview:
-Our website's UI is designed to be visually appealing and easy to navigate. It includes a prominent search bar for quick movie searches and provides categories or filters to browse through different genres or types of movies. User reviews and ratings are prioritized, displayed prominently, and users can easily leave feedback. The UI provides clear and concise information about rental terms and fees, as well as instructions for how to rent and watch movies on the platform. It is intuitive and user-friendly, allowing easy navigation through the rental process, and is responsive and accessible, optimized for both desktop and mobile devices. A secure and reliable payment system is provided to ensure safe and efficient transactions.
+> The **Smash Bruh** movie renting website offers the following features:
+>- **Visually appealing UI**: The website's UI is designed to be visually appealing and user-friendly, providing a pleasant and intuitive browsing experience.
+>- **Search function and categories**: The website includes a prominent search bar for quick movie searches, as well as categories and filters to browse through different genres or types of movies.
+>- **User reviews and ratings**: User reviews and ratings are given priority and displayed prominently, allowing users to easily leave feedback and providing valuable information for other users.
+>- **Rental terms and instructions**: Clear and concise information about rental terms and fees is provided, and instructions for how to rent and watch movies on the platform are easy to follow.
+>- **Responsive and accessible design**: The website is intuitive and responsive, optimized for both desktop and mobile devices, making it easy for users to navigate and rent movies from any device.
+>- **Secure payment system**: A secure and reliable payment system is provided to ensure safe and efficient transactions, protecting users' sensitive information.
 
 ### Pages and Images:
 Each page on our website is designed to be user-friendly and informative, with relevant images to accompany movie titles and descriptions.
