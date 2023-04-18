@@ -12,30 +12,24 @@
 | Trần Ngọc Duy Chương | 17197 |
 
 ## Introduction
-- Overview:
-    - Our movie renting website:
-        - Allows users to browse through a catalog of available movies and rent specific titles for a limited period of time by paying a rental fee.
-        - Enables users to create an account on our website to access features such as user reviews and ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles.
-        - Offers a secure payment system to process transactions.
-        - Aims to provide a convenient and affordable rental model for our users.
-        - Strives to offer a diverse and high-quality selection of movies for rent on our website.
+### Overview:
+Our movie renting website allows users to browse through a catalog of available movies and rent specific titles for a limited period of time by paying a rental fee. Users can create an account on our website to access features such as user reviews and ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles. Our website offers a secure payment system to process transactions and aims to provide a convenient and affordable rental model for our users. We also strive to offer a diverse and high-quality selection of movies for rent on our website.
 
-- Technology:
-    - MERN
-    - MUI
-    - 
+### Technology:
+>MERN
+    >- Mongo
+    >- Express
+    >- React
+    >- NodeJs
+- MUI
+
 ## UI
-    >- Overview
-      - Visually appealing and easy to navigate
-      - Includes a prominent search bar for quick movie searches
-      - Provides categories or filters to browse through different genres or types of movies
-      - Prioritizes user reviews and ratings, displaying them prominently and allowing users to easily leave feedback
-      - Provides clear and concise information about rental terms and fees, as well as instructions for how to rent and watch movies on the platform
-      - Intuitive and user-friendly, allowing easy navigation through the rental process
-      - Responsive and accessible, optimized for both desktop and mobile devices
-      - Provides a secure and reliable payment system to ensure safe and efficient transactions.
-    >- Each Pages
-    - Image
+### Overview:
+Our website's UI is designed to be visually appealing and easy to navigate. It includes a prominent search bar for quick movie searches and provides categories or filters to browse through different genres or types of movies. User reviews and ratings are prioritized, displayed prominently, and users can easily leave feedback. The UI provides clear and concise information about rental terms and fees, as well as instructions for how to rent and watch movies on the platform. It is intuitive and user-friendly, allowing easy navigation through the rental process, and is responsive and accessible, optimized for both desktop and mobile devices. A secure and reliable payment system is provided to ensure safe and efficient transactions.
+
+### Pages and Images:
+Each page on our website is designed to be user-friendly and informative, with relevant images to accompany movie titles and descriptions.
+
 
 ## Functionality
     - Functions
