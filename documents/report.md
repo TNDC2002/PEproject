@@ -59,9 +59,6 @@
 ### Movie Fetching<a name="movie-fetching">
 > As the world of cinema continues to expand with new movies and genres, navigating it can be an overwhelming task. That's why our system is designed to provide a **comprehensive and highly informative** platform for movie exploration and discovery, leveraging the extensive data available through the **TMDB database API**.
 >- **Extensive collection of data**: The TMDB API offers a vast repository of movie-related data, including plot summaries, cast information, user reviews, and ratings. This wealth of information can be invaluable for users looking to explore the world of cinema.
-```
-console.log
-```
 >- **Regular updates**: The TMDB API is regularly updated with new movie releases, ensuring that users have access to the latest information on new and upcoming movies.
 >- **Customizable queries**: The TMDB API allows users to customize their queries to retrieve only the data they need. This can save time and resources by reducing the amount of irrelevant data that needs to be processed.
 >- **Integration with other applications**: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
@@ -70,7 +67,21 @@ console.log
 > Our website can utilize the following **APIs** to display **movie trailers** for users:
 >- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
 >- **YouTube V3 API**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
->- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.  
+```javascript
+const YouTubePlayer = ({ videoId }) => {
+  return (
+    <Box sx={{ backgroundColor: 'black', padding: '0 0%', display: 'flex', justifyContent: 'center' }}>
+      <ReactPlayer
+        url={`https://www.youtube.com/watch?v=${videoId}`}
+        controls={true}
+        playing={true}
+        volume={1.0}
+      />
+    </Box>
+  );
+};
+```
+>- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.
 ### Search Engine<a name="search-engine">
 > At the heart of our movie renting webpage is a powerful **search engine** that helps users find the movies they want to watch quickly and easily. Here's an overview of how it works:
 >- **Utilizing the TMDB API**: Our search engine harnesses the power of the TMDB API to retrieve movie information from a vast database. By leveraging the movie ID, the API can retrieve details such as the movie title, release date, synopsis, cast, and ratings.
