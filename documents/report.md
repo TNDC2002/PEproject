@@ -19,7 +19,7 @@
 ## Member<a name = "member">
 | Full Name  | Student Id | Task |
 | ---------  | :---: | :---: |
-| Nguyễn Ngọc Vĩnh  | 18691 | -[x] Functionality |
+| Nguyễn Ngọc Vĩnh  | 18691 | - [x] Functionality  |
 | Hà Quách Phú Thành | 18840 | |
 | Thái Quang Nam | 18770 | |
 | Phạm Hoàng Việt | 18334 | |
