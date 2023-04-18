@@ -19,7 +19,6 @@
 >- **User account**: Users can create an account on our website to access features such as user reviews, ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles.
 >- **Secure payment system**: Our website offers a secure payment system to process transactions and protect users' sensitive information.
 >- **Affordable rental model**: We aim to provide a convenient and affordable rental model for our users, making it accessible to everyone.
-***
 ### Technology:
 >Our movie renting website is built using the **MERN** stack, with the addition of the **Material-UI** (MUI) library for the user interface. This includes the following technologies:
 >- **MongoDB**: a document-based NoSQL database used to store and manage movie data, user data, and transactional data.
@@ -27,8 +26,8 @@
 >- **React**: a front-end JavaScript library used to build the user interface and manage the state of the website.
 >- **Node.js**: a JavaScript runtime environment used to execute server-side code and provide a backend for the website.
 >- **Material-UI (MUI)**: a popular React component library that provides pre-built, customizable UI components for building modern and responsive user interfaces.
-
-
+***
+***
 ## UX/UI
 ### Overview:
 > The **Smash Bruh** movie renting website offers the following features:
@@ -38,7 +37,7 @@
 >- **Rental terms and instructions**: Clear and concise information about rental terms and fees is provided, and instructions for how to rent and watch movies on the platform are easy to follow.
 >- **Responsive and accessible design**: The website is intuitive and responsive, optimized for both desktop and mobile devices, making it easy for users to navigate and rent movies from any device.
 >- **Secure payment system**: A secure and reliable payment system is provided to ensure safe and efficient transactions, protecting users' sensitive information.
-
+***
 ### Pages and Images:
 Each page on our website is designed to be user-friendly and informative, with relevant images to accompany movie titles and descriptions.
 
