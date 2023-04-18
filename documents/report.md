@@ -67,7 +67,7 @@
 > Our website can utilize the following **APIs** to display **movie trailers** for users:
 >- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
 >- **YouTube V3 API**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
-```javascript YoutubePlayer
+```jsx YoutubePlayer
 import React from 'react';
 import ReactPlayer from 'react-player/youtube';
 import { Box } from '@mui/material';
@@ -87,9 +87,7 @@ const YouTubePlayer = ({ videoId }) => {
 
 export default YouTubePlayer;
 ```
-```javascript tab B
-console.log('Youtube')
-```
+
 >- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.
 ### Search Engine<a name="search-engine">
 > At the heart of our movie renting webpage is a powerful **search engine** that helps users find the movies they want to watch quickly and easily. Here's an overview of how it works:
