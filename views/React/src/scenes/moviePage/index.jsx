@@ -126,9 +126,12 @@ const MoviePage = () => {
     setIsFavourited(!isFavourited);
   };
 
+  
   if (!movie) {
     return <Typography>Loading...</Typography>;
   }
+
+  console.log(movie)
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   return (   
@@ -148,7 +151,7 @@ const MoviePage = () => {
         </Link>
         <Typography color="text.primary">{movie.title}</Typography>
       </Breadcrumbs>
-        <YouTubePlayer videoId={trailerVideoId} />
+      <YouTubePlayer videoId={trailerVideoId} />
         <Grid container spacing={1}>
           <Grid item xs={4}>
             <item>
@@ -168,9 +171,10 @@ const MoviePage = () => {
             </Button>
 
             <Typography variant="body1"><strong>Overview:</strong> {movie.overview}</Typography>
-            <Typography variant="body1"><strong></strong>Release Date: {movie.release_date}</Typography>
+            <Typography variant="body1"><strong>Release Date:</strong> {movie.release_date}</Typography>
             <Typography variant="body1"><strong>Id:</strong> {movie.id}</Typography>
-            <Typography variant="body1"><strong>Vote Average:</strong> {movie.vote_average}</Typography>  
+            <Typography variant="body1"><strong>Vote:</strong> {movie.vote_average}</Typography>
+            <Typography><strong>Genre:</strong> {movie.genres.map(g => g.name).join(', ')}</Typography>  
 
 
             <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
