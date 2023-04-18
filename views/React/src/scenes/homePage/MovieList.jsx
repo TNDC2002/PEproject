@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import MovieCard from "./MovieCard";
 import FlexBetween from "../../components/FlexBetween";
 import { Grid, IconButton, Box, Typography} from "@mui/material";
@@ -18,13 +19,8 @@ const MovieList = ({ category }) => {
 
     useEffect(() => {
         const fetchMovies = async () => {
-          try {
-            const response = await fetch(`http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS[category]}&page=${page}`);
-            const data = await response.json();
-            setMovies(data.results);
-          } catch (error) {
-            console.error(error);
-          }
+            const response = await axios.get(`https://api.themoviedb.org/3/movie/${CATEGORY_API_ENDPOINTS[category]}?api_key=37be93e690e7adb076e5110e93fda06f&language=en-US&page=${page}`);
+            setMovies(response.data.results);
             };
         fetchMovies();
     }, [category, page]);
@@ -53,7 +49,7 @@ const MovieList = ({ category }) => {
         </Grid>
         <FlexBetween>
           <IconButton onClick={handlePrevPage} disabled={page === 1} sx={{
-            padding: '0 0 0 0.5rem'
+            padding: '0 0 0 1.5rem'
           }}>
             <ArrowBackIos fontSize="30px" sx={{ color: 'white' }}></ArrowBackIos>
           </IconButton>
@@ -68,7 +64,7 @@ const MovieList = ({ category }) => {
             borderRadius: '0.5rem '
           }}>{page}</Typography>
           <IconButton onClick={handleNextPage} sx={{
-            padding: '0 0.5rem 0 0'
+            padding: '0 1.5rem 0 0'
           }}>
             <ArrowForwardIos sx={{ color: 'white' }}></ArrowForwardIos>
           </IconButton>
