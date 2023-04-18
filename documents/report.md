@@ -88,34 +88,18 @@ const YouTubePlayer = ({ videoId }) => {
 
 export default YouTubePlayer;
 ```
-
-<!-- HTML code -->
-<div class="tabs">
-  <input type="radio" name="tab-group" id="tab1" checked>
-  <label for="tab1">Tab 1</label>
-  <div class="tab-content">
-    ```python
-    print("This is the code for Tab 1")
-    ```
-  </div>
-
-  <input type="radio" name="tab-group" id="tab2">
-  <label for="tab2">Tab 2</label>
-  <div class="tab-content">
-    ```python
-    print("This is the code for Tab 2")
-    ```
-  </div>
-
-  <input type="radio" name="tab-group" id="tab3">
-  <label for="tab3">Tab 3</label>
-  <div class="tab-content">
-    ```python
-    print("This is the code for Tab 3")
-    ```
-  </div>
+<div class="my-div">
+  <p>This is some text inside a div.</p>
 </div>
 
+<!-- CSS code -->
+<style>
+.my-div {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+</style>
 ### Search Engine<a name="search-engine">
 > At the heart of our movie renting webpage is a powerful **search engine** that helps users find the movies they want to watch quickly and easily. Here's an overview of how it works:
 >- **Utilizing the TMDB API**: Our search engine harnesses the power of the TMDB API to retrieve movie information from a vast database. By leveraging the movie ID, the API can retrieve details such as the movie title, release date, synopsis, cast, and ratings.
