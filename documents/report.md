@@ -19,14 +19,14 @@
 ## Member<a name = "member">
 | Full Name  | Student Id | Task |
 | ---------  | :---: | :---: |
-| Nguyễn Ngọc Vĩnh  | 18691 | - [x] Functionality  |
-| Hà Quách Phú Thành | 18840 | |
-| Thái Quang Nam | 18770 | |
-| Phạm Hoàng Việt | 18334 | |
-| Nguyễn Xuân Khang | 18973 | |
-| Nguyễn Khắc Hoàng | 18230 | |
-| Lê Duy | 17434 | |
-| Trần Ngọc Duy Chương | 17197 | |
+| Nguyễn Ngọc Vĩnh  | 18691 | Documentation, Data API |
+| Hà Quách Phú Thành | 18840 | Backend |
+| Thái Quang Nam | 18770 | User Interface |
+| Phạm Hoàng Việt | 18334 | User Interface |
+| Nguyễn Xuân Khang | 18973 | Profile Interface |
+| Nguyễn Khắc Hoàng | 18230 | User Interface |
+| Lê Duy | 17434 | Sercurity |
+| Trần Ngọc Duy Chương | 17197 | Backend |
 ## Introduction<a name = "introduction">
 ### Overview<a name = "overview">
 >Our **movie renting website** offers the following features to ensure a diverse and convenient user experience:
