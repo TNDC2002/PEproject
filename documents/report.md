@@ -26,7 +26,7 @@
 >- **React**: a front-end JavaScript library used to build the user interface and manage the state of the website.
 >- **Node.js**: a JavaScript runtime environment used to execute server-side code and provide a backend for the website.
 >- **Material-UI (MUI)**: a popular React component library that provides pre-built, customizable UI components for building modern and responsive user interfaces.
-***
+
 ## UX/UI
 ### Overview:
 > The **Smash Bruh** movie renting website offers the following features:
@@ -36,9 +36,8 @@
 >- **Rental terms and instructions**: Clear and concise information about rental terms and fees is provided, and instructions for how to rent and watch movies on the platform are easy to follow.
 >- **Responsive and accessible design**: The website is intuitive and responsive, optimized for both desktop and mobile devices, making it easy for users to navigate and rent movies from any device.
 >- **Secure payment system**: A secure and reliable payment system is provided to ensure safe and efficient transactions, protecting users' sensitive information.
-***
 ### Pages and Images:
-Each page on our website is designed to be user-friendly and informative, with relevant images to accompany movie titles and descriptions.
+>Each page on our website is designed to be user-friendly and informative, with relevant images to accompany movie titles and descriptions.
 
 
 ## Functionality
