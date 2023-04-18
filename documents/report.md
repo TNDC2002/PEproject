@@ -20,10 +20,20 @@
         - Aims to provide a convenient and affordable rental model for our users.
         - Strives to offer a diverse and high-quality selection of movies for rent on our website.
 
->- Technology:
-
+- Technology:
+    - MERN
+    - MUI
+    - 
 ## UI
     - Overview
+      - Visually appealing and easy to navigate
+      - Includes a prominent search bar for quick movie searches
+      - Provides categories or filters to browse through different genres or types of movies
+      - Prioritizes user reviews and ratings, displaying them prominently and allowing users to easily leave feedback
+      - Provides clear and concise information about rental terms and fees, as well as instructions for how to rent and watch movies on the platform
+      - Intuitive and user-friendly, allowing easy navigation through the rental process
+      - Responsive and accessible, optimized for both desktop and mobile devices
+      - Provides a secure and reliable payment system to ensure safe and efficient transactions.
     - Each Pages
     - Image
 
