@@ -59,23 +59,23 @@
 ### Movie Fetching<a name="movie-fetching">
 > As the world of cinema continues to expand with new movies and genres, navigating it can be an overwhelming task. That's why our system is designed to provide a **comprehensive and highly informative** platform for movie exploration and discovery, leveraging the extensive data available through the **TMDB database API**.
 >- **Extensive collection of data**: The TMDB API offers a vast repository of movie-related data, including plot summaries, cast information, user reviews, and ratings. This wealth of information can be invaluable for users looking to explore the world of cinema.
-`const fetchTrailerID = async () => {`
-`      try {`
-`        const response = await fetch(`
-`          `http://localhost:5000/movie/trailer/${movieID}`,{`
-`          method: "GET",`
-`          headers: { "Content-Type": "application/json" },`
-`          }`
-`        );`
-`          const data = await response.json();`
-`          setTrailerVideoId(data);`
-`        } catch (err) {`
-`          console.error(err);`
-`        }`
-`      };`
-`      fetchTrailerID();`
-`      `
-`  }, [movieID]);`
+```const fetchTrailerID = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/movie/trailer/${movieID}`,{
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          }
+        );
+          const data = await response.json();
+          setTrailerVideoId(data);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      fetchTrailerID();
+      
+  }, [movieID]);```
 >- **Regular updates**: The TMDB API is regularly updated with new movie releases, ensuring that users have access to the latest information on new and upcoming movies.
 >- **Customizable queries**: The TMDB API allows users to customize their queries to retrieve only the data they need. This can save time and resources by reducing the amount of irrelevant data that needs to be processed.
 >- **Integration with other applications**: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
