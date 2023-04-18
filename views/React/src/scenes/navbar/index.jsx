@@ -39,6 +39,7 @@ import logo from "../../images/Logo.png";
 import textLogo from "../../images/textLogo.png";
 import Image from "mui-image";
 import { fontSize, spacing } from "@mui/system";
+import SearchBar from "./SearchBar";
 
 
 const Navbar = ({}) => {
@@ -118,15 +119,21 @@ const Navbar = ({}) => {
                 <FlexBetween gap="2rem"> 
                 {isNonMobileScreens && (
                     <FlexBetween backgroundColor={neutralLight} borderRadius="15px" gap="3rem" padding="0.1rem 1.5rem">
-                        <InputBase placeholder="Search..."/>
-                        <IconButton>
-                            <Search/>
-                        </IconButton>
+                        <SearchBar></SearchBar>
                     </FlexBetween>
                 )}
                     <Tooltip title={ firstName }>
                         <IconButton onClick={ handleClick }>
-                            <Badge color="error" badgeContent="" >
+                            <Badge 
+                                color="error" 
+                                badgeContent={0} 
+                                overlap="circular" 
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                max={99}
+                            > 
                             <AccountCircle style={{ color: 'white', fontSize: '3rem'}}/>
                             </Badge>    
                         </IconButton>
