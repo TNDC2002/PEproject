@@ -88,18 +88,6 @@ const YouTubePlayer = ({ videoId }) => {
 
 export default YouTubePlayer;
 ```
-<div class="my-div">
-  <p>This is some text inside a div.</p>
-</div>
-
-<!-- CSS code -->
-<style>
-.my-div {
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-</style>
 ### Search Engine<a name="search-engine">
 > At the heart of our movie renting webpage is a powerful **search engine** that helps users find the movies they want to watch quickly and easily. Here's an overview of how it works:
 >- **Utilizing the TMDB API**: Our search engine harnesses the power of the TMDB API to retrieve movie information from a vast database. By leveraging the movie ID, the API can retrieve details such as the movie title, release date, synopsis, cast, and ratings.
