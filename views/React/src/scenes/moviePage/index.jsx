@@ -14,9 +14,14 @@ import {
   Typography,
   useTheme,
   Container,
-  Breadcrumbs
+  Breadcrumbs,
+  Dialog, 
+  DialogTitle, 
+  DialogContent, 
+  DialogActions
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import VideocamIcon from '@mui/icons-material/Videocam';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from '../navbar';
@@ -61,6 +66,8 @@ const MoviePage = () => {
     const result = await checkFavoriteResponse.json();
     return result.favorited;
   };
+
+;
   
 
   useEffect(() => {
@@ -152,7 +159,7 @@ const MoviePage = () => {
         <Typography color="text.primary">{movie.title}</Typography>
       </Breadcrumbs>
       <YouTubePlayer videoId={trailerVideoId} />
-        <Grid container spacing={1}>
+        <Grid container spacing={1} sx={{my:2}}>
           <Grid item xs={4}>
             <item>
               <Image width="300px" height="500px" src={imageUrl} alt={`${movie.title} poster`} />
@@ -163,20 +170,28 @@ const MoviePage = () => {
             <Typography variant="h5" sx={{ mt: 2 }}>{movie.title}</Typography>
 
             <Button variant='contained' sx={{mx:0.5, my:1}}>
-              <strong>Vote Count: </strong> {movie.vote_count}
+              <VideocamIcon></VideocamIcon> <strong>Trailer </strong> 
             </Button>
 
             <Button variant='contained' sx={{mx:0.5}}>
-              <strong>Popularity: </strong> {movie.popularity}
+              <strong>IMDB: </strong> {movie.vote_average}
             </Button>
 
             <Typography variant="body1" sx={{my:0.5}}><strong>Overview:</strong> {movie.overview}</Typography>
-            <Typography variant="body1" sx={{my:0.5}}><strong>Release Date:</strong> {movie.release_date}</Typography>
-            <Typography variant="body1" sx={{my:0.5}}><strong>Vote:</strong> {movie.vote_average}</Typography>
-            <Typography variant="body1" sx={{my:0.5}}><strong>Country:</strong> {movie.production_countries.map(g => g.name).join(', ')}</Typography>  
-            <Typography variant="body1" sx={{my:0.5}}><strong>Genre:</strong> {movie.genres.map(g => g.name).join(', ')}</Typography>  
-            <Typography variant="body1" sx={{my:0.5}}><strong>Production:</strong> {movie.production_companies.map(g => g.name).join(', ')}</Typography>  
-            <Typography variant="body1" sx={{my:0.5}}><strong>Duration:</strong> {movie.runtime} min</Typography>  
+
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <Typography variant="body1" sx={{my:0.5}}><strong>Release Date:</strong> {movie.release_date}</Typography>
+                <Typography variant="body1" sx={{my:0.5}}><strong>Production:</strong> {movie.production_companies.map(g => g.name).join(', ')}</Typography>  
+                 
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <Typography variant="body1" sx={{my:0.5}}><strong>Duration:</strong> {movie.runtime} min</Typography> 
+                <Typography variant="body1" sx={{my:0.5}}><strong>Country:</strong> {movie.production_countries.map(g => g.name).join(', ')}</Typography>
+                <Typography variant="body1" sx={{my:0.5}}><strong>Genre:</strong> {movie.genres.map(g => g.name).join(', ')}</Typography>
+              </Grid>
+            </Grid>
 
 
 
@@ -191,7 +206,6 @@ const MoviePage = () => {
             <Button variant='contained'>
               Rent
             </Button>
-          
         </Grid>
       
         {recommendations && (
@@ -223,7 +237,7 @@ const MoviePage = () => {
     </Container>
     <Box 
       sx={{
-        height: 150
+        height: 70
       }}>
     </Box>
     </div>
