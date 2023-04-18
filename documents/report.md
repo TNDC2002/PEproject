@@ -1,20 +1,6 @@
-# REPORT <a name="report">
-## Preface <a name="preface">
-- [REPORT ](#report-)
-  - [Preface ](#preface-)
-  - [Member ](#member-)
-  - [Introduction ](#introduction-)
-    - [Overview :](#overview-)
-    - [Technology :](#technology-)
-  - [UX/UI ](#uxui-)
-    - [Overview :](#overview--1)
-    - [Pages and Images :](#pages-and-images-)
-  - [Functionality](#functionality)
-  - [Performance and Sercurity](#performance-and-sercurity)
-  - [Test Case](#test-case)
-  - [Summary](#summary)
-
-## Member <a name="member-">
+# 1. REPORT 
+## 1.1. Preface 
+## 1.2. Member
 | Full Name  | Student Id |
 | ---------  | :---: |
 | Nguyễn Ngọc Vĩnh  | 18691 |
@@ -25,15 +11,15 @@
 | Nguyễn Khắc Hoàng | 18230 |
 | Lê Duy | 17434 |
 | Trần Ngọc Duy Chương | 17197 |
-## Introduction <a name="introduction-">
-### Overview <a name="overview-">:
+## 1.3. Introduction 
+### 1.3.1. Overview
 >Our **movie renting website** offers the following features to ensure a diverse and convenient user experience:
 >- **Extensive movie selection**: We strive to offer an extensive and diverse selection of movies from every genre, year, and more, ensuring there is something for every user's taste.
 >- **Rental model**: Users can browse through a vast catalog of available movies and rent specific titles for a limited period by paying a rental fee.
 >- **User account**: Users can create an account on our website to access features such as user reviews, ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles.
 >- **Secure payment system**: Our website offers a secure payment system to process transactions and protect users' sensitive information.
 >- **Affordable rental model**: We aim to provide a convenient and affordable rental model for our users, making it accessible to everyone.
-### Technology <a name="technology-">:
+### 1.3.2. Technology
 >Our movie renting website is built using the **MERN** stack, with the addition of the **Material-UI** (MUI) library for the user interface. This includes the following technologies:
 >- **MongoDB**: a document-based NoSQL database used to store and manage movie data, user data, and transactional data.
 >- **Express**: a web application framework used to build the backend API that communicates with the database and provides functionality for the frontend of the website.
@@ -41,8 +27,8 @@
 >- **Node.js**: a JavaScript runtime environment used to execute server-side code and provide a backend for the website.
 >- **Material-UI (MUI)**: a popular React component library that provides pre-built, customizable UI components for building modern and responsive user interfaces.
 
-## UX/UI <a name="uxui-"></a>
-### Overview <a name="overview--1">:
+## 1.4. UX/UI
+### 1.4.1. Overview
 > The **Smash Bruh** movie renting website offers the following features:
 >- **Visually appealing UI**: The website's UI is designed to be visually appealing and user-friendly, providing a pleasant and intuitive browsing experience.
 >- **Search function and categories**: The website includes a prominent search bar for quick movie searches, as well as categories and filters to browse through different genres or types of movies.
@@ -50,7 +36,7 @@
 >- **Rental terms and instructions**: Clear and concise information about rental terms and fees is provided, and instructions for how to rent and watch movies on the platform are easy to follow.
 >- **Responsive and accessible design**: The website is intuitive and responsive, optimized for both desktop and mobile devices, making it easy for users to navigate and rent movies from any device.
 >- **Secure payment system**: A secure and reliable payment system is provided to ensure safe and efficient transactions, protecting users' sensitive information.
-### Pages and Images <a name="pages-and-images-">:
+### 1.4.2. Pages and Images
 >Our website offers a variety of **user-friendly** and **informative** pages to enhance your movie rental experience. Here are some of the key features of our four main pages:
 >- **Home Page**: The homepage is designed to be user-friendly and informative, featuring relevant images to accompany movie titles and descriptions, as well as a search bar and categories to help users easily find the movies they are interested in.
 >- **Movie Page**: The movie page includes a detailed description of the movie, as well as information such as the cast, director, and release year. It also displays user reviews and ratings, as well as related movies that users may be interested in.
@@ -58,16 +44,16 @@
 >- **My Favorites Page**: The "My Favorites" page displays a user's saved list of favorite movies, allowing them to easily access and rent them again in the future.
 
 
-## Functionality
+## 1.5. Functionality
     - Functions
     - Streaming
 
-## Performance and Sercurity
+## 1.6. Performance and Sercurity
     - Performance
     - Sercurity
 
-## Test Case
+## 1.7. Test Case
     - Test Case 1
     - Test Case 2
   
-## Summary
+## 1.8. Summary
