@@ -14,7 +14,7 @@
 ## Introduction
 ### Overview:
 >Our movie renting website allows users to browse through a catalog of available movies and rent specific titles for a limited period of time by paying a rental fee. Users can create an account on our website to access features such as user reviews and ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles. Our website offers a secure payment system to process transactions and aims to provide a convenient and affordable rental model for our users. We also strive to offer a diverse and high-quality selection of movies for rent on our website.
-
+***
 ### Technology:
 >Our movie renting website is built using the **MERN** stack, with the addition of the **Material-UI** (MUI) library for the user interface. This includes the following technologies:
 >- **MongoDB**: a document-based NoSQL database used to store and manage movie data, user data, and transactional data.
