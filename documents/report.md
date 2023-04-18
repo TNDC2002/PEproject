@@ -12,6 +12,7 @@
 | Trần Ngọc Duy Chương | 17197 |
 
 ## Introduction
+***
 ### Overview:
 >Our **movie renting website** offers the following features to ensure a diverse and convenient user experience:
 >- **Extensive movie selection**: We strive to offer an extensive and diverse selection of movies from every genre, year, and more, ensuring there is something for every user's taste.
@@ -26,7 +27,6 @@
 >- **React**: a front-end JavaScript library used to build the user interface and manage the state of the website.
 >- **Node.js**: a JavaScript runtime environment used to execute server-side code and provide a backend for the website.
 >- **Material-UI (MUI)**: a popular React component library that provides pre-built, customizable UI components for building modern and responsive user interfaces.
-***
 ***
 ## UX/UI
 ### Overview:
