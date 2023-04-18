@@ -68,6 +68,9 @@
 >- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
 >- **YouTube V3 API**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
 ```javascript
+import ReactPlayer from 'react-player';
+import { Box } from '@mui/material';
+
 const YouTubePlayer = ({ videoId }) => {
   return (
     <Box sx={{ backgroundColor: 'black', padding: '0 0%', display: 'flex', justifyContent: 'center' }}>
@@ -80,6 +83,8 @@ const YouTubePlayer = ({ videoId }) => {
     </Box>
   );
 };
+
+export default YouTubePlayer;
 ```
 >- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.
 ### Search Engine<a name="search-engine">
