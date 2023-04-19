@@ -13,10 +13,6 @@ const UserSearchHistorySchema = new mongoose.Schema({
 
     createdAt: {
         type: Date
-    },
-
-    expiresAt: {
-        type: Date
     }
 }, 
     { timestamps: true }
