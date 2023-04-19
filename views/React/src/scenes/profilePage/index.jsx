@@ -26,6 +26,8 @@ const ProfilePage = () => {
     const [lastName, setLastName] = useState(null);
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [editMode, setEditMode] = useState(false);
+
 
 
     const getUser = async () => {
@@ -47,13 +49,14 @@ const ProfilePage = () => {
 
     if (!user) return null;
 
-    const handleFormSubmit = () => {
-
+    const handleEditIconClick = () => {
+        setEditMode(true);
     }
 
-    const handleEditProfile = () => {
+    const handleSaveClick = () => {
+        setEditMode(false);
+    };
 
-    }
 
     return (
         <Box>
@@ -61,7 +64,7 @@ const ProfilePage = () => {
             <Container>
                 <Box
                     minHeight="60vh"
-                    minWidth="110vh"
+                    width="100%"
                     sx={{
                         backgroundColor: "yellow",
                         display: "flex",
@@ -86,7 +89,7 @@ const ProfilePage = () => {
                         sx={{
                             backgroundColor: "blue",
                             flexGrow: 10,
-                            height: "100%",
+                            width: "100%",
                             display: "flex",
                             flexDirection: "column"
                         }}
@@ -129,7 +132,7 @@ const ProfilePage = () => {
                             >
                                 <Typography variant="h4" gutterBottom bgcolor={"red"} margin="0" fontWeight="bold">
                                     Info
-                                    <IconButton>
+                                    <IconButton onClick={handleEditIconClick}>
                                         <EditIcon />
                                     </IconButton>
                                 </Typography>
@@ -143,7 +146,11 @@ const ProfilePage = () => {
                                             justifyContent: "center",
                                         }}>
                                         <Typography fontWeight="bold">First name</Typography>
-                                        <Typography>{user.firstName}</Typography>
+                                        {!editMode
+                                            ? (<Typography>{user.firstName}</Typography>)
+                                            : (<TextField defaultValue={user.firstName} />)
+                                        }
+
                                     </Stack>
                                     <Stack
                                         sx={{
@@ -153,7 +160,10 @@ const ProfilePage = () => {
                                             justifyContent: "center",
                                         }}>
                                         <Typography fontWeight="bold">Last name</Typography>
-                                        <Typography>{user.lastName}</Typography>
+                                        {!editMode
+                                            ? (<Typography>{user.lastName}</Typography>)
+                                            : (<TextField defaultValue={user.lastName} />)
+                                        }
                                     </Stack>
                                 </Stack>
 
@@ -165,8 +175,22 @@ const ProfilePage = () => {
                                         justifyContent: "center",
                                     }}>
                                     <Typography fontWeight="bold">Email</Typography>
-                                    <Typography>{user.email}</Typography>
+                                    {!editMode
+                                        ? (<Typography>{user.email}</Typography>)
+                                        : (<TextField defaultValue={user.email} />)
+                                    }
                                 </Stack>
+                                {editMode
+                                    ? <Button
+                                        onClick={handleSaveClick}
+                                        sx={{
+                                            backgroundColor: "green"
+                                        }}
+                                    >
+                                        Save
+                                    </Button>
+                                    : null
+                                }
                             </Stack>
                         </Stack>
                     </Box>
