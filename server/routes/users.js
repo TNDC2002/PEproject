@@ -6,6 +6,6 @@ const router = express.Router();
 
 /* READ */
 router.get("/:userID", verifyToken, getUser);
-router.post("/userID", verifyToken, updateUserProfile);
+router.put("/:userID", verifyToken, updateUserProfile);
 
 export default router; 

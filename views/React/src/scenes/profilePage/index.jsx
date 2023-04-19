@@ -43,10 +43,13 @@ const ProfilePage = () => {
     return (
         <Box>
             <Navbar />
-            <Container>
+            <Container sx={{
+                display: "flex",
+                justifyContent: "center",
+            }}>
                 <Box
                     height="60vh"
-                    width="100%"
+                    width="80%"
                     sx={{
                         backgroundColor: "yellow",
                         display: "flex",
