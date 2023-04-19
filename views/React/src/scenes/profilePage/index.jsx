@@ -16,10 +16,13 @@ const ProfilePage = () => {
     const userID = useSelector((state) => state.user._id);
     const token = useSelector((state) => state.token);
 
-    const [firstName, setFirstName] = useState(null);
-    const [lastName, setLastName] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
+    // const [firstName, setFirstName] = useState(null);
+    // const [lastName, setLastName] = useState(null);
+    // const [email, setEmail] = useState(null);
+    // const [password, setPassword] = useState(null);
+
+
+
 
     const getUser = async () => {
         const response = await fetch(`http://localhost:5000/profile/${userID}`, {
@@ -32,7 +35,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         getUser();
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []);
 
     if (!user) return null;
 

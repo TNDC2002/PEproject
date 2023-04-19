@@ -3,22 +3,25 @@ import {
     TextField,
     Typography,
     Stack,
+    IconButton,
+    useMediaQuery,
 } from "@mui/material";
+import { useState } from "react";
 import UserImage from "../components/UserImage";
 import EditIcon from "@mui/icons-material/Edit";
-import IconButton from '@mui/material/IconButton';
-import { useState } from "react";
 
-const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-const [editMode, setEditMode] = useState(false);
-const handleEditIconClick = () => {
-    setEditMode(true);
-}
+const ProfileSection = ({ user }) => {
+    const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+    const [editMode, setEditMode] = useState(false);
 
-const handleSaveClick = () => {
-    setEditMode(false);
-};
-const ProfileSection = (user) => {
+    const handleEditIconClick = () => {
+        setEditMode(true);
+    }
+
+    const handleSaveClick = () => {
+        setEditMode(false);
+    };
+
     return (
         <Stack
             direction={isNonMobileScreens ? "row" : "column"}
@@ -26,6 +29,7 @@ const ProfileSection = (user) => {
             alignItems="stretch"
             sx={{ flex: 1 }}
         >
+            {/* First Stack */}
             <Stack
                 direction="column"
                 spacing={2}
@@ -41,6 +45,8 @@ const ProfileSection = (user) => {
                     size="100px"
                 />
             </Stack>
+
+            {/* Second Stack */}
             <Stack
                 direction="column"
                 spacing={1.5}
@@ -116,7 +122,7 @@ const ProfileSection = (user) => {
                 }
             </Stack>
         </Stack>
-    )
-}
+    );
+};
 
 export default ProfileSection;
