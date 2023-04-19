@@ -80,7 +80,6 @@ const HomePage = () => {
 
     return (
         <Box>
-            <img src={backgroundImage} height="100%" width="100%"/>
             <Navbar/>
             <YouTubePlayer videoId={"eLI3PeE0a6I"}/>
             <MovieList movies={popularMovies} category="popular" page={popularPage} setPage={setPopularPage}/>
