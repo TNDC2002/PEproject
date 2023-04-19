@@ -29,7 +29,7 @@ const SearchBar = () => {
     };
 
     const uploadUserSearchResponse = await fetch(
-      "http://localhost:5000/user/search/upload",
+      "http://localhost:5000/user/search/insert",
       {
         method: "POST",
         headers: { 
@@ -52,6 +52,7 @@ const SearchBar = () => {
 
   const handleSearch = async (value) => {
     uploadUserSearch(user._id, inputValue);
+    
   };
   
   
