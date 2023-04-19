@@ -18,5 +18,5 @@ const UserSearchHistorySchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-const UserSearchHistory = mongoose.model("UserSearchHistory", UserSearchHistorySchema);
+const UserSearchHistory = mongoose.model("User-Search", UserSearchHistorySchema);
 export default UserSearchHistory;
