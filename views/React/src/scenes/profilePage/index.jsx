@@ -2,7 +2,6 @@ import {
     Box,
     Button,
     Container,
-    useMediaQuery,
     ButtonGroup,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -20,9 +19,7 @@ const ProfilePage = () => {
     // const [lastName, setLastName] = useState(null);
     // const [email, setEmail] = useState(null);
     // const [password, setPassword] = useState(null);
-
-
-
+    const [activeSection, setActiveSection] = useState("Profile");
 
     const getUser = async () => {
         const response = await fetch(`http://localhost:5000/profile/${userID}`, {
@@ -37,6 +34,10 @@ const ProfilePage = () => {
         getUser();
     }, []);
 
+    const handleButtonClick = (sectionName) => {
+        setActiveSection(sectionName);
+    };
+
     if (!user) return null;
 
     return (
@@ -44,7 +45,7 @@ const ProfilePage = () => {
             <Navbar />
             <Container>
                 <Box
-                    minHeight="60vh"
+                    height="60vh"
                     width="100%"
                     sx={{
                         backgroundColor: "yellow",
@@ -55,30 +56,31 @@ const ProfilePage = () => {
                     <Box
                         sx={{
                             backgroundColor: "green",
-                            flexGrow: 1,
+                            height: "60px",
                             width: "100%",
                             display: "inline-flex",
                         }}
                     >
                         <ButtonGroup variant="text" aria-label="text button group" fullWidth>
-                            <Button>Profile</Button>
-                            <Button>Password</Button>
-                            <Button>Setting</Button>
+                            <Button onClick={() => handleButtonClick("Profile")}>Profile</Button>
+                            <Button onClick={() => handleButtonClick("Password")}>Password</Button>
+                            <Button onClick={() => handleButtonClick("Setting")}>Setting</Button>
                         </ButtonGroup>
                     </Box>
+
                     <Box
                         sx={{
-                            backgroundColor: "blue",
+                            backgroundColor: "orange",
                             flexGrow: 10,
                             width: "100%",
                             display: "flex",
-                            flexDirection: "column"
+                            flexDirection: "column",
                         }}
                     >
-                        <ProfileSection user={user} />
+                        {activeSection === "Profile" && <ProfileSection user={user} />}
+                        {activeSection === "Password" && <Box sx={{ flex: 1 }}>Password</Box>}
+                        {activeSection === "Setting" && <Box sx={{ flex: 1 }}>Setting</Box>}
                     </Box>
-
-
                 </Box>
             </Container>
         </Box>

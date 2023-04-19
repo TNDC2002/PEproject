@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import UserImage from "../components/UserImage";
 import EditIcon from "@mui/icons-material/Edit";
+import { NoEncryption } from "@mui/icons-material";
 
 const ProfileSection = ({ user }) => {
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -68,6 +69,7 @@ const ProfileSection = ({ user }) => {
 
                 <Stack direction="row">
                     <Stack
+                        marginRight={1}
                         sx={{
                             backgroundColor: "blue",
                             width: "180px",
@@ -77,7 +79,20 @@ const ProfileSection = ({ user }) => {
                         <Typography fontWeight="bold">First name</Typography>
                         {!editMode
                             ? (<Typography>{user.firstName}</Typography>)
-                            : (<TextField defaultValue={user.firstName} />)
+                            : (<TextField
+                                defaultValue={user.firstName}
+                                sx={{
+                                    "& fieldset": { border: 'none' },
+                                    backgroundColor: "white"
+                                }}
+                                inputProps={{
+                                    style: {
+                                        color: "black",
+                                        padding: 0,
+                                        height: "100%",
+                                    },
+                                }}
+                            />)
                         }
 
                     </Stack>
@@ -91,7 +106,20 @@ const ProfileSection = ({ user }) => {
                         <Typography fontWeight="bold">Last name</Typography>
                         {!editMode
                             ? (<Typography>{user.lastName}</Typography>)
-                            : (<TextField defaultValue={user.lastName} />)
+                            : (<TextField
+                                defaultValue={user.lastName}
+                                sx={{
+                                    "& fieldset": { border: 'none' },
+                                    backgroundColor: "white"
+                                }}
+                                inputProps={{
+                                    style: {
+                                        color: "black",
+                                        padding: 0,
+                                        height: "100%",
+                                    },
+                                }}
+                            />)
                         }
                     </Stack>
                 </Stack>
@@ -99,14 +127,27 @@ const ProfileSection = ({ user }) => {
                 <Stack
                     sx={{
                         backgroundColor: "blue",
-                        width: "180px",
+                        width: "368px",
                         height: "45px",
                         justifyContent: "center",
                     }}>
                     <Typography fontWeight="bold">Email</Typography>
                     {!editMode
                         ? (<Typography>{user.email}</Typography>)
-                        : (<TextField defaultValue={user.email} />)
+                        : (<TextField
+                            defaultValue={user.email}
+                            sx={{
+                                "& fieldset": { border: 'none' },
+                                backgroundColor: "white"
+                            }}
+                            inputProps={{
+                                style: {
+                                    color: "black",
+                                    padding: 0,
+                                    height: "100%",
+                                },
+                            }}
+                        />)
                     }
                 </Stack>
                 {editMode
