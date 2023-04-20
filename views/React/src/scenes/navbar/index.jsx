@@ -1,34 +1,37 @@
 import { useState } from "react";
 import {
+    AppBar,
     Box,
+    Button,
+    Badge,
+    Container,
+    Divider,
+    FormControl,
     IconButton,
     InputBase,
-    Typography,
-    Select,
-    MenuItem,
-    FormControl,
-    useTheme,
-    useMediaQuery,
     Icon,
     Link,
-    Tooltip,
-    Popover,
-    Button,
     Menu,
-    Divider,
-    Badge
+    MenuItem,
+    Popover,
+    Typography,
+    useTheme,
+    useMediaQuery,
+    Select,
+    Tooltip,
+    Toolbar,
 } from "@mui/material";
 import {
-    Search,
-    Message,
-    DarkMode,
-    LightMode,
-    Notifications,
-    Help,
-    Close,
     AccountCircle,
+    Close,
+    DarkMode,
+    Help,
+    Logout,
+    LightMode,
+    Message,
+    Notifications, 
+    Search,
     Settings,
-    Logout
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../states";
@@ -36,22 +39,27 @@ import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
 import UserImage from "../../components/UserImage";
 import logo from "../../images/Logo.png";
-import textLogo from "../../images/textLogo.png";
 import Image from "mui-image";
 import { fontSize, spacing } from "@mui/system";
 import SearchBar from "./SearchBar";
 
 
 const Navbar = ({}) => {
-    const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.user);
-    const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
     const [notificationNumber, setNotificationNumber] = useState(0);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+      };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -66,15 +74,8 @@ const Navbar = ({}) => {
     const redirectNotification =()=>{ navigate('/notification') };
     const redirectHelp =()=>{ navigate('/help') };
 
-
     const linkStyle ={
-        fontSize: '1.05rem',
-        fontWeight: 'bold',
-        color: 'white',
-        '&:hover': {
-            opacity: 0.5,
-            cursor: "pointer",
-          },
+        
     };
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
@@ -85,11 +86,18 @@ const Navbar = ({}) => {
     const fullName = `${user.firstName} ${user.lastName}`;
     const firstName =`${user.firstName}`;
     const email = `${user.email}`;
+
+    const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
     
     return (
-        <FlexBetween padding="0.25rem 2rem" backgroundColor ="black" position="sticky" top="0" zIndex="100">
-            <FlexBetween gap="2.5rem">
-                    <Box
+        <AppBar sx={{ 
+            top: "0",
+            zIndex: "100",
+            backgroundColor: "black" ,
+        }} position="sticky">
+            <Container sx={{ p: '0', m: '0'}}>
+                <Toolbar disableGutters>
+                <Box
                     component="img"
                     right="0"
                     bottom="0"
@@ -98,6 +106,8 @@ const Navbar = ({}) => {
                     src={ logo  } 
                     alt="logo" 
                     sx={{
+                        display: { xs: 'none', md: 'flex'},
+                        mr: 0,
                         cursor: 'pointer',
                         '&hover':{
                             opacity: 0.5,
@@ -107,38 +117,64 @@ const Navbar = ({}) => {
                         window.location.href="/home";
                     }}
                 />
-                <Box display="flex" gap="1.5rem">
-                    <Link href="/home" underline="none" sx={ linkStyle }>Home</Link>
-                    <Link href="home/movies" underline="none" sx={ linkStyle }>Feature Movies</Link>
-                    <Link href="home/tv" underline="none" sx={ linkStyle }>TV Shows</Link>
-                    <Link href="home/mylist" underline="none" sx={ linkStyle }>My List</Link>   
+                <Box gap="1.5rem" sx={{
+                    mr: 2,
+                    display: { xs:'none', md: 'flex'},
+                    fontSize: '1.05rem',
+                    fontWeight: 'bold',
+                }}>
+                    <Link href="/home" underline="none" sx={{ 
+                        color: 'white',
+                        '&:hover': {
+                            opacity: 0.5,
+                            cursor: "pointer",
+                        },
+                    }}>Home</Link>
+                    <Link href="home/movies" underline="none" sx={{
+                        color: 'white',
+                        '&:hover': {
+                            opacity: 0.5,
+                            cursor: "pointer",
+                        },
+                    }}>Feature Movies</Link>
+                    <Link href="home/tv" underline="none" sx={{
+                        color: 'white',
+                        '&:hover': {
+                            opacity: 0.5,
+                            cursor: "pointer",
+                        },
+                    }}>TV Shows</Link>
+                    <Link href="home/mylist" underline="none" sx={{
+                        color: 'white',
+                        '&:hover': {
+                            opacity: 0.5,
+                            cursor: "pointer",
+                        },
+                    }}>My List</Link>   
+                <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none'} }}>
+                    <IconButton sx={{ color: 'white' }}/>
                 </Box>
-            </FlexBetween>
-
-            {/*DESKTOP NAV*/}
-            {isNonMobileScreens ? (
-                <FlexBetween gap="2rem"> 
-                {isNonMobileScreens && (
-                    <FlexBetween backgroundColor={neutralLight} borderRadius="15px" gap="3rem" padding="0.1rem 1.5rem">
-                        <SearchBar></SearchBar>
-                    </FlexBetween>
-                )}
-                    <Tooltip title={ firstName }>
-                        <IconButton onClick={ handleClick }>
-                            <Badge 
-                                color="error" 
-                                badgeContent={notificationNumber} 
-                                overlap="circular" 
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                max={99}
-                            > 
-                            <AccountCircle style={{ color: 'white', fontSize: '3rem'}}/>
-                            </Badge>    
-                        </IconButton>
-                    </Tooltip>
+                </Box>
+                    <FlexBetween gap="2rem"> 
+                        <FlexBetween backgroundColor={ neutralLight } borderRadius="15px" gap="3rem" padding="0.1rem 1.5rem">
+                            <SearchBar></SearchBar>
+                        </FlexBetween>
+                        <Tooltip title={ firstName }>
+                            <IconButton onClick={ handleClick }>
+                                <Badge 
+                                    color="error" 
+                                    badgeContent={ notificationNumber } 
+                                    overlap="circular" 
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    max={99}
+                                > 
+                                <AccountCircle style={{ color: 'white', fontSize: '3rem'}}/>
+                                </Badge>    
+                            </IconButton>
+                        </Tooltip>
                         <Menu 
                             id="account"
                             anchorEl={anchorEl}
@@ -192,7 +228,7 @@ const Navbar = ({}) => {
                                 <Typography padding="0.25rem 1rem">Settings</Typography>
                             </MenuItem>
                             <MenuItem onClick={redirectNotification}>
-                                <Badge badgeContent={notificationNumber} sx ={{ color: notificationNumber > 0 ? 'red' : 'white'}}>
+                                <Badge badgeContent={notificationNumber} sx ={{ color: notificationNumber > 0 ? 'red' : 'black'}}>
                                     <Notifications/>
                                 </Badge>
                                 <Typography padding="0.25rem 1rem">Notifications</Typography>
@@ -206,36 +242,11 @@ const Navbar = ({}) => {
                                 <Logout/>
                                 <Typography padding="0.25rem 1rem">Logout</Typography>
                             </MenuItem>
-                        </Menu>
-                    
-                </FlexBetween>
-            ) : (
-                <IconButton
-                onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
-                >
-                    <Menu/>
-                </IconButton>
-            )}
-            
-            {/*                                                           MOBILE NAV                                                           */}
-
-
-            {!isNonMobileScreens && isMobileMenuToggled && (
-                <Box
-                position="fixed"
-                right="0"
-                bottom="0"
-                height="100%"
-                zIndex="10"
-                maxWidth="500px"
-                minWidth="100px"
-                backgroundColor={background}
-                >
-                    
-                    
-                </Box>
-            )}
-        </FlexBetween>
+                        </Menu> 
+                    </FlexBetween>  
+                </Toolbar>  
+            </Container>                                                                                   
+        </AppBar>
     );
 };
 
