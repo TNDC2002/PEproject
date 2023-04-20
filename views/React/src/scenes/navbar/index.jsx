@@ -87,7 +87,7 @@ const Navbar = ({}) => {
     const email = `${user.email}`;
     
     return (
-        <FlexBetween padding="0.25rem 2rem" backgroundColor ="black" position="sticky" top="0" bottom="0" zIndex="10">
+        <FlexBetween padding="0.25rem 2rem" backgroundColor ="black" position="sticky" top="0" zIndex="100">
             <FlexBetween gap="2.5rem">
                     <Box
                     component="img"
