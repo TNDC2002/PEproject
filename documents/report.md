@@ -57,7 +57,7 @@
 >- **My Favorites Page**: The "My Favorites" page displays a user's saved list of favorite movies, allowing them to easily access and rent them again in the future.
 ## Functionality<a name = "functionality">
 ### Movie Fetching<a name="movie-fetching">
-> As the world of cinema continues to expand with new movies and genres, navigating it can be an overwhelming task. That's why our system is designed to provide a **comprehensive and highly informative** platform for movie exploration and discovery, leveraging the extensive data available through the **TMDB database API**.
+> As the world of cinema continues to expand with new movies and genres, navigating it can be an overwhelming task. That's why our system is designed to provide a **comprehensive and highly informative** platform for movie exploration and discovery, leveraging the extensive data available through the **TMDB[^1] database API**.
 >- **Extensive collection of data**: The TMDB API offers a vast repository of movie-related data, including plot summaries, cast information, user reviews, and ratings. This wealth of information can be invaluable for users looking to explore the world of cinema.
 >- **Regular updates**: The TMDB API is regularly updated with new movie releases, ensuring that users have access to the latest information on new and upcoming movies.
 >- **Customizable queries**: The TMDB API allows users to customize their queries to retrieve only the data they need. This can save time and resources by reducing the amount of irrelevant data that needs to be processed.
@@ -97,7 +97,6 @@ export default YouTubePlayer;
 > At our movie renting website, we understand that the payment process needs to be **simple, secure, and seamless**. That's why we've developed a payment system that is easy to use and ensures that users can rent movies quickly and securely. Here's an overview of how it works:
 >- **Payment Gateway Integration**: Our payment system integrates with leading payment gateways, such as PayPal and Stripe, to ensure that users can pay using their preferred payment method.
 >- **Secure Transactions**: We take security seriously and use SSL encryption to ensure that all payment transactions are secure and protected from unauthorized access
-`console.log('Payment')`
 >- **User-Friendly Interface**: Our payment system has a user-friendly interface that guides users through the payment process step-by-step, making it easy for them to rent movies.
 >- **Automatic Billing**: To make renting movies even easier, we offer automatic billing, so users don't have to worry about remembering to pay for their rental. Once the rental period is over, we automatically charge the user's payment method on file.
 >- **Refunds and Cancellations**: We understand that sometimes plans change, so we offer easy refunds and cancellations. Users can cancel their rental or request a refund with just a few clicks, and our customer support team is always available to help if needed.
@@ -113,24 +112,4 @@ export default YouTubePlayer;
 ## Summary
 >Our rental movie website offers a vast selection of movies with personalized recommendations, user-friendly search options, and secure payment processing. With a responsive design optimized for all devices and prioritizing user feedback, our service provides a seamless and convenient rental model for all users.
 
-
-
-<style>
-.heading1 {
-    color: red;
-    font-weight:700;
-    font-size: 35px;
-}
-.heading2 {
-    color: blue;
-    font-weight:700;
-    font-size: 30px;
-}
-</style>
-
-<h1 id="identifier" class="heading1">
-    Markdown h1 styles
-</h1>
-<h2 id="identifier" class="heading2">
-    Markdown h2 styles
-</h2>
+[^1] TMDb stands for The Movie Database, which is an online database of information related to movies, TV shows, and other forms of visual entertainment. It provides a platform for users to discover information about movies, including release dates, cast and crew members, plot summaries, reviews, and ratings. TMDb is free to use and is maintained by a community of volunteers who contribute content to the site. It also offers an API that allows developers to access its database and use its information in their own applications.
