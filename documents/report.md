@@ -65,8 +65,8 @@
 >- **Community-driven**: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
 ### Showcase Movie Trailer<a name = "showcase-movie-trailer">
 > Our website can utilize the following **APIs** to display **movie trailers** for users:
->- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
->- **YouTube V3 API**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
+>- **TMDB API[^1]**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
+>- **YouTube V3 API[^2]**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
 >- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.
 ```jsx YoutubePlayer
 import React from 'react';
@@ -112,4 +112,5 @@ export default YouTubePlayer;
 ## Summary
 >Our rental movie website offers a vast selection of movies with personalized recommendations, user-friendly search options, and secure payment processing. With a responsive design optimized for all devices and prioritizing user feedback, our service provides a seamless and convenient rental model for all users.
 
-[^1]: TMDb stands for The Movie Database, which is an online database of information related to movies, TV shows, and other forms of visual entertainment. It provides a platform for users to discover information about movies, including release dates, cast and crew members, plot summaries, reviews, and ratings. TMDb is free to use and is maintained by a community of volunteers who contribute content to the site. It also offers an API that allows developers to access its database and use its information in their own applications.
+[^1]: *TMDb stands for The Movie Database, which is an online database of information related to movies, TV shows, and other forms of visual entertainment. It provides a platform for users to discover information about movies, including release dates, cast and crew members, plot summaries, reviews, and ratings. TMDb is free to use and is maintained by a community of volunteers who contribute content to the site. It also offers an API that allows developers to access its database and use its information in their own applications.*
+[^2]: *The YouTube v3 API is a tool provided by Google for developers to interact with YouTube's platform. It allows developers to perform tasks such as uploading videos, managing playlists, and retrieving video analytics data. It was released in 2015 to replace the previous v2 API and supports OAuth 2.0 authentication, JSON and XML data formats, and new features such as live streaming data and caption management.*
