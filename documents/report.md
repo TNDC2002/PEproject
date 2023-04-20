@@ -65,7 +65,7 @@
 >- **Community-driven**: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
 ### Showcase Movie Trailer<a name = "showcase-movie-trailer">
 > Our website can utilize the following **APIs** to display **movie trailers** for users:
->- **TMDB API[^1]**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
+>- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
 >- **YouTube V3 API[^2]**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
 >- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.
 ```jsx YoutubePlayer
