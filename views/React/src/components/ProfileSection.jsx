@@ -9,9 +9,10 @@ import {
 import { useState } from "react";
 import UserImage from "../components/UserImage";
 import EditIcon from "@mui/icons-material/Edit";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik"
 import * as yup from "yup"
+import { updateUser } from "../../src/states";
 
 const editSchema = yup.object().shape({
     firstName: yup.string().required("required"),
@@ -19,43 +20,40 @@ const editSchema = yup.object().shape({
     email: yup.string().email("invalid email").required("required"),
 })
 
-const ProfileSection = ({ user }) => {
+
+const ProfileSection = () => {
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
     const token = useSelector((state) => state.token);
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
     const [editMode, setEditMode] = useState(false);
-
-    const initialProfile = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-    }
 
     const handleEditIconClick = () => {
         setEditMode(true);
     }
 
     const handleSaveClick = async (values, onSubmitProps) => {
-        const formData = new FormData();
-        for (let value in values) {
-            formData.append(value, values[value]);
-        }
-        try {
-            const response = await fetch(`http://localhost:5000/profile/${user._id}`, {
-                method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(values),
-            });
-            const data = await response.json();
-            user.firstName = data.firstName;
-            user.lastName = data.lastName;
-            user.email = data.email;
-            onSubmitProps.resetForm();
-        } catch (error) {
-            console.error(error);
-        }
+        fetch(`http://localhost:5000/profile/${user._id}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(values),
+        })
+            .then(response => response.json())
+            .then(data => {
+                const updatedUser = {
+                    ...user,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                };
+                dispatch(updateUser({ user: updatedUser }));
+                setEditMode(false);
+            })
+            .catch(error => console.error(error));
+
         setEditMode(false);
     };
 
@@ -63,10 +61,9 @@ const ProfileSection = ({ user }) => {
         <Formik
             onSubmit={handleSaveClick}
             validationSchema={editSchema}
-            initialValues={initialProfile}
+            initialValues={user}
         >
             {({
-                values,
                 handleChange,
                 handleSubmit,
                 handleBlur,
@@ -90,7 +87,7 @@ const ProfileSection = ({ user }) => {
                             }}
                         >
                             <UserImage
-                                image={`https://tophinhanhdep.com/wp-content/uploads/2021/10/Rem-Wallpapers.png`}
+                                image={`https://www.kindpng.com/picc/m/325-3250609_jojo-face-png-transparent-png.png`}
                                 size="150px"
                             />
                         </Stack>
@@ -128,8 +125,7 @@ const ProfileSection = ({ user }) => {
                                     {!editMode
                                         ? (<Typography>{user.firstName}</Typography>)
                                         : (<TextField
-                                            //defaultValue={user.firstName}
-                                            value={values.firstName}
+                                            defaultValue={user.firstName}
                                             name="firstName"
                                             onBlur={handleBlur}
                                             onChange={handleChange}
@@ -159,8 +155,7 @@ const ProfileSection = ({ user }) => {
                                     {!editMode
                                         ? (<Typography>{user.lastName}</Typography>)
                                         : (<TextField
-                                            //defaultValue={user.lastName}
-                                            value={values.lastName}
+                                            defaultValue={user.lastName}
                                             onBlur={handleBlur}
                                             onChange={handleChange}
                                             name="lastName"
@@ -191,11 +186,10 @@ const ProfileSection = ({ user }) => {
                                 {!editMode
                                     ? (<Typography>{user.email}</Typography>)
                                     : (<TextField
-                                        //defaultValue={user.email}
+                                        defaultValue={user.email}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         name="email"
-                                        value={values.email}
                                         sx={{
                                             "& fieldset": { border: 'none' },
                                             backgroundColor: "white"

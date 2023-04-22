@@ -11,28 +11,8 @@ import ProfileSection from "../../components/ProfileSection";
 
 
 const ProfilePage = () => {
-    const [user, setUser] = useState(null);
-    const userID = useSelector((state) => state.user._id);
-    const token = useSelector((state) => state.token);
-
-    // const [firstName, setFirstName] = useState(null);
-    // const [lastName, setLastName] = useState(null);
-    // const [email, setEmail] = useState(null);
-    // const [password, setPassword] = useState(null);
+    const user = useSelector((state) => state.user);
     const [activeSection, setActiveSection] = useState("Profile");
-
-    const getUser = async () => {
-        const response = await fetch(`http://localhost:5000/profile/${userID}`, {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
-        setUser(data);
-    };
-
-    useEffect(() => {
-        getUser();
-    }, []);
 
     const handleButtonClick = (sectionName) => {
         setActiveSection(sectionName);
@@ -66,8 +46,8 @@ const ProfilePage = () => {
                     >
                         <ButtonGroup variant="text" aria-label="text button group" fullWidth>
                             <Button onClick={() => handleButtonClick("Profile")}>Profile</Button>
-                            <Button onClick={() => handleButtonClick("Password")}>Password</Button>
-                            <Button onClick={() => handleButtonClick("Setting")}>Setting</Button>
+                            <Button onClick={() => handleButtonClick("Account")}>Account</Button>
+                            <Button onClick={() => handleButtonClick("Settings")}>Settings</Button>
                         </ButtonGroup>
                     </Box>
 
@@ -81,8 +61,8 @@ const ProfilePage = () => {
                         }}
                     >
                         {activeSection === "Profile" && <ProfileSection user={user} />}
-                        {activeSection === "Password" && <Box sx={{ flex: 1 }}>Password</Box>}
-                        {activeSection === "Setting" && <Box sx={{ flex: 1 }}>Setting</Box>}
+                        {activeSection === "Account" && <Box sx={{ flex: 1 }}>Account</Box>}
+                        {activeSection === "Settings" && <Box sx={{ flex: 1 }}>Settings</Box>}
                     </Box>
                 </Box>
             </Container>
