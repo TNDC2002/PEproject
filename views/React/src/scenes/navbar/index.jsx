@@ -6,31 +6,20 @@ import {
     Badge,
     Container,
     Divider,
-    FormControl,
     IconButton,
-    InputBase,
-    Icon,
     Link,
     Menu,
     MenuItem,
-    Popover,
     Typography,
     useTheme,
-    useMediaQuery,
-    Select,
     Tooltip,
     Toolbar,
 } from "@mui/material";
 import {
     AccountCircle,
-    Close,
-    DarkMode,
     Help,
     Logout,
-    LightMode,
-    Message,
     Notifications, 
-    Search,
     Settings,
 } from "@mui/icons-material";
 import MenuIcon from '@mui/icons-material/Menu';
@@ -46,6 +35,7 @@ import { fontSize, spacing } from "@mui/system";
 import SearchBar from "./SearchBar";
 
 const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
+const pageLinks = ['home', 'movies', 'tv', 'mylist'];
 
 const Navbar = ({}) => {
     const dispatch = useDispatch();
@@ -119,40 +109,23 @@ const Navbar = ({}) => {
                             window.location.href="/home";
                         }}
                     />
-                    <Box gap="1.5rem" sx={{
+                    <Box sx={{
                         mr: 2,
                         display: { xs:'none', md: 'flex'},
-                        fontSize: '1.05rem',
-                        fontWeight: 'bold',
                     }}>
-                        <Link href="/home" underline="none" sx={{ 
-                            color: 'white',
-                            '&:hover': {
-                                opacity: 0.5,
-                                cursor: "pointer",
-                            },
-                        }}>Home</Link>
-                        <Link href="home/movies" underline="none" sx={{
-                            color: 'white',
-                            '&:hover': {
-                                opacity: 0.5,
-                                cursor: "pointer",
-                            },
-                        }}>Feature Movies</Link>
-                        <Link href="home/tv" underline="none" sx={{
-                            color: 'white',
-                            '&:hover': {
-                                opacity: 0.5,
-                                cursor: "pointer",
-                            },
-                        }}>TV Shows</Link>
-                        <Link href="home/mylist" underline="none" sx={{
-                            color: 'white',
-                            '&:hover': {
-                                opacity: 0.5,
-                                cursor: "pointer",
-                            },
-                        }}>My List</Link>   
+                        {pages.map((page) => (
+                            <MenuItem key={`link-${page}`}>
+                                <Link href={`/${page}`} sx={{ 
+                                    textDecoration: 'none', 
+                                    color: 'white', 
+                                    fontSize: '1rem', 
+                                    fontWeight: 'bold',
+                                    '&:hover' :{
+                                        opacity: 0.5,
+                                    }
+                                    }}>{page}</Link>
+                            </MenuItem>
+                        ))}
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none'} }}>
                         <IconButton size="large" onClick={handleOpenNavMenu}>
@@ -180,8 +153,8 @@ const Navbar = ({}) => {
                                 <SearchBar></SearchBar>
                             </Box>
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                  <Typography textAlign="center" sx={{ fontSize: '1rem'}}>{page}</Typography>
+                                <MenuItem key={`link-${page}`} onClick={handleCloseNavMenu}>
+                                  <Link href={`/${page}`} sx={{ textDecoration: 'none', color: 'black', fontSize: '1rem'}}>{page}</Link>
                                 </MenuItem>
                             ))}  
                         </Menu>
@@ -283,7 +256,7 @@ const Navbar = ({}) => {
                                         color: 'white',
                                         flexGrow: 1,
                                         textTransform: 'none'
-                                    }}>Manage your SmashBruh Account</Typography>
+                                    }}>Manage your Bruher Account</Typography>
                                 </Button>
                                 </Box>
                                 <Divider />
