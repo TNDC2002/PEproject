@@ -17,10 +17,14 @@ import {
 } from "@mui/material";
 import {
     AccountCircle,
+    FormatListBulleted,
     Help,
+    Home,
     Logout,
+    Movie,
     Notifications, 
     Settings,
+    Tv,
 } from "@mui/icons-material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { useDispatch, useSelector } from "react-redux";
@@ -33,9 +37,6 @@ import textLogo from "../../images/textLogo.png";
 import Image from "mui-image";
 import { fontSize, spacing } from "@mui/system";
 import SearchBar from "./SearchBar";
-
-const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
-const pageLinks = ['home', 'movies', 'tv', 'mylist'];
 
 const Navbar = ({}) => {
     const dispatch = useDispatch();
@@ -68,9 +69,6 @@ const Navbar = ({}) => {
     const redirectNotification =()=>{ navigate('/notification') };
     const redirectHelp =()=>{ navigate('/help') };
 
-    const linkStyle ={
-        
-    };
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
     const primaryPink = theme.palette.primary.main;
@@ -80,6 +78,7 @@ const Navbar = ({}) => {
     const fullName = `${user.firstName} ${user.lastName}`;
     const firstName =`${user.firstName}`;
     const email = `${user.email}`;
+    const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
     
     return (
         <AppBar sx={{ 
@@ -106,7 +105,7 @@ const Navbar = ({}) => {
                             }
                         }}
                         onClick={() =>{
-                            window.location.href="/home";
+                            window.location.href="/Home";
                         }}
                     />
                     <Box sx={{
@@ -177,7 +176,7 @@ const Navbar = ({}) => {
                             }
                         }}
                         onClick={() =>{
-                            window.location.href="/home";
+                            window.location.href="/Home";
                         }}
                     />
                     </Box>
