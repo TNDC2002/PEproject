@@ -14,7 +14,7 @@ import { register } from "./controller/auth.js"
 import { verifyToken } from "./middleware/auth.js";
 import authRoutes from "./routes/auth.js";
 import movieRoutes from "./routes/movieAPI.js"
-import { insertSearch } from "./controller/user.js";
+import { fetchSearches, insertSearch } from "./controller/user.js";
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,7 +42,8 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 /* ROUTES FILE */
 app.post("/auth/register", upload.single("picture"), register);
-app.post("/user/search/insert", verifyToken, insertSearch);
+app.post("/user-search-history/insert", verifyToken, insertSearch);
+app.get("/user-search-history/", verifyToken, fetchSearches);
 /* ROUTES */
 app.use("/auth", authRoutes);
 app.use("/movie", movieRoutes);
