@@ -157,55 +157,53 @@ const MoviePage = () => {
         <Typography color="text.primary">{movie.title}</Typography>
       </Breadcrumbs>
       <YouTubePlayer videoId={trailerVideoId} />
-        <Grid container spacing={1} sx={{my:2}}>
-          <Grid item xs={4}>
-            <item>
-              <Image width="300px" height="500px" src={imageUrl} alt={`${movie.title} poster`} />
-            </item>
-          </Grid>
+      <Grid container spacing={1} sx={{my:2}}>
+        <Grid item xs={12} sm = {6} md = {3} lg = {3}>
+          <Image  src={imageUrl} alt={`${movie.title} poster`} />
+        </Grid>
 
-          <Grid item xs={8}>
-            <Typography variant="h5" sx={{ mt: 2 }}>{movie.title}</Typography>
+        <Grid item xs={12} sm = {6} md = {9} lg = {9}>
+          <Typography variant="h5" sx={{ mt: 2 }}>{movie.title}</Typography>
 
-            <Button variant='contained' sx={{mx:0.5, my:1}}>
-              <VideocamIcon></VideocamIcon> <strong>Trailer </strong> 
-            </Button>
+          <Button variant='contained' sx={{mx:0.5, my:1}}>
+            <VideocamIcon></VideocamIcon> <strong>Trailer </strong> 
+          </Button>
 
-            <Button variant='contained' sx={{mx:0.5}}>
-              <strong>IMDB: </strong> {movie.vote_average}
-            </Button>
+          <Button variant='contained' sx={{mx:0.5}}>
+            <strong>IMDB: </strong> {movie.vote_average}
+          </Button>
 
-            <Typography variant="body1" sx={{my:0.5}}><strong>Overview:</strong> {movie.overview}</Typography>
+          <Typography variant="body1" sx={{my:0.5}}><strong>Overview:</strong> {movie.overview}</Typography>
 
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <Typography variant="body1" sx={{my:0.5}}><strong>Release Date:</strong> {movie.release_date}</Typography>
-                <Typography variant="body1" sx={{my:0.5}}><strong>Production:</strong> {movie.production_companies.map(g => g.name).join(', ')}</Typography>  
-                 
-              </Grid>
-
-              <Grid item xs={12} md={6}>
-                <Typography variant="body1" sx={{my:0.5}}><strong>Duration:</strong> {movie.runtime} min</Typography> 
-                <Typography variant="body1" sx={{my:0.5}}><strong>Country:</strong> {movie.production_countries.map(g => g.name).join(', ')}</Typography>
-                <Typography variant="body1" sx={{my:0.5}}><strong>Genre:</strong> {movie.genres.map(g => g.name).join(', ')}</Typography>
-              </Grid>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <Typography variant="body1" sx={{my:0.5}}><strong>Release Date:</strong> {movie.release_date}</Typography>
+              <Typography variant="body1" sx={{my:0.5}}><strong>Production:</strong> {movie.production_companies.map(g => g.name).join(', ')}</Typography>  
+                
             </Grid>
 
+            <Grid item xs={12} md={6}>
+              <Typography variant="body1" sx={{my:0.5}}><strong>Duration:</strong> {movie.runtime} min</Typography> 
+              <Typography variant="body1" sx={{my:0.5}}><strong>Country:</strong> {movie.production_countries.map(g => g.name).join(', ')}</Typography>
+              <Typography variant="body1" sx={{my:0.5}}><strong>Genre:</strong> {movie.genres.map(g => g.name).join(', ')}</Typography>
+            </Grid>
+          </Grid>
 
 
-            <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
-              {!isFavourited ? (
-                <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
-              ) : (
-                <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
-              )}
-            </IconButton>
 
-            <Button variant='contained'>
-              Rent
-            </Button>
+          <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
+            {!isFavourited ? (
+              <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
+            ) : (
+              <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
+            )}
+          </IconButton>
+
+          <Button variant='contained'>
+            Rent
+          </Button>
         </Grid>
-      
+    
         {recommendations && (
           <Box sx={{ mt: 2 }}>
           <Typography variant="h6"><strong>You may also like:</strong></Typography>
