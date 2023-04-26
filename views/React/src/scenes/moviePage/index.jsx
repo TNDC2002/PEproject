@@ -25,6 +25,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from '../navbar';
+import { Favorite, FavoriteBorderRounded, FavoriteTwoTone } from '@mui/icons-material';
 
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
@@ -157,20 +158,30 @@ const MoviePage = () => {
         <Typography color="text.primary">{movie.title}</Typography>
       </Breadcrumbs>
       <YouTubePlayer videoId={trailerVideoId} />
-      <Grid container spacing={1} sx={{my:2}}>
+      <Grid container spacing={3} sx={{my:2}}>
         <Grid item xs={12} sm = {6} md = {3} lg = {3}>
-          <Image  src={imageUrl} alt={`${movie.title} poster`} />
+          <Box sx={{ position: 'relative', display: 'inline-flex'}}>
+            <Image  src={imageUrl} alt={`${movie.title} poster`} />
+            <IconButton onClick={handleFavouriteClick} variant='contained' sx={{position: 'absolute', bottom: 0, right: 0, transform: 'translate(50%, 50%)'}}>
+              {!isFavourited ? (
+                <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
+              ) : (
+                <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
+              )}
+            </IconButton>
+          </Box>
+          
         </Grid>
 
         <Grid item xs={12} sm = {6} md = {9} lg = {9}>
-          <Typography variant="h5" sx={{ mt: 2 }}>{movie.title}</Typography>
+          <Typography sx={{fontSize: 40, fontWeight: 'medium'}}>{movie.title}</Typography>
 
           <Button variant='contained' sx={{mx:0.5, my:1}}>
             <VideocamIcon></VideocamIcon> <strong>Trailer </strong> 
           </Button>
 
           <Button variant='contained' sx={{mx:0.5}}>
-            <strong>IMDB: </strong> {movie.vote_average}
+            <strong>IMDB:</strong> { movie.vote_average}
           </Button>
 
           <Typography variant="body1" sx={{my:0.5}}><strong>Overview:</strong> {movie.overview}</Typography>
@@ -191,22 +202,23 @@ const MoviePage = () => {
 
 
 
-          <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
+          {/* <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
             {!isFavourited ? (
               <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
             ) : (
               <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
             )}
-          </IconButton>
+          </IconButton> */}
 
-          <Button variant='contained'>
-            Rent
+          <Button variant='contained' >
+            <strong>Rent</strong>
           </Button>
         </Grid>
-    
+      </Grid>
+      <Box sx={{}}>
         {recommendations && (
-          <Box sx={{ mt: 2 }}>
-          <Typography variant="h6"><strong>You may also like:</strong></Typography>
+          <Box>
+          <Typography variant="h5" sx={{pb: 1}}><strong>You may also like:</strong></Typography>
           <Grid container spacing={2} >
             {recommendations.map((recommendation) => (
             <Grid item key={recommendation.id}>
@@ -229,7 +241,7 @@ const MoviePage = () => {
           </Grid>
           </Box>
         )}
-      </Grid>
+        </Box>
     </Container>
     <Box 
       sx={{
