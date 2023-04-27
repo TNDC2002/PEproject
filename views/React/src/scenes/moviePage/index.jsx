@@ -27,6 +27,8 @@ import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from '../navbar';
 import { Favorite, FavoriteBorderRounded, FavoriteTwoTone } from '@mui/icons-material';
 
+
+
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
@@ -161,7 +163,9 @@ const MoviePage = () => {
       <Grid container spacing={3} sx={{my:2}}>
         <Grid item xs={12} sm = {6} md = {3} lg = {3}>
           <Box sx={{ position: 'relative', display: 'inline-flex'}}>
-            <Image  src={imageUrl} alt={`${movie.title} poster`} />
+            <Box sx={{ borderRadius: "10px", boxShadow: '0px 0px 30px rgba(255, 255, 255, 0.5)' }}>
+              <Image sx={{ borderRadius: "10px" }} src={imageUrl} alt={`${movie.title} poster`} />
+            </Box>
             <IconButton onClick={handleFavouriteClick} variant='contained' sx={{position: 'absolute', bottom: 0, right: 0, transform: 'translate(50%, 50%)'}}>
               {!isFavourited ? (
                 <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
