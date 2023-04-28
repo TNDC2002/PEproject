@@ -154,7 +154,7 @@ RESPONSE
 `POST /api/movie/favourite`
 ```js
 Headers:
-Authorization: Bearer [**token**]
+Authorization: Bearer [token]
 REQUEST
 {
 "userID": string,
@@ -176,6 +176,15 @@ RESPONSE
 >- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
 >- **YouTube V3 API[^2]**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
 >- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.
+`GET api/movie/trailer/:movieID`  
+```js
+RESPONSE
+{
+"trailerID": string
+}
+```  
+  
+`YoutubePlayer.jsx`
 ```jsx YoutubePlayer
 import React from 'react';
 import ReactPlayer from 'react-player/youtube';
