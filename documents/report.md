@@ -65,9 +65,8 @@
 >- **Community-driven**: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
 
 **GET /api/movie/list?category=<category>&page=<page_number>**  
-  
-**Response**
 ```js
+RESPONSE
 {
   "page": number,
   "results": [
