@@ -92,7 +92,7 @@ RESPONSE
   ]
 }
 ```  
-`GET /api/movie/detail/:movieID`  
+`GET /api/movie/detail/:movieID`
 ```js
 RESPONSE
 {
@@ -150,8 +150,30 @@ RESPONSE
   "vote_average": float,
   "vote_count": int
 }
-```
+```  
+`POST /api/movie/favourite`
+> * Header
+```js
+Headers:
+Authorization: Bearer [token]
+Content-Type: application/json
+Request Body:
 
+{
+"userID": string,
+"movieID": string
+}
+
+Response Body:
+{
+"userID": string,
+"movieID": string,
+"_id": string,
+"createdAt": date,
+"updatedAt": date,
+"__v": number
+}
+```
 ### Showcase Movie Trailer<a name = "showcase-movie-trailer">
 > Our website can utilize the following **APIs** to display **movie trailers** for users:
 >- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
