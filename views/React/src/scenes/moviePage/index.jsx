@@ -150,7 +150,7 @@ const MoviePage = () => {
       <Navbar></Navbar>
       <Container maxWidth="lg">
       <Breadcrumbs aria-label="breadcrumb" sx={{my:2}}>
-        <Link underline="hover" color="inherit" >
+        <Link underline="hover" color="inherit" onClick={() =>{window.location.href="/home";}}>
           Home
         </Link>
         
