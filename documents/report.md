@@ -11,8 +11,13 @@
     - [Pages and Images](#pages-and-images)
   - [Functionality](#functionality)
     - [Movie Fetching](#movie-fetching)
-      - [`GET /api/movie/list?category=<category>&page=<page_number>`](#get-apimovielistcategorycategorypagepage_number)
-        - [RESPONSE](#response)
+    - [`GET /api/movie/list?category=<category>&page=<page_number>`](#get-apimovielistcategorycategorypagepage_number)
+      - [RESPONSE](#response)
+    - [`GET /api/movie/detail/:movieID`](#get-apimoviedetailmovieid)
+      - [RESPONSE](#response-1)
+    - [`POST /api/movie/favourite`](#post-apimoviefavourite)
+      - [REQUEST](#request)
+      - [RESPONSE](#response-2)
     - [Showcase Movie Trailer](#showcase-movie-trailer)
     - [Search Engine](#search-engine)
     - [Payment System](#payment-system)
@@ -66,8 +71,8 @@
 >- **Integration with other applications**: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
 >- **Community-driven**: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
 
-#### `GET /api/movie/list?category=<category>&page=<page_number>`  
-##### RESPONSE
+### `GET /api/movie/list?category=<category>&page=<page_number>`  
+#### RESPONSE
 ```js
 {
   "page": number,
@@ -94,9 +99,9 @@
   ]
 }
 ```  
-`GET /api/movie/detail/:movieID`
+### `GET /api/movie/detail/:movieID`
+#### RESPONSE
 ```js
-RESPONSE
 {
   "adult": bool,
   "backdrop_path": string,
@@ -153,16 +158,18 @@ RESPONSE
   "vote_count": int
 }
 ```  
-`POST /api/movie/favourite`
+### `POST /api/movie/favourite`
+#### REQUEST
 ```js
 Headers:
 Authorization: Bearer [token]
-REQUEST
 {
 "userID": string,
 "movieID": string
 }
-
+```
+#### RESPONSE
+```
 RESPONSE
 {
 "userID": string,
