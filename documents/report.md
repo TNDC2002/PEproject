@@ -64,7 +64,8 @@
 >- **Integration with other applications**: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
 >- **Community-driven**: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
 
-<font size="7">**GET /api/movie/list?category=<category>&page=<page_number>** </font>  
+**GET /api/movie/list?category=<category>&page=<page_number>**  
+  
 **Response**
 ```js
 {
