@@ -63,6 +63,11 @@
 >- **Customizable queries**: The TMDB API allows users to customize their queries to retrieve only the data they need. This can save time and resources by reducing the amount of irrelevant data that needs to be processed.
 >- **Integration with other applications**: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
 >- **Community-driven**: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
+>- **[GET]**
+```
+http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS["popular"]}&page=${popularPage}
+```
+
 ### Showcase Movie Trailer<a name = "showcase-movie-trailer">
 > Our website can utilize the following **APIs** to display **movie trailers** for users:
 >- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
