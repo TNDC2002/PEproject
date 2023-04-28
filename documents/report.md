@@ -152,19 +152,17 @@ RESPONSE
 }
 ```  
 `POST /api/movie/favourite`
-> * Header
+> * Headers:
+> * Authorization: Bearer [token]
+> * Content-Type: application/json
 ```js
-Headers:
-Authorization: Bearer [token]
-Content-Type: application/json
-Request Body:
-
+REQUEST
 {
 "userID": string,
 "movieID": string
 }
 
-Response Body:
+RESPONSE
 {
 "userID": string,
 "movieID": string,
