@@ -66,7 +66,7 @@
 
 **GET /api/movie/list?category=<category>&page=<page_number>**  
 ```js
-RESPONSE
+##RESPONSE##
 {
   "page": number,
   "results": [
@@ -90,6 +90,65 @@ RESPONSE
     },
     ...
   ]
+}
+```  
+**GET /api/movie/detail/:movieID**  
+```js
+{
+##RESPONSE##
+  "adult": bool,
+  "backdrop_path": string,
+  "belongs_to_collection": {
+    "id": int,
+    "name": string,
+    "poster_path": string,
+    "backdrop_path": string
+  },
+  "budget": int,
+  "genres": [
+    {
+      "id": int,
+      "name": string
+    }
+  ],
+  "homepage": string,
+  "id": int,
+  "imdb_id": string,
+  "original_language": string,
+  "original_title": string,
+  "overview": string,
+  "popularity": float,
+  "poster_path": string,
+  "production_companies": [
+    {
+      "id": int,
+      "logo_path": string,
+      "name": string,
+      "origin_country": string
+          }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": string,
+      "name": string
+    }
+  ],
+  "release_date": string,
+  "revenue": int,
+  "runtime": int,
+  "spoken_languages": [
+    {
+      "english_name": string,
+      "iso_639_1": string,
+      "name": string
+    }
+  ],
+  "status": string,
+  "tagline": string,
+  "title": string,
+  "video": bool,
+  "vote_average": float,
+  "vote_count": int
 }
 ```
 
