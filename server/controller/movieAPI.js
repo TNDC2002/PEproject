@@ -89,7 +89,11 @@ export const getTrailerID = async (req, res) => {
       `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(movieTitle)}+trailer&type=video&videoDefinition=high&key=${process.env.YOUTUBE_API_KEY2}`
     );
     if (response.data.items.length > 0) {
-      res.json(response.data.items[0].id.videoId);
+      const data = {
+        trailerID: response.data.items[0].id.videoId
+      }
+
+      res.json(data);
     }
   } catch (err) {
     res.status(500).json({ message: 'Internal server error' });
