@@ -11,6 +11,8 @@
     - [Pages and Images](#pages-and-images)
   - [Functionality](#functionality)
     - [Movie Fetching](#movie-fetching)
+      - [`GET /api/movie/list?category=<category>&page=<page_number>`](#get-apimovielistcategorycategorypagepage_number)
+        - [RESPONSE](#response)
     - [Showcase Movie Trailer](#showcase-movie-trailer)
     - [Search Engine](#search-engine)
     - [Payment System](#payment-system)
@@ -64,9 +66,9 @@
 >- **Integration with other applications**: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
 >- **Community-driven**: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
 
-`GET /api/movie/list?category=<category>&page=<page_number>`   
+#### `GET /api/movie/list?category=<category>&page=<page_number>`  
+##### RESPONSE
 ```js
-RESPONSE
 {
   "page": number,
   "results": [
