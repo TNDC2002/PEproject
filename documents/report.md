@@ -152,8 +152,6 @@ RESPONSE
 }
 ```  
 `POST /api/movie/favourite`
-> * Headers:
-> * Authorization: Bearer [token]
 ```js
 Headers:
 Authorization: Bearer [token]
