@@ -37,6 +37,7 @@ const MoviePage = () => {
   const [trailerVideoId, setTrailerVideoId] = useState(null);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
+  const token = useSelector((state) => state.token);
 
   const favourite = async (userID, movieID) => {
     const requestData = {
@@ -47,7 +48,9 @@ const MoviePage = () => {
       "http://localhost:5000/movie/favourite",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json" },
         body: JSON.stringify(requestData),
       }
     );
@@ -95,7 +98,7 @@ const MoviePage = () => {
         }
       );
         const data = await response.json();
-        setTrailerVideoId(data);
+        setTrailerVideoId(data.trailerID);
       } catch (err) {
         console.error(err);
       }
