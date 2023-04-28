@@ -11,14 +11,17 @@
     - [Pages and Images](#pages-and-images)
   - [Functionality](#functionality)
     - [Movie Fetching](#movie-fetching)
-    - [`GET /api/movie/list?category=<category>&page=<page_number>`](#get-apimovielistcategorycategorypagepage_number)
+    - [**GET** /api/movie/list?category=\&page=\<page\_number\>](#get-apimovielistcategorypagepage_number)
       - [RESPONSE](#response)
-    - [`GET /api/movie/detail/:movieID`](#get-apimoviedetailmovieid)
+    - [**GET** /api/movie/detail/:movieID](#get-apimoviedetailmovieid)
       - [RESPONSE](#response-1)
-    - [`POST /api/movie/favourite`](#post-apimoviefavourite)
+    - [**POST** /api/movie/favourite](#post-apimoviefavourite)
       - [REQUEST](#request)
       - [RESPONSE](#response-2)
     - [Showcase Movie Trailer](#showcase-movie-trailer)
+    - [**GET** api/movie/trailer/:movieID](#get-apimovietrailermovieid)
+      - [RESPONSE](#response-3)
+    - [YoutubePlayer.jsx](#youtubeplayerjsx)
     - [Search Engine](#search-engine)
     - [Payment System](#payment-system)
   - [Performance and Sercurity](#performance-and-sercurity)
@@ -71,7 +74,7 @@
 >- **Integration with other applications**: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
 >- **Community-driven**: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
 
-### `GET /api/movie/list?category=<category>&page=<page_number>`  
+### **GET** /api/movie/list?category=<category>&page=<page_number>  
 #### RESPONSE
 ```js
 {
@@ -99,7 +102,7 @@
   ]
 }
 ```  
-### `GET /api/movie/detail/:movieID`
+### **GET** /api/movie/detail/:movieID
 #### RESPONSE
 ```js
 {
@@ -158,16 +161,16 @@
   "vote_count": int
 }
 ```  
-### `POST /api/movie/favourite`
+### **POST** /api/movie/favourite
 #### REQUEST
->> ```js
-    Headers:
-    Authorization: Bearer [token]
-    {
-    "userID": string,
-    "movieID": string
-    }
-    ```
+```js
+Headers:
+Authorization: Bearer [token]
+{
+"userID": string,
+"movieID": string
+}
+```
 #### RESPONSE
 ```
 RESPONSE
@@ -186,15 +189,15 @@ RESPONSE
 >- **YouTube V3 API[^2]**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
 >- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.
 
-`GET api/movie/trailer/:movieID`
+### **GET** api/movie/trailer/:movieID
+#### RESPONSE
 ```js
-RESPONSE
 {
 "trailerID": string
 }
 ```  
   
-`YoutubePlayer.jsx`
+### YoutubePlayer.jsx
 ```jsx YoutubePlayer
 import React from 'react';
 import ReactPlayer from 'react-player/youtube';
