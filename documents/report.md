@@ -160,14 +160,14 @@
 ```  
 ### `POST /api/movie/favourite`
 #### REQUEST
-```js
-Headers:
-Authorization: Bearer [token]
-{
-"userID": string,
-"movieID": string
-}
-```
+>> ```js
+    Headers:
+    Authorization: Bearer [token]
+    {
+    "userID": string,
+    "movieID": string
+    }
+    ```
 #### RESPONSE
 ```
 RESPONSE
