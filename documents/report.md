@@ -173,7 +173,6 @@ Authorization: Bearer [token]
 ```
 #### RESPONSE
 ```
-RESPONSE
 {
 "userID": string,
 "movieID": string,
