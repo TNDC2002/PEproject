@@ -73,6 +73,7 @@ const MoviePage = () => {
 ;
   
 
+
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
@@ -85,22 +86,21 @@ const MoviePage = () => {
     };
     fetchMovieDetails();
 
-    const fetchTrailerID = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/movie/trailer/${movieID}`,{
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          }
-        );
-          const data = await response.json();
-          setTrailerVideoId(data);
-        } catch (err) {
-          console.error(err);
+  const fetchTrailerID = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/movie/trailer/${movieID}`,{
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
         }
-      };
-      fetchTrailerID();
-      
+      );
+        const data = await response.json();
+        setTrailerVideoId(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchTrailerID();
   }, [movieID]);
 
   useEffect(() => {
