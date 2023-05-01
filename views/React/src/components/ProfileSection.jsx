@@ -14,6 +14,7 @@ import { Formik } from "formik"
 import * as yup from "yup"
 import { updateUser } from "../../src/states";
 
+
 const editSchema = yup.object().shape({
     firstName: yup.string().required("required"),
     lastName: yup.string().required("required"),
@@ -107,7 +108,7 @@ const ProfileSection = () => {
                         >
                             <Typography variant="h4" gutterBottom bgcolor={"red"} margin="0" fontWeight="bold">
                                 Info
-                                <IconButton onClick={handleEditIconClick}>
+                                <IconButton data-testid="edit-button" onClick={handleEditIconClick}>
                                     <EditIcon />
                                 </IconButton>
                             </Typography>
@@ -123,7 +124,7 @@ const ProfileSection = () => {
                                     }}>
                                     <Typography fontWeight="bold">First name</Typography>
                                     {!editMode
-                                        ? (<Typography>{user.firstName}</Typography>)
+                                        ? (<Typography data-testid="user-first-name">{user.firstName}</Typography>)
                                         : (<TextField
                                             defaultValue={user.firstName}
                                             name="firstName"
@@ -139,6 +140,7 @@ const ProfileSection = () => {
                                                     padding: 0,
                                                     height: "100%",
                                                 },
+                                                "data-testid": "user-first-name-input"
                                             }}
                                         />)
                                     }
@@ -153,7 +155,7 @@ const ProfileSection = () => {
                                     }}>
                                     <Typography fontWeight="bold">Last name</Typography>
                                     {!editMode
-                                        ? (<Typography>{user.lastName}</Typography>)
+                                        ? (<Typography data-testid="user-last-name" >{user.lastName}</Typography>)
                                         : (<TextField
                                             defaultValue={user.lastName}
                                             onBlur={handleBlur}
@@ -169,6 +171,7 @@ const ProfileSection = () => {
                                                     padding: 0,
                                                     height: "100%",
                                                 },
+                                                "data-testid": "user-last-name-input"
                                             }}
                                         />)
                                     }
@@ -184,7 +187,7 @@ const ProfileSection = () => {
                                 }}>
                                 <Typography fontWeight="bold">Email</Typography>
                                 {!editMode
-                                    ? (<Typography>{user.email}</Typography>)
+                                    ? (<Typography data-testid="user-email">{user.email}</Typography>)
                                     : (<TextField
                                         defaultValue={user.email}
                                         onChange={handleChange}
@@ -200,12 +203,14 @@ const ProfileSection = () => {
                                                 padding: 0,
                                                 height: "100%",
                                             },
+                                            "data-testid": "user-email-input"
                                         }}
                                     />)
                                 }
                             </Stack>
                             {editMode
                                 ? <Button
+                                    data-testid="save-button"
                                     type="submit"
                                     sx={{
                                         backgroundColor: "green"
