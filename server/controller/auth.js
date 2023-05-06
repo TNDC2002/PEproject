@@ -66,7 +66,6 @@ let generateRandomNumber = () =>{
 
 //send email detail
 const sendVerificationEmail = ({email},res) =>{
-    const currentUrl = "http://localhost:5000";
     const verifyPIN = generateRandomNumber();
     const mailOption = {
         from: process.env.AUTH_EMAIL,
