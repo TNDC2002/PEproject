@@ -146,13 +146,6 @@ const verify = async (req,res) =>{
     }
 }
 
-const verified = async(req,res) =>{
-    try{
-        res.sendfile.join(__dirname, "./../views/verified.html");
-    } catch(err)
-    {}
-}
-
 /* LOGGING IN */
 export const login = async (req, res) => {
     try {
