@@ -125,9 +125,6 @@ const verify = async (req,res) =>{
                 const savedVerifyPIN = result[0].verificationString;
                 if(savedVerifyPIN==verifyPIN){
                     User.updateOne({_id: userId},{verified: true})
-                    .then(()=>{
-                        res.sendfile(path.join(__dirname, "./../views/verified.html"));
-                    })
                     .catch((error)=>{
                         console.log(error);
                         let message = "An error occured while updating records";
