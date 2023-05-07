@@ -13,6 +13,7 @@ import * as SampleController from "../controller/SampleController.js";
 import * as middleware from "../middleware/auth.js";
 import * as auth from "../controller/auth.js";
 import * as movieAPI from "../controller/movieAPI.js";
+import * as user from "../controller/user.js";
 
 let router = express.Router();
 
@@ -35,8 +36,8 @@ let initWebRoutes = (app) => {
       router.get("/movie/recommendations/:movieID", movieAPI.default.getRecommendations);
       router.get("/movie/tvDetail/:showID", movieAPI.default.getShowDetail);
       router.get("/movie/tvRecommendations/:showID", movieAPI.default.getShowRecommendations)
+      router.get("/user-search-history/", middleware.default.verifyToken, user.default.fetchSearches);
       router.get('/', SampleController.default.Sample_handler_GET);
-
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
       app.post("/auth/register", upload.single("picture"), auth.default.register);
@@ -45,6 +46,7 @@ let initWebRoutes = (app) => {
       router.post("/movie/favourite/check", movieAPI.default.checkFavourite);
       router.post("/movie/rent", middleware.default.verifyToken, movieAPI.default.rent);
       router.post("/movie/rent/check", movieAPI.default.checkRented);
+      router.post("/user-search-history/insert", middleware.default.verifyToken, user.default.insertSearch);
       router.post('/', SampleController.default.Sample_handler_POST);
   
   /* PUT syntax:

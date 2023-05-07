@@ -37,7 +37,6 @@ import logo from "../../assets/images/Logo.png";
 import textLogo from "../../assets/images/textLogo.png";
 import Image from "mui-image";
 import { fontSize, spacing } from "@mui/system";
-import SearchBar from "./SearchBar";
 
 const Navbar = ({}) => {
     const dispatch = useDispatch();
