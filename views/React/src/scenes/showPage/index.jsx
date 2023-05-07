@@ -53,13 +53,16 @@ const ShowPage = () => {
   }
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
-  return (   
-    <Image
-      src = {imageUrl}
-      width = {200}
-      height={200}
-      alt = ""
-    />
+  return (
+    <div>
+      <Navbar></Navbar>   
+      <Image
+        src = {imageUrl}
+        width = {200}
+        height={300}
+        alt = ""
+      />
+    </div>
   );
 };
 
