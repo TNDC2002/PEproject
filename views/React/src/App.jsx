@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Navigate, Routes, Route} from "react-router-dom";
 import HomePage from "./scenes/homePage";
+import TvPage from "./scenes/tvPage";
 import LoginPage from "./scenes/loginPage";
 import ProfilePage from "./scenes/profilePage";
 import { useMemo } from 'react';
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/home" element={isAuth ? <HomePage /> :  <Navigate to="/" />} />
+            <Route path="/tv" element={isAuth ? <TvPage /> :  <Navigate to="/" />} />
             <Route path="/profile/:userID" element={isAuth ? <ProfilePage /> :  <Navigate to="/" />} />
             <Route path="/movie/:movieID" element={isAuth ? <MoviePage /> : <Navigate to="/" />} />
           </Routes>
