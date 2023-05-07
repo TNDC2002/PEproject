@@ -115,11 +115,11 @@ export const getRecommendations = async (req, res) => {
 export const getShowDetail = async (req, res) => {
   try {
     const {showID} = req.params;
-    console.log("getShowDetail called with showID:", showID);
     const response = await axios.get(`https://api.themoviedb.org/3/tv/${showID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
     res.json(response.data);
   } catch (err) {
     console.error(err);
+    console.log("getShowDetail called with showID:", showID);
     res.status(500).json({ message: 'Internal server error' });
   }
 }
