@@ -1,28 +1,28 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import MovieCard from "./MovieCard";
+import TvCard from "./tvCard";
 import FlexBetween from "../../components/FlexBetween";
 import { Grid, IconButton, Box, Typography} from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
 const CATEGORY_API_ENDPOINTS = {
+    airing_Today: "airing_today",
+    on_The_Air: "on_the_air",
     popular: "popular",
-    nowPlaying: "now_playing",
     topRated: "top_rated",
-    upcoming: "upcoming",
   };
 
-const MovieList = ({ category }) => {
-    const [movies, setMovies] = useState([]);
+const TvList = ({ category }) => {
+    const [show, setShow] = useState([]);
     const [page, setPage] = useState(1);
 
 
     useEffect(() => {
-        const fetchMovies = async () => {
-            const response = await axios.get(`https://api.themoviedb.org/3/movie/${CATEGORY_API_ENDPOINTS[category]}?api_key=37be93e690e7adb076e5110e93fda06f&language=en-US&page=${page}`);
-            setMovies(response.data.results);
+        const fetchShow = async () => {
+            const response = await axios.get(`https://api.themoviedb.org/3/tv/${CATEGORY_API_ENDPOINTS[category]}?api_key=37be93e690e7adb076e5110e93fda06f&language=en-US&page=${page}`);
+            setShow(response.data.results);
             };
-        fetchMovies();
+        fetchShow();
     }, [category, page]);
 
     const handlePrevPage = () => {
@@ -39,11 +39,11 @@ const MovieList = ({ category }) => {
           margin: '1rem 1.15rem',
           fontWeight: 'bold',
           color: 'white'
-        }}> {category.toUpperCase()} MOVIES </Typography>
+        }}> {category.toUpperCase().replace(/_/g," ")} Show </Typography>
         <Grid container spacing={2.25} justifyContent="center">
-          {movies.map((movie) => (
-            <Grid item key={movie.id}>
-              <MovieCard movie={movie} />
+          {show.map((show) => (
+            <Grid item key={show.id}>
+              <TvCard show={show} />
             </Grid>
           ))}
         </Grid>
@@ -73,4 +73,4 @@ const MovieList = ({ category }) => {
     );
 };
 
-export default MovieList;
+export default TvList;
