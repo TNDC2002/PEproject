@@ -28,7 +28,7 @@ function App() {
               element={isAuth ? <HomePage /> : <Navigate to="/" />}
             />
             <Route
-              path="/tv"
+              path="/home/show"
               element={isAuth ? <TvPage /> : <Navigate to="/" />}
             />
             <Route
