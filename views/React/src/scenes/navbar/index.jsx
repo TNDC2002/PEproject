@@ -36,8 +36,8 @@ import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
 import UserImage from "../../components/UserImage";
 import SearchBar from "./SearchBar";
-import logo from "../../images/Logo.png";
-import textLogo from "../../images/textLogo.png";
+import logo from "../../assets/images/Logo.png";
+import textLogo from "../../assets/images/textLogo.png";
 import Image from "mui-image";
 import { fontSize, spacing } from "@mui/system";
 

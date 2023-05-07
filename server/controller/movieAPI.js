@@ -158,3 +158,16 @@ export const getShowRecommendations = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
+var output = {
+  favourite,
+  checkFavourite,
+  rent,
+  checkRented,
+  getDetail,
+  getTrailerID,
+  getRecommendations,
+  getShowDetail,
+  getShowRecommendations
+}
+export default output;

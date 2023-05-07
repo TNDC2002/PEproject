@@ -10,7 +10,9 @@ var upload = uploader.default()
 /* Import your controller here by syntax:
     import * as <your controller name> from "../controller/<ControllerFile>.js" */
 import * as SampleController from "../controller/SampleController.js";
+import * as middleware from "../middleware/auth.js";
 import * as auth from "../controller/auth.js";
+import * as movieAPI from "../controller/movieAPI.js";
 
 let router = express.Router();
 
@@ -28,12 +30,21 @@ let initWebRoutes = (app) => {
       router.get('<route>',<controller_name>.default.<function>) */
       router.get("/auth/verified", auth.default.verified);
       router.get("/auth/verify/:userId/:uniqueString", auth.default.verify);
+      router.get("/movie/detail/:movieID", movieAPI.default.getDetail);
+      router.get("/movie/trailer/:movieID", movieAPI.default.getTrailerID);
+      router.get("/movie/recommendations/:movieID", movieAPI.default.getRecommendations);
+      router.get("/movie/tvDetail/:showID", movieAPI.default.getShowDetail);
+      router.get("/movie/tvRecommendations/:showID", movieAPI.default.getShowRecommendations)
       router.get('/', SampleController.default.Sample_handler_GET);
-  
+
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
       app.post("/auth/register", upload.single("picture"), auth.default.register);
       router.post("/auth/login", auth.default.login);
+      router.post("/movie/favourite", middleware.default.verifyToken, movieAPI.default.favourite);
+      router.post("/movie/favourite/check", movieAPI.default.checkFavourite);
+      router.post("/movie/rent", middleware.default.verifyToken, movieAPI.default.rent);
+      router.post("/movie/rent/check", movieAPI.default.checkRented);
       router.post('/', SampleController.default.Sample_handler_POST);
   
   /* PUT syntax:

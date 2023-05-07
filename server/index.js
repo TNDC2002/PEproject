@@ -9,8 +9,7 @@ import morgan from "morgan";
 import { fileURLToPath } from "url";
 import { configViewEngine } from "./config/ViewEngine.js";
 import { initWebRoutes } from "./routes/WebRoutes.js";
-import { verifyToken } from "./middleware/auth.js";
-import movieRoutes from "./routes/movieAPI.js"
+
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,7 +30,6 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 /* ROUTES */
 configViewEngine(app)
 initWebRoutes(app)
-app.use("/movie", movieRoutes);
 /* SERVER SETUP AND MONGOOSE SETUP */
 let PORT = process.env.PORT || 6969;
 
