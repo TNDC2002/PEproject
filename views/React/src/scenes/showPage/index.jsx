@@ -18,7 +18,8 @@ import {
   Dialog, 
   DialogTitle, 
   DialogContent, 
-  DialogActions
+  DialogActions,
+  CircularProgress
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import VideocamIcon from '@mui/icons-material/Videocam';
@@ -26,7 +27,7 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from '../navbar';
 import { Favorite, FavoriteBorderRounded, FavoriteTwoTone } from '@mui/icons-material';
-
+import Loading from '../../components/Loading';
 
 
 const ShowPage = () => {
@@ -39,7 +40,7 @@ const ShowPage = () => {
       try {
         const response = await fetch(`http://localhost:5000/tv/tvDetail/${showID}`);
         const data = await response.json();
-        setShow(data);
+        setShow(data)
       } catch (err) {
         console.log(showID)
         console.error(err);
@@ -49,7 +50,7 @@ const ShowPage = () => {
   }, [showID]);
 
   if (!show) {
-    return <Typography>Loading...</Typography>;
+    return <Loading />   
   }
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;

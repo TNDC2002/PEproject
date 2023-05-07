@@ -141,7 +141,7 @@ const MoviePage = () => {
 
   
   if (!movie) {
-    return <Typography>Loading...</Typography>;
+    return <Loading />   
   }
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
