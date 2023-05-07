@@ -15,7 +15,12 @@ export const getUser = async (req, res) => {
 }
 
 export const updateUserProfile = async (req, res) => {
-    const user = await User.findById(req.user._id);
+    const { userID } = req.params;
+    const user = await User.findOne({
+        _id: userID,
+    });
+
+    console.log(req.body);
 
     if (user) {
         user.firstName = req.body.firstName || user.firstName;
@@ -29,7 +34,6 @@ export const updateUserProfile = async (req, res) => {
         const updatedUser = await user.save();
 
         res.json({
-            _id: updatedUser._id,
             firstName: updatedUser.firstName,
             lastName: updatedUser.lastName,
             email: updatedUser.email,

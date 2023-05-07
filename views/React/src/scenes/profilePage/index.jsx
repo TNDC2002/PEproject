@@ -1,176 +1,74 @@
+
 import {
     Box,
     Button,
-    TextField,
     Container,
-    useMediaQuery,
-    Typography,
-    Stack,
+    ButtonGroup,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Formik } from "formik";
 import { useSelector } from "react-redux";
 import Navbar from "../navbar";
-import UserImage from "../../components/UserImage";
+import ProfileSection from "../../components/ProfileSection";
+
 
 const ProfilePage = () => {
-    const [user, setUser] = useState(null);
-    const userID = useSelector((state) => state.user._id);
-    const token = useSelector((state) => state.token);
-    const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+    const user = useSelector((state) => state.user);
+    const [activeSection, setActiveSection] = useState("Profile");
 
-    const [firstName, setFirstName] = useState(null);
-    const [lastName, setLastName] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
-
-
-    const getUser = async () => {
-        const response = await fetch(`http://localhost:5000/profile/${userID}`, {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
-        setUser(data);
+    const handleButtonClick = (sectionName) => {
+        setActiveSection(sectionName);
     };
 
-    const update = async () => {
-
-    }
-
-    useEffect(() => {
-        getUser();
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     if (!user) return null;
-
-    const handleFormSubmit = () => {
-
-    }
 
     return (
         <Box>
             <Navbar />
-            <UserImage image={`${user.picturePath}`} />
-            <Container>
-                <Stack direction="column"
-
-                    minHeight="70vh"
-
+            <Container sx={{
+                display: "flex",
+                justifyContent: "center",
+            }}>
+                <Box
+                    height="60vh"
+                    width="80%"
                     sx={{
-                        backgroundColor: "yellow"
-
+                        backgroundColor: "yellow",
+                        display: "flex",
+                        flexDirection: "column",
                     }}
                 >
                     <Box
-                        minHeight="10vh"
-                        minWidth="10vh"
                         sx={{
-
-                            backgroundColor: "black"
+                            backgroundColor: "green",
+                            height: "60px",
+                            width: "100%",
+                            display: "inline-flex",
                         }}
                     >
-                        <Stack
-                            direction="row"
-                            spacing={5}
-                        >
-                            <Button
-                                variant="text"
-                                style={{
-                                    maxWidth: "200px",
-                                    maxHeight: "50px",
-                                    minWidth: "30px",
-                                    minHeight: "30px",
-                                }}
-                                onClick={() => {
-                                    setPageType("login");
-                                    resetForm();
-                                }}
-                                sx={{
-                                    height: 70,
-                                    color: "#B3005E",
-                                }}
-                            >
-
-                            </Button>
-
-                            <Button
-                                variant="text"
-                                style={{
-                                    maxWidth: "200px",
-                                    maxHeight: "50px",
-                                    minWidth: "30px",
-                                    minHeight: "30px",
-                                }}
-                                onClick={() => {
-                                }}
-                                sx={{
-                                    height: 70,
-                                    color: "#B3005E",
-                                    "&:hover": {
-                                        backgroundColor: "whitesmoke",
-                                        color: "black",
-                                    },
-                                }}
-                            >
-                                <Typography
-                                    sx={{
-                                        color: "#B3005E",
-
-                                        "&:hover": {
-                                            textDecoration: "underline black",
-                                        },
-                                    }}
-                                    display="inline"
-                                    style={{ color: "#B3005E" }}
-                                    fontSize={20}
-                                >
-                                    Registrate
-                                </Typography>
-                            </Button>
-                            <Button>
-
-                            </Button>
-                            <Button>
-
-                            </Button>
-                        </Stack>
+                        <ButtonGroup variant="text" aria-label="text button group" fullWidth>
+                            <Button onClick={() => handleButtonClick("Profile")}>Profile</Button>
+                            <Button onClick={() => handleButtonClick("Account")}>Account</Button>
+                            <Button onClick={() => handleButtonClick("Settings")}>Settings</Button>
+                        </ButtonGroup>
                     </Box>
-                    <Stack direction="row"
-                        justifyContent="space-between"
-                        display = "flex"
-                        height={30}
-                        Width={30}>
 
+                    <Box
+                        sx={{
+                            backgroundColor: "orange",
+                            flexGrow: 10,
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
+                        {activeSection === "Profile" && <ProfileSection user={user} />}
+                        {activeSection === "Account" && <Box sx={{ flex: 1 }}>Account</Box>}
+                        {activeSection === "Settings" && <Box sx={{ flex: 1 }}>Settings</Box>}
+                    </Box>
+                </Box>
+            </Container>
+        </Box>
 
-                        <Box
-                            minHeight="60vh"
-                            minWidth="35vh"
-                            sx={{
-
-                                backgroundColor: "red"
-                            }}
-                        >
-                        </Box>
-
-                        <Box
-                            display="flex" 
-                            width= {800}
-                            height= {428}
-                            sx={{
-
-                                backgroundColor: "red"
-                            }}
-                        >
-                        </Box>
-
-
-                    </Stack>
-
-
-                </Stack>
-            </Container >
-        </Box >
     );
 };
 

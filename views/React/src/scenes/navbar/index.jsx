@@ -28,7 +28,7 @@ import FlexBetween from "../../components/FlexBetween";
 import UserImage from "../../components/UserImage";
 
 
-const Navbar = ({ picturePath }) => {
+const Navbar = () => {
     const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
