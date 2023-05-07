@@ -26,8 +26,8 @@ const MovieCard = ({ movie }) => {
       >
         <Image 
           src={imageUrl}
-          width={200 / 1.5}
-          height={300 / 1.5}
+          width={200 / 1}
+          height={300 / 1}
           alt={`${movie.title} poster`}
         />
       </Box>
