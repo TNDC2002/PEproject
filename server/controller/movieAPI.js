@@ -18,7 +18,7 @@ export const favourite = async (req, res) => {
             res.status(204).send();
 
           } catch (err) {
-            res.status(500).json({ error: 'An error occurred while deleting the movie from favourites.' });
+            res.status(500).json({ error: err.message });
           }
       }
 
@@ -32,7 +32,7 @@ export const favourite = async (req, res) => {
   
         res.status(201).json(savedFavourite);
         } catch (err) {
-      res.status(500).json({ error: 'An error occured while adding the movie from favourite.' });
+          res.status(500).json({ error: err.message });
         }
     };
 }
@@ -49,7 +49,7 @@ export const checkFavourite = async (req, res) => {
       res.status(500).json({ error: err.message });
     }
   };
-  
+
 /* RATING MOVIE */
 export const rate = async (req, res) => {
     try {
@@ -62,11 +62,35 @@ export const rate = async (req, res) => {
 /* RENTING MOVIE */
 export const rent = async (req, res) => {
     try {
-
+      const { userID, movieID, rentalBeginDate, rentalExpireDate } = req.body;
+      // Create a new UserMovieRental document
+      const rental = new UserRentMovie({
+        userID: userID,
+        movieID: movieID,
+        rentalBeginDate: rentalBeginDate,
+        rentalExpireDate: rentalExpireDate,
+      });
+  
+      // Save the rental document to the database
+      const savedRental = await rental.save();
+      res.status(201).json(savedRental);
     } catch (err) {
-        
+      res.status(500).json({ error: err.message });
     }
 }
+
+export const checkRented = async (req, res) => {
+  try {
+    const { userID, movieID } = req.body;
+    const rentedMovie = await UserRentMovie.findOne({
+      userID: userID,
+      movieID: movieID,
+    });
+    res.json({ rented: rentedMovie !== null });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 /* RETRIEVING MOVIE'S DETAIL */
 export const getDetail = async (req, res) => {
