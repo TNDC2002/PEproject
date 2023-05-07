@@ -29,6 +29,7 @@ const Loading = () => {
             position: "absolute",
           }}
         >
+<<<<<<< Updated upstream
           <Box
             component="img"
             right="0"

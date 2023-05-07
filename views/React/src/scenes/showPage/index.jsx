@@ -28,6 +28,10 @@ import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from '../navbar';
 import { Favorite, FavoriteBorderRounded, FavoriteTwoTone } from '@mui/icons-material';
 import Loading from '../../components/Loading';
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 
 const ShowPage = () => {
@@ -50,19 +54,16 @@ const ShowPage = () => {
   }, [showID]);
 
   if (!show) {
+<<<<<<< Updated upstream
     return <Loading />   
+=======
+    return <Loading/>
+>>>>>>> Stashed changes
   }
 
-  const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
   return (
     <div>
       <Navbar></Navbar>   
-      <Image
-        src = {imageUrl}
-        width = {200}
-        height={300}
-        alt = ""
-      />
     </div>
   );
 };

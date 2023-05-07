@@ -1,5 +1,4 @@
 import express from "express";
-import { favourite, checkFavourite, getDetail, getTrailerID, getRecommendations, getShowDetail } from "../controller/movieAPI.js";
 import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
