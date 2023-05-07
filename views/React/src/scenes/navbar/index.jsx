@@ -1,35 +1,32 @@
 import { useState } from "react";
 import {
-  Box,
-  IconButton,
-  InputBase,
-  Typography,
-  Select,
-  MenuItem,
-  FormControl,
-  useTheme,
-  useMediaQuery,
-  Icon,
-  Link,
-  Tooltip,
-  Popover,
-  Button,
-  Menu,
-  Divider,
-  Badge,
+    AppBar,
+    Box,
+    Button,
+    Badge,
+    Container,
+    Divider,
+    IconButton,
+    Link,
+    Menu,
+    MenuItem,
+    Typography,
+    useTheme,
+    Tooltip,
+    Toolbar,
 } from "@mui/material";
 import {
-  Search,
-  Message,
-  DarkMode,
-  LightMode,
-  Notifications,
-  Help,
-  Close,
-  AccountCircle,
-  Settings,
-  Logout,
+    AccountCircle,
+    FormatListBulleted,
+    Help,
+    Home,
+    Logout,
+    Movie,
+    Notifications, 
+    Settings,
+    Tv,
 } from "@mui/icons-material";
+import MenuIcon from '@mui/icons-material/Menu';
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../states";
 import { useNavigate } from "react-router-dom";
@@ -40,20 +37,29 @@ import logo from "../../assets/images/Logo.png";
 import textLogo from "../../assets/images/textLogo.png";
 import Image from "mui-image";
 import { fontSize, spacing } from "@mui/system";
+import SearchBar from "./SearchBar";
 
 const Navbar = ({}) => {
-  const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.user);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+    const [notificationNumber, setNotificationNumber] = useState(0);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+      };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -72,189 +78,222 @@ const Navbar = ({}) => {
     navigate("/help");
   };
 
-  const linkStyle = {
-    fontSize: "1.05rem",
-    fontWeight: "bold",
-    color: "white",
-    "&:hover": {
-      opacity: 0.5,
-      cursor: "pointer",
-    },
-  };
-  const theme = useTheme();
-  const neutralLight = theme.palette.neutral.light;
-  const primaryPink = theme.palette.primary.main;
-  const lightPink = theme.palette.primary.light;
-  const background = theme.palette.primary.dark;
+    const theme = useTheme();
+    const neutralLight = theme.palette.neutral.light;
+    const primaryPink = theme.palette.primary.main;
+    const lightPink = theme.palette.primary.light;
+    const background = theme.palette.primary.dark;
 
-  const fullName = `${user.firstName} ${user.lastName}`;
-  const firstName = `${user.firstName}`;
-  const email = `${user.email}`;
-
-  return (
-    <FlexBetween padding="0.25rem 2rem" backgroundColor="black">
-      <FlexBetween gap="2.5rem">
-        <Box
-          component="img"
-          right="0"
-          bottom="0"
-          height="4.5rem"
-          zIndex="10"
-          src={logo}
-          alt="logo"
-          sx={{
-            cursor: "pointer",
-            "&hover": {
-              opacity: 0.5,
-            },
-          }}
-          onClick={() => {
-            window.location.href = "/home";
-          }}
-        />
-        <Box display="flex" gap="1.5rem">
-          <Link href="/home" underline="none" sx={linkStyle}>
-            Home
-          </Link>
-          <Link href="home/movies" underline="none" sx={linkStyle}>
-            Feature Movies
-          </Link>
-          <Link href="tv" underline="none" sx={linkStyle}>
-            TV Shows
-          </Link>
-          <Link href="home/mylist" underline="none" sx={linkStyle}>
-            My List
-          </Link>
-        </Box>
-      </FlexBetween>
-
-      {/*DESKTOP NAV*/}
-      {isNonMobileScreens ? (
-        <FlexBetween gap="2rem">
-          {isNonMobileScreens && (
-            <FlexBetween
-              backgroundColor={neutralLight}
-              borderRadius="15px"
-              gap="3rem"
-              padding="0.1rem 1.5rem"
-            >
-              <InputBase placeholder="Search..." />
-              <IconButton>
-                <Search />
-              </IconButton>
-            </FlexBetween>
-          )}
-          <Tooltip title={firstName}>
-            <IconButton onClick={handleClick}>
-              <Badge color="error" badgeContent="">
-                <AccountCircle style={{ color: "white", fontSize: "3rem" }} />
-              </Badge>
-            </IconButton>
-          </Tooltip>
-          <Menu
-            id="account"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            sx={{
-              width: "auto",
-            }}
-          >
-            <Typography
-              color="black"
-              variant="h5"
-              sx={{
-                padding: "1rem 1rem 0",
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              {fullName}
-            </Typography>
-            <Typography
-              variant="h6"
-              sx={{
-                padding: "0.5rem 0",
-                textAlign: "center",
-              }}
-            >
-              {email}
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-              }}
-            >
-              <Button
-                onClick={redirectAccount}
-                sx={{
-                  border: "2px solid black",
-                  borderRadius: "10px",
-                  margin: "1rem",
-                  backgroundColor: "gray",
-                  width: "100%",
-                  "&:hover": {
-                    backgroundColor: "dimgrey",
-                  },
-                }}
-              >
-                <Typography
-                  sx={{
-                    color: "white",
-                    flexGrow: 1,
-                    textTransform: "none",
-                  }}
-                >
-                  Manage your SmashBruh Account
-                </Typography>
-              </Button>
-            </Box>
-            <Divider />
-            <MenuItem onClick={redirectSettings}>
-              <Settings />
-              <Typography padding="0.25rem 1rem">Settings</Typography>
-            </MenuItem>
-            <MenuItem onClick={redirectNotification}>
-              <Badge badgeContent={4} sx={{ color: "red" }}>
-                <Notifications />
-              </Badge>
-              <Typography padding="0.25rem 1rem">Notifications</Typography>
-            </MenuItem>
-            <MenuItem onClick={redirectHelp}>
-              <Help />
-              <Typography padding="0.25rem 1rem">Help</Typography>
-            </MenuItem>
-            <Divider />
-            <MenuItem onClick={() => dispatch(setLogout())}>
-              <Logout />
-              <Typography padding="0.25rem 1rem">Logout</Typography>
-            </MenuItem>
-          </Menu>
-        </FlexBetween>
-      ) : (
-        <IconButton
-          onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
-        >
-          <Menu />
-        </IconButton>
-      )}
-
-      {/*                                                           MOBILE NAV                                                           */}
-
-      {!isNonMobileScreens && isMobileMenuToggled && (
-        <Box
-          position="fixed"
-          right="0"
-          bottom="0"
-          height="100%"
-          zIndex="10"
-          maxWidth="500px"
-          minWidth="100px"
-          backgroundColor={background}
-        ></Box>
-      )}
-    </FlexBetween>
-  );
+    const fullName = `${user.firstName} ${user.lastName}`;
+    const firstName =`${user.firstName}`;
+    const email = `${user.email}`;
+    const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
+    
+    return (
+        <AppBar sx={{ 
+            top: "0",
+            zIndex: "100",
+            backgroundColor: "black" ,
+        }} position="sticky">
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+                    <Box
+                        component="img"
+                        right="0"
+                        bottom="0"
+                        height="4.5rem"
+                        zIndex="10"
+                        src={ logo  } 
+                        alt="logo" 
+                        sx={{
+                            display: { xs: 'none', md: 'flex'},
+                            mr: 0,
+                            cursor: 'pointer',
+                            '&hover':{
+                                opacity: 0.5,
+                            }
+                        }}
+                        onClick={() =>{
+                            window.location.href="/Home";
+                        }}
+                    />
+                    <Box sx={{
+                        mr: 2,
+                        display: { xs:'none', md: 'flex'},
+                    }}>
+                        {pages.map((page) => (
+                            <MenuItem key={`link-${page}`}>
+                                <Link href={`/${page}`} sx={{ 
+                                    textDecoration: 'none', 
+                                    color: 'white', 
+                                    fontSize: '1rem', 
+                                    fontWeight: 'bold',
+                                    '&:hover' :{
+                                        opacity: 0.5,
+                                    }
+                                    }}>{page}</Link>
+                            </MenuItem>
+                        ))}
+                    </Box>
+                    <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none'} }}>
+                        <IconButton size="large" onClick={handleOpenNavMenu}>
+                            <MenuIcon sx={{ color: 'white'}}/> 
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
+                            sx={{
+                                display: { xs: 'block', md: 'none'},
+                            }}
+                        >
+                            <Box sx={{ display: 'flex', padding: '0 1rem', margin: '0 0 0.5rem 0' }}>
+                                <SearchBar></SearchBar>
+                            </Box>
+                            {pages.map((page) => (
+                                <MenuItem key={`link-${page}`} onClick={handleCloseNavMenu}>
+                                  <Link href={`/${page}`} sx={{ textDecoration: 'none', color: 'black', fontSize: '1rem'}}>{page}</Link>
+                                </MenuItem>
+                            ))}  
+                        </Menu>
+                    </Box>
+                    <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center'}}>
+                    <Box
+                        component="img"
+                        right="0"
+                        bottom="0"
+                        height="4rem"
+                        zIndex="10"
+                        src={ textLogo  } 
+                        alt="textLogo" 
+                        sx={{
+                            display: { xs: 'flex', md: 'none'},
+                            mr: 0,
+                            cursor: 'pointer',
+                            '&hover':{
+                                opacity: 0.5,
+                            }
+                        }}
+                        onClick={() =>{
+                            window.location.href="/Home";
+                        }}
+                    />
+                    </Box>
+                    <Box gap= "3rem" sx={{ display: "flex", marginLeft: 'auto' }} > 
+                        <FlexBetween  backgroundColor= { neutralLight } sx={{ borderRadius: "15px", padding: "0.1rem 1.5rem", margin:'0.5rem', display: { xs: 'none', md: 'flex'} }} >
+                            <SearchBar></SearchBar>
+                        </FlexBetween>
+                        <Box sx={{ flexGrow: 0}}>
+                            <Tooltip title={ firstName }>
+                                <IconButton onClick={ handleClick }>
+                                    <Badge 
+                                        color="error" 
+                                        badgeContent={ notificationNumber } 
+                                        overlap="circular" 
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        max={99}
+                                    > 
+                                    <AccountCircle style={{ color: 'white', fontSize: '3rem'}}/>
+                                    </Badge>    
+                                </IconButton>
+                            </Tooltip>
+                            <Menu 
+                                id="menu-appbar"
+                                anchorEl={anchorEl}  
+                                sx={{
+                                    width: 'auto',
+                                    mt: '45px'
+                                }}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                  }}
+                                  keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={open} 
+                                onClose={handleClose} 
+                            >
+                                <Typography 
+                                color= 'black'
+                                variant="h5"
+                                sx = {{
+                                    padding: "1rem 1rem 0",
+                                    textAlign: "center",
+                                    fontWeight: 'bold'
+                                }}
+                                >{ fullName }
+                                </Typography>
+                                <Typography 
+                                variant= "h6"
+                                sx={{
+                                    padding: "0.5rem 0",
+                                    textAlign:"center",
+                                    
+                                }}>{ email }</Typography>
+                                <Box sx={{
+                                    display: 'flex'
+                                }}>
+                                <Button onClick={ redirectAccount } 
+                                    sx={{
+                                    border: "2px solid black",
+                                    borderRadius: '10px',
+                                    margin: '1rem',
+                                    backgroundColor: 'gray',
+                                    width: '100%',
+                                    '&:hover': {
+                                        backgroundColor: 'dimgrey'
+                                    }
+                                    }}>
+                                    <Typography sx={{
+                                        color: 'white',
+                                        flexGrow: 1,
+                                        textTransform: 'none'
+                                    }}>Manage your Bruher Account</Typography>
+                                </Button>
+                                </Box>
+                                <Divider />
+                                <MenuItem onClick={redirectSettings}>
+                                        <Settings/>
+                                    <Typography padding="0.25rem 1rem">Settings</Typography>
+                                </MenuItem>
+                                <MenuItem onClick={redirectNotification}>
+                                    <Badge badgeContent={notificationNumber} sx ={{ color: notificationNumber > 0 ? 'red' : 'black'}}>
+                                        <Notifications/>
+                                    </Badge>
+                                    <Typography padding="0.25rem 1rem">Notifications</Typography>
+                                </MenuItem>
+                                <MenuItem onClick={redirectHelp}>
+                                    <Help/>
+                                    <Typography padding="0.25rem 1rem">Help</Typography>
+                                </MenuItem>
+                                <Divider />
+                                <MenuItem onClick={()=> dispatch(setLogout())}>
+                                    <Logout/>
+                                    <Typography padding="0.25rem 1rem">Logout</Typography>
+                                </MenuItem>
+                            </Menu> 
+                        </Box>
+                    </Box> 
+                </Toolbar>  
+            </Container>                                                                                   
+        </AppBar>
+    );
 };
 
 export default Navbar;
