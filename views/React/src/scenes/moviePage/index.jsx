@@ -236,8 +236,8 @@ const MoviePage = () => {
                   }}
                 >
                   <Image 
-                    width="150px" 
-                    height="250px" 
+                    width="175px" 
+                    height="275px" 
                     src={recommendation.poster_path ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}` : "https://via.placeholder.com/150x250.png?text=No+Image"} 
                     alt={`${recommendation.title} poster`} 
                   />
