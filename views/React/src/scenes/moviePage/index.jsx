@@ -19,11 +19,13 @@ import {
   Dialog, 
   DialogTitle, 
   DialogContent, 
-  DialogActions
+  DialogActions,
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from '../navbar';
 import { Favorite, FavoriteBorderRounded, FavoriteTwoTone } from '@mui/icons-material';
@@ -39,6 +41,7 @@ const MoviePage = () => {
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
   const token = useSelector((state) => state.token);
+  const theme = useTheme();
 
   const favourite = async (userID, movieID) => {
     const requestData = {
@@ -56,7 +59,31 @@ const MoviePage = () => {
       }
     );
   };
-  
+
+  const rent = async (userID, movieID) => {
+    const rentalBeginDate = new Date();
+    const rentalExpireDate = new Date(rentalBeginDate);
+    rentalExpireDate.setDate(rentalExpireDate.getDate() + 7);
+
+    const requestData = {
+      userID: userID,
+      movieID: movieID,
+      rentalBeginDate: rentalBeginDate,
+      rentalExpireDate: rentalExpireDate,
+    };
+
+    const addRentResponse = await fetch(
+      "http://localhost:5000/movie/rent",
+      {
+        method: "POST",
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      }
+    );
+  };
+
   const checkFavorite = async (userID, movieID) => {
     const requestData = {
       userID: userID,
@@ -74,10 +101,23 @@ const MoviePage = () => {
     return result.favorited;
   };
 
-;
+  const checkRented = async (userID, movieID) => {
+    const requestData = {
+      userID: userID,
+      movieID: movieID
+    };
+    const checkRentedResponse = await fetch(
+      "http://localhost:5000/movie/rent/check",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      }
+    );
+    const result = await checkRentedResponse.json();
+    return result.rented;
+  }
   
-
-
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
@@ -128,8 +168,10 @@ const MoviePage = () => {
   
   useEffect(() => {
     const fetchFavourite = async () => {
-      const response = await checkFavorite(user._id, movieID);
-      setIsFavourited(response);
+      const checkFavouriteResponse = await checkFavorite(user._id, movieID);
+      const checkRentedResponse = await checkRented(user._id, movieID);
+      setIsRented(checkRentedResponse);
+      setIsFavourited(checkFavouriteResponse);
     };
     fetchFavourite();
   }, [movieID, user._id]);
@@ -140,6 +182,11 @@ const MoviePage = () => {
     setIsFavourited(!isFavourited);
   };
 
+  const handleRentClick = () => {
+    // Call the favourite function with the necessary values here
+    rent(user._id, movieID);
+    setIsRented(!isRented);
+  };
   
   if (!movie) {
     return <Loading />;
@@ -174,7 +221,7 @@ const MoviePage = () => {
               {!isFavourited ? (
                 <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
               ) : (
-                <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
+                <FavoriteOutlinedIcon sx={{ fontSize: "40px", color: theme.palette.primary.main}} />
               )}
             </IconButton>
           </Box>
@@ -218,8 +265,19 @@ const MoviePage = () => {
             )}
           </IconButton> */}
 
-          <Button variant='contained' >
-            <strong>Rent</strong>
+          <Button variant='contained' onClick={handleRentClick} disabled={isRented}>
+            {!isRented ? (
+              <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
+            ): (
+              <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
+            )}
+
+            {!isRented ? (
+              <strong>Rent</strong>
+            ): (
+              <strong>Already Rented</strong>
+            )}
+            
           </Button>
         </Grid>
       </Grid>
