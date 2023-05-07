@@ -142,11 +142,7 @@ const MoviePage = () => {
 
   
   if (!movie) {
-<<<<<<< Updated upstream
-    return <Loading />   
-=======
     return <Loading />;
->>>>>>> Stashed changes
   }
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;

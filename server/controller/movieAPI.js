@@ -124,7 +124,7 @@ export const getShowDetail = async (req, res) => {
   }
 }
 
-/* RETRIEVING TMDB'S RECOMMMENDATIONS */
+/* RETRIEVING SHOW'S RECOMMMENDATIONS */
 export const getShowRecommendations = async (req, res) => {
   try {
     const {showID} = req.params;

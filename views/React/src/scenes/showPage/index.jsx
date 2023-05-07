@@ -28,10 +28,6 @@ import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from '../navbar';
 import { Favorite, FavoriteBorderRounded, FavoriteTwoTone } from '@mui/icons-material';
 import Loading from '../../components/Loading';
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
 
 const ShowPage = () => {
@@ -54,11 +50,7 @@ const ShowPage = () => {
   }, [showID]);
 
   if (!show) {
-<<<<<<< Updated upstream
     return <Loading />   
-=======
-    return <Loading/>
->>>>>>> Stashed changes
   }
 
   return (

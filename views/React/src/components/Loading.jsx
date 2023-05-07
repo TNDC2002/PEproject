@@ -29,7 +29,6 @@ const Loading = () => {
             position: "absolute",
           }}
         >
-<<<<<<< Updated upstream
           <Box
             component="img"
             right="0"
@@ -47,13 +46,6 @@ const Loading = () => {
             onClick={() => {
               window.location.href = "/home";
             }}
-=======
-          <img
-            src={logo}
-            alt="Logo"
-            style={{ width: "200px" }}
-            onClick={() =>{window.location.href="/home";}}
->>>>>>> Stashed changes
           />
         </Box>
       </Box>
