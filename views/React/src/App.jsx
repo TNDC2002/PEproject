@@ -10,6 +10,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import MoviePage from "./scenes/moviePage";
+import ShowPage from "./scenes/showPage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -28,16 +29,20 @@ function App() {
               element={isAuth ? <HomePage /> : <Navigate to="/" />}
             />
             <Route
+              path="/movie/:movieID"
+              element={isAuth ? <MoviePage /> : <Navigate to="/" />}
+            />
+            <Route
               path="/tv"
               element={isAuth ? <TvPage /> : <Navigate to="/" />}
             />
             <Route
-              path="/profile/:userID"
-              element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+              path="/tv/:showID"
+              element={isAuth ? <ShowPage /> : <Navigate to="/" />}
             />
             <Route
-              path="/movie/:movieID"
-              element={isAuth ? <MoviePage /> : <Navigate to="/" />}
+              path="/profile/:userID"
+              element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>

@@ -1,5 +1,5 @@
 import express from "express";
-import { favourite, checkFavourite, getDetail, getTrailerID, getRecommendations } from "../controller/movieAPI.js";
+import { favourite, checkFavourite, getDetail, getTrailerID, getRecommendations, getShowDetail } from "../controller/movieAPI.js";
 import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -9,4 +9,5 @@ router.post("/favourite/check", checkFavourite);
 router.get("/detail/:movieID", getDetail);
 router.get("/trailer/:movieID", getTrailerID);
 router.get("/recommendations/:movieID", getRecommendations);
+router.get("/tvDetail/:showID", getShowDetail);
 export default router;
