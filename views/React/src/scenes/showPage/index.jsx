@@ -64,6 +64,7 @@ const ShowPage = () => {
   return (
     <div>
       <Navbar></Navbar>   
+      <Typography>{show.title}</Typography>
     </div>
   );
 };

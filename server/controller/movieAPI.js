@@ -123,3 +123,14 @@ export const getShowDetail = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
+/* RETRIEVING TMDB'S RECOMMMENDATIONS */
+export const getShowRecommendations = async (req, res) => {
+  try {
+    const {showID} = req.params;
+    const response = await axios.get(`https://api.themoviedb.org/3/tv/${showID}/recommendations?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`);
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}

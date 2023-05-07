@@ -4,6 +4,7 @@ import axios from 'axios';
 import Image from 'mui-image';
 import { useSelector } from 'react-redux';
 import FlexBetween from '../../components/FlexBetween';
+import Loading from '../../components/Loading';
 import {
   Box,
   Grid,
@@ -141,7 +142,11 @@ const MoviePage = () => {
 
   
   if (!movie) {
+<<<<<<< Updated upstream
     return <Loading />   
+=======
+    return <Loading />;
+>>>>>>> Stashed changes
   }
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
