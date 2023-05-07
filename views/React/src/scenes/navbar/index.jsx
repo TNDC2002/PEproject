@@ -108,7 +108,7 @@ const Navbar = ({}) => {
                 <Box display="flex" gap="1.5rem">
                     <Link href="/home" underline="none" sx={ linkStyle }>Home</Link>
                     <Link href="home/movies" underline="none" sx={ linkStyle }>Feature Movies</Link>
-                    <Link href="home/show" underline="none" sx={ linkStyle }>TV Shows</Link>
+                    <Link href="tv" underline="none" sx={ linkStyle }>TV Shows</Link>
                     <Link href="home/mylist" underline="none" sx={ linkStyle }>My List</Link>   
                 </Box>
             </FlexBetween>
