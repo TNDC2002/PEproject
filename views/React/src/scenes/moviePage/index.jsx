@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Image from 'mui-image';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FlexBetween from '../../components/FlexBetween';
 import Loading from '../../components/Loading';
 import {
@@ -29,11 +29,12 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from '../navbar';
 import { Favorite, FavoriteBorderRounded, FavoriteTwoTone } from '@mui/icons-material';
-
+import { setMode } from '../../states';
 
 
 const MoviePage = () => {
   const [movie, setMovie] = useState(null);
+  const dispatch = useDispatch();
   const [recommendations, setRecommendations] = useState(null);
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);

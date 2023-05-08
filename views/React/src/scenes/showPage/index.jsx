@@ -35,7 +35,87 @@ const ShowPage = () => {
   const [show, setShow] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
   const { showID } = useParams();
-  
+  const user = useSelector((state) => state.user);
+  const [trailerVideoId, setTrailerVideoId] = useState(null);
+  const [isFavourited, setIsFavourited] = useState(false);
+  const [isRented, setIsRented] = useState(false);
+  const token = useSelector((state) => state.token);
+  const theme = useTheme();
+
+  const favourite = async (userID, showID) => {
+    const requestData = {
+      userID: userID,
+      movieID: showID,
+    };
+    const addFavouriteResponse = await fetch(
+      "http://localhost:5000/movie/favourite",
+      {
+        method: "POST",
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      }
+    );
+  };
+
+  const rent = async (userID, showID) => {
+    const rentalBeginDate = new Date();
+    const rentalExpireDate = new Date(rentalBeginDate);
+    rentalExpireDate.setDate(rentalExpireDate.getDate() + 7);
+
+    const requestData = {
+      userID: userID,
+      movieID: showID,
+      rentalBeginDate: rentalBeginDate,
+      rentalExpireDate: rentalExpireDate,
+    };
+
+    const addRentResponse = await fetch(
+      "http://localhost:5000/movie/rent",
+      {
+        method: "POST",
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      }
+    );
+  };
+
+  const checkFavorite = async (userID, showID) => {
+    const requestData = {
+      userID: userID,
+      movieID: showID,
+    };
+    const checkFavoriteResponse = await fetch(
+      "http://localhost:5000/movie/favourite/check",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      }
+    );
+    const result = await checkFavoriteResponse.json();
+    return result.favorited;
+  };
+
+  const checkRented = async (userID, showID) => {
+    const requestData = {
+      userID: userID,
+      movieID: showID
+    };
+    const checkRentedResponse = await fetch(
+      "http://localhost:5000/movie/rent/check",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      }
+    );
+    const result = await checkRentedResponse.json();
+    return result.rented;
+  }
 
   useEffect(() => {
     const fetchShowDetails = async () => {
@@ -49,6 +129,22 @@ const ShowPage = () => {
       }
     };
     fetchShowDetails();
+
+    const fetchTrailerID = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/movie/trailer/${showID}`,{
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          }
+        );
+          const data = await response.json();
+          setTrailerVideoId(data.trailerID);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      fetchTrailerID();
   }, [showID]);
 
   useEffect(() => {
@@ -70,13 +166,33 @@ const ShowPage = () => {
     fetchRecommendations();
   }, [showID]);
 
-  console.log(recommendations)
+  useEffect(() => {
+    const fetchFavourite = async () => {
+      const checkFavouriteResponse = await checkFavorite(user._id, showID);
+      const checkRentedResponse = await checkRented(user._id, showID);
+      setIsRented(checkRentedResponse);
+      setIsFavourited(checkFavouriteResponse);
+    };
+    fetchFavourite();
+  }, [showID, user._id]);
+
+  const handleFavouriteClick = () => {
+    // Call the favourite function with the necessary values here
+    favourite(user._id, showID);
+    setIsFavourited(!isFavourited);
+  };
+
+  const handleRentClick = () => {
+    // Call the favourite function with the necessary values here
+    rent(user._id, showID);
+    setIsRented(!isRented);
+  };
 
   if (!show) {
     return <Loading />   
   }
 
-  console.log(show)
+  
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
 
@@ -97,19 +213,19 @@ const ShowPage = () => {
         </Link>
         <Typography color="text.primary">{show.original_name}</Typography>
       </Breadcrumbs>
-      {/* <YouTubePlayer videoId={trailerVideoId} /> */}
+      <YouTubePlayer videoId={""} />
       <Grid container spacing={3} sx={{my:2}}>
         <Grid item xs={12} sm = {6} md = {3} lg = {3}>
           <Box sx={{ position: 'relative', display: 'inline-flex'}}>
             <Box sx={{ borderRadius: "10px", boxShadow: '0px 0px 30px rgba(255, 255, 255, 0.5)' }}>
               <Image sx={{ borderRadius: "10px" }} src={imageUrl} alt={`${show.original_name} poster`} />
             </Box>
-            <IconButton onClick={() => {}} variant='contained' sx={{position: 'absolute', bottom: 0, right: 0, transform: 'translate(50%, 50%)'}}>
-              {/* {!isFavourited ? (
+            <IconButton onClick={handleFavouriteClick} variant='contained' sx={{position: 'absolute', bottom: 0, right: 0, transform: 'translate(50%, 50%)'}}>
+              {!isFavourited ? (
                 <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
               ) : (
                 <FavoriteOutlinedIcon sx={{ fontSize: "40px", color: theme.palette.primary.main}} />
-              )} */}
+              )}
             </IconButton>
           </Box>
           
@@ -144,22 +260,22 @@ const ShowPage = () => {
 
 
 
-          <IconButton onClick={() => {}} sx={{ my: 2 }}>
-            {true ? (
+          {/* <IconButton onClick={() => {}} sx={{ my: 2 }}>
+            {!isRented ? (
               <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
             ) : (
               <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
             )}
-          </IconButton>
+          </IconButton> */}
 
-          <Button variant='contained' onClick={() => {}} disabled={() => {}}>
-            {true ? (
+          <Button variant='contained' onClick={handleRentClick} disabled={isRented}>
+            {!isRented ? (
               <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
             ): (
               <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
             )}
 
-            {false ? (
+            {!isRented? (
               <strong>Rent</strong>
             ): (
               <strong>Already Rented</strong>
