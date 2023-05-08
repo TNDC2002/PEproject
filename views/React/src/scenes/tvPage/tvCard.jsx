@@ -12,7 +12,7 @@ const TvCard = ({ show }) => {
   return (
     <Box
       backgroundColor={neutralLight}
-      onClick={() => navigate(`/tv/${show.id}`)}
+      onClick={() => navigate(`/TV Shows/${show.id}`)}
       sx={{
         "&:hover": {
           cursor: "pointer",
