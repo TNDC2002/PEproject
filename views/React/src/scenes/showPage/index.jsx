@@ -4,6 +4,7 @@ import axios from 'axios';
 import Image from 'mui-image';
 import { useSelector } from 'react-redux';
 import FlexBetween from '../../components/FlexBetween';
+import Loading from '../../components/Loading';
 import {
   Box,
   Grid,
@@ -19,15 +20,15 @@ import {
   DialogTitle, 
   DialogContent, 
   DialogActions,
-  CircularProgress
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from '../navbar';
 import { Favorite, FavoriteBorderRounded, FavoriteTwoTone } from '@mui/icons-material';
-import Loading from '../../components/Loading';
 
 
 const ShowPage = () => {
@@ -121,26 +122,26 @@ const ShowPage = () => {
 
 
 
-          {/* <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
-            {!isFavourited ? (
+          <IconButton onClick={() => {}} sx={{ my: 2 }}>
+            {true ? (
               <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
             ) : (
               <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
             )}
-          </IconButton> */}
+          </IconButton>
 
           <Button variant='contained' onClick={() => {}} disabled={() => {}}>
-            {/* {!isRented ? (
+            {true ? (
               <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
             ): (
               <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
             )}
 
-            {!isRented ? (
+            {false ? (
               <strong>Rent</strong>
             ): (
               <strong>Already Rented</strong>
-            )} */}
+            )}
             
           </Button>
         </Grid>
