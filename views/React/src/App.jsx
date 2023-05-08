@@ -33,11 +33,11 @@ function App() {
               element={isAuth ? <MoviePage /> : <Navigate to="/" />}
             />
             <Route
-              path="/tv"
+              path="/TV Shows"
               element={isAuth ? <TvPage /> : <Navigate to="/" />}
             />
             <Route
-              path="/tv/:showID"
+              path="/TV Shows/:showID"
               element={isAuth ? <ShowPage /> : <Navigate to="/" />}
             />
             <Route
