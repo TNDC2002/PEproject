@@ -33,6 +33,7 @@ import { Favorite, FavoriteBorderRounded, FavoriteTwoTone } from '@mui/icons-mat
 
 const ShowPage = () => {
   const [show, setShow] = useState(null);
+  const [recommendations, setRecommendations] = useState(null);
   const { showID } = useParams();
   
 
@@ -49,6 +50,27 @@ const ShowPage = () => {
     };
     fetchShowDetails();
   }, [showID]);
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/movie/tvRecommendations/${showID}`,{
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const data = await response.json();
+        setRecommendations(data.results);
+   
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchRecommendations();
+  }, [showID]);
+
+  console.log(recommendations)
 
   if (!show) {
     return <Loading />   
@@ -146,14 +168,14 @@ const ShowPage = () => {
           </Button>
         </Grid>
       </Grid>
-      {/* <Box sx={{}}>
+      <Box sx={{}}>
         {recommendations && (
           <Box>
           <Typography variant="h5" sx={{pb: 1}}><strong>You may also like:</strong></Typography>
           <Grid container spacing={2} >
             {recommendations.map((recommendation) => (
             <Grid item key={recommendation.id}>
-              <Link to={`/movie/${recommendation.id}`}>
+              <Link to={`/tv/${recommendation.id}`}>
                 <Box
                   onClick={() => {
                   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -163,7 +185,7 @@ const ShowPage = () => {
                     width="175px" 
                     height="275px" 
                     src={recommendation.poster_path ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}` : "https://via.placeholder.com/150x250.png?text=No+Image"} 
-                    alt={`${recommendation.title} poster`} 
+                    alt={`${recommendation.original_name} poster`} 
                   />
                 </Box>
               </Link>
@@ -172,7 +194,7 @@ const ShowPage = () => {
           </Grid>
           </Box>
         )}
-        </Box> */}
+        </Box>
     </Container>
     <Box 
       sx={{
