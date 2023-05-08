@@ -188,11 +188,11 @@ const Navbar = ({}) => {
                         }}
                     />
                     </Box>
-                    <Box gap= "3rem" sx={{ display: "flex", marginLeft: 'auto' }} > 
-                        <FlexBetween  backgroundColor= { neutralLight } sx={{ borderRadius: "15px", padding: "0.1rem 1.5rem", margin:'0.5rem', display: { xs: 'none', md: 'flex'} }} >
+                    <Box gap= "1rem" sx={{ display: "flex", marginLeft: 'auto' }} > 
+                        <FlexBetween  backgroundColor= { neutralLight } sx={{ borderRadius: "15px", padding: "0 1.5rem", margin:'1rem 0.5rem', display: { xs: 'none', md: 'flex'} }} >
                             <SearchBar></SearchBar>
                         </FlexBetween>
-                        <Box sx={{ flexGrow: 0}}>
+                        <Box sx={{ flexGrow: 0, margin: "0.5rem"}}>
                             <Tooltip title={ firstName }>
                                 <IconButton onClick={ handleClick }>
                                     <Badge 
