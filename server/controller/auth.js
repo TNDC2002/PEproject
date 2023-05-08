@@ -166,7 +166,6 @@ export const login = async (req, res) => {
 
 var output = {
     verify,
-    verified,
     login,
     register
 }

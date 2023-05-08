@@ -26,7 +26,6 @@ let initWebRoutes = (app) => {
   // Assign a URL route for it by:
   /* GET syntax:
       router.get('<route>',<controller_name>.default.<function>) */
-      router.get("/auth/verified", auth.default.verified);
       router.get("/auth/verify/:userId/:uniqueString", auth.default.verify);
       router.get('/', SampleController.default.Sample_handler_GET);
   
