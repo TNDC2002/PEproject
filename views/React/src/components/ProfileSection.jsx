@@ -75,6 +75,7 @@ const ProfileSection = () => {
                         justifyContent="space-between"
                         alignItems="stretch"
                         sx={{ flex: 1 }}
+                        
                     >
                         {/* First Stack */}
                         <Stack
@@ -82,7 +83,9 @@ const ProfileSection = () => {
                             spacing={2}
                             justifyContent="start"
                             alignItems="center"
-                            backgroundColor="red"
+                            
+
+                            
                             sx={{
                                 width: isNonMobileScreens ? "30%" : "100%",
                             }}
@@ -96,17 +99,17 @@ const ProfileSection = () => {
                         {/* Second Stack */}
                         <Stack
                             direction="column"
-                            spacing={1.5}
+                            spacing={2.0}
                             justifyContent="start"
                             alignItems="start"
-                            backgroundColor="yellow"
-                            color="white"
+                            color="#060047"
                             sx={{
                                 paddingTop: "2.5%",
+                                paddingBottom: "2.5%",
                                 width: isNonMobileScreens ? "70%" : "100%",
                             }}
                         >
-                            <Typography variant="h4" gutterBottom bgcolor={"red"} margin="0" fontWeight="bold">
+                            <Typography variant="h3" margin="0" fontWeight="light" sx={{ fontFamily: 'Monospace', fontStyle: 'italic' }}>
                                 Info
                                 <IconButton data-testid="edit-button" onClick={handleEditIconClick}>
                                     <EditIcon />
@@ -117,12 +120,12 @@ const ProfileSection = () => {
                                 <Stack
                                     marginRight={1}
                                     sx={{
-                                        backgroundColor: "blue",
+                                        
                                         width: "180px",
                                         height: "45px",
                                         justifyContent: "center",
                                     }}>
-                                    <Typography fontWeight="bold">First name</Typography>
+                                    <Typography fontWeight="medium">First name</Typography>
                                     {!editMode
                                         ? (<Typography data-testid="user-first-name">{user.firstName}</Typography>)
                                         : (<TextField
@@ -148,12 +151,12 @@ const ProfileSection = () => {
                                 </Stack>
                                 <Stack
                                     sx={{
-                                        backgroundColor: "green",
+                                        
                                         width: "180px",
                                         height: "45px",
                                         justifyContent: "center",
                                     }}>
-                                    <Typography fontWeight="bold">Last name</Typography>
+                                    <Typography fontWeight="medium">Last name</Typography>
                                     {!editMode
                                         ? (<Typography data-testid="user-last-name" >{user.lastName}</Typography>)
                                         : (<TextField
@@ -180,12 +183,12 @@ const ProfileSection = () => {
 
                             <Stack
                                 sx={{
-                                    backgroundColor: "blue",
+                                    
                                     width: "368px",
                                     height: "45px",
                                     justifyContent: "center",
                                 }}>
-                                <Typography fontWeight="bold">Email</Typography>
+                                <Typography fontWeight="medium">Email</Typography>
                                 {!editMode
                                     ? (<Typography data-testid="user-email">{user.email}</Typography>)
                                     : (<TextField
