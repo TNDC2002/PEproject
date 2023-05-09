@@ -133,7 +133,7 @@ const ShowPage = () => {
     const fetchTrailerID = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/trailer/${showID}`,{
+          `http://localhost:5000/movie/showTrailer/${showID}`,{
           method: "GET",
           headers: { "Content-Type": "application/json" },
           }
@@ -213,7 +213,7 @@ const ShowPage = () => {
         </Link>
         <Typography color="text.primary">{show.original_name}</Typography>
       </Breadcrumbs>
-      <YouTubePlayer videoId={""} />
+      <YouTubePlayer videoId={trailerVideoId} />
       <Grid container spacing={3} sx={{my:2}}>
         <Grid item xs={12} sm = {6} md = {3} lg = {3}>
           <Box sx={{ position: 'relative', display: 'inline-flex'}}>
@@ -291,7 +291,7 @@ const ShowPage = () => {
           <Grid container spacing={2} >
             {recommendations.map((recommendation) => (
             <Grid item key={recommendation.id}>
-              <Link to={`/tv/${recommendation.id}`}>
+              <Link to={`/TV Shows/${recommendation.id}`}>
                 <Box
                   onClick={() => {
                   window.scrollTo({ top: 0, behavior: "smooth" });

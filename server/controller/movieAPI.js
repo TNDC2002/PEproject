@@ -159,6 +159,27 @@ export const getShowRecommendations = async (req, res) => {
   }
 }
 
+/* RETRIEVING MOVIE'S TRAILER */
+export const getShowTrailerID = async (req, res) => {
+  try {
+    const {showID} = req.params;
+    const showResponse = await axios.get(`https://api.themoviedb.org/3/movie/${showID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    const showOriginalName = showResponse.data.original_name;
+    const response = await axios.get(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(showOriginalName)}+trailer&type=video&videoDefinition=high&key=${process.env.YOUTUBE_API_KEY1}`
+    );
+    if (response.data.items.length > 0) {
+      const data = {
+        trailerID: response.data.items[0].id.videoId
+      }
+
+      res.json(data);
+    }
+  } catch (err) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 var output = {
   favourite,
   checkFavourite,
@@ -168,6 +189,7 @@ var output = {
   getTrailerID,
   getRecommendations,
   getShowDetail,
-  getShowRecommendations
+  getShowRecommendations,
+  getShowTrailerID
 }
 export default output;
