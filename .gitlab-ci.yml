@@ -1,6 +1,6 @@
 run-tests:
     image: node:15
-    before-script:
+    before_script:
         npm install
     script: 
         npm test
