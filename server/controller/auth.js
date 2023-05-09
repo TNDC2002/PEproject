@@ -55,128 +55,94 @@ const register = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+let generateRandomNumber = () =>{
+    // Generate a random number between 0 and 999999
+        const randomNumber = Math.floor(Math.random() * 1000000);
+    
+    // Pad the number with leading zeros to ensure it has 6 digits
+        const paddedNumber = String(randomNumber).padStart(6, '0');
+        return paddedNumber;
+    } 
+
 //send email detail
-const sendVerificationEmail = ({_id,email},res) =>{
-    const currentUrl = "http://localhost:5000";
-    const uniqueString = uuidv4() + _id;
+const sendVerificationEmail = ({email},res) =>{
+    const verifyPIN = generateRandomNumber();
     const mailOption = {
         from: process.env.AUTH_EMAIL,
         to: email,
         subject: "Verify your Email",
-        html: `<p>Verify your email address to complete the signup and login to your account.</p><p>This link 
-        <b>expires in 6 hours</b>.</p><p>Press <a href=${currentUrl + "user/verify/" + _id + "/" + uniqueString}>
-        here</a> to proceed.</p>`
+        text: `Verify your email address to complete the signup and login to your account.
+        This code expires in 6 hours.
+        The code is: ${verifyPIN}`
     }
 
 //save to DB
-const saltRounds = 10;
-bcrypt
-    .hash(uniqueString, saltRounds)
-    .then((hashedUniqueString) => {
-        const newVerification = new EmailVerification({
-            email: _id,
-            verificationString: hashedUniqueString,
-            createdAt: Date.now(),
-            expiresAt: Date.now() + 21600000,
-        });
-        newVerification.save()
+    const newVerification = new EmailVerification({
+        email: email,
+        verificationString: verifyPIN,
+        createdAt: Date.now(),
+    });
+    newVerification.save()
+    .then(()=>{
+        transporter.sendMail(mailOption)
         .then(()=>{
-            transporter.sendMail(mailOption)
-            .then(()=>{
-                res.json({
-                    status: "PENDING",
-                    message: "Verification email sent!"
-                });
-            })
-            .catch((error)=>{
-                // res.json({
-                //     status: "FAILED",
-                //     message: "Verification of email failed..."
-                // });
-            })
-        })
-        .catch((error) => {
-            console.log(error);
             res.json({
-                status: "FAILED",
-                message: "Couldn't save verification email data..."
+                status: "PENDING",
+                message: "Verification email sent!"
             });
         })
+        .catch((error)=>{
+            // res.json({
+            //     status: "FAILED",
+             //     message: "Verification of email failed..."
+            // });
+        })
     })
-    .catch(()=>{
+    .catch((error) => {
+        console.log(error);
         res.json({
             status: "FAILED",
-            message: "An error occured while hashing email data..."
+            message: "Couldn't save verification email data..."
         });
     })
 };
 
-
-
-
 //export
-
 const verify = async (req,res) =>{
     try{
-        let {userId, uniqueString} = req.params;
+        let {userId, verifyPIN} = req.params;
 
         EmailVerification.find(userId)
         .then((result) => {
-            if(result.length > 0){
-                const {expiresAt} =result[0];
-                const hashedUniqueString = result[0].uniqueString;
+            if(!result){
+                let message = "Link has expired, account does not exist or have registered already! Please try again";
+                res.redirect(`/user/verified/error=true&message=${message}`);
 
-                if(expiresAt< Date.now()){
-                    EmailVerification.deleteOne({userId})
-                    .then(result => {
-                        User.deleteOne({_id: userId})
-                        .then(()=>{
-                            let message = "Link has expired, please sign up again";
-                            res.redirect(`/user/verified/error=true&message=${message}`);
-                        })
-                    })
-                    .catch((error) =>{
-                        let message = "An error occured when clearing user data";
+            }else{
+                //valid user exists
+                //compare
+                const savedVerifyPIN = result[0].verificationString;
+                if(savedVerifyPIN==verifyPIN){
+                    User.updateOne({_id: userId},{verified: true})
+                    .catch((error)=>{
+                        console.log(error);
+                        let message = "An error occured while updating records";
                         res.redirect(`/user/verified/error=true&message=${message}`);
                     })
                 }else{
-                    //valid user exists
-                    //compare
-                    bcrypt.compare(uniqueString, hashedUniqueString)
-                    .then(result =>{
-                        if(result){
-                            User.updateOne({_id: userId},{verified: true})
-                            .then(()=>{
-                                res.sendfile(path.join(__dirname, "./../views/verified.html"));
-                            })
-                            .catch((error)=>{
-                                console.log(error);
-                                let message = "An error occured while updating records";
-                                res.redirect(`/user/verified/error=true&message=${message}`);
-                            })
-                        }else{
-                            let message = "invalid strings";
-                            res.redirect(`/user/verified/error=true&message=${message}`);
-                        }
-                    })
-                    .catch((error)=>{
-                        console.log(error);
-                        let message = "An error occured when checking unique strings";
-                        res.redirect(`/user/verified/error=true&message=${message}`);
-                    })
-                }
-            }else{
-            let message = "Account does not exist or have registered already!";
-            res.redirect(`/user/verified/error=true&message=${message}`);
+                    let message = "invalid code, please try again!";
+                    res.redirect(`/user/verified/error=true&message=${message}`);
+                }                    
             }
-        })
-        .catch((error)=>{
-            console.log(error);
-            let message = "An error occured when checking for existing user verification record";
-            res.redirect(`/user/verified/error=true&message=${message}`);
-        })
+    })
+    .catch((error)=>{
+        console.log(error);
+        let message = "An error occured when checking for existing user verification record";
+        res.redirect(`/user/verified/error=true&message=${message}`);
+    })
     }catch(error){
-        
+        console.log(error);
     }
 }
 
