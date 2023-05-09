@@ -20,6 +20,7 @@ import {
   DialogTitle, 
   DialogContent, 
   DialogActions,
+  Rating
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import VideocamIcon from '@mui/icons-material/Videocam';
@@ -277,8 +278,10 @@ const MoviePage = () => {
             ): (
               <strong>Already Rented</strong>
             )}
-            
           </Button>
+
+            
+
         </Grid>
       </Grid>
       <Box sx={{}}>
