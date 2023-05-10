@@ -226,7 +226,7 @@ const MoviePage = () => {
           <Typography color="text.primary">{movie.title}</Typography>
         </Breadcrumbs>
 
-        {youtubeIDs !== null && youtubeIDs.length > 0 ? (
+        {youtubeIDs !== null || youtubeIDs.length > 0 ? (
           <>
             <YouTubePlayer videoId={youtubeIDs[0].key} />
 
