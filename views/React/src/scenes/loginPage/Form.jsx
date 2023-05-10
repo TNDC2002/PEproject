@@ -1,16 +1,16 @@
 import { useState } from "react";
 import {
-    Box,
-    Button,
-    IconButton,
-    TextField,
-    useMediaQuery,
-    Typography,
-    useTheme
+  Box,
+  Button,
+  IconButton,
+  TextField,
+  useMediaQuery,
+  Typography,
+  useTheme
 } from "@mui/material";
 import {
-    DarkMode,
-    LightMode,
+  DarkMode,
+  LightMode,
 } from "@mui/icons-material"
 import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import { Formik } from "formik"
@@ -22,91 +22,91 @@ import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
 
 const registerSchema = yup.object().shape({
-    firstName: yup.string().required("required"),
-    lastName: yup.string().required("required"),
-    email: yup.string().email("invalid email").required("required"),
-    password: yup.string().required("required"),
-    picture: yup.string().required("required"),     
+  firstName: yup.string().required("required"),
+  lastName: yup.string().required("required"),
+  email: yup.string().email("invalid email").required("required"),
+  password: yup.string().required("required"),
+  picture: yup.string().required("required"),
 })
 
 const loginSchema = yup.object().shape({
-    email: yup.string().email("invalid email").required("required"),
-    password: yup.string().required("required")
+  email: yup.string().email("invalid email").required("required"),
+  password: yup.string().required("required")
 })
 
 const initialValuesRegister = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    picture: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  picture: "",
 }
 
 const initialValuesLogin = {
-    email: "",
-    password: "",
+  email: "",
+  password: "",
 }
 
-const Form  = () => {
-    const[pageType, setPageType] = useState("login");
-    const { palette } = useTheme();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const isNonMobile = useMediaQuery("(min-width:600px)");
-    const isLogin = pageType === "login";
-    const isRegister = pageType === "register";
-    const theme = useTheme();
-    const dark = theme.palette.neutral.dark;
+const Form = () => {
+  const [pageType, setPageType] = useState("login");
+  const { palette } = useTheme();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isLogin = pageType === "login";
+  const isRegister = pageType === "register";
+  const theme = useTheme();
+  const dark = theme.palette.neutral.dark;
 
-    const register = async (values, onSubmitProps) => {
-      // this allows us to send form info with image
-      const formData = new FormData();
-      for (let value in values) {
-        formData.append(value, values[value]);
-      }
-      formData.append("picturePath", values.picture.name);
-  
-      const savedUserResponse = await fetch(
-        "http://localhost:5000/auth/register",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const savedUser = await savedUserResponse.json();
-      onSubmitProps.resetForm();
-  
-      if (savedUser) {
-        setPageType("login");
-      }
-    };
-  
-    const login = async (values, onSubmitProps) => {
-      const loggedInResponse = await fetch("http://localhost:5000/auth/login", {
+  const register = async (values, onSubmitProps) => {
+    // this allows us to send form info with image
+    const formData = new FormData();
+    for (let value in values) {
+      formData.append(value, values[value]);
+    }
+    formData.append("picturePath", values.picture.name);
+
+    const savedUserResponse = await fetch(
+      "http://localhost:5000/auth/register",
+      {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const loggedIn = await loggedInResponse.json();
-      onSubmitProps.resetForm();
-      if (loggedIn) {
-        dispatch(
-          setLogin({
-            user: loggedIn.user,
-            token: loggedIn.token,
-          })
-        );
-        navigate("/home");
+        body: formData,
       }
-    };
-  
-    const handleFormSubmit = async (values, onSubmitProps) => {
-      if (isLogin) await login(values, onSubmitProps);
-      if (isRegister) await register(values, onSubmitProps);
-    };
+    );
+    const savedUser = await savedUserResponse.json();
+    onSubmitProps.resetForm();
 
-    return (
-        <Formik
+    if (savedUser) {
+      setPageType("login");
+    }
+  };
+
+  const login = async (values, onSubmitProps) => {
+    const loggedInResponse = await fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    const loggedIn = await loggedInResponse.json();
+    onSubmitProps.resetForm();
+    if (loggedIn) {
+      dispatch(
+        setLogin({
+          user: loggedIn.user,
+          token: loggedIn.token,
+        })
+      );
+      navigate("/home");
+    }
+  };
+
+  const handleFormSubmit = async (values, onSubmitProps) => {
+    if (isLogin) await login(values, onSubmitProps);
+    if (isRegister) await register(values, onSubmitProps);
+  };
+
+  return (
+    <Formik
       onSubmit={handleFormSubmit}
       initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
       validationSchema={isLogin ? loginSchema : registerSchema}
@@ -174,7 +174,7 @@ const Form  = () => {
                         p="1rem"
                         sx={{ "&:hover": { cursor: "pointer" } }}
                       >
-                        <input {...getInputProps()} name="picture"/>
+                        <input {...getInputProps()} name="picture" />
                         {!values.picture ? (
                           <p>Add Picture Here</p>
                         ) : (
@@ -249,23 +249,23 @@ const Form  = () => {
             <Box
               sx={{
                 m: "100px 50",
-              }}  
+              }}
             >
-                <FlexBetween gap="15rem"> 
-                        <IconButton onClick={() => dispatch(setMode())}>
-                            {theme.palette.mode === "dark" ? (
-                                <DarkMode sx={{ fontSize: "40px"}}/>
-                            ) : (
-                                <LightMode sx={{ color:dark, fontSize: "40px"}}/>
-                            )}
-                        </IconButton>
-                </FlexBetween>
+              <FlexBetween gap="15rem">
+                <IconButton onClick={() => dispatch(setMode())}>
+                  {theme.palette.mode === "dark" ? (
+                    <DarkMode sx={{ fontSize: "40px" }} />
+                  ) : (
+                    <LightMode sx={{ color: dark, fontSize: "40px" }} />
+                  )}
+                </IconButton>
+              </FlexBetween>
             </Box>
           </Box>
         </form>
       )}
     </Formik>
-    )
+  )
 }
 
 export default Form;
