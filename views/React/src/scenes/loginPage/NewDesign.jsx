@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
-
-import { sizing } from '@mui/system';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { sizing } from "@mui/system";
 
 import {
   Box,
@@ -19,6 +19,7 @@ import {
 
 import AppRegistrationTwoToneIcon from "@mui/icons-material/AppRegistrationTwoTone";
 import LoginIcon from "@mui/icons-material/Login";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Image from "../../assets/images/background.png";
@@ -64,6 +65,20 @@ const initialValuesLogin = {
   email: "",
   password: "",
 };
+
+const theme = createTheme({
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiInputBase-input": {
+            color: "black",
+          },
+        },
+      },
+    },
+  },
+});
 
 const NewDesign = () => {
   const [pageType, setPageType] = useState("login");
@@ -169,12 +184,17 @@ const NewDesign = () => {
                     component={Paper}
                     elevation={6}
                     square
-                    sx={{ height: '100%', backgroundColor: "whitesmoke", opacity: "0.9" }}
+                    sx={{
+                      height: "100%",
+                      backgroundColor: "whitesmoke",
+                      opacity: "0.9",
+                    }}
+                    color="black"
                   >
                     <Box
                       sx={{
-                        height: '100%',
-                        backgroundColor: "transparent",
+                        height: "100%",
+
                         my: 10,
                         mx: 4,
                         display: "flex",
@@ -307,11 +327,12 @@ const NewDesign = () => {
                           )}
                         </Button>
                       </Stack>
-                      <Box sx={{ my: 2 }}>
+
+                      <ThemeProvider theme={theme}>
                         {isRegister ? (
                           <Box>
-                            <Typography fontSize={20}>
-                                What is your name? 
+                            <Typography fontSize={18}  color="#B3005E">
+                              What is your name?
                             </Typography>
                             <TextField
                               label="First Name"
@@ -347,28 +368,24 @@ const NewDesign = () => {
                               fullWidth
                             />
                             <Stack
-                        direction="row"
-                        spacing={8}
-                        justifyContent="right"
-                      >
-                            <Button
-                              variant="text"
-                              endIcon={<NavigateNextIcon />}
-                              sx={{
-                                height: 70,
-                                color: "#B3005E",
-                              }}
-                              onClick={() => {
-                                setPageType("picRegister");
-                                resetForm();
-                            }}
+                              direction="row"
+                              spacing={8}
+                              justifyContent="right"
                             >
-                               
-                          Next step 
-                       
-                            </Button>
+                              <Button
+                                variant="text"
+                                endIcon={<NavigateNextIcon />}
+                                sx={{
+                                  height: 70,
+                                  color: "#B3005E",
+                                }}
+                                onClick={() => {
+                                  setPageType("picRegister");
+                                }}
+                              >
+                                Next step
+                              </Button>
                             </Stack>
-                            
                           </Box>
                         ) : isLogin ? (
                           <Box>
@@ -412,60 +429,104 @@ const NewDesign = () => {
                               label="Remember me"
                             />
                             <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          
-                          sx={{ height: 40, mt: 3, mb: 2, }}
-                        >
-                          
-                            <Typography
-                              style={{ color: "whitesmoke" }}
-                              fontSize={15}
+                              type="submit"
+                              fullWidth
+                              variant="contained"
+                              sx={{ height: 40, mt: 3, mb: 2 }}
                             >
-                              Sign in
-                            </Typography>
-                          
-                        </Button>
+                              <Typography
+                                style={{ color: "whitesmoke" }}
+                                fontSize={15}
+                              >
+                                Sign in
+                              </Typography>
+                            </Button>
                           </Box>
                         ) : picRegister ? (
-                          <Box
-                            gridColumn="span 4"
-                            border={`1px solid #B3005E`}
-                            borderRadius="5px"
-                            p="1rem"
-                          >
-                            <Dropzone
-                              acceptedFiles=".jpg,.jpeg,.png"
-                              multiple={false}
-                              onDrop={(acceptedFiles) =>
-                                setFieldValue("picture", acceptedFiles[0])
-                              }
-                            >
-                              {({ getRootProps, getInputProps }) => (
-                                <Box
-                                  {...getRootProps()}
-                                  border={`2px dashed #B3005E`}
-                                  p="1rem"
-                                  sx={{ "&:hover": { cursor: "pointer" } }}
+                          <Box maxWidth="100%" width="100%" px={2}>
+                            <Typography fontSize={18} color="#B3005E">
+                              Add your profile picture
+                            </Typography>
+                            <Box  sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '23.3vh',marginTop: '16px'}}>
+                              <Box
+                                gridColumn="span 4"
+                                border={`1px solid #B3005E`}
+                                borderRadius="5px"
+                                
+                                sx={{ width: "180px", height: "180px", display: 'flex', justifyContent: 'center', alignItems: 'center', }}
+                              >
+                                <Dropzone
+                                  acceptedFiles=".jpg,.jpeg,.png"
+                                  multiple={false}
+                                  onDrop={(acceptedFiles) =>
+                                    setFieldValue("picture", acceptedFiles[0])
+                                  }
                                 >
-                                  <input {...getInputProps()} name="picture" />
-                                  {!values.picture ? (
-                                    <p>Add Picture Here</p>
-                                  ) : (
-                                    <FlexBetween>
-                                      <Typography>
-                                        {values.picture.name}
-                                      </Typography>
-                                      <ModeEditOutlinedIcon />
-                                    </FlexBetween>
+                                  {({ getRootProps, getInputProps }) => (
+                                    <Box
+                                      {...getRootProps()}
+                                      border={`2px dashed #B3005E`}
+                                      
+                                      sx={{
+                                        "&:hover": { cursor: "pointer" },
+                                        width: "150px",
+                                        height: "150px",
+                                        display: 'flex', justifyContent: 'center', alignItems: 'center'
+                                      }}
+                                    >
+                                      <input
+                                        {...getInputProps()}
+                                        name="picture"
+                                      />
+                                      {!values.picture ? (
+                                        <p>Add Picture Here</p>
+                                      ) : (
+                                        <FlexBetween>
+                                          <Typography>
+                                            {values.picture.name}
+                                          </Typography>
+                                          <ModeEditOutlinedIcon />
+                                        </FlexBetween>
+                                      )}
+                                    </Box>
                                   )}
-                                </Box>
-                              )}
-                            </Dropzone>
+                                </Dropzone>
+                              </Box>
+                            </Box>
+                            <Box display="flex" justifyContent="space-between">
+                              <Button
+                                variant="text"
+                                startIcon={<NavigateBeforeIcon />}
+                                sx={{
+                                  height: 70,
+                                  color: "#B3005E",
+                                }}
+                                onClick={() => {
+                                  setPageType("register");
+                                }}
+                              >
+                                Last step
+                              </Button>
+                              <Button
+                                variant="text"
+                                endIcon={<NavigateNextIcon />}
+                                sx={{
+                                  height: 70,
+                                  color: "#B3005E",
+                                }}
+                                onClick={() => {
+                                  setPageType("");
+                                }}
+                              >
+                                Next step
+                              </Button>
+                            </Box>
                           </Box>
                         ) : (
                           <Box>
+                            <Typography fontSize={18} color="#B3005E">
+                              Enter your email and password
+                            </Typography>
                             <TextField
                               label="Email Address"
                               onBlur={handleBlur}
@@ -497,10 +558,40 @@ const NewDesign = () => {
                               margin="normal"
                               required
                               fullWidth
+                              
                             />
+                            <Box display="flex" justifyContent="space-between">
+                              <Button
+                                variant="text"
+                                startIcon={<NavigateBeforeIcon />}
+                                sx={{
+                                  height: 70,
+                                  color: "#B3005E",
+                                }}
+                                onClick={() => {
+                                  setPageType("picRegister");
+                                }}
+                              >
+                                Last step
+                              </Button>
+                              <Button
+                                variant="text"
+                                type="submit"
+                                endIcon={<NavigateNextIcon />}
+                                sx={{
+                                  height: 70,
+                                  color: "#B3005E",
+                                }}
+                                onClick={() => {
+                                  
+                                }}
+                              >
+                                Finish registration
+                              </Button>
+                            </Box>
                           </Box>
                         )}
-                      </Box>
+                      </ThemeProvider>
                     </Box>
                   </Grid>
                   <Grid
