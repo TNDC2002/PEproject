@@ -225,24 +225,31 @@ const MoviePage = () => {
           </Link>
           <Typography color="text.primary">{movie.title}</Typography>
         </Breadcrumbs>
-        <YouTubePlayer videoId={youtubeIDs[0].key} />
-        
-        <Box sx={{ overflowX: 'auto' }}>
-          {youtubeIDs && (
-            <Box>
-              <Typography variant="h5" sx={{ pb: 1 }}>
-                <strong>Trailer:</strong>
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                {youtubeIDs.map((video) => (
-                  <Grid item key={video.key} spacing={2}>
-                    <YouTubePlayer videoId={video.key} />
-                  </Grid>
-                ))}
-              </Box>
+
+        {youtubeIDs !== null && youtubeIDs.length > 0 ? (
+          <>
+            <YouTubePlayer videoId={youtubeIDs[0].key} />
+
+            <Box sx={{ overflowX: "auto" }}>
+              {youtubeIDs && (
+                <Box>
+                  <Typography variant="h5" sx={{ pb: 1 }}>
+                    <strong>Trailer:</strong>
+                  </Typography>
+                  <Box sx={{ display: "flex", flexDirection: "row" }}>
+                    {youtubeIDs.map((video) => (
+                      <Grid item key={video.key}>
+                        <YouTubePlayer videoId={video.key} />
+                      </Grid>
+                    ))}
+                  </Box>
+                </Box>
+              )}
             </Box>
-          )}
-        </Box>
+          </>
+        ) : (
+          <></>
+        )}
 
         <Grid container spacing={3} sx={{ my: 2 }}>
           <Grid item xs={12} sm={6} md={3} lg={3}>

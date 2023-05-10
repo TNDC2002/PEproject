@@ -35,9 +35,9 @@ let initWebRoutes = (app) => {
       router.get("/movie/trailer/:movieID", movieAPI.default.getTrailerID);
       router.get("/movie/recommendations/:movieID", movieAPI.default.getRecommendations);
       router.get("/movie/tvDetail/:showID", movieAPI.default.getShowDetail);
-      router.get("/movie/tvRecommendations/:showID", movieAPI.default.getShowRecommendations)
+      router.get("/movie/tvRecommendations/:showID", movieAPI.default.getShowRecommendations);
+      router.get("/movie/tvTrailer/:showID", movieAPI.default.getShowTrailerID);
       router.get("/user-search-history/", middleware.default.verifyToken, user.default.fetchSearches);
-      router.get("/movie/showTrailer/:showId", movieAPI.default.getShowTrailerID);
       router.get('/', SampleController.default.Sample_handler_GET);
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */

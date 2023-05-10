@@ -1,83 +1,77 @@
-import UserFavouriteMovie from "../models/UserFavouriteMovie.js"
-import UserRateMovie from "../models/UserRateMovie.js"
-import UserRentMovie from "../models/UserRentMovie.js"
-import axios from "axios"
+import UserFavouriteMovie from "../models/UserFavouriteMovie.js";
+import UserRateMovie from "../models/UserRateMovie.js";
+import UserRentMovie from "../models/UserRentMovie.js";
+import axios from "axios";
 
 /* FAVOURITE MOVIE */
 export const favourite = async (req, res) => {
-      // Get the payload  
-      const { userID, movieID } = req.body;
-      // Check if the entry has already existed
-      const favouriteMovie = await UserFavouriteMovie.findOne({
-        userID: userID,
-        movieID: movieID,
-      });
-      if (favouriteMovie) {
-        try {
-            await UserFavouriteMovie.deleteOne({ _id: favouriteMovie._id });
-            res.status(204).send();
-
-          } catch (err) {
-            res.status(500).json({ error: err.message });
-          }
-      }
-
-    else {
-        try {
-            const newFavourite = new UserFavouriteMovie({
-                userID: userID,
-                movieID: movieID,
-        });
-        const savedFavourite = await newFavourite.save();
-  
-        res.status(201).json(savedFavourite);
-        } catch (err) {
-          res.status(500).json({ error: err.message });
-        }
-    };
-}
-  
-export const checkFavourite = async (req, res) => {
+  // Get the payload
+  const { userID, movieID } = req.body;
+  // Check if the entry has already existed
+  const favouriteMovie = await UserFavouriteMovie.findOne({
+    userID: userID,
+    movieID: movieID,
+  });
+  if (favouriteMovie) {
     try {
-      const { userID, movieID } = req.body;
-      const favoriteMovie = await UserFavouriteMovie.findOne({
-        userID: userID,
-        movieID: movieID,
-      });
-      res.json({ favorited: favoriteMovie !== null });
+      await UserFavouriteMovie.deleteOne({ _id: favouriteMovie._id });
+      res.status(204).send();
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
-  };
+  } else {
+    try {
+      const newFavourite = new UserFavouriteMovie({
+        userID: userID,
+        movieID: movieID,
+      });
+      const savedFavourite = await newFavourite.save();
+
+      res.status(201).json(savedFavourite);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+};
+
+export const checkFavourite = async (req, res) => {
+  try {
+    const { userID, movieID } = req.body;
+    const favoriteMovie = await UserFavouriteMovie.findOne({
+      userID: userID,
+      movieID: movieID,
+    });
+    res.json({ favorited: favoriteMovie !== null });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 /* RATING MOVIE */
 export const rate = async (req, res) => {
-    try {
-
-    } catch (err) {
-        
-    }
-}
+  try {
+  } catch (err) {}
+};
 
 /* RENTING MOVIE */
 export const rent = async (req, res) => {
-    try {
-      const { userID, movieID, rentalBeginDate, rentalExpireDate } = req.body;
-      // Create a new UserMovieRental document
-      const rental = new UserRentMovie({
-        userID: userID,
-        movieID: movieID,
-        rentalBeginDate: rentalBeginDate,
-        rentalExpireDate: rentalExpireDate,
-      });
-  
-      // Save the rental document to the database
-      const savedRental = await rental.save();
-      res.status(201).json(savedRental);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-}
+  try {
+    const { userID, movieID, rentalBeginDate, rentalExpireDate } = req.body;
+    // Create a new UserMovieRental document
+    const rental = new UserRentMovie({
+      userID: userID,
+      movieID: movieID,
+      rentalBeginDate: rentalBeginDate,
+      rentalExpireDate: rentalExpireDate,
+    });
+
+    // Save the rental document to the database
+    const savedRental = await rental.save();
+    res.status(201).json(savedRental);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 export const checkRented = async (req, res) => {
   try {
@@ -92,18 +86,21 @@ export const checkRented = async (req, res) => {
   }
 };
 
-/* RETRIEVING MOVIE'S DETAIL */
+/*
+MOVIE'S DATA API
+*/
 export const getDetail = async (req, res) => {
   try {
-    const {movieID} = req.params;
-    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    const { movieID } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    );
     res.json(response.data);
   } catch (err) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-/* RETRIEVING MOVIE'S TRAILER */
 export const getTrailerID = async (req, res) => {
   try {
     // const {movieID} = req.params;
@@ -120,80 +117,92 @@ export const getTrailerID = async (req, res) => {
     //   res.json(data);
     // }
     const { movieID } = req.params;
-    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    );
     res.json(response.data);
   } catch (err) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-
-/* RETRIEVING TMDB'S RECOMMMENDATIONS */
 export const getRecommendations = async (req, res) => {
   try {
-    const {movieID} = req.params;
-    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/recommendations?api_key=${process.env.TMDB_API_KEY}`);
+    const { movieID } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieID}/recommendations?api_key=${process.env.TMDB_API_KEY}`
+    );
     res.json(response.data);
   } catch (err) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-/* RETRIEVING SHOW'S DETAIL */
+/*
+TV SHOW'S DATA API
+*/
 export const getShowDetail = async (req, res) => {
   try {
-    const {showID} = req.params;
-    const response = await axios.get(`https://api.themoviedb.org/3/tv/${showID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    const { showID } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/tv/${showID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    );
     res.json(response.data);
   } catch (err) {
-    console.error(err);
-    console.log("getShowDetail called with showID:", showID);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-/* RETRIEVING SHOW'S RECOMMMENDATIONS */
 export const getShowRecommendations = async (req, res) => {
   try {
-    const {showID} = req.params;
-    const response = await axios.get(`https://api.themoviedb.org/3/tv/${showID}/recommendations?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`);
+    const { showID } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/tv/${showID}/recommendations?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`
+    );
     res.json(response.data);
   } catch (err) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-/* RETRIEVING SHOW'S TRAILER */
 export const getShowTrailerID = async (req, res) => {
   try {
-    const {showID} = req.params;
-    const response = await axios.get(`https://api.themoviedb.org/3/tv/${showID}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    const { showID } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/tv/${showID}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    );
     res.json(response.data);
   } catch (err) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
+/*
+API FOR DISCOVERY
+*/
 
-/* RETRIEVING MOVIE DISCORVERY */
 export const getMovieDiscovery = async (req, res) => {
   try {
-    const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`);
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`
+    );
     res.json(response.data);
   } catch (err) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-/* RETRIEVING SHOW DISCOVERY */
+
 export const getShowDiscovery = async (req, res) => {
   try {
-    const response = await axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`);
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`
+    );
     res.json(response.data);
   } catch (err) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
 var output = {
   favourite,
@@ -207,6 +216,6 @@ var output = {
   getShowRecommendations,
   getShowTrailerID,
   getMovieDiscovery,
-  getShowDiscovery
-}
+  getShowDiscovery,
+};
 export default output;
