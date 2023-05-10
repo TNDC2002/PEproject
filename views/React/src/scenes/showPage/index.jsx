@@ -225,7 +225,7 @@ const ShowPage = () => {
           <Typography color="text.primary">{show.original_name}</Typography>
         </Breadcrumbs>
 
-        {trailerVideoId !== null || trailerVideoId.length > 0 ? (
+        {trailerVideoId !== null && trailerVideoId.length > 0 ? (
           <>
             <YouTubePlayer videoId={trailerVideoId[0].key} />
 
