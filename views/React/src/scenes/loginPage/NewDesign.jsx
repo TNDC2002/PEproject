@@ -582,9 +582,14 @@ const NewDesign = () => {
                                   height: 70,
                                   color: "#B3005E",
                                 }}
+                                
                                 onClick={() => {
                                   
+                                  handleSubmit();
+                                  resetForm();
+                                  setPageType("login");
                                 }}
+
                               >
                                 Finish registration
                               </Button>
