@@ -1,5 +1,6 @@
 
 import NewDesign from "./NewDesign";
+import Form from "./Form"
 import {
   Box,
  
@@ -17,7 +18,7 @@ const LoginPage = () => {
   
   return (
     <Box>
-      <NewDesign></NewDesign>
+        <NewDesign></NewDesign>
     </Box>
   );
 };
