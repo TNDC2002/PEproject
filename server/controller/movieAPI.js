@@ -106,23 +106,27 @@ export const getDetail = async (req, res) => {
 /* RETRIEVING MOVIE'S TRAILER */
 export const getTrailerID = async (req, res) => {
   try {
-    const {movieID} = req.params;
-    const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
-    const movieTitle = movieResponse.data.title;
-    const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(movieTitle)}+trailer&type=video&videoDefinition=high&key=${process.env.YOUTUBE_API_KEY1}`
-    );
-    if (response.data.items.length > 0) {
-      const data = {
-        trailerID: response.data.items[0].id.videoId
-      }
+    // const {movieID} = req.params;
+    // const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    // const movieTitle = movieResponse.data.title;
+    // const response = await axios.get(
+    //   `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(movieTitle)}+trailer&type=video&videoDefinition=high&key=${process.env.YOUTUBE_API_KEY1}`
+    // );
+    // if (response.data.items.length > 0) {
+    //   const data = {
+    //     trailerID: response.data.items[0].id.videoId
+    //   }
 
-      res.json(data);
-    }
+    //   res.json(data);
+    // }
+    const { movieID } = req.params;
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    res.json(response.data);
   } catch (err) {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
 
 /* RETRIEVING TMDB'S RECOMMMENDATIONS */
 export const getRecommendations = async (req, res) => {
@@ -159,22 +163,33 @@ export const getShowRecommendations = async (req, res) => {
   }
 }
 
-/* RETRIEVING MOVIE'S TRAILER */
+/* RETRIEVING SHOW'S TRAILER */
 export const getShowTrailerID = async (req, res) => {
   try {
     const {showID} = req.params;
-    const showResponse = await axios.get(`https://api.themoviedb.org/3/movie/${showID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
-    const showOriginalName = showResponse.data.original_name;
-    const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(showOriginalName)}+trailer&type=video&videoDefinition=high&key=${process.env.YOUTUBE_API_KEY1}`
-    );
-    if (response.data.items.length > 0) {
-      const data = {
-        trailerID: response.data.items[0].id.videoId
-      }
+    const response = await axios.get(`https://api.themoviedb.org/3/tv/${showID}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
 
-      res.json(data);
-    }
+
+/* RETRIEVING MOVIE DISCORVERY */
+export const getMovieDiscovery = async (req, res) => {
+  try {
+    const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`);
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+/* RETRIEVING SHOW DISCOVERY */
+export const getShowDiscovery = async (req, res) => {
+  try {
+    const response = await axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`);
+    res.json(response.data);
   } catch (err) {
     res.status(500).json({ message: 'Internal server error' });
   }
@@ -190,6 +205,8 @@ var output = {
   getRecommendations,
   getShowDetail,
   getShowRecommendations,
-  getShowTrailerID
+  getShowTrailerID,
+  getMovieDiscovery,
+  getShowDiscovery
 }
 export default output;
