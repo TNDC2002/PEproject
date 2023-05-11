@@ -4,7 +4,8 @@ import UserRateMovie from "./UserRateMovie.js"
 const GET_rating = async (req) => {
     try {
         const { userID, movieID } = req.body
-
+        const movie = await UserRateMovie.findOne({ userID: userID, movieID: movieID });
+        return movie.rate
     } catch (err) {
         return {
             status: 500,
