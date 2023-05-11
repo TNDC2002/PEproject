@@ -1,34 +1,9 @@
 import UserRateMovie from "./UserRateMovie.js"
-import MovieRating from "./MovieRatingSchema.js"
 
-const calc = (movieID, rating, weight) => {
-    try {
-        let Rated = MovieRating.findOne({
-            movieID: movieID,
-            rating: rating
-        });
-        let rate = (Rated.rating * Rated.weight + rating * weight)/(Rated.weight + weight)
-
-        Rated.save()
-            .then(() => {
-            })
-            .catch((error) => {
-                console.log("ERROR --- Rating.js --- can't UPDATE to DB")
-            })
-
-    } catch (err) {
-        return {
-            status: 500,
-            error: err.message
-        }
-
-    }
-}
 
 const GET_rating = async (req) => {
     try {
         const { userID, movieID } = req.body
-
 
     } catch (err) {
         return {
@@ -49,8 +24,7 @@ const POST_rating = async (req) => {
             rating: rating,
         });
         newRating.save()
-            .then(() => {
-                
+            .then(async () => {
             })
             .catch((error) => {
                 console.log("ERROR --- Rating.js --- can't SAVE to DB")
@@ -67,21 +41,17 @@ const POST_rating = async (req) => {
 const PUT_rating = async (req) => {
     try {
         const { userID, movieID, rating } = req.body
-        let Rated = await UserRateMovie.findOne({
+        let Rated = await UserRateMovie.findOneAndUpdate({
             userID: userID,
             movieID: movieID
-        });
-        Rated = {
-            userID: userID,
-            movieID: movieID,
-            rating: rating
-        }
-        Rated.save()
-            .then(() => {
-            })
-            .catch((error) => {
-                console.log("ERROR --- Rating.js --- can't UPDATE to DB")
-            })
+        },{
+            rating:rating
+        })
+        .then(()=>{})
+        .catch((error) => {
+            console.log("ERROR --- Rating.js --- can't UPDATE to DB")
+        })
+        
 
     } catch (err) {
         return {
@@ -94,10 +64,11 @@ const PUT_rating = async (req) => {
 const DELETE_rating = async (req) => {
     try {
         const { userID, movieID } = req.body
-        let Rated = await UserRateMovie.findOne({
+        let Rated = {
             userID: userID,
             movieID: movieID
-        });
+        }
+        console.log("-----------------------------------------------")
         UserRateMovie.findOneAndRemove(Rated)
             .then((deletedUser) => {
                 if (deletedUser) {
@@ -119,6 +90,7 @@ const DELETE_rating = async (req) => {
     }
 }
 var output = {
+    GET: GET_rating,
     POST: POST_rating,
     PUT: PUT_rating,
     DELETE: DELETE_rating

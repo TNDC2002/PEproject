@@ -6,26 +6,28 @@
 import * as Rating from "../models/Rating.js";
 
 const Sample_handler_GET = (req, res) => {
- 
-    
-    return res.render('./Sample/test');
+    // GET the rating
+    Rating_return = Rating.default.GET(req)
+    if (Rating_return) {
+        return res.status(Rating_return.status).json({ error: Rating_return.error });
+    }
 }
 
 const Sample_handler_POST = (req, res) => {
 
     // post the rating
     Rating_return = Rating.default.POST(req)
-    if (Rating_return){
+    if (Rating_return) {
         return res.status(Rating_return.status).json({ error: Rating_return.error });
     }
-    
+
 }
 
 const Sample_handler_PUT = (req, res) => {
 
     //UPDATE the rate
     Put_return = Rating.default.PUT(req)
-    if (Rating_return){
+    if (Rating_return) {
         return res.status(Rating_return.status).json({ error: Rating_return.error });
     }
 
@@ -35,7 +37,7 @@ const Sample_handler_DELETE = (req, res) => {
 
     //DELETE the rate
     Delete_return = Rating.default.DELETE(req)
-    if (Rating_return){
+    if (Rating_return) {
         return res.status(Rating_return.status).json({ error: Rating_return.error });
     }
 

@@ -40,6 +40,7 @@ let initWebRoutes = (app) => {
       router.get("/movie/tvTrailer/:showID", movieAPI.default.getShowTrailerID);
       router.get("/user-search-history/", middleware.default.verifyToken, user.default.fetchSearches);
       router.get('/', SampleController.default.Sample_handler_GET);
+      router.get("/movie/rate", Rate.default.GET_handler);
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
       app.post("/auth/register", upload.single("picture"), auth.default.register);
@@ -60,7 +61,7 @@ let initWebRoutes = (app) => {
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
       router.delete('/', SampleController.default.Sample_handler_DELETE);
-      router.post("/movie/rate", Rate.default.DELETE_handler);
+      router.delete("/movie/rate", Rate.default.DELETE_handler);
   
 
 
