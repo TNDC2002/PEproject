@@ -14,6 +14,7 @@ import * as middleware from "../middleware/auth.js";
 import * as auth from "../controller/auth.js";
 import * as movieAPI from "../controller/movieAPI.js";
 import * as user from "../controller/user.js";
+import * as Rate from "../controller/RatingSystem.js"
 
 let router = express.Router();
 
@@ -49,14 +50,17 @@ let initWebRoutes = (app) => {
       router.post("/movie/rent/check", movieAPI.default.checkRented);
       router.post("/user-search-history/insert", middleware.default.verifyToken, user.default.insertSearch);
       router.post('/', SampleController.default.Sample_handler_POST);
+      router.post("/movie/rate", Rate.default.Sample_handler_POST);
   
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
       router.put('/', SampleController.default.Sample_handler_PUT);
+      router.put("/movie/rate", Rate.default.Sample_handler_PUT);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
       router.delete('/', SampleController.default.Sample_handler_DELETE);
+      router.post("/movie/rate", Rate.default.Sample_handler_DELETE);
   
 
 
