@@ -26,7 +26,7 @@ import Image from "../../assets/images/background.png";
 import Card from "../../assets/images/SmashBruh.png";
 
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import { Formik } from "formik";
+import { Formik, useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -92,7 +92,11 @@ const theme = createTheme({
   },
 });
 
-const NewDesign = () => {
+const onSubmit = () => {
+  console.log("summited");
+};
+
+const Demo = () => {
   const [pageType, setPageType] = useState("login");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -103,7 +107,22 @@ const NewDesign = () => {
   const isRegister = pageType === "register";
   const picRegister = pageType === "picRegister";
   const newAcc = pageType === "newAcc";
+  //////////////////////////////////////////////////
+  const { values, touched, errors, handleChange, handleBlur } = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      picture: "",
+    },
+    validationSchema: CombineRegisterSchema,
+  });
 
+  console.log(values);
+  console.log(errors);
+
+  //////////////////////////////////////////////////
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
     const formData = new FormData();
@@ -354,6 +373,10 @@ const NewDesign = () => {
                               onChange={handleChange}
                               value={values.firstName || ""}
                               name="firstName"
+                              error={
+                                Boolean(touched.firstName) &&
+                                Boolean(errors.firstName)
+                              }
                               helperText={touched.firstName && errors.firstName}
                               sx={{ gridColumn: "span 2" }}
                               margin="normal"
@@ -367,6 +390,10 @@ const NewDesign = () => {
                               onChange={handleChange}
                               value={values.lastName || ""}
                               name="lastName"
+                              error={
+                                Boolean(touched.lastName) &&
+                                Boolean(errors.lastName)
+                              }
                               helperText={touched.lastName && errors.lastName}
                               sx={{ gridColumn: "span 2" }}
                               margin="normal"
@@ -636,4 +663,4 @@ const NewDesign = () => {
   );
 };
 
-export default NewDesign;
+export default Demo;
