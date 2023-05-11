@@ -15,7 +15,7 @@ const POST_rating = async (req, res) => {
             .then(() => {
             })
             .catch((error) => {
-                console.log("ERROR --- Rating.js --- can't save to DB")
+                console.log("ERROR --- Rating.js --- can't SAVE to DB")
             })
 
     } catch (err) {
@@ -34,17 +34,11 @@ const PUT_rating = async (req, res) => {
             movieID:movieID,
             rating: rating
         });
-
-        const newRating = new UserRateMovie({
-            userID: userID,
-            movieID: movieID,
-            rating: rating,
-        });
-        newRating.save()
+        Rated.save()
             .then(() => {
             })
             .catch((error) => {
-                console.log("ERROR --- Rating.js --- can't save to DB")
+                console.log("ERROR --- Rating.js --- can't UPDATE to DB")
             })
 
     } catch (err) {
