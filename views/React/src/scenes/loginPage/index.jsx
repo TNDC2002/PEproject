@@ -20,7 +20,7 @@ const LoginPage = () => {
   
   return (
     <Box>
-        <BasicForm></BasicForm>
+        <NewDesign></NewDesign>
     </Box>
   );
 };
