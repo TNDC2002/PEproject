@@ -26,7 +26,7 @@ transporter.verify((error, success) => {
 })
 
 /* REGISTER USER */
-const register = async (req, res) => {
+export const register = async (req, res) => {
     try {
         const {
             firstName,
@@ -46,9 +46,8 @@ const register = async (req, res) => {
             password: passwordHash,
             picturePath
         })
-        const savedUser = await newUser.save().then((result)=>{
-            sendVerificationEmail(result,res);
-        });
+        const savedUser = await newUser.save();
+            
         res.status(201).json(savedUser);
 
     } catch (err) {
