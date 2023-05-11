@@ -13,21 +13,12 @@ const rating = async (req, res) => {
         });
         newRating.save()
             .then(() => {
-                transporter.sendMail(mailOption)
-                    .then(() => {
-                        res.json({
-                            status: "PENDING",
-                            message: "Verification email sent!"
-                        });
-                    })
-                    .catch((error) => {
-                    })
             })
             .catch((error) => {
                 console.log(error);
                 res.json({
                     status: "FAILED",
-                    message: "Couldn't save verification email data..."
+                    message: "Couldn't save rating data..."
                 });
             })
     
