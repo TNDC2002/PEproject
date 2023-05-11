@@ -1,12 +1,5 @@
 import UserRateMovie from "../models/UserRateMovie"
 
-// calculate average rate
-const re_calc = (movieID) => {
-    UserRate = UserRateMovie.find({movieID: movieID})
-    console.log(UserRate)
-}
-
-
 const POST_rating = async (req) => {
     try {
         const { userID, movieID, rating } = req.body
