@@ -32,23 +32,6 @@ const insertSearch = async (req, res) => {
 }
 
 
-/* FETCH USER SEARCH DATA */
-export const fetchSearches = async (req, res) => {
-    try {
-        const userID = req.query.userID;
-        const limit = parseInt(req.query.limit) || 10;
-      
-        const searchHistory = await UserSearchHistory.find({ userID })
-          .limit(limit)
-          .sort({ updatedAt: -1});
-      
-        res.json(searchHistory);
-
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-}
-
 var output = {
     insertSearch,
     fetchSearches
