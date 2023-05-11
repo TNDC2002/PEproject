@@ -15,14 +15,7 @@ const rating = async (req, res) => {
             .then(() => {
             })
             .catch((error) => {
-                return {
-                    status: "FAILED",
-                    message: "Couldn't save rating data..."
-                }
-                // res.json({
-                //     status: "FAILED",
-                //     message: "Couldn't save rating data..."
-                // });
+                console.log("ERROR --- Rating.js --- can't save to DB")
             })
     
     } catch (err) {
