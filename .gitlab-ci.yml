@@ -1,7 +1,8 @@
 run-tests:
-    image: node:15
-    before_script:
-        - npm install
-    script: 
-        - cd views/React
-        - npm test
+  image: node:15
+  before_script:
+    - npm install
+  script:
+    - cd views/React
+    - npm test
+
