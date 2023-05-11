@@ -220,7 +220,13 @@ const MoviePage = () => {
             Home
           </Link>
 
-          <Link underline="hover" color="inherit">
+          <Link 
+            underline="hover" 
+            color="inherit"
+            onClick={() => {
+              window.location.href = "/Feature Movies";
+            }}  
+          >
             Feature Movies
           </Link>
           <Typography color="text.primary">{movie.title}</Typography>
