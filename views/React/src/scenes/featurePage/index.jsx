@@ -2,17 +2,18 @@ import { useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import Navbar from "../navbar";
-import MovieList from "./MovieList";
+import FeatureList from "./FeatureList";
+import FlowYoutubePlayer from "../trailerPlayer/FlowYoutubeVideo";
 
 const HomePage = () => {
   return (
     <div>
       <Navbar />
-      <YouTubePlayer videoId={""} />
-      <MovieList category="popular" />
-      <MovieList category="nowPlaying" />
-      <MovieList category="topRated" />
-      <MovieList category="upcoming" />
+      <FlowYoutubePlayer videoId={"BpuQeSvf868"} />
+      <FeatureList category="popular" />
+      <FeatureList category="nowPlaying" />
+      <FeatureList category="topRated" />
+      <FeatureList category="upcoming" />
     </div>
   );
 };

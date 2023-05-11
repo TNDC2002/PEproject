@@ -11,6 +11,7 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import MoviePage from "./scenes/moviePage";
 import ShowPage from "./scenes/showPage";
+import FeaturePage from "./scenes/featurePage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -25,16 +26,16 @@ function App() {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route
-              path="/home"
+              path="/Home"
               element={isAuth ? <HomePage /> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/Feature Movies"
+              element={isAuth ? <FeaturePage /> : <Navigate to="/" />}
             />
             <Route
               path="/movie/:movieID"
               element={isAuth ? <MoviePage /> : <Navigate to="/" />}
-            />
-            <Route 
-              path="Feature Movies"
-              element={isAuth ? <FeatureMove /> : <Navigate to="/" />}
             />
             <Route
               path="/TV Shows"

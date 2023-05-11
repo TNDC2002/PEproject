@@ -8,7 +8,7 @@ import {
   import Image from 'mui-image'
   import React, { useState } from "react";
   
-  const MovieCard = ({ movie }) => {
+  const FeatureCard = ({ movie }) => {
     const [hoveredMovieId, setHoveredMovieId] = useState(null);
     const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
     const navigate = useNavigate();
@@ -49,5 +49,5 @@ import {
     );
   };
   
-  export default MovieCard;
+  export default FeatureCard;
   
