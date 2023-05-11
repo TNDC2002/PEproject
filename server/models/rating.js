@@ -4,7 +4,7 @@ import UserRateMovie from "../models/UserRateMovie"
 /* INSERT USER SEARCH STRING */
 const rating = async (req, res) => {
     try {
-        const {userID, searchedString, createdAt} = req.body
+        const {userID, movieID, rating} = req.body
 
     
     } catch (err) {
