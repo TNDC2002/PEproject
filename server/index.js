@@ -47,7 +47,7 @@ initWebRoutes(app)
 /* SERVER SETUP AND MONGOOSE SETUP */
 let PORT = process.env.PORT || 6969;
 
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(process.env.MONGO_URL, {n
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
