@@ -33,6 +33,6 @@ const rating = async (req, res) => {
 
 
 var output = {
-    insertSearch
+    rating
 };
 export default output;
