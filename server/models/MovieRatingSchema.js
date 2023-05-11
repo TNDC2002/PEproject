@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UserRateMovieSchema = new mongoose.Schema({
+const MovieRatingSchema = new mongoose.Schema({
    movieID: {
     type: String,
     required: true
@@ -13,5 +13,5 @@ const UserRateMovieSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-const UserRateMovie = mongoose.model("User-Movie Rating", UserRateMovieSchema);
-export default UserRateMovie;
+const MovieRating = mongoose.model("Movie Average Rating", MovieRatingSchema);
+export default MovieRating;
