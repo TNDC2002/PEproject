@@ -7,11 +7,15 @@ import * as Rating from "../models/Rating.js";
 
 const Sample_handler_GET = (req, res) => {
  
-    sample.default.main(req)
+    
     return res.render('./Sample/test');
 }
 const Sample_handler_POST = (req, res) => {
-
+    Rating_return = Rating.default.POST(req)
+    if (Rating_return){
+        res.status(Rating_return.status).json({ error: Rating_return.error });
+    }
+    
 }
 const Sample_handler_PUT = (req, res) => {
 
