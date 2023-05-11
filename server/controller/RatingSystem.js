@@ -7,16 +7,20 @@ import * as Rating from "../models/Rating.js";
 
 const Sample_handler_GET = (req, res) => {
     // GET the rating
-    Rating_return = Rating.default.GET(req)
-    if (Rating_return) {
+    let Rating_return = Rating.default.GET(req)
+    if (Rating_return.status) {
         return res.status(Rating_return.status).json({ error: Rating_return.error });
+    }else{
+        console.log("_______________________________________________")
+        console.log(Rating_return)
+        res.send(Rating_return)
     }
 }
 
 const Sample_handler_POST = (req, res) => {
 
     // post the rating
-    Rating_return = Rating.default.POST(req)
+    let Rating_return = Rating.default.POST(req)
     if (Rating_return) {
         return res.status(Rating_return.status).json({ error: Rating_return.error });
     }
@@ -26,7 +30,7 @@ const Sample_handler_POST = (req, res) => {
 const Sample_handler_PUT = (req, res) => {
 
     //UPDATE the rate
-    Put_return = Rating.default.PUT(req)
+    let Rating_return = Rating.default.PUT(req)
     if (Rating_return) {
         return res.status(Rating_return.status).json({ error: Rating_return.error });
     }
