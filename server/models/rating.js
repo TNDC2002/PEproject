@@ -1,8 +1,9 @@
 import UserRateMovie from "../models/UserRateMovie"
 
 // calculate average rate
-const re_calc = () => {
-
+const re_calc = (movieID) => {
+    UserRate = UserRateMovie.find({movieID: movieID})
+    console.log(UserRate)
 }
 
 
