@@ -5,15 +5,13 @@
 
 import * as Rating from "../models/Rating.js";
 
-const Sample_handler_GET = (req, res) => {
+const Sample_handler_GET = async (req, res) => {
     // GET the rating
-    let Rating_return = Rating.default.GET(req)
+    let Rating_return = await Rating.default.GET(req)
     if (Rating_return.status) {
         return res.status(Rating_return.status).json({ error: Rating_return.error });
     }else{
-        console.log("_______________________________________________")
-        console.log(Rating_return)
-        res.send(Rating_return)
+        res.status(200).json({ Rating_return });
     }
 }
 
@@ -40,7 +38,7 @@ const Sample_handler_PUT = (req, res) => {
 const Sample_handler_DELETE = (req, res) => {
 
     //DELETE the rate
-    Delete_return = Rating.default.DELETE(req)
+    let Delete_return = Rating.default.DELETE(req)
     if (Rating_return) {
         return res.status(Rating_return.status).json({ error: Rating_return.error });
     }
