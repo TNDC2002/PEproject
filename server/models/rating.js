@@ -6,12 +6,12 @@ const rating = async (req, res) => {
     try {
         const {userID, movieID, rating} = req.body
         
-        const newVerification = new UserRateMovie({
+        const newRating = new UserRateMovie({
             userID: userID,
             movieID: movieID,
             rating: rating,
         });
-        newVerification.save()
+        newRating.save()
             .then(() => {
                 transporter.sendMail(mailOption)
                     .then(() => {
