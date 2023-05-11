@@ -227,18 +227,19 @@ const ShowPage = () => {
 
         {trailerVideoId !== null && trailerVideoId.length > 0 ? (
           <>
-            <YouTubePlayer videoId={trailerVideoId[0].key} />
-
+            <YouTubePlayer videoId={trailerVideoId[0].key} width={800} height={600} />
+            <Box>
+              <Typography>
+                Trailer
+              </Typography>
+            </Box>
             <Box sx={{ overflowX: "auto" }}>
               {trailerVideoId && (
                 <Box>
-                  <Typography variant="h5" sx={{ pb: 1 }}>
-                    <strong>Trailer:</strong>
-                  </Typography>
                   <Box sx={{ display: "flex", flexDirection: "row" }}>
                     {trailerVideoId.map((video) => (
                       <Grid item key={video.key} spacing={2}>
-                        <YouTubePlayer videoId={video.key} />
+                        <YouTubePlayer videoId={video.key} width={356} height={200} />
                       </Grid>
                     ))}
                   </Box>
