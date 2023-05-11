@@ -1,7 +1,11 @@
 import UserRateMovie from "../models/UserRateMovie"
 
+// calculate average rate
+const re_calc = () => {
 
-/* INSERT USER SEARCH STRING */
+}
+
+
 const POST_rating = async (req) => {
     try {
         const { userID, movieID, rating } = req.body
