@@ -15,11 +15,14 @@ const rating = async (req, res) => {
             .then(() => {
             })
             .catch((error) => {
-                console.log(error);
-                res.json({
+                return {
                     status: "FAILED",
                     message: "Couldn't save rating data..."
-                });
+                }
+                // res.json({
+                //     status: "FAILED",
+                //     message: "Couldn't save rating data..."
+                // });
             })
     
     } catch (err) {
@@ -29,6 +32,6 @@ const rating = async (req, res) => {
 
 
 var output = {
-    rating
+    POST: Rating
 };
 export default output;
