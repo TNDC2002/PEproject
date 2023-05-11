@@ -3,7 +3,7 @@
 */
 /* After setup your controller goto ../routes/WebRoutes.js to setup the URL */
 
-import * as sample from "../models/sample.js";
+import * as sample from "../models/Rating.js";
 
 const Sample_handler_GET = (req, res) => {
  
