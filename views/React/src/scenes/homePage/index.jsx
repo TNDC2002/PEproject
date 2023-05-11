@@ -1,19 +1,89 @@
-import { useState } from "react";
-import { useMediaQuery } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import MovieCard from "./MovieCard";
+import { Grid, IconButton, Box, Typography } from "@mui/material";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import FlexBetween from "../../components/FlexBetween";
 import Navbar from "../navbar";
-import MovieList from "./MovieList";
-import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
+import { useParams } from "react-router";
 
 const HomePage = () => {
+  const [discovery, setDiscovery] = useState(null);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const fetchDiscovery = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/movie/discovery`);
+        const data = await response.json();
+        setDiscovery(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchDiscovery();
+  }, []);
+
+
+
   return (
     <div>
-      <Navbar />
-      <YouTubePlayer videoId={""} />
-      <MovieList category="popular" />
-      <MovieList category="nowPlaying" />
-      <MovieList category="topRated" />
-      <MovieList category="upcoming" />
+      <Navbar/>
+      <Box>
+        <Typography
+          variant="h3"
+          sx={{
+            margin: "1rem 1.15rem",
+            fontWeight: "bold",
+            color: "white",
+          }}
+        >
+          {" "}
+          Discovery{" "}
+        </Typography>
+        <Grid container spacing={2.25} justifyContent="center">
+          {discovery?.map?.((movie) => (
+            <Grid item key={movie.id}>
+              <MovieCard movie={movie} />
+            </Grid>
+          ))}
+        </Grid>
+        <FlexBetween>
+          <IconButton
+            onClick={() => {}}
+            disabled={false}
+            sx={{
+              padding: "0 0 0 0.5rem",
+            }}
+          >
+            <ArrowBackIos
+              sx={{ fontSize: "30px", color: "white", margin: "0 0.75rem" }}
+            ></ArrowBackIos>
+          </IconButton>
+          <Typography
+            sx={{
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "1.5rem",
+              padding: "0.5rem",
+              margin: "1rem 0.5rem",
+              border: "hidden",
+              borderRadius: "0.5rem ",
+            }}
+          >
+            1
+          </Typography>
+          <IconButton
+            onClick={() => {}}
+            sx={{
+              padding: "0 0.5rem 0 0",
+            }}
+          >
+            <ArrowForwardIos
+              sx={{ fontSize: "30px", color: "white", margin: "0 0.75rem" }}
+            ></ArrowForwardIos>
+          </IconButton>
+        </FlexBetween>
+      </Box>
     </div>
   );
 };
