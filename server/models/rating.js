@@ -2,7 +2,7 @@ import UserRateMovie from "../models/UserRateMovie"
 
 
 /* INSERT USER SEARCH STRING */
-const POST_rating = async (req, res) => {
+const POST_rating = async (req) => {
     try {
         const { userID, movieID, rating } = req.body
 
@@ -26,7 +26,7 @@ const POST_rating = async (req, res) => {
 
     }
 }
-const PUT_rating = async (req, res) => {
+const PUT_rating = async (req) => {
     try {
         const { userID, movieID, rating } = req.body
         let Rated = await UserRateMovie.findOne({
@@ -49,7 +49,7 @@ const PUT_rating = async (req, res) => {
 
     }
 }
-const DELETE_rating = async (req, res) => {
+const DELETE_rating = async (req) => {
     try {
         const { userID, movieID } = req.body
         let Rated = await UserRateMovie.findOne({
