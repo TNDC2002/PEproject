@@ -23,7 +23,7 @@ const Sample_handler_POST = (req, res) => {
 const Sample_handler_PUT = (req, res) => {
 
     //UPDATE the rate
-    Rating_return = Rating.default.PUT(req)
+    Put_return = Rating.default.PUT(req)
     if (Rating_return){
         res.status(Rating_return.status).json({ error: Rating_return.error });
     }
@@ -31,6 +31,12 @@ const Sample_handler_PUT = (req, res) => {
 }
 
 const Sample_handler_DELETE = (req, res) => {
+
+    //DELETE the rate
+    Delete_return = Rating.default.DELETE(req)
+    if (Rating_return){
+        res.status(Rating_return.status).json({ error: Rating_return.error });
+    }
 
 }
 

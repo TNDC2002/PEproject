@@ -78,6 +78,7 @@ const DELETE_rating = async (req, res) => {
 }
 var output = {
     POST: POST_rating,
-    PUT: PUT_rating
+    PUT: PUT_rating,
+    DELETE: DELETE_rating
 };
 export default output;
