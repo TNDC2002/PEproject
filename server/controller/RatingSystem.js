@@ -42,9 +42,9 @@ const Sample_handler_DELETE = (req, res) => {
 }
 
 const Sample_handler = {
-    Sample_handler_GET: Sample_handler_GET,
-    Sample_handler_POST: Sample_handler_POST,
-    Sample_handler_PUT: Sample_handler_PUT,
-    Sample_handler_DELETE: Sample_handler_DELETE
+    GET_handler: Sample_handler_GET,
+    POST_handler: Sample_handler_POST,
+    PUT_handler: Sample_handler_PUT,
+    DELETE_handler: Sample_handler_DELETE
 }
 export default Sample_handler
