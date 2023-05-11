@@ -1,4 +1,27 @@
-import UserRateMovie from "../models/UserRateMovie"
+import UserRateMovie from "./UserRateMovie.js"
+import MovieRating from "./MovieRatingSchema.js"
+
+const calc = (movieID, rating, weight) => {
+    try {
+        let Rated = MovieRating.findOne({
+            movieID: movieID,
+            rating: rating
+        });
+        Rated.save()
+            .then(() => {
+            })
+            .catch((error) => {
+                console.log("ERROR --- Rating.js --- can't UPDATE to DB")
+            })
+
+    } catch (err) {
+        return {
+            status: 500,
+            error: err.message
+        }
+
+    }
+}
 
 const POST_rating = async (req) => {
     try {
@@ -11,6 +34,7 @@ const POST_rating = async (req) => {
         });
         newRating.save()
             .then(() => {
+                
             })
             .catch((error) => {
                 console.log("ERROR --- Rating.js --- can't SAVE to DB")
@@ -29,9 +53,13 @@ const PUT_rating = async (req) => {
         const { userID, movieID, rating } = req.body
         let Rated = await UserRateMovie.findOne({
             userID: userID,
+            movieID: movieID
+        });
+        Rated = {
+            userID: userID,
             movieID: movieID,
             rating: rating
-        });
+        }
         Rated.save()
             .then(() => {
             })
