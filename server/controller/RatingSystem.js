@@ -11,12 +11,15 @@ const Sample_handler_GET = (req, res) => {
     return res.render('./Sample/test');
 }
 const Sample_handler_POST = (req, res) => {
+
+    // post the rating
     Rating_return = Rating.default.POST(req)
     if (Rating_return){
         res.status(Rating_return.status).json({ error: Rating_return.error });
     }
     
 }
+
 const Sample_handler_PUT = (req, res) => {
 
 }
