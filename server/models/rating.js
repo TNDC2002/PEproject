@@ -51,7 +51,7 @@ const PUT_rating = async (req, res) => {
 }
 const DELETE_rating = async (req, res) => {
     try {
-        const { userID, movieID, rating } = req.body
+        const { userID, movieID } = req.body
         let Rated = await UserRateMovie.findOne({
             userID: userID,
             movieID:movieID,
