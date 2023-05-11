@@ -51,6 +51,7 @@ const PUT_rating = async (req, res) => {
 }
 
 var output = {
-    POST: POST_rating
+    POST: POST_rating,
+    PUT: PUT_rating
 };
 export default output;
