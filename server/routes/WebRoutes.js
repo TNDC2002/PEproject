@@ -50,17 +50,17 @@ let initWebRoutes = (app) => {
       router.post("/movie/rent/check", movieAPI.default.checkRented);
       router.post("/user-search-history/insert", middleware.default.verifyToken, user.default.insertSearch);
       router.post('/', SampleController.default.Sample_handler_POST);
-      router.post("/movie/rate", Rate.default.Sample_handler_POST);
+      router.post("/movie/rate", Rate.default.POST_handler);
   
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
       router.put('/', SampleController.default.Sample_handler_PUT);
-      router.put("/movie/rate", Rate.default.Sample_handler_PUT);
+      router.put("/movie/rate", Rate.default.PUT_handler);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
       router.delete('/', SampleController.default.Sample_handler_DELETE);
-      router.post("/movie/rate", Rate.default.Sample_handler_DELETE);
+      router.post("/movie/rate", Rate.default.DELETE_handler);
   
 
 
