@@ -2,7 +2,7 @@ import UserRateMovie from "../models/UserRateMovie"
 
 
 /* INSERT USER SEARCH STRING */
-export const insertSearch = async (req, res) => {
+const insertSearch = async (req, res) => {
     try {
         const {userID, searchedString, createdAt} = req.body
 
