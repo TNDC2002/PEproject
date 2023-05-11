@@ -31,7 +31,7 @@ const PUT_rating = async (req, res) => {
         const { userID, movieID, rating } = req.body
         let Rated = await UserRateMovie.findOne({
             userID: userID,
-            movieID:movieID,
+            movieID: movieID,
             rating: rating
         });
         Rated.save()
@@ -54,14 +54,18 @@ const DELETE_rating = async (req, res) => {
         const { userID, movieID } = req.body
         let Rated = await UserRateMovie.findOne({
             userID: userID,
-            movieID:movieID,
-            rating: rating
+            movieID: movieID
         });
-        Rated.save()
-            .then(() => {
+        UserRateMovie.findOneAndRemove(Rated)
+            .then((deletedUser) => {
+                if (deletedUser) {
+                    console.log('NOTIFI --- Rating.js --- Rate has been deleted!');
+                } else {
+                    console.log('ERROR --- Rating.js --- Rate matching the conditions was not found.');
+                }
             })
             .catch((error) => {
-                console.log("ERROR --- Rating.js --- can't UPDATE to DB")
+                console.log("ERROR --- Rating.js --- can't DELETE to DB")
             })
 
     } catch (err) {
