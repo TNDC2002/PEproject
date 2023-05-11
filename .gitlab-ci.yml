@@ -1,9 +1,9 @@
 run-tests:
   image: node:15
   before_script:
+    - cd views/React
     - rm -rf node_modules
     - rm -rf package-lock.json
-    - cd views/React
     - npm install
   script:
     - npm test
