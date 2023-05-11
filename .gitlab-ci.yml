@@ -3,4 +3,5 @@ run-tests:
     before_script:
         - npm install
     script: 
+        - cd views/React
         - npm test
