@@ -179,7 +179,7 @@ export const getShowTrailerID = async (req, res) => {
 export const getMovieDiscovery = async (req, res) => {
   try {
     const {page} = req.params;
-    const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`);
+    const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`);
     if(response.data !== null){
       res.json(response.data.results);
     }

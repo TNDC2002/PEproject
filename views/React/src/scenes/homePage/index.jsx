@@ -13,7 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchDiscovery = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/movie/discovery`);
+        const response = await fetch(`http://localhost:5000/movie/discovery/${page}`);
         const data = await response.json();
         setDiscovery(data);
       } catch (err) {
@@ -21,8 +21,15 @@ const HomePage = () => {
       }
     };
     fetchDiscovery();
-  }, []);
+  }, [page]);
 
+  const handlePrevPage = () => {
+    setPage((prevPage) => prevPage - 1);
+  };
+
+  const handleNextPage = () => {
+    setPage((nextPage) => nextPage + 1);
+  };
 
 
   return (
@@ -49,8 +56,8 @@ const HomePage = () => {
         </Grid>
         <FlexBetween>
           <IconButton
-            onClick={() => {}}
-            disabled={false}
+            onClick={handlePrevPage}
+            disabled={page === 1}
             sx={{
               padding: "0 0 0 0.5rem",
             }}
@@ -70,10 +77,10 @@ const HomePage = () => {
               borderRadius: "0.5rem ",
             }}
           >
-            1
+            {page}
           </Typography>
           <IconButton
-            onClick={() => {}}
+            onClick={handleNextPage}
             sx={{
               padding: "0 0.5rem 0 0",
             }}
