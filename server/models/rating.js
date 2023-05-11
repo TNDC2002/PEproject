@@ -33,7 +33,6 @@ const insertSearch = async (req, res) => {
 
 
 var output = {
-    insertSearch,
-    fetchSearches
+    insertSearch
 };
 export default output;
