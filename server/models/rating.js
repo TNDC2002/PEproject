@@ -4,8 +4,8 @@ import UserRateMovie from "../models/UserRateMovie"
 /* INSERT USER SEARCH STRING */
 const POST_rating = async (req, res) => {
     try {
-        const {userID, movieID, rating} = req.body
-        
+        const { userID, movieID, rating } = req.body
+
         const newRating = new UserRateMovie({
             userID: userID,
             movieID: movieID,
@@ -17,19 +17,24 @@ const POST_rating = async (req, res) => {
             .catch((error) => {
                 console.log("ERROR --- Rating.js --- can't save to DB")
             })
-    
+
     } catch (err) {
         return {
             status: 500,
             error: err.message
         }
-        
+
     }
 }
 const PUT_rating = async (req, res) => {
     try {
-        const {userID, movieID, rating} = req.body
-        
+        const { userID, movieID, rating } = req.body
+        let Rated = await UserRateMovie.findOne({
+            userID: userID,
+            movieID:movieID,
+            rating: rating
+        });
+
         const newRating = new UserRateMovie({
             userID: userID,
             movieID: movieID,
@@ -41,13 +46,13 @@ const PUT_rating = async (req, res) => {
             .catch((error) => {
                 console.log("ERROR --- Rating.js --- can't save to DB")
             })
-    
+
     } catch (err) {
         return {
             status: 500,
             error: err.message
         }
-        
+
     }
 }
 
