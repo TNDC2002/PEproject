@@ -5,6 +5,7 @@ import UserRateMovie from "../models/UserRateMovie"
 const rating = async (req, res) => {
     try {
         const {userID, movieID, rating} = req.body
+        
 
     
     } catch (err) {
