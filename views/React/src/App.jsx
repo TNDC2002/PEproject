@@ -32,6 +32,10 @@ function App() {
               path="/movie/:movieID"
               element={isAuth ? <MoviePage /> : <Navigate to="/" />}
             />
+            <Route 
+              path="Feature Movies"
+              element={isAuth ? <FeatureMove /> : <Navigate to="/" />}
+            />
             <Route
               path="/TV Shows"
               element={isAuth ? <TvPage /> : <Navigate to="/" />}
