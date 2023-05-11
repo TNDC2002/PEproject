@@ -214,14 +214,14 @@ const MoviePage = () => {
             underline="hover"
             color="inherit"
             onClick={() => {
-              window.location.href = "/home";
+              window.location.href = "/Home";
             }}
           >
             Home
           </Link>
 
           <Link underline="hover" color="inherit">
-            Movies
+            Feature Movies
           </Link>
           <Typography color="text.primary">{movie.title}</Typography>
         </Breadcrumbs>
