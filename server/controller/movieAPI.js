@@ -191,8 +191,11 @@ export const getMovieDiscovery = async (req, res) => {
 /* RETRIEVING SHOW DISCOVERY */
 export const getShowDiscovery = async (req, res) => {
   try {
-    const response = await axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`);
-    res.json(response.data);
+    const {page} = req.params;
+    const response = await axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&page=${page}&timezone=America%2FNew_York&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`);
+    if(response.data !== null){
+      res.json(response.data.results);
+    }
   } catch (err) {
     res.status(500).json({ message: 'Internal server error' });
   }
