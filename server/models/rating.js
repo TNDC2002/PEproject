@@ -1,4 +1,4 @@
-import UserSearchHistory from "../models/UserSearchHistory.js"
+import UserRateMovie from "../models/UserRateMovie"
 
 
 /* INSERT USER SEARCH STRING */
