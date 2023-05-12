@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Navigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
@@ -38,8 +38,10 @@ const ShowPage = () => {
   const [show, setShow] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
   const [trailerVideoId, setTrailerVideoId] = useState(null);
-  const { showID } = useParams();
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const mainPlayerRef = useRef(null);
 
+  const { showID } = useParams();
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
@@ -148,6 +150,7 @@ const ShowPage = () => {
         );
         const data = await response.json();
         setTrailerVideoId(data.results);
+        setSelectedVideo(data.results[0].key)
       } catch (error) {
         console.error(error);
       }
@@ -227,10 +230,12 @@ const ShowPage = () => {
 
         {trailerVideoId !== null && trailerVideoId.length > 0 ? (
           <>
-            <YouTubePlayer videoId={trailerVideoId[0].key} width={800} height={600} />
+            <div ref={mainPlayerRef}>
+              <YouTubePlayer videoId={selectedVideo} width={800} height={600} thumbnail={false}/>
+            </div>
             <Box>
               <Typography>
-                Trailer
+                Other Trailer
               </Typography>
             </Box>
             <Box sx={{ overflowX: "auto" }}>
@@ -238,8 +243,11 @@ const ShowPage = () => {
                 <Box>
                   <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
                     {trailerVideoId.map((video) => (
-                      <Grid item key={video.key} spacing={2}>
-                        <YouTubePlayer videoId={video.key} width={356} height={200} />
+                      <Grid item key={video.key} onClick={() => {
+                        setSelectedVideo(video.key)
+                        mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
+                      }}>
+                        <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
                       </Grid>
                     ))}
                   </Box>
