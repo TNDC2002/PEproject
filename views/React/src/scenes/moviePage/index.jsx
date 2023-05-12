@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Navigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
@@ -41,6 +41,7 @@ const MoviePage = () => {
   const [recommendations, setRecommendations] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
+  const mainPlayerRef = useRef(null);
 
   const dispatch = useDispatch();
   const { movieID } = useParams();
@@ -234,8 +235,9 @@ const MoviePage = () => {
         {youtubeIDs && youtubeIDs.length > 0 && (
           <>
             {/* Main video player */}
-            <YouTubePlayer videoId={selectedVideo} width={800} height={600} thumbnail={false} />
-
+            <div ref={mainPlayerRef}>
+              <YouTubePlayer videoId={selectedVideo} width={800} height={600} thumbnail={false} />
+            </div>
             {/* Trailer text */}
             <Box>
               <Typography>
@@ -249,7 +251,7 @@ const MoviePage = () => {
                 {youtubeIDs.map((video) => (
                   <Grid item key={video.key} onClick={() => {
                     setSelectedVideo(video.key)
-                    window.scrollTo({ top: 20, behavior: "smooth" });
+                    mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
                   }}>
                     <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
                     {/* <YouTubePlayer videoId={video.key} width={356} height={200} thumbnail={true}/> */}
