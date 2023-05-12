@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Rating
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
@@ -40,6 +41,7 @@ const MoviePage = () => {
   const [youtubeIDs, setVideoIDS] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [credits, setCredits] = useState(null);
 
 
   const dispatch = useDispatch();
@@ -161,7 +163,7 @@ const MoviePage = () => {
     fetchVideoIDs();
   }, [movieID]);
 
-  console.log(selectedVideo)
+
 
   //FETCH RECOMMENDATIONS
   useEffect(() => {
@@ -183,6 +185,22 @@ const MoviePage = () => {
     fetchRecommendations();
   }, [movieID]);
 
+  useEffect(() => {
+    const fetchCredits = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/movie/credits/${movieID}`
+        );
+        const data = await response.json();
+        setCredits(data.cast);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCredits();
+  }, [movieID]);
+  console.log(credits)
+  
   useEffect(() => {
     const fetchFavourite = async () => {
       const checkFavouriteResponse = await checkFavorite(user._id, movieID);
@@ -323,6 +341,10 @@ const MoviePage = () => {
                   <strong>Production:</strong>{" "}
                   {movie.production_companies.map((g) => g.name).join(", ")}
                 </Typography>
+                <Typography variant="body1" sx={{ my: 0.5 }}>
+                  <strong>Cast:</strong>{" "}
+                  {credits.slice(0, 5).map((g) => g.name).join(", ")}
+                </Typography>
               </Grid>
 
               <Grid item xs={12} md={6}>
@@ -365,6 +387,7 @@ const MoviePage = () => {
                 <strong>Already Rented</strong>
               )}
             </Button>
+            <Rating name="half-rating" precision={0.5}></Rating>
           </Grid>
         </Grid>
         <Box sx={{}}>

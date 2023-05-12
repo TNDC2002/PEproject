@@ -138,6 +138,18 @@ export const getRecommendations = async (req, res) => {
   }
 };
 
+export const getCredits = async (req, res) => {
+  try {
+    const { movieID } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${process.env.TMDB_API_KEY}`
+    );
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 /*
 TV SHOW'S DATA API
 */
@@ -212,6 +224,7 @@ var output = {
   getDetail,
   getTrailerID,
   getRecommendations,
+  getCredits,
   getShowDetail,
   getShowRecommendations,
   getShowTrailerID,
