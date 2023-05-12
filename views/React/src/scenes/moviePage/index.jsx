@@ -39,6 +39,8 @@ const MoviePage = () => {
   const [movie, setMovie] = useState(null);
   const [youtubeIDs, setVideoIDS] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
 
   const dispatch = useDispatch();
   const { movieID } = useParams();
@@ -151,12 +153,15 @@ const MoviePage = () => {
         );
         const data = await response.json();
         setVideoIDS(data.results);
+        setSelectedVideo(data.results[0].key)
       } catch (error) {
         console.error(error);
       }
     };
     fetchVideoIDs();
   }, [movieID]);
+
+  console.log(selectedVideo)
 
   //FETCH RECOMMENDATIONS
   useEffect(() => {
@@ -226,31 +231,32 @@ const MoviePage = () => {
           <Typography color="text.primary">{movie.title}</Typography>
         </Breadcrumbs>
 
-        {youtubeIDs !== null && youtubeIDs.length > 0 ? (
+        {youtubeIDs && youtubeIDs.length > 0 && (
           <>
-            <YouTubePlayer videoId={youtubeIDs[0].key} width={800} height={600} />
+            {/* Main video player */}
+            <YouTubePlayer videoId={selectedVideo} width={800} height={600} thumbnail={false} />
+
+            {/* Trailer text */}
             <Box>
               <Typography>
-                Trailer
+                Other Trailer
               </Typography>
             </Box>
-            <Box sx={{ overflowX: "auto" }}>
-              {youtubeIDs && (
-                <Box>
-                  <Box sx={{ display: "flex", flexDirection: "row" }}>
-                    {youtubeIDs.map((video) => (
-                      <Grid item key={video.key}>
-                        <YouTubePlayer videoId={video.key} width={356} height={200} />
-                      </Grid>
-                    ))}
-                  </Box>
-                </Box>
-              )}
+
+            {/* List of videos */}
+            <Box sx={{ overflowX: "hidden" }}>
+              <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
+                {youtubeIDs.map((video) => (
+                  <Grid item key={video.key} onClick={() => setSelectedVideo(video.key)}>
+                    <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
+                    {/* <YouTubePlayer videoId={video.key} width={356} height={200} thumbnail={true}/> */}
+                  </Grid>
+                ))}
+              </Box>
             </Box>
           </>
-        ) : (
-          <></>
         )}
+
 
         <Grid container spacing={3} sx={{ my: 2 }}>
           <Grid item xs={12} sm={6} md={3} lg={3}>

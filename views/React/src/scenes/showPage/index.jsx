@@ -236,7 +236,7 @@ const ShowPage = () => {
             <Box sx={{ overflowX: "auto" }}>
               {trailerVideoId && (
                 <Box>
-                  <Box sx={{ display: "flex", flexDirection: "row" }}>
+                  <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
                     {trailerVideoId.map((video) => (
                       <Grid item key={video.key} spacing={2}>
                         <YouTubePlayer videoId={video.key} width={356} height={200} />
