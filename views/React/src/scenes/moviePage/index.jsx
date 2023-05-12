@@ -345,7 +345,7 @@ const MoviePage = () => {
                 </Typography>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
                   <strong>Cast:</strong>{" "}
-                  {credits.slice(0, 5).map((g) => g.name).join(", ")}
+                  {credits?.slice(0, 5)?.map((g) => g.name)?.join(", ")}
                 </Typography>
               </Grid>
 

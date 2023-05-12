@@ -203,7 +203,6 @@ const ShowPage = () => {
     return <Loading />;
   }
 
-  console.log(trailerVideoId);
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
 
