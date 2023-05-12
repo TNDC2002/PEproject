@@ -247,7 +247,10 @@ const MoviePage = () => {
             <Box sx={{ overflowX: "hidden" }}>
               <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
                 {youtubeIDs.map((video) => (
-                  <Grid item key={video.key} onClick={() => setSelectedVideo(video.key)}>
+                  <Grid item key={video.key} onClick={() => {
+                    setSelectedVideo(video.key)
+                    window.scrollTo({ top: 20, behavior: "smooth" });
+                  }}>
                     <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
                     {/* <YouTubePlayer videoId={video.key} width={356} height={200} thumbnail={true}/> */}
                   </Grid>
