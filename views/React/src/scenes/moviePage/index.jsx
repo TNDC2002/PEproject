@@ -246,7 +246,7 @@ const MoviePage = () => {
             </Box>
 
             {/* List of videos */}
-            <Box sx={{ overflowX: "hidden" }}>
+            <Box sx={{ overflowX: "auto" }}>
               <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
                 {youtubeIDs.map((video) => (
                   <Grid item key={video.key} onClick={() => {
