@@ -9,7 +9,6 @@ var upload = uploader.default()
 
 /* Import your controller here by syntax:
     import * as <your controller name> from "../controller/<ControllerFile>.js" */
-import * as SampleController from "../controller/SampleController.js";
 import * as middleware from "../middleware/auth.js";
 import * as auth from "../controller/auth.js";
 import * as movieAPI from "../controller/movieAPI.js";
