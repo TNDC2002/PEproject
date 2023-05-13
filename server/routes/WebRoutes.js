@@ -60,7 +60,7 @@ let initWebRoutes = (app) => {
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
       router.delete("/api/rate", middleware.default.verifyToken, Rate.default.DELETE_handler);
-      router.delete("/api/rent", Rental.default.DELETE_Rental);
+      router.delete("/api/rent", middleware.default.verifyToken, Rental.default.DELETE_Rental);
   
 
 
