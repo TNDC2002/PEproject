@@ -9,7 +9,7 @@ const GET_rental = async (req) => {
         if (Rental.rentalExpireDate && Rental.rentalExpireDate > today) {
             return Rental;
         }else if(Rental.rentalExpireDate && Rental.rentalExpireDate <= today){
-            let url = "http://localhost:" + process.env.PORT
+            let url = "http://localhost:" + process.env.PORT + "/api/rent"
             fetch(url, {
                 method: 'DELETE',
                 headers: {
