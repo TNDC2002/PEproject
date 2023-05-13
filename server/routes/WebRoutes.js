@@ -55,7 +55,7 @@ let initWebRoutes = (app) => {
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
       router.put("/api/rate", middleware.default.verifyToken, Rate.default.PUT_handler);
-      router.put("/api/rent", Rental.default.PUT_Rental);
+      router.put("/api/rent", middleware.default.verifyToken, Rental.default.PUT_Rental);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
