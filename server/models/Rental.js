@@ -8,6 +8,29 @@ const GET_rental = async (req) => {
         let today = new Date();
         if (Rental.rentalExpireDate && Rental.rentalExpireDate > today) {
             return Rental;
+        }else if(Rental.rentalExpireDate && Rental.rentalExpireDate <= today){
+            let url = "http://localhost:" + process.env.PORT
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                  // Additional headers if needed
+                },
+                body: JSON.stringify({ key: 'value' }) // Request body data
+              })
+                .then(response => {
+                  if (response.ok) {
+                    // Successful DELETE request
+                    console.log('DELETE request successful');
+                  } else {
+                    // Failed DELETE request
+                    console.log('DELETE request failed');
+                  }
+                })
+                .catch(error => {
+                  console.log('Error:', error);
+                });
+              
         } else {
             return {
                 status: 500,
