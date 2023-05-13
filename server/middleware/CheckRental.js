@@ -2,10 +2,18 @@ import axios from "axios"
 
 export const verifyToken = async (req, res, next) => {
     try {
-        if(!token) {
+        let TheReturn = await axios.get(url, {
+            headers: {
+                // 'Content-Type': 'application/json',
+            },
+            data: { userID: userID, movieID: movieID }
+        })
+        if(TheReturn.data.rentalExpireDate) {
+            next();
+        }
+        else{
             return res.status(403).send("Access Denied");
         }
-        next();
     } catch(err) {
         res.status(500).json({ error: err.message });
     }
