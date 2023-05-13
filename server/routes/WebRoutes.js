@@ -40,7 +40,6 @@ let initWebRoutes = (app) => {
       router.get("/movie/tvRecommendations/:showID", movieAPI.default.getShowRecommendations);
       router.get("/movie/tvTrailer/:showID", movieAPI.default.getShowTrailerID);
       router.get("/user-search-history/", middleware.default.verifyToken, user.default.fetchSearches);
-      router.get('/', SampleController.default.Sample_handler_GET);
       router.get("/movie/rate", Rate.default.GET_handler);
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
@@ -51,17 +50,14 @@ let initWebRoutes = (app) => {
       router.post("/movie/rent", middleware.default.verifyToken, movieAPI.default.rent);
       router.post("/movie/rent/check", movieAPI.default.checkRented);
       router.post("/user-search-history/insert", middleware.default.verifyToken, user.default.insertSearch);
-      router.post('/', SampleController.default.Sample_handler_POST);
       router.post("/movie/rate", Rate.default.POST_handler);
   
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
-      router.put('/', SampleController.default.Sample_handler_PUT);
       router.put("/movie/rate", Rate.default.PUT_handler);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
-      router.delete('/', SampleController.default.Sample_handler_DELETE);
       router.delete("/movie/rate", Rate.default.DELETE_handler);
   
 
