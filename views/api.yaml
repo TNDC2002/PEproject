@@ -9,6 +9,8 @@ servers:
 paths:
   /auth/verified:
     get:
+      tags:
+        - auth
       summary: Verify Authentication
       description: Verifies the authentication status of a user
       responses:
@@ -20,6 +22,8 @@ paths:
 
   /auth/register:
     post:
+      tags:
+        - auth
       summary: User Registration
       description: Registers a new user
       requestBody:
@@ -43,6 +47,8 @@ paths:
 
   /movie/detail/{movieID}:
     get:
+      tags:
+        - movie
       summary: Get Movie Details
       description: Retrieves details of a specific movie
       parameters:
@@ -52,7 +58,7 @@ paths:
           schema:
             type: integer
             format: int64
-          description: ID of the movie
+          description: ID of the movie E.g 502356
       responses:
         '200':
           description: Movie details retrieved successfully
@@ -62,6 +68,54 @@ paths:
                 $ref: '#/components/schemas/MovieDetail'
         '404':
           description: Access Denied
+
+  /movie/recommendations/{movieID}:
+    get:
+      tags:
+        - movie
+      summary: Get Movie Recommendations
+      description: Retrieves a list of recommended movies based on a given movie
+      parameters:
+        - in: path
+          name: movieID
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID of the movie E.g 502356
+      responses:
+        '200':
+          description: Movie recommendations retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieRecommendations'
+        '404':
+          description: Access Denied
+
+  /movie/trailer/{movieID}:
+    get:
+      tags:
+        - movie
+      summary: Get Movie Trailer
+      description: Retrieves the trailer of a specific movie
+      parameters:
+        - in: path
+          name: movieID
+          required: true
+          schema:
+            type: string
+          description: ID of the movie E.g 502356
+      responses:
+        '200':
+          description: Movie trailer retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieTrailer'
+        '404':
+          description: Access Denied
+
 
 # Add other paths and endpoints here
 
@@ -236,4 +290,104 @@ components:
         vote_count:
           type: integer
           example: 1987
+
+    MovieRecommendations:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/MovieDetail'
+          description: List of movie's recommendations
+          example:
+            - adult: false
+              backdrop_path: /aAgGrfBwna1nO4M2USxwFgK5O0t.jpg
+              id: 713704
+              title: Evil Dead Rise
+              original_language: en
+              original_title: Evil Dead Rise
+              overview: Three siblings find an ancient vinyl that gives birth to bloodthirsty demons that run amok in a Los Angeles apartment building and thrusts them into a primal battle for survival as they face the most nightmarish version of family imaginable.
+              poster_path: /5ik4ATKmNtmJU6AYD0bLm56BCVM.jpg
+              media_type: movie
+              genre_ids:
+                - id: 27
+                - id: 53
+              popularity: 4254.799
+              release_date: "2023-04-12"
+              vote_average: 7.201
+              vote_count: 755
+
+    TrailerVideo:
+      type: object
+      properties:
+        iso_639_1:
+          type: string
+          description: ISO 639-1 code of the video
+          example: en
+        iso_3166_1:
+          type: string
+          description: ISO 3166-1 code of the video
+          example: US
+        name:
+          type: string
+          description: Name of the video
+          example: TV Spot 66
+        key:
+          type: string
+          description: Key of the video
+          example: LTFGH0rJ-EY
+        site:
+          type: string
+          description: Site where the video is hosted
+          example: YouTube
+        size:
+          type: integer
+          description: Size of the video
+          example: 1080
+        type:
+          type: string
+          description: Type of the video
+          example: Teaser
+        official:
+          type: boolean
+          description: Indicates if the video is official
+          example: true
+        published_at:
+          type: string
+          format: date-time
+          description: Publish date of the video
+          example: "2023-04-10T19:29:54.000Z"
+        id:
+          type: string
+          description: ID of the video
+          example: 6439b5ee2938350479a99eb2
+
+    MovieTrailer:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrailerVideo'
+          description: List of movie trailer's youtube id
+          example:
+            - iso_639_1: en
+              iso_3166_1: US
+              name: TV Spot 66
+              key: LTFGH0rJ-EY
+              site: YouTube
+              size: 1080
+              type: Teaser
+              official: true
+              published_at: "2023-04-10T19:29:54.000Z"
+              id: 6439b5ee2938350479a99eb2
+
+
+
        

@@ -12,10 +12,7 @@ import { initWebRoutes } from "./routes/WebRoutes.js";
 import swaggerUI from 'swagger-ui-express';
 import fs from 'fs';
 import YAML from 'js-yaml';
-import * as movieAPI from "./controller/movieAPI.js";
-import * as auth from "./controller/auth.js";
-import axios from "axios";
-import { get } from "http";
+
 
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
@@ -40,8 +37,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc));
 
-/* ROUTES FILE */
-
+/* ROUTES FILE */ 
 
 /* ROUTES */
 configViewEngine(app)
@@ -69,3 +65,4 @@ mongoose.connect(process.env.MONGO_URL, {
 }).catch((error) => console.log(error))
  
 
+   
