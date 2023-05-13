@@ -138,7 +138,7 @@ export const getRecommendations = async (req, res) => {
   }
 };
 
-export const getCredits = async (req, res) => {
+export const getMovieCredits = async (req, res) => {
   try {
     const { movieID } = req.params;
     const response = await axios.get(
@@ -224,7 +224,7 @@ var output = {
   getDetail,
   getTrailerID,
   getRecommendations,
-  getCredits,
+  getMovieCredits,
   getShowDetail,
   getShowRecommendations,
   getShowTrailerID,

@@ -19,13 +19,17 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
+  DialogActions
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from "../navbar";
 import {
@@ -39,6 +43,7 @@ const ShowPage = () => {
   const [recommendations, setRecommendations] = useState(null);
   const [trailerVideoId, setTrailerVideoId] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
+
   const mainPlayerRef = useRef(null);
 
   const { showID } = useParams();
@@ -299,14 +304,24 @@ const ShowPage = () => {
               {show.original_name}
             </Typography>
 
-            <Button variant="contained" sx={{ mx: 0.5, my: 1 }}>
-              <VideocamIcon></VideocamIcon> <strong>Trailer </strong>
-            </Button>
-
             <Button variant="contained" sx={{ mx: 0.5 }}>
               <strong>IMDB:</strong> {show.vote_average}
             </Button>
-
+            
+            <Box >
+              <FormControl >
+                <InputLabel id="demo-simple-select-label">Season</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Season"
+                >
+                  <MenuItem value={10}>Season 1</MenuItem>
+                  <MenuItem value={20}>Season 2</MenuItem>
+                  <MenuItem value={30}>Season 3</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
             <Typography variant="body1" sx={{ my: 0.5 }}>
               <strong>Overview:</strong> {show.overview}
             </Typography>
