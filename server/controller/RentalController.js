@@ -6,23 +6,23 @@
 import * as Rental from "../models/Rental.js";
 
 const Rental_GET = async (req, res) => {
-    // GET the rating
-    let Rating_return = await Rating.default.GET(req)
-    if (Rating_return.status) {
-        return res.status(Rating_return.status).json({ error: Rating_return.error });
+    // GET the Rental
+    let Rental_return = await Rental.default.GET(req)
+    if (Rental_return.status) {
+        return res.status(Rental_return.status).json({ error: Rental_return.error });
     }else{
-        return res.status(200).json({ Rating_return });
+        return res.status(200).json({ Rental_return });
     }
 }
 
 const Rental_POST = async (req, res) => {
 
-    // post the rating
-    let Rating_return = await Rating.default.POST(req)
-    if (Rating_return) {
-        return res.status(Rating_return.status).json({ error: Rating_return.error });
+    // post the Rental
+    let Rental_return = await Rental.default.POST(req)
+    if (Rental_return) {
+        return res.status(Rental_return.status).json({ error: Rental_return.error });
     }else{
-        return res.status(200).json({ Rating_return });
+        return res.status(200).json({ Rental_return });
     }
 
 }
@@ -30,11 +30,11 @@ const Rental_POST = async (req, res) => {
 const Rental_PUT = async (req, res) => {
 
     //UPDATE the rate
-    let Rating_return = await Rating.default.PUT(req)
-    if (Rating_return) {
-        return res.status(Rating_return.status).json({ error: Rating_return.error });
+    let Rental_return = await Rental.default.PUT(req)
+    if (Rental_return) {
+        return res.status(Rental_return.status).json({ error: Rental_return.error });
     }else{
-        return res.status(200).json({ Rating_return });
+        return res.status(200).json({ Rental_return });
     }
 
 }
@@ -42,9 +42,9 @@ const Rental_PUT = async (req, res) => {
 const Rental_DELETE = async (req, res) => {
 
     //DELETE the rate
-    let Delete_return = await Rating.default.DELETE(req)
+    let Delete_return = await Rental.default.DELETE(req)
     if (Delete_return) {
-        return res.status(Rating_return.status).json({ error: Rating_return.error });
+        return res.status(Rental_return.status).json({ error: Rental_return.error });
     }else{
         return res.status(200).json({ Delete_return });
     }
