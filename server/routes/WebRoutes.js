@@ -50,7 +50,7 @@ let initWebRoutes = (app) => {
       router.post("/movie/favourite/check", movieAPI.default.checkFavourite);
       router.post("/api/rent", Rental.default.POST_Rental);
       router.post("/user-search-history/insert", middleware.default.verifyToken, user.default.insertSearch);
-      router.post("/api/rate", Rate.default.POST_handler);
+      router.post("/api/rate", middleware.default.verifyToken, Rate.default.POST_handler);
   
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
