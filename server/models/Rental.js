@@ -9,19 +9,23 @@ const GET_rental = async (req) => {
         if (Rental.rentalExpireDate && Rental.rentalExpireDate > today) {
             return Rental;
         } else if (Rental.rentalExpireDate && Rental.rentalExpireDate <= today) {
+            
+            console.log("________AUTO DELETE____________")
             let url = "http://localhost:" + process.env.PORT + "/api/rent"
-            fetch(url, {
-                method: 'DELETE',
+
+            axios.delete(url, {
                 headers: {
-                    //'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userID: userID, movieID: movieID })
+                data: { userID: userID, movieID: movieID }
             })
+                .then(response => {
+                })
                 .catch(error => {
-                    console.log('Error:', error);
                 });
 
         } else {
+            console.log("________WTF____________")
             return {
                 status: 500,
                 error: "not found"
