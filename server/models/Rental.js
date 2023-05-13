@@ -26,7 +26,7 @@ const GET_rental = async (req) => {
 
 const POST_rental = async (req) => {
     try {
-        const { userID, movieID, rental } = req.body
+        const { userID, movieID, Duration } = req.body
 
         const newrental = new UserRateMovie({
             userID: userID,
