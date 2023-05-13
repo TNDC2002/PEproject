@@ -56,11 +56,14 @@ const PUT_rental = async (req) => {
     try {
         let { userID, movieID, Duration } = req.body
         Duration = Number(Duration)
-        let Rated = await UserMovieRental.findOneAndUpdate({
+        const Rental = await UserMovieRental.findOne({ userID: userID, movieID: movieID })
+        Rental.rentalExpireDate.setDate(Rental.rentalExpireDate.getDate() + Duration);
+
+        let UpdateRental = await UserMovieRental.findOneAndUpdate({
             userID: userID,
             movieID: movieID
         }, {
-            rental: rental
+            rentalExpireDate: Rental.rentalExpireDate
         })
             .then(() => { })
             .catch((error) => {
