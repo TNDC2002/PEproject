@@ -40,7 +40,7 @@ let initWebRoutes = (app) => {
       router.get("/movie/tvRecommendations/:showID", movieAPI.default.getShowRecommendations);
       router.get("/movie/tvTrailer/:showID", movieAPI.default.getShowTrailerID);
       router.get("/user-search-history/", middleware.default.verifyToken, user.default.fetchSearches);
-      router.get("/api/rate", Rate.default.GET_handler);
+      router.get("/api/rate", middleware.default.verifyToken, Rate.default.GET_handler);
       router.get("/api/rent", Rental.default.GET_Rental);
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
