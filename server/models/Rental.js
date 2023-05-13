@@ -54,7 +54,7 @@ const POST_rental = async (req) => {
 }
 const PUT_rental = async (req) => {
     try {
-        const { userID, movieID, rental } = req.body
+        const { userID, movieID, Duration } = req.body
         let Rated = await UserMovieRental.findOneAndUpdate({
             userID: userID,
             movieID: movieID
