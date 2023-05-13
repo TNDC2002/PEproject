@@ -2,7 +2,7 @@ import profileCard from "../../assets/image/profileBox7.png";
 import accountCard from "../../assets/image/accountBox.png";
 import movieCard from "../../assets/image/movieBox.png";
 import Background from "../../assets/image/backgroundNavPage3.png";
-import { Link } from 'react-router-dom';
+import { Link, Route, Router } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -37,7 +37,7 @@ const ProfilePage = () => {
 
       <Stack direction="row" spacing={15} style={{ marginTop: "60px", opacity: 1, }}>
         
-      <Link to="./Original">
+      
         <Box
         
           display="flex"
@@ -66,7 +66,8 @@ const ProfilePage = () => {
           </Typography>
           
         </Box>
-        </Link>
+        
+        <Link to="./Original">
         <Box
           display="flex"
           justifyContent="center"
@@ -90,6 +91,8 @@ const ProfilePage = () => {
             Profile
           </Typography>
         </Box>
+        </Link>
+        
         <Box
           display="flex"
           justifyContent="center"

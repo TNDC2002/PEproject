@@ -1,18 +1,20 @@
 import React from "react";
-import { BrowserRouter, Navigate, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import HomePage from "./scenes/homePage";
 import LoginPage from "./scenes/loginPage";
-import ProfilePage from "./scenes/profilePage";
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import NavPage from "./scenes/profilePage";
+import Original from "./scenes/profilePage/Original";
+
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { themeSettings } from './theme';
+import { themeSettings } from "./theme";
 import MoviePage from "./scenes/moviePage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isAuth = Boolean(useSelector((state) => state.token));
 
   return (
@@ -22,9 +24,22 @@ function App() {
           <CssBaseline />
           <Routes>
             <Route path="/" element={<LoginPage />} />
-            <Route path="/home" element={isAuth ? <HomePage /> :  <Navigate to="/" />} />
-            <Route path="/profile/:userID" element={isAuth ? <ProfilePage /> :  <Navigate to="/" />} />
-            <Route path="/movie/:movieID" element={isAuth ? <MoviePage /> : <Navigate to="/" />} />
+            <Route
+              path="/home"
+              element={isAuth ? <HomePage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/profile/:userID"
+              element={isAuth ? <NavPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/profile/:userID/Original"
+              element={isAuth ? <Original /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/movie/:movieID"
+              element={isAuth ? <MoviePage /> : <Navigate to="/" />}
+            />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
@@ -32,4 +47,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
