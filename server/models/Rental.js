@@ -9,8 +9,6 @@ const GET_rental = async (req) => {
         if (Rental.rentalExpireDate && Rental.rentalExpireDate > today) {
             return Rental;
         } else if (Rental.rentalExpireDate && Rental.rentalExpireDate <= today) {
-            
-            console.log("________AUTO DELETE____________")
             let url = "http://localhost:" + process.env.PORT + "/api/rent"
 
             axios.delete(url, {
@@ -23,10 +21,12 @@ const GET_rental = async (req) => {
                     return response
                 })
                 .catch(error => {
+                    return {
+                        status: 500,
+                        error: "not found"
+                    }
                 });
-
         } else {
-            console.log("________WTF____________")
             return {
                 status: 500,
                 error: "not found"

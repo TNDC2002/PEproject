@@ -8,6 +8,7 @@ import * as Rental from "../models/Rental.js";
 const Rental_GET = async (req, res) => {
     // GET the Rental
     let Rental_return = await Rental.default.GET(req)
+    console.log(Rental_return)
     if (Rental_return.status) {
         return res.status(Rental_return.status).json({ error: Rental_return.error });
     }else{
@@ -44,7 +45,7 @@ const Rental_DELETE = async (req, res) => {
     //DELETE the rate
     let Delete_return = await Rental.default.DELETE(req)
     if (Delete_return) {
-        return res.status(Rental_return.status).json({ error: Rental_return.error });
+        return res.status(Delete_return.status).json({ error: Delete_return.error });
     }else{
         return res.status(200).json({ Delete_return });
     }
