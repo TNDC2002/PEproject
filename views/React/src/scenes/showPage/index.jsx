@@ -43,6 +43,7 @@ const ShowPage = () => {
   const [recommendations, setRecommendations] = useState(null);
   const [trailerVideoId, setTrailerVideoId] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [credits, setCredits] = useState(null);
 
   const mainPlayerRef = useRef(null);
 
@@ -142,6 +143,22 @@ const ShowPage = () => {
     };
     fetchShowDetails();
   }, [showID]);
+
+  useEffect(() => {
+    const fetchCredits = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/movie/credits/${showID}`
+        );
+        const data = await response.json();
+        setCredits(data.cast);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCredits();
+  }, [showID]);
+  console.log(credits)
 
   useEffect(() => {
     const fetchShowTrailerIDs = async () => {
@@ -335,7 +352,13 @@ const ShowPage = () => {
                   <strong>Production:</strong>{" "}
                   {show.production_companies.map((g) => g.name).join(", ")}
                 </Typography>
+                <Typography variant="body1" sx={{ my: 0.5 }}>
+                  <strong>Cast:</strong>{" "}
+                  {credits?.slice(0, 5)?.map((g) => g.name)?.join(", ")}
+                </Typography>
               </Grid>
+
+
 
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
