@@ -14,7 +14,6 @@ const EmailVerificationSchema = new mongoose.Schema({
 
     createdAt: {
         type: Date,
-        expires: 600
     },
 }, 
     { timestamps: true }
