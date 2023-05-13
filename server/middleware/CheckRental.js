@@ -1,3 +1,5 @@
+import axios from "axios"
+
 export const verifyToken = async (req, res, next) => {
     try {
         if(!token) {
