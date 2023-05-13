@@ -24,8 +24,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../states";
 import { useNavigate } from "react-router-dom";
-import FlexBetween from "../../components/FlexBetween";
-import UserImage from "../../components/UserImage";
+import FlexBetween from "../profilePage/FlexBetween";
+import UserImage from "../profilePage/UserImage";
 
 
 const Navbar = () => {

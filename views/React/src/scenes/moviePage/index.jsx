@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Image from 'mui-image';
 import { useSelector } from 'react-redux';
-import FlexBetween from '../../components/FlexBetween';
+import FlexBetween from '../profilePage/FlexBetween';
 import Navbar from "../navbar";
 import {
   Box,

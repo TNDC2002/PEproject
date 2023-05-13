@@ -1,113 +1,109 @@
-import { Box, Button, Container, ButtonGroup, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Navbar from "../navbar";
-import ProfileSection from "../../components/ProfileSection";
-import Card from "../../assets/image/demo7.png";
-import Background from "../../assets/image/demo2-1.png";
-
+import Card from "../../assets/image/profileBox5.png";
+import Background from "../../assets/image/backgroundNavPage3.png";
+import {
+  Box,
+  Button,
+  Container,
+  ButtonGroup,
+  Stack,
+  Paper,
+  Grid,
+  Typography,
+} from "@mui/material";
+import Original from "./Original";
 const ProfilePage = () => {
-  const user = useSelector((state) => state.user);
-  const [activeSection, setActiveSection] = useState("Profile");
-
-  const handleButtonClick = (sectionName) => {
-    setActiveSection(sectionName);
-  };
-
-  if (!user) return null;
-
   return (
-    <Box sx={{ backgroundColor: "#060047", height: "100%" }}>
-      <Navbar />
-      
-      <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                minHeight="85vh"
-                sx={{
-                  backgroundImage: `url(${Background})`,
-                  backgroundColor: (t) =>
-                    t.palette.mode === "light"
-                      ? t.palette.grey[50]
-                      : t.palette.grey[900],
-                  backgroundSize: "cover",
-                  backgroundRepeat:"no-repeat",
-              }}
-              >
-       
-          <Box
-            height="70vh"
-            width="60%"
-            sx={{
-                backgroundImage: `url(${Card})`,
-                backgroundColor: (t) =>
-                  t.palette.mode === "light"
-                    ? t.palette.grey[50]
-                    : t.palette.grey[900],
-                backgroundSize: "cover",
-                backgroundRepeat:"no-repeat",
+    <Box
+      display="flex"
+      alignItems="center"
+      minHeight="100vh"
+      sx={{
+        backgroundColor: "#060047",
+        flexDirection: "column",
+        backgroundImage: `url(${Background})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <Typography
+        style={{ color: "#B3005E", marginTop: "50px", marginBottom: "50px" }}
+        fontSize={40}
+      >
+        Yo bruh, what's the move?
+      </Typography>
 
-                
-            
-  
-              
-              display: "flex",
-              flexDirection: "column",
-              m: 2
-            }}
+      <Stack direction="row" spacing={15} style={{ marginTop: "60px", opacity: 0.9, }}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            backgroundImage: `url(${Card})`,
+
+            boxShadow: "0 8px 16px 0 rgba(0,0,0,0.4)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+
+            width: 270,
+            height: 270,
+          }}
+        >
+          <Typography
+            fontWeight="light"
+            style={{ color: "#B3005E", marginTop: "50px" }}
+            fontSize={25}
           >
-            <Box
-              sx={{
-                backgroundColor: "white",
-                height: "80px",
-                width: "100%",
-                display: "inline-flex",
-              }}
-            >
-              <ButtonGroup
-                variant="text"
-                size = "large"
-                color="secondary"
-                aria-label="text button group"
-                fullWidth
-                sx={{ m: 0 }}
-              >
-                <Button onClick={() => handleButtonClick("Profile")}>
-                  Profile
-                </Button>
-                <Button onClick={() => handleButtonClick("Account")}>
-                  Account
-                </Button>
-                <Button onClick={() => handleButtonClick("Settings")}>
-                  Settings
-                </Button>
-              </ButtonGroup>
-            </Box>
+            Profile
+          </Typography>
+        </Box>
 
-            <Box
-            
-              sx={{
-                
-                flexGrow: 10,
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            backgroundImage: `url(${Card})`,
 
-              }}
-            >
-              {activeSection === "Profile" && <ProfileSection user={user} />}
-              {activeSection === "Account" && (
-                <Box sx={{ flex: 1 }}>Account</Box>
-              )}
-              {activeSection === "Settings" && (
-                <Box sx={{ flex: 1 }}>Settings</Box>
-              )}
-            </Box>
-          </Box>
-        
-      </Box>
+            boxShadow: "0 8px 16px 0 rgba(0,0,0,0.4)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+
+            width: 270,
+            height: 270,
+          }}
+        >
+          <Typography
+            fontWeight="light"
+            style={{ color: "#B3005E", marginTop: "50px" }}
+            fontSize={25}
+          >
+            Profile
+          </Typography>
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            backgroundImage: `url(${Card})`,
+
+            boxShadow: "0 8px 16px 0 rgba(0,0,0,0.4)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+
+            width: 270,
+            height: 270,
+          }}
+        >
+          <Typography
+            fontWeight="light"
+            style={{ color: "#B3005E", marginTop: "50px" }}
+            fontSize={25}
+          >
+            Profile
+          </Typography>
+        </Box>
+      </Stack>
     </Box>
   );
 };

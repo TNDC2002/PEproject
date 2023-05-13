@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 import "./movie_list.css";
-import FlexBetween from "../../components/FlexBetween";
+import FlexBetween from "../profilePage/FlexBetween";
 
 const CATEGORY_API_ENDPOINTS = {
     popular: "popular",

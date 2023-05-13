@@ -9,7 +9,7 @@ import {
     DialogTitle,
     DialogContent
 } from "@mui/material";
-import FlexBetween from "../../components/FlexBetween";
+import FlexBetween from "../profilePage/FlexBetween";
 import { Box } from "@mui/system";
 
 export default function Popup() {

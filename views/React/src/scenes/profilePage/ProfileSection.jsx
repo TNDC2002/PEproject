@@ -7,12 +7,12 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import { useState } from "react";
-import UserImage from "../components/UserImage";
+import UserImage from "./UserImage";
 import EditIcon from "@mui/icons-material/Edit";
 import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik"
 import * as yup from "yup"
-import { updateUser } from "../../src/states";
+import { updateUser } from "../../states";
 
 
 const editSchema = yup.object().shape({
