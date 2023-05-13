@@ -155,10 +155,11 @@ export const login = async (req, res) => {
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         delete user.password;
-        res.status(200).json({ user }).cookie('token', token, {
+        res.cookie('token', token, {
             signed: true
-        });
+        }).status(200).json({ user });
     } catch (err) {
+        console.log(err.message)
         res.status(500).json({ error: err.message });
     }
 };
