@@ -29,7 +29,7 @@ const POST_rental = async (req) => {
         const { userID, movieID, Duration } = req.body
         let BeginDate = new Date();
         let ExpireDate = new Date();
-        ExpireDate.setDate(BeginDate.getDate() + Duration);
+        ExpireDate.setDate(ExpireDate.getDate() + Duration);
         const newrental = new UserMovieRental({
             userID: userID,
             movieID: movieID,
