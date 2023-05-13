@@ -2,8 +2,10 @@ import axios from "axios"
 
 export const verifyToken = async (req, res, next) => {
     try {
+        let Authorization = req.header("Authorization")
         let TheReturn = await axios.get(url, {
             headers: {
+                "Authorization": Authorization
                 // 'Content-Type': 'application/json',
             },
             data: { userID: userID, movieID: movieID }
