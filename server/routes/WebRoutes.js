@@ -48,7 +48,7 @@ let initWebRoutes = (app) => {
       router.post("/auth/login", auth.default.login);
       router.post("/movie/favourite", middleware.default.verifyToken, movieAPI.default.favourite);
       router.post("/movie/favourite/check", movieAPI.default.checkFavourite);
-      router.post("/api/rent", Rental.default.POST_Rental);
+      router.post("/api/rent", middleware.default.verifyToken, Rental.default.POST_Rental);
       router.post("/user-search-history/insert", middleware.default.verifyToken, user.default.insertSearch);
       router.post("/api/rate", middleware.default.verifyToken, Rate.default.POST_handler);
   
