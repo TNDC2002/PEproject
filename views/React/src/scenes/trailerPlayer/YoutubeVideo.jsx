@@ -2,15 +2,15 @@ import React from 'react';
 import ReactPlayer from 'react-player/youtube';
 import { Box } from '@mui/material';
 
-const YouTubePlayer = ({ videoId, width, height }) => {
+const YouTubePlayer = ({ videoId, width, height, thumbnail }) => {
   return (
     <Box sx={{ backgroundColor: 'black', padding: '0 0%', display: 'flex', justifyContent: 'center' }}>
       <ReactPlayer
         url={`https://www.youtube.com/watch?v=${videoId}`}
         controls={true}
-        playing={false}
+        playing={true}
         volume={1.0}
-        light={false}
+        light={thumbnail}
         width={width}
         height={height}
       />

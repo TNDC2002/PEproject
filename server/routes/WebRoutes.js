@@ -35,6 +35,7 @@ let initWebRoutes = (app) => {
       router.get("/movie/detail/:movieID", movieAPI.default.getDetail);
       router.get("/movie/trailer/:movieID", movieAPI.default.getTrailerID);
       router.get("/movie/recommendations/:movieID", movieAPI.default.getRecommendations);
+      router.get("/movie/credits/:movieID", movieAPI.default.getCredits);
       router.get("/movie/tvDetail/:showID", movieAPI.default.getShowDetail);
       router.get("/movie/tvRecommendations/:showID", movieAPI.default.getShowRecommendations);
       router.get("/movie/tvTrailer/:showID", movieAPI.default.getShowTrailerID);
