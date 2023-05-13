@@ -172,6 +172,7 @@ var output = {
     verify,
     verified,
     login,
+    logout,
     register
 }
 
