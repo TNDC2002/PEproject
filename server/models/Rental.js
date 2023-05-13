@@ -1,4 +1,4 @@
-import UserMovieRental from "./UserRentMovie"
+import UserMovieRental from "./UserRentMovie.js"
 
 
 const GET_rental = async (req) => {
