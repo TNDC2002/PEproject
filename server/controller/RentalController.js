@@ -1,110 +1,60 @@
-import UserMovieRental from "./UserRentMovie"
+/* only handle request and response... not doing LOGIC STUFF!!!
+    Bring your logic stuff to models folder and call it here
+*/
+/* After setup your controller goto ../routes/WebRoutes.js to setup the URL */
 
+import * as Rating from "../models/Rating.js";
 
-const GET_rental = async (req) => {
-    try {
-        const { userID, movieID } = req.body
-        const RATE = await UserMovieRental.findOne({ userID: userID, movieID:movieID })
-        if (RATE.userID){
-            return RATE;
-        }else{
-            return {
-                status: 500,
-                error: "not found"
-            }
-        }
-        
-        
-    } catch (err) {
-        return {
-            status: 500,
-            error: err.message
-        }
-
+const Sample_handler_GET = async (req, res) => {
+    // GET the rating
+    let Rating_return = await Rating.default.GET(req)
+    if (Rating_return.status) {
+        return res.status(Rating_return.status).json({ error: Rating_return.error });
+    }else{
+        return res.status(200).json({ Rating_return });
     }
 }
 
-const POST_rental = async (req) => {
-    try {
-        const { userID, movieID, Duration } = req.body
-        let BeginDate = new Date();
-        let ExpireDate = BeginDate.setDate(BeginDate.getDate() + Duration);
-        const newrental = new UserMovieRental({
-            userID: userID,
-            movieID: movieID,
-            rentalBeginDate: BeginDate,
-            rentalExpireDate: ExpireDate
-        });
-        newrental.save()
-            .then(async () => {
-            })
-            .catch((error) => {
-                console.log("ERROR --- rental.js --- can't SAVE to DB")
-            })
+const Sample_handler_POST = async (req, res) => {
 
-    } catch (err) {
-        return {
-            status: 500,
-            error: err.message
-        }
-
+    // post the rating
+    let Rating_return = await Rating.default.POST(req)
+    if (Rating_return) {
+        return res.status(Rating_return.status).json({ error: Rating_return.error });
+    }else{
+        return res.status(200).json({ Rating_return });
     }
+
 }
-const PUT_rental = async (req) => {
-    try {
-        const { userID, movieID, rental } = req.body
-        let Rated = await UserMovieRental.findOneAndUpdate({
-            userID: userID,
-            movieID: movieID
-        },{
-            rental:rental
-        })
-        .then(()=>{})
-        .catch((error) => {
-            console.log("ERROR --- rental.js --- can't UPDATE to DB")
-        })
-        
 
-    } catch (err) {
-        return {
-            status: 500,
-            error: err.message
-        }
+const Sample_handler_PUT = async (req, res) => {
 
+    //UPDATE the rate
+    let Rating_return = await Rating.default.PUT(req)
+    if (Rating_return) {
+        return res.status(Rating_return.status).json({ error: Rating_return.error });
+    }else{
+        return res.status(200).json({ Rating_return });
     }
+
 }
-const DELETE_rental = async (req) => {
-    try {
-        const { userID, movieID } = req.body
-        let Rated = {
-            userID: userID,
-            movieID: movieID
-        }
-        console.log("-----------------------------------------------")
-        UserMovieRental.findOneAndRemove(Rated)
-            .then((deletedUser) => {
-                if (deletedUser) {
-                    console.log('NOTIFI --- rental.js --- Rate has been deleted!');
-                } else {
-                    console.log('ERROR --- rental.js --- Rate matching the conditions was not found.');
-                }
-            })
-            .catch((error) => {
-                console.log("ERROR --- rental.js --- can't DELETE to DB")
-            })
 
-    } catch (err) {
-        return {
-            status: 500,
-            error: err.message
-        }
+const Sample_handler_DELETE = async (req, res) => {
 
+    //DELETE the rate
+    let Delete_return = await Rating.default.DELETE(req)
+    if (Delete_return) {
+        return res.status(Rating_return.status).json({ error: Rating_return.error });
+    }else{
+        return res.status(200).json({ Delete_return });
     }
+
 }
-var output = {
-    GET: GET_rental,
-    POST: POST_rental,
-    PUT: PUT_rental,
-    DELETE: DELETE_rental
-};
-export default output;
+
+const handler = {
+    GET_handler: Sample_handler_GET,
+    POST_handler: Sample_handler_POST,
+    PUT_handler: Sample_handler_PUT,
+    DELETE_handler: Sample_handler_DELETE
+}
+export default handler
