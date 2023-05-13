@@ -1,5 +1,8 @@
-import Card from "../../assets/image/profileBox5.png";
+import profileCard from "../../assets/image/profileBox7.png";
+import accountCard from "../../assets/image/accountBox.png";
+import movieCard from "../../assets/image/movieBox.png";
 import Background from "../../assets/image/backgroundNavPage3.png";
+import { Link } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -32,20 +35,51 @@ const ProfilePage = () => {
         Yo bruh, what's the move?
       </Typography>
 
-      <Stack direction="row" spacing={15} style={{ marginTop: "60px", opacity: 0.9, }}>
+      <Stack direction="row" spacing={15} style={{ marginTop: "60px", opacity: 1, }}>
+        
+      <Link to="./Original">
         <Box
+        
           display="flex"
           justifyContent="center"
           alignItems="center"
           sx={{
-            backgroundImage: `url(${Card})`,
+            backgroundImage: `url(${accountCard})`,
 
             boxShadow: "0 8px 16px 0 rgba(0,0,0,0.4)",
             backgroundSize: "cover",
             backgroundPosition: "center",
 
-            width: 270,
-            height: 270,
+            width: 250,
+            height: 250,
+          }}
+          
+          
+        >
+          
+          <Typography
+            fontWeight="light"
+            style={{ color: "#B3005E", marginTop: "50px" }}
+            fontSize={25}
+          >
+            Account
+          </Typography>
+          
+        </Box>
+        </Link>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            backgroundImage: `url(${profileCard})`,
+
+            boxShadow: "0 8px 16px 0 rgba(0,0,0,0.4)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+
+            width: 250,
+            height: 250,
           }}
         >
           <Typography
@@ -56,20 +90,19 @@ const ProfilePage = () => {
             Profile
           </Typography>
         </Box>
-
         <Box
           display="flex"
           justifyContent="center"
           alignItems="center"
           sx={{
-            backgroundImage: `url(${Card})`,
+            backgroundImage: `url(${movieCard})`,
 
             boxShadow: "0 8px 16px 0 rgba(0,0,0,0.4)",
             backgroundSize: "cover",
             backgroundPosition: "center",
 
-            width: 270,
-            height: 270,
+            width: 250,
+            height: 250,
           }}
         >
           <Typography
@@ -77,30 +110,7 @@ const ProfilePage = () => {
             style={{ color: "#B3005E", marginTop: "50px" }}
             fontSize={25}
           >
-            Profile
-          </Typography>
-        </Box>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            backgroundImage: `url(${Card})`,
-
-            boxShadow: "0 8px 16px 0 rgba(0,0,0,0.4)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-
-            width: 270,
-            height: 270,
-          }}
-        >
-          <Typography
-            fontWeight="light"
-            style={{ color: "#B3005E", marginTop: "50px" }}
-            fontSize={25}
-          >
-            Profile
+            Movie
           </Typography>
         </Box>
       </Stack>
