@@ -4,17 +4,17 @@ import UserMovieRental from "./UserRentMovie.js"
 const GET_rental = async (req) => {
     try {
         const { userID, movieID } = req.body
-        const RATE = await UserMovieRental.findOne({ userID: userID, movieID:movieID })
-        if (RATE.userID){
+        const RATE = await UserMovieRental.findOne({ userID: userID, movieID: movieID })
+        if (RATE.userID) {
             return RATE;
-        }else{
+        } else {
             return {
                 status: 500,
                 error: "not found"
             }
         }
-        
-        
+
+
     } catch (err) {
         return {
             status: 500,
@@ -26,7 +26,8 @@ const GET_rental = async (req) => {
 
 const POST_rental = async (req) => {
     try {
-        const { userID, movieID, Duration } = req.body
+        let { userID, movieID, Duration } = req.body
+        Duration = Number(Duration)
         let BeginDate = new Date();
         let ExpireDate = new Date();
         ExpireDate.setDate(ExpireDate.getDate() + Duration);
@@ -57,14 +58,14 @@ const PUT_rental = async (req) => {
         let Rated = await UserMovieRental.findOneAndUpdate({
             userID: userID,
             movieID: movieID
-        },{
-            rental:rental
+        }, {
+            rental: rental
         })
-        .then(()=>{})
-        .catch((error) => {
-            console.log("ERROR --- rental.js --- can't UPDATE to DB")
-        })
-        
+            .then(() => { })
+            .catch((error) => {
+                console.log("ERROR --- rental.js --- can't UPDATE to DB")
+            })
+
 
     } catch (err) {
         return {
