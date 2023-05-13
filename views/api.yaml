@@ -1,0 +1,239 @@
+openapi: 3.0.3
+info:
+  title: Your API Title
+  description: Description of your API
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+    description: Local development server
+paths:
+  /auth/verified:
+    get:
+      summary: Verify Authentication
+      description: Verifies the authentication status of a user
+      responses:
+        '200':
+          description: Authentication verified successfully
+        '401':
+          description: Unauthorized access
+    # Add other HTTP methods and routes here
+
+  /auth/register:
+    post:
+      summary: User Registration
+      description: Registers a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: User's username
+                password:
+                  type: string
+                  description: User's password
+      responses:
+        '200':
+          description: User registered successfully
+        '400':
+          description: Invalid request payload
+
+  /movie/detail/{movieID}:
+    get:
+      summary: Get Movie Details
+      description: Retrieves details of a specific movie
+      parameters:
+        - in: path
+          name: movieID
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID of the movie
+      responses:
+        '200':
+          description: Movie details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieDetail'
+        '404':
+          description: Access Denied
+
+# Add other paths and endpoints here
+
+components:
+  schemas:
+    Genre:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the genre
+        name:
+          type: string
+          description: Name of the genre
+
+    ProductionCompany:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the production company
+        logo_path:
+          type: string
+          description: Path to the production company's logo
+        name:
+          type: string
+          description: Name of the production company
+        origin_country:
+          type: string
+          description: Origin country of the production company
+
+    ProductionCountry:
+      type: object
+      properties:
+        iso_3166_1:
+          type: string
+          description: ISO 3166-1 code of the production country
+        name:
+          type: string
+          description: Name of the production country
+
+    SpokenLanguage:
+      type: object
+      properties:
+        english_name:
+          type: string
+          description: English name of the spoken language
+        iso_639_1:
+          type: string
+          description: ISO 639-1 code of the spoken language
+        name:
+          type: string
+          description: Name of the spoken language
+
+    MovieDetail:
+      type: object
+      properties:
+        adult:
+          type: boolean
+          description: Indicates if the movie is suitable for adults
+          example: false
+        backdrop_path:
+          type: string
+          description: Path to the backdrop image of the movie
+          example: /9n2tJBplPbgR2ca05hS5CKXwP2c.jpg
+        belongs_to_collection:
+          type: object
+          nullable: true
+          description: Collection details the movie belongs to
+          example: null
+        budget:
+          type: integer
+          description: Budget of the movie
+          example: 100000000
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+          description: List of genres of the movie
+          example: 
+            - id: 16
+              name: Animation
+            - id: 12
+              name: Adventure
+            - id: 10751
+              name: Family
+            - id: 14
+              name: Fantasy
+            - id: 35
+              name: Comedy
+        homepage:
+          type: string
+          description: Official homepage of the movie
+          example: https://www.thesupermariobros.movie
+        id:
+          type: integer
+          description: ID of the movie
+          example: 502356
+        imdb_id:
+          type: string
+          description: IMDb ID of the movie
+          example: tt6718170
+        original_language:
+          type: string
+          description: Original language of the movie
+          example: en
+        original_title:
+          type: string
+          description: Original title of the movie
+          example: The Super Mario Bros. Movie
+        overview:
+          type: string
+          description: Overview of the movie
+          example: While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi.
+        popularity:
+          type: number
+          description: Popularity score of the movie
+          example: 2915.871
+        poster_path:
+          type: string
+          description: Path to the poster image of the movie
+          example: /qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg
+        production_companies:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductionCompany'
+          description: List of production companies involved in the movie
+        production_countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductionCountry'
+          description: List of production countries of the movie
+          example:
+            - iso_3166_1: JP
+              name: Japan
+            - iso_3166_1: US
+              name: United States of America
+        release_date:
+          type: string
+          format: date
+          description: Release date of the movie
+          example: 2023-04-05
+        revenue:
+          type: integer
+          description: Revenue generated by the movie
+          example: 1162684440
+        runtime:
+          type: integer
+          description: Runtime of the movie in minutes
+          example: 92
+        spoken_languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpokenLanguage'
+          description: List of spoken languages in the movie
+          example:
+            - english_name: English
+              iso_639_1: en
+              name: English
+        status:
+          type: string
+          example: Released
+        tagline:
+          type: string
+        title:
+          type: string
+          description: The Title of the Movie
+          example: The Super Mario Bros. Movie
+        vote_average:
+          type: number
+          example: 7.447
+        vote_count:
+          type: integer
+          example: 1987
+       

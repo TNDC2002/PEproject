@@ -9,19 +9,36 @@ import morgan from "morgan";
 import { fileURLToPath } from "url";
 import { configViewEngine } from "./config/ViewEngine.js";
 import { initWebRoutes } from "./routes/WebRoutes.js";
+import swaggerUI from 'swagger-ui-express';
+import fs from 'fs';
+import YAML from 'js-yaml';
+import * as movieAPI from "./controller/movieAPI.js";
+import * as auth from "./controller/auth.js";
+import axios from "axios";
+import { get } from "http";
+
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
+const swaggerJsDoc = YAML.load(fs.readFileSync('../views/api.yaml', 'utf8'));
 
-app.use(cors());
+
+
+app.use(cors({
+  origin: '*', // Set the allowed origin(s) or "*" for any origin
+  methods: 'GET,POST,PUT,DELETE', // Set the allowed HTTP methods
+  allowedHeaders: 'Authorization,Content-Type', // Set the allowed headers
+  optionsSuccessStatus: 200, // Set the HTTP status code for preflight success
+}));
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc));
 
 /* ROUTES FILE */
 
@@ -31,6 +48,7 @@ configViewEngine(app)
 initWebRoutes(app)
 /* SERVER SETUP AND MONGOOSE SETUP */
 let PORT = process.env.PORT || 6969;
+
 
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
@@ -49,11 +67,5 @@ mongoose.connect(process.env.MONGO_URL, {
     console.log(     "\x1b[35m===============================================================================================\x1b[0m")
   })
 }).catch((error) => console.log(error))
-
-
-
-
-
-
-
+ 
 
