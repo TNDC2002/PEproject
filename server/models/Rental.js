@@ -20,6 +20,7 @@ const GET_rental = async (req) => {
                 data: { userID: userID, movieID: movieID }
             })
                 .then(response => {
+                    return response
                 })
                 .catch(error => {
                 });
