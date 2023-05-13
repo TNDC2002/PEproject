@@ -1,4 +1,4 @@
-import UserRateMovie from "./UserRateMovie.js"
+import UserMovieRental from "./UserRentMovie"
 
 
 const GET_rental = async (req) => {
@@ -27,11 +27,13 @@ const GET_rental = async (req) => {
 const POST_rental = async (req) => {
     try {
         const { userID, movieID, Duration } = req.body
-
+        let BeginDate = new Date();
+        let ExpireDate = BeginDate.setDate(BeginDate.getDate() + Duration);
         const newrental = new UserRateMovie({
             userID: userID,
             movieID: movieID,
-            Duration: Duration,
+            rentalBeginDate: BeginDate,
+            rentalExpireDate: ExpireDate
         });
         newrental.save()
             .then(async () => {
