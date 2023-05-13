@@ -4,7 +4,7 @@ import UserMovieRental from "./UserRentMovie"
 const GET_rental = async (req) => {
     try {
         const { userID, movieID } = req.body
-        const RATE = await UserRateMovie.findOne({ userID: userID, movieID:movieID })
+        const RATE = await UserMovieRental.findOne({ userID: userID, movieID:movieID })
         if (RATE.userID){
             return RATE;
         }else{
@@ -29,7 +29,7 @@ const POST_rental = async (req) => {
         const { userID, movieID, Duration } = req.body
         let BeginDate = new Date();
         let ExpireDate = BeginDate.setDate(BeginDate.getDate() + Duration);
-        const newrental = new UserRateMovie({
+        const newrental = new UserMovieRental({
             userID: userID,
             movieID: movieID,
             rentalBeginDate: BeginDate,
@@ -53,7 +53,7 @@ const POST_rental = async (req) => {
 const PUT_rental = async (req) => {
     try {
         const { userID, movieID, rental } = req.body
-        let Rated = await UserRateMovie.findOneAndUpdate({
+        let Rated = await UserMovieRental.findOneAndUpdate({
             userID: userID,
             movieID: movieID
         },{
@@ -81,7 +81,7 @@ const DELETE_rental = async (req) => {
             movieID: movieID
         }
         console.log("-----------------------------------------------")
-        UserRateMovie.findOneAndRemove(Rated)
+        UserMovieRental.findOneAndRemove(Rated)
             .then((deletedUser) => {
                 if (deletedUser) {
                     console.log('NOTIFI --- rental.js --- Rate has been deleted!');
