@@ -5,8 +5,7 @@ import EmailVerification from "../models/EmailVerification.js"
 import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
 dotenv.config()
-import { v4 as uuidv4 } from 'uuid';
-import * as path from 'path';
+
 //transporter stuff
 let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -26,7 +25,7 @@ let transporter = nodemailer.createTransport({
 // })
 
 /* REGISTER USER */
-const register = async (req, res) => {
+export const register = async (req, res) => {
     try {
         const {
             firstName,
@@ -46,9 +45,10 @@ const register = async (req, res) => {
             password: passwordHash,
             picturePath
         })
-        const savedUser = await newUser.save().then((result) => {
-            sendVerificationEmail(result, res);
-        });
+        const savedUser = await newUser.save();
+
+        sendVerificationEmail(savedUser);
+
         res.status(201).json(savedUser);
 
     } catch (err) {
@@ -73,7 +73,7 @@ const sendVerificationEmail = ({ email }, res) => {
         to: email,
         subject: "Verify your Email",
         text: `Verify your email address to complete the signup and login to your account.
-        This code expires in 6 hours.
+        This code expires in 24 hours.
         The code is: ${verifyPIN}`
     }
 
@@ -86,17 +86,8 @@ const sendVerificationEmail = ({ email }, res) => {
     newVerification.save()
         .then(() => {
             transporter.sendMail(mailOption)
-                .then(() => {
-                    res.json({
-                        status: "PENDING",
-                        message: "Verification email sent!"
-                    });
-                })
                 .catch((error) => {
-                    // res.json({
-                    //     status: "FAILED",
-                    //     message: "Verification of email failed..."
-                    // });
+                    console.log(error);
                 })
         })
         .catch((error) => {
