@@ -21,6 +21,7 @@ const GET_rental = async (req) => {
                     return response
                 })
                 .catch(error => {
+                    console.log("ERROR --- rental.js --- AUTO-DELETE failed")
                     return {
                         status: 500,
                         error: "not found"
