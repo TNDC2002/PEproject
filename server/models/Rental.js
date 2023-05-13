@@ -9,24 +9,22 @@ const GET_rental = async (req) => {
         if (Rental.rentalExpireDate && Rental.rentalExpireDate > today) {
             return Rental;
         } else if (Rental.rentalExpireDate && Rental.rentalExpireDate <= today) {
-            let url = "http://localhost:" + process.env.PORT + "/api/rent"
 
-            axios.delete(url, {
-                headers: {
-                    // 'Content-Type': 'application/json',
-                },
-                data: { userID: userID, movieID: movieID }
-            })
-                .then(response => {
-                    return response
+            let url = "http://localhost:" + process.env.PORT + "/api/rent"
+            try{
+                let TheReturn = await axios.delete(url, {
+                    headers: {
+                        // 'Content-Type': 'application/json',
+                    },
+                    data: { userID: userID, movieID: movieID }
                 })
-                .catch(error => {
-                    console.log("ERROR --- rental.js --- AUTO-DELETE failed")
-                    return {
-                        status: 500,
-                        error: "not found"
-                    }
-                });
+                return TheReturn.data
+            }catch(error){
+                console.log("ERROR --- rental.js --- AUTO-DELETE failed")
+            }
+
+                
+
         } else {
             return {
                 status: 500,
