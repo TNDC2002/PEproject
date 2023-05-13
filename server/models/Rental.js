@@ -83,17 +83,17 @@ const PUT_rental = async (req) => {
 const DELETE_rental = async (req) => {
     try {
         const { userID, movieID } = req.body
-        let Rated = {
+        let Rental = {
             userID: userID,
             movieID: movieID
         }
         console.log("-----------------------------------------------")
-        UserMovieRental.findOneAndRemove(Rated)
+        UserMovieRental.findOneAndRemove(Rental)
             .then((deletedUser) => {
                 if (deletedUser) {
-                    console.log('NOTIFI --- rental.js --- Rate has been deleted!');
+                    console.log('NOTIFI --- rental.js --- Rental has been deleted!');
                 } else {
-                    console.log('ERROR --- rental.js --- Rate matching the conditions was not found.');
+                    console.log('ERROR --- rental.js --- Rental matching the conditions was not found.');
                 }
             })
             .catch((error) => {
