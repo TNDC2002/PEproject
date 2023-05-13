@@ -8,29 +8,19 @@ const GET_rental = async (req) => {
         let today = new Date();
         if (Rental.rentalExpireDate && Rental.rentalExpireDate > today) {
             return Rental;
-        }else if(Rental.rentalExpireDate && Rental.rentalExpireDate <= today){
+        } else if (Rental.rentalExpireDate && Rental.rentalExpireDate <= today) {
             let url = "http://localhost:" + process.env.PORT + "/api/rent"
             fetch(url, {
                 method: 'DELETE',
                 headers: {
-                  'Content-Type': 'application/json',
-                  // Additional headers if needed
+                    //'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ key: 'value' }) // Request body data
-              })
-                .then(response => {
-                  if (response.ok) {
-                    // Successful DELETE request
-                    console.log('DELETE request successful');
-                  } else {
-                    // Failed DELETE request
-                    console.log('DELETE request failed');
-                  }
-                })
+                body: JSON.stringify({ userID: userID, movieID: movieID })
+            })
                 .catch(error => {
-                  console.log('Error:', error);
+                    console.log('Error:', error);
                 });
-              
+
         } else {
             return {
                 status: 500,
@@ -76,6 +66,7 @@ const POST_rental = async (req) => {
 
     }
 }
+
 const PUT_rental = async (req) => {
     try {
         let { userID, movieID, Duration } = req.body
@@ -103,6 +94,7 @@ const PUT_rental = async (req) => {
 
     }
 }
+
 const DELETE_rental = async (req) => {
     try {
         const { userID, movieID } = req.body
