@@ -4,9 +4,10 @@ import UserMovieRental from "./UserRentMovie.js"
 const GET_rental = async (req) => {
     try {
         const { userID, movieID } = req.body
-        const RATE = await UserMovieRental.findOne({ userID: userID, movieID: movieID })
-        if (RATE.userID) {
-            return RATE;
+        const Rental = await UserMovieRental.findOne({ userID: userID, movieID: movieID })
+        let today = new Date();
+        if (Rental.rentalExpireDate && Rental.rentalExpireDate > today) {
+            return Rental;
         } else {
             return {
                 status: 500,
