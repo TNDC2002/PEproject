@@ -144,7 +144,7 @@ const verified = async (req, res) => {
 }
 
 /* LOGGING IN */
-export const login = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email: email });
@@ -163,6 +163,10 @@ export const login = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+const logout = async (req, res) => {
+    res.clearCookie("token");
+}
 
 var output = {
     verify,

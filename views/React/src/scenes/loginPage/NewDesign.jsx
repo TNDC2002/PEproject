@@ -128,7 +128,6 @@ const NewDesign = () => {
       dispatch(
         setLogin({
           user: loggedIn.user,
-          token: loggedIn.token,
         })
       );
       navigate("/home");
