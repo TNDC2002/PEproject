@@ -19,7 +19,8 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions
+  DialogActions,
+  Rating
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
@@ -401,6 +402,7 @@ const ShowPage = () => {
                 <strong>Already Rented</strong>
               )}
             </Button>
+            <Rating name="half-rating" precision={0.5}></Rating>
           </Grid>
         </Grid>
         <Box sx={{}}>
