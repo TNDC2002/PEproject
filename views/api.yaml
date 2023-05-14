@@ -91,7 +91,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MovieRecommendations"
+                $ref: "#/components/schemas/Recommendations"
         "404":
           description: Access Denied or Movie ID Not Found
         "500":
@@ -116,7 +116,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MovieTrailer"
+                $ref: "#/components/schemas/Trailer"
         "404":
           description: Access Denied or Movie ID Not Found
         "500":
@@ -164,6 +164,8 @@ paths:
           description: TV Show Data retrieved successfully
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/Trailer"
         "404":
           description: Access Denied or TV ID Not Found
         "500":
@@ -186,6 +188,8 @@ paths:
           description: TV Show Data retrieved successfully
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/Recommendations"
         "404":
           description: Access Denied or TV ID Not Found
         "500":
@@ -400,7 +404,7 @@ components:
           type: integer
           example: 1000000
 
-    MovieRecommendations:
+    Recommendations:
       type: object
       properties:
         page:
@@ -429,7 +433,7 @@ components:
               vote_average: 7.201
               vote_count: 755
 
-    TrailerVideo:
+    YoutubeVideo:
       type: object
       properties:
         iso_639_1:
@@ -474,7 +478,7 @@ components:
           description: ID of the video
           example: 6439b5ee2938350479a99eb2
 
-    MovieTrailer:
+    Trailer:
       type: object
       properties:
         page:
@@ -483,7 +487,7 @@ components:
         items:
           type: array
           items:
-            $ref: "#/components/schemas/TrailerVideo"
+            $ref: "#/components/schemas/YoutubeVideo"
           description: List of movie trailer's youtube id
           example:
             - iso_639_1: en
