@@ -340,7 +340,7 @@ components:
         overview:
           type: string
           description: Overview of the movie
-          example: A guy named Vinh do his thing, lol
+          example: A guy named Nguyen Ngoc Vinh wonders why is he so handsome, lol
         popularity:
           type: number
           description: Popularity score of the movie
