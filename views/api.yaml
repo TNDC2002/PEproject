@@ -50,7 +50,7 @@ paths:
       tags:
         - movie
       summary: Get Movie Details
-      description: Retrieves details of a specific movie
+      description: Retrieves the common movie data like title, overview, ...
       parameters:
         - in: path
           name: movieID
@@ -61,13 +61,13 @@ paths:
           description: ID of the movie E.g 502356
       responses:
         "200":
-          description: Movie details retrieved successfully
+          description: SUCCESS
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/MovieDetail"
         "404":
-          description: Access Denied or Movie ID Not Found
+          description: Access Denied
         "500":
           description: Internal Server Error
 
@@ -76,7 +76,7 @@ paths:
       tags:
         - movie
       summary: Get Movie Recommendations
-      description: Retrieves a list of recommended movies based on a given movie
+      description: Retrieves a list of recommended movies based on a given movie id
       parameters:
         - in: path
           name: movieID
@@ -87,13 +87,13 @@ paths:
           description: ID of the movie E.g 502356
       responses:
         "200":
-          description: Movie recommendations retrieved successfully
+          description: SUCCESS
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Recommendations"
         "404":
-          description: Access Denied or Movie ID Not Found
+          description: Access Denied
         "500":
           description: Internal Server Error
 
@@ -102,7 +102,7 @@ paths:
       tags:
         - movie
       summary: Get Movie Trailer
-      description: Retrieves the trailer of a specific movie
+      description: Retrieves a list of trailer relating to the Movie
       parameters:
         - in: path
           name: movieID
@@ -112,13 +112,13 @@ paths:
           description: ID of the movie E.g 502356
       responses:
         "200":
-          description: Movie trailer retrieved successfully
+          description: SUCCESS
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Trailer"
         "404":
-          description: Access Denied or Movie ID Not Found
+          description: Access Denied
         "500":
           description: Internal Server Error
 
@@ -127,7 +127,7 @@ paths:
       tags:
         - tv show
       summary: Get TV show details
-      description: Retrieve the Details of a specific TV show
+      description: Retrieve the Details of a specific TV show like name and overview
       parameters:
         - in: path
           name: showID
@@ -137,21 +137,21 @@ paths:
           description: ID of the tv show E.g 94605
       responses:
         "200":
-          description: TV Show Data retrieved successfully
+          description: SUCCESS
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Show"
         "404":
-          description: Access Denied or TV ID Not Found
+          description: Access Denied
         "500":
           description: Internal Server Error
   /movie/showTrailer/{showID}:
     get:
       tags:
         - tv show
-      summary: Get TV show details
-      description: Retrieve the Details of a specific TV show
+      summary: Get the Trailer of the Show
+      description: Retrieve a List of TV show's trailer
       parameters:
         - in: path
           name: showID
@@ -161,21 +161,21 @@ paths:
           description: ID of the tv show E.g 94605
       responses:
         "200":
-          description: TV Show Data retrieved successfully
+          description: SUCCESS
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Trailer"
         "404":
-          description: Access Denied or TV ID Not Found
+          description: Access Denied
         "500":
           description: Internal Server Error
   /movie/tvRecommendations/{showID}:
     get:
       tags:
         - tv show
-      summary: Get TV show details
-      description: Retrieve the Details of a specific TV show
+      summary: Get the show's recommendations
+      description: Retrieve a list of recommendations based on the show
       parameters:
         - in: path
           name: showID
@@ -185,13 +185,13 @@ paths:
           description: ID of the tv show E.g 94605
       responses:
         "200":
-          description: TV Show Data retrieved successfully
+          description: SUCCESS
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Recommendations"
         "404":
-          description: Access Denied or TV ID Not Found
+          description: Access Denied
         "500":
           description: Internal Server Error
 
@@ -199,42 +199,46 @@ paths:
     get:
       tags:
         - discovery
-      summary: Get TV show details
-      description: Retrieve the Details of a specific TV show
+      summary: Get movie discovery
+      description: Retrieve a list of movie that is featured in the discovery sessions
       parameters:
         - in: path
-          name: showID
+          name: page
           required: true
           schema:
             type: string
-          description: ID of the tv show E.g 94605
+          description: ID of the tv show E.g 1
       responses:
         "200":
-          description: TV Show Data retrieved successfully
+          description: SUCCESS
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/Discovery"
         "404":
-          description: Access Denied or TV ID Not Found
+          description: Access Denied
         "500":
           description: Internal Server Error
   /movie/showDiscovery/{page}:
     get:
       tags:
         - discovery
-      summary: Get TV show details
-      description: Retrieve the Details of a specific TV show
+      summary: Get the show discovery
+      description: Retrieve the TV shows that are featured in the discovery session
       parameters:
         - in: path
-          name: showID
+          name: page
           required: true
           schema:
             type: string
-          description: ID of the tv show E.g 94605
+          description: ID of the tv show E.g 1
       responses:
         "200":
-          description: TV Show Data retrieved successfully
+          description: SUCCESS
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/Discovery"
         "404":
           description: Access Denied or TV ID Not Found
         "500":
@@ -660,3 +664,8 @@ components:
           type: number
         vote_count:
           type: integer
+
+    Discovery:
+      type: array
+      items:
+        $ref: "#/components/schemas/Recommendations"
