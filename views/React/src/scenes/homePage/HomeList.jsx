@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import MovieCard from "./MovieDiscoveryCard";
+import MovieCard from "./MovieCard";
 import { Grid, IconButton, Box, Typography } from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import FlexBetween from "../../components/FlexBetween";
