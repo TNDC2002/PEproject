@@ -9,16 +9,12 @@ import morgan from "morgan";
 import { fileURLToPath } from "url";
 import { configViewEngine } from "./config/ViewEngine.js";
 import { initWebRoutes } from "./routes/WebRoutes.js";
-import swaggerUI from "swagger-ui-express";
-import fs from "fs";
-import YAML from "js-yaml";
 
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
-const swaggerJsDoc = YAML.load(fs.readFileSync("../views/api.yaml", "utf8"));
 
 app.use(cors());
 app.use(express.json());
@@ -27,7 +23,6 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc));
 
 /* ROUTES FILE */
 
