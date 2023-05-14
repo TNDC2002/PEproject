@@ -14,9 +14,9 @@ paths:
       summary: Verify Authentication
       description: Verifies the authentication status of a user
       responses:
-        '200':
+        "200":
           description: Authentication verified successfully
-        '401':
+        "401":
           description: Unauthorized access
     # Add other HTTP methods and routes here
 
@@ -40,9 +40,9 @@ paths:
                   type: string
                   description: User's password
       responses:
-        '200':
+        "200":
           description: User registered successfully
-        '400':
+        "400":
           description: Invalid request payload
 
   /movie/detail/{movieID}:
@@ -60,14 +60,16 @@ paths:
             format: int64
           description: ID of the movie E.g 502356
       responses:
-        '200':
+        "200":
           description: Movie details retrieved successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MovieDetail'
-        '404':
-          description: Access Denied
+                $ref: "#/components/schemas/MovieDetail"
+        "404":
+          description: Access Denied or Movie ID Not Found
+        "500":
+          description: Internal Server Error
 
   /movie/recommendations/{movieID}:
     get:
@@ -84,14 +86,16 @@ paths:
             format: int64
           description: ID of the movie E.g 502356
       responses:
-        '200':
+        "200":
           description: Movie recommendations retrieved successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MovieRecommendations'
-        '404':
-          description: Access Denied
+                $ref: "#/components/schemas/MovieRecommendations"
+        "404":
+          description: Access Denied or Movie ID Not Found
+        "500":
+          description: Internal Server Error
 
   /movie/trailer/{movieID}:
     get:
@@ -107,15 +111,128 @@ paths:
             type: string
           description: ID of the movie E.g 502356
       responses:
-        '200':
+        "200":
           description: Movie trailer retrieved successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MovieTrailer'
-        '404':
-          description: Access Denied
+                $ref: "#/components/schemas/MovieTrailer"
+        "404":
+          description: Access Denied or Movie ID Not Found
+        "500":
+          description: Internal Server Error
 
+  /movie/tvDetail/{showID}:
+    get:
+      tags:
+        - tv show
+      summary: Get TV show details
+      description: Retrieve the Details of a specific TV show
+      parameters:
+        - in: path
+          name: showID
+          required: true
+          schema:
+            type: string
+          description: ID of the tv show E.g 94605
+      responses:
+        "200":
+          description: TV Show Data retrieved successfully
+          content:
+            application/json:
+        "404":
+          description: Access Denied or TV ID Not Found
+        "500":
+          description: Internal Server Error
+  /movie/showTrailer/{showID}:
+    get:
+      tags:
+        - tv show
+      summary: Get TV show details
+      description: Retrieve the Details of a specific TV show
+      parameters:
+        - in: path
+          name: showID
+          required: true
+          schema:
+            type: string
+          description: ID of the tv show E.g 94605
+      responses:
+        "200":
+          description: TV Show Data retrieved successfully
+          content:
+            application/json:
+        "404":
+          description: Access Denied or TV ID Not Found
+        "500":
+          description: Internal Server Error
+  /movie/tvRecommendations/{showID}:
+    get:
+      tags:
+        - tv show
+      summary: Get TV show details
+      description: Retrieve the Details of a specific TV show
+      parameters:
+        - in: path
+          name: showID
+          required: true
+          schema:
+            type: string
+          description: ID of the tv show E.g 94605
+      responses:
+        "200":
+          description: TV Show Data retrieved successfully
+          content:
+            application/json:
+        "404":
+          description: Access Denied or TV ID Not Found
+        "500":
+          description: Internal Server Error
+
+  /movie/discovery/{page}:
+    get:
+      tags:
+        - discovery
+      summary: Get TV show details
+      description: Retrieve the Details of a specific TV show
+      parameters:
+        - in: path
+          name: showID
+          required: true
+          schema:
+            type: string
+          description: ID of the tv show E.g 94605
+      responses:
+        "200":
+          description: TV Show Data retrieved successfully
+          content:
+            application/json:
+        "404":
+          description: Access Denied or TV ID Not Found
+        "500":
+          description: Internal Server Error
+  /movie/showDiscovery/{page}:
+    get:
+      tags:
+        - discovery
+      summary: Get TV show details
+      description: Retrieve the Details of a specific TV show
+      parameters:
+        - in: path
+          name: showID
+          required: true
+          schema:
+            type: string
+          description: ID of the tv show E.g 94605
+      responses:
+        "200":
+          description: TV Show Data retrieved successfully
+          content:
+            application/json:
+        "404":
+          description: Access Denied or TV ID Not Found
+        "500":
+          description: Internal Server Error
 
 # Add other paths and endpoints here
 
@@ -193,9 +310,9 @@ components:
         genres:
           type: array
           items:
-            $ref: '#/components/schemas/Genre'
+            $ref: "#/components/schemas/Genre"
           description: List of genres of the movie
-          example: 
+          example:
             - id: 16
               name: Animation
             - id: 12
@@ -241,12 +358,12 @@ components:
         production_companies:
           type: array
           items:
-            $ref: '#/components/schemas/ProductionCompany'
+            $ref: "#/components/schemas/ProductionCompany"
           description: List of production companies involved in the movie
         production_countries:
           type: array
           items:
-            $ref: '#/components/schemas/ProductionCountry'
+            $ref: "#/components/schemas/ProductionCountry"
           description: List of production countries of the movie
           example:
             - iso_3166_1: JP
@@ -269,7 +386,7 @@ components:
         spoken_languages:
           type: array
           items:
-            $ref: '#/components/schemas/SpokenLanguage'
+            $ref: "#/components/schemas/SpokenLanguage"
           description: List of spoken languages in the movie
           example:
             - english_name: English
@@ -300,7 +417,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/MovieDetail'
+            $ref: "#/components/schemas/MovieDetail"
           description: List of movie's recommendations
           example:
             - adult: false
@@ -374,7 +491,7 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/TrailerVideo'
+            $ref: "#/components/schemas/TrailerVideo"
           description: List of movie trailer's youtube id
           example:
             - iso_639_1: en
@@ -387,7 +504,3 @@ components:
               official: true
               published_at: "2023-04-10T19:29:54.000Z"
               id: 6439b5ee2938350479a99eb2
-
-
-
-       
