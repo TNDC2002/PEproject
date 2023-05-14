@@ -51,7 +51,7 @@ const FeatureList = ({ category }) => {
           <IconButton onClick={handlePrevPage} disabled={page === 1} sx={{
             padding: '0 0 0 0.5rem'
           }}>
-            <ArrowBackIos sx={{ fontSize: "30px", color: 'white', margin: '0 0.75rem' }}></ArrowBackIos>
+            <ArrowBackIos sx={{ fontSize: '30px', color: 'white', margin: '0 0.75rem' }}></ArrowBackIos>
           </IconButton>
           <Typography sx={{
             color: 'white',
@@ -65,7 +65,7 @@ const FeatureList = ({ category }) => {
           <IconButton onClick={handleNextPage} sx={{
             padding: '0 0.5rem 0 0'
           }}>
-            <ArrowForwardIos sx={{ fontSize: "30px", color: 'white', margin: '0 0.75rem'  }}></ArrowForwardIos>
+            <ArrowForwardIos sx={{ fontSize: '30px', color: 'white', margin: '0 0.75rem'  }}></ArrowForwardIos>
           </IconButton>
         </FlexBetween>
       </Box>
