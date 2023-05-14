@@ -9,6 +9,10 @@ const UserFavouriteMovieSchema = new mongoose.Schema({
     type: String,
     required: true
    },
+   media_type: {
+    type: String,
+    required: true
+   }
 }, 
     { timestamps: true }
 );
