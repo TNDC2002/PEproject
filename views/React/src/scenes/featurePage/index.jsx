@@ -3,13 +3,13 @@ import { useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import Navbar from "../navbar";
 import FeatureList from "./FeatureList";
-import FlowYoutubePlayer from "../trailerPlayer/FlowYoutubeVideo";
+import Carousel from "../homePage/Carousel";
 
-const HomePage = () => {
+const FeaturePage = () => {
   return (
     <div>
       <Navbar />
-      <FlowYoutubePlayer videoId={"BpuQeSvf868"} />
+      {/* <Carousel /> */}
       <FeatureList category="popular" />
       <FeatureList category="nowPlaying" />
       <FeatureList category="topRated" />
@@ -18,4 +18,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default FeaturePage;
