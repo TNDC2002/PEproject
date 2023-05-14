@@ -140,6 +140,8 @@ paths:
           description: TV Show Data retrieved successfully
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/Show"
         "404":
           description: Access Denied or TV ID Not Found
         "500":
@@ -297,7 +299,7 @@ components:
         backdrop_path:
           type: string
           description: Path to the backdrop image of the movie
-          example: /9n2tJBplPbgR2ca05hS5CKXwP2c.jpg
+          example: /vinhDepTraiPhoto.jpg
         belongs_to_collection:
           type: object
           nullable: true
@@ -306,31 +308,23 @@ components:
         budget:
           type: integer
           description: Budget of the movie
-          example: 100000000
+          example: 696969420
         genres:
           type: array
           items:
             $ref: "#/components/schemas/Genre"
           description: List of genres of the movie
           example:
-            - id: 16
-              name: Animation
-            - id: 12
+            - id: 123
               name: Adventure
-            - id: 10751
-              name: Family
-            - id: 14
-              name: Fantasy
-            - id: 35
-              name: Comedy
         homepage:
           type: string
           description: Official homepage of the movie
-          example: https://www.thesupermariobros.movie
+          example: https://www.linkedin.com/in/ngoc-vinh-nguyen-22ba95268/
         id:
           type: integer
           description: ID of the movie
-          example: 502356
+          example: 30062002
         imdb_id:
           type: string
           description: IMDb ID of the movie
@@ -342,19 +336,19 @@ components:
         original_title:
           type: string
           description: Original title of the movie
-          example: The Super Mario Bros. Movie
+          example: The Adventure of Zinh Dragon
         overview:
           type: string
           description: Overview of the movie
-          example: While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi.
+          example: A guy named Vinh do his thing, lol
         popularity:
           type: number
           description: Popularity score of the movie
-          example: 2915.871
+          example: 69420
         poster_path:
           type: string
           description: Path to the poster image of the movie
-          example: /qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg
+          example: /anhVinhDepTrai2.jpg
         production_companies:
           type: array
           items:
@@ -366,10 +360,8 @@ components:
             $ref: "#/components/schemas/ProductionCountry"
           description: List of production countries of the movie
           example:
-            - iso_3166_1: JP
-              name: Japan
-            - iso_3166_1: US
-              name: United States of America
+            - iso_3166_1: VN
+              name: Vietnam
         release_date:
           type: string
           format: date
@@ -382,7 +374,7 @@ components:
         runtime:
           type: integer
           description: Runtime of the movie in minutes
-          example: 92
+          example: 69420
         spoken_languages:
           type: array
           items:
@@ -400,13 +392,13 @@ components:
         title:
           type: string
           description: The Title of the Movie
-          example: The Super Mario Bros. Movie
+          example: Zinh Da Best
         vote_average:
           type: number
-          example: 7.447
+          example: 10
         vote_count:
           type: integer
-          example: 1987
+          example: 1000000
 
     MovieRecommendations:
       type: object
@@ -504,3 +496,163 @@ components:
               official: true
               published_at: "2023-04-10T19:29:54.000Z"
               id: 6439b5ee2938350479a99eb2
+
+    Creator:
+      type: object
+      properties:
+        id:
+          type: integer
+        credit_id:
+          type: string
+        name:
+          type: string
+        gender:
+          type: integer
+        profile_path:
+          type: string
+
+    Episode:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        overview:
+          type: string
+        vote_average:
+          type: number
+        vote_count:
+          type: integer
+        air_date:
+          type: string
+        episode_number:
+          type: integer
+        production_code:
+          type: string
+        runtime:
+          type: integer
+        season_number:
+          type: integer
+        show_id:
+          type: integer
+        still_path:
+          type: string
+
+    Network:
+      type: object
+      properties:
+        id:
+          type: integer
+        logo_path:
+          type: string
+        name:
+          type: string
+        origin_country:
+          type: string
+
+    Season:
+      type: object
+      properties:
+        air_date:
+          type: string
+        episode_count:
+          type: integer
+        id:
+          type: integer
+        name:
+          type: string
+        overview:
+          type: string
+        poster_path:
+          type: string
+        season_number:
+          type: integer
+
+    Show:
+      type: object
+      properties:
+        adult:
+          type: boolean
+        backdrop_path:
+          type: string
+        created_by:
+          type: array
+          items:
+            $ref: "#/components/schemas/Creator"
+        episode_run_time:
+          type: array
+          items:
+            type: integer
+        first_air_date:
+          type: string
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/Genre"
+        homepage:
+          type: string
+        id:
+          type: integer
+        in_production:
+          type: boolean
+        languages:
+          type: array
+          items:
+            type: string
+        last_air_date:
+          type: string
+        last_episode_to_air:
+          $ref: "#/components/schemas/Episode"
+        name:
+          type: string
+        next_episode_to_air:
+          $ref: "#/components/schemas/Episode"
+        networks:
+          type: array
+          items:
+            $ref: "#/components/schemas/Network"
+        number_of_episodes:
+          type: integer
+        number_of_seasons:
+          type: integer
+        origin_country:
+          type: array
+          items:
+            type: string
+        original_language:
+          type: string
+        original_name:
+          type: string
+        overview:
+          type: string
+        popularity:
+          type: number
+        poster_path:
+          type: string
+        production_companies:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductionCompany"
+        production_countries:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductionCountry"
+        seasons:
+          type: array
+          items:
+            $ref: "#/components/schemas/Season"
+        spoken_languages:
+          type: array
+          items:
+            $ref: "#/components/schemas/SpokenLanguage"
+        status:
+          type: string
+        tagline:
+          type: string
+        type:
+          type: string
+        vote_average:
+          type: number
+        vote_count:
+          type: integer
