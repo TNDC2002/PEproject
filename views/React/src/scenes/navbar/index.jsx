@@ -108,7 +108,7 @@ const Navbar = ({}) => {
                             display: { xs: 'none', md: 'flex'},
                             mr: 0,
                             cursor: 'pointer',
-                            '&hover':{
+                            '&:hover':{
                                 opacity: 0.5,
                             }
                         }}
