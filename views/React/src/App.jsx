@@ -4,6 +4,7 @@ import HomePage from "./scenes/homePage";
 import LoginPage from "./scenes/loginPage";
 import NavPage from "./scenes/profilePage";
 import Original from "./scenes/profilePage/Original";
+import NewDesign from "./scenes/profilePage/NewDesign";
 
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
@@ -35,6 +36,11 @@ function App() {
             <Route
               path="/profile/:userID/Original"
               element={isAuth ? <Original /> : <Navigate to="/" />}
+            />
+
+            <Route
+              path="/profile/:userID/NewDesign"
+              element={isAuth ? <NewDesign /> : <Navigate to="/" />}
             />
             <Route
               path="/movie/:movieID"
