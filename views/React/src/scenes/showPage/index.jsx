@@ -349,13 +349,14 @@ const ShowPage = () => {
                   <strong>Release Date:</strong> {show.first_air_date}
                 </Typography>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
+                  <strong>Directors:</strong>{" "}
+                  {show.created_by.map((g) => g.name).join(", ")}
+                </Typography>
+                <Typography variant="body1" sx={{ my: 0.5 }}>
                   <strong>Production:</strong>{" "}
                   {show.production_companies.map((g) => g.name).join(", ")}
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
-                  <strong>Cast:</strong>{" "}
-                  {credits?.slice(0, 5)?.map((g) => g.name)?.join(", ")}
-                </Typography>
+
               </Grid>
 
 
@@ -365,12 +366,12 @@ const ShowPage = () => {
                   <strong>Duration:</strong> {show.episode_run_time} min
                 </Typography>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
-                  <strong>Country:</strong>{" "}
-                  {show.production_countries.map((g) => g.name).join(", ")}
-                </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
                   <strong>Genre:</strong>{" "}
                   {show.genres.map((g) => g.name).join(", ")}
+                </Typography>
+                <Typography variant="body1" sx={{ my: 0.5 }}>
+                  <strong>Cast:</strong>{" "}
+                  {credits?.slice(0, 5)?.map((g) => g.name)?.join(", ")}
                 </Typography>
               </Grid>
             </Grid>
