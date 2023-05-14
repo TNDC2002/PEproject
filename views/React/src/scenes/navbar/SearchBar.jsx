@@ -19,9 +19,7 @@ const SearchBar = () => {
   const theme = useTheme();
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
-
   const navigate = useNavigate();
-
 
   const fetchSearchResult = async (value) => {
     try {
@@ -47,35 +45,36 @@ const SearchBar = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchUserSearch = async (userID, numberOfEntry) => {
-      try {
-        const fetchUserSearchResponse = await fetch(
-          `http://localhost:5000/user-search-history?userID=${userID}&limit=${numberOfEntry}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json"
-            }
-          } 
-        );
-        if (!fetchUserSearchResponse.ok) {
-          throw new Error('Failed to fetch user search data');
-        }
-        const userSearchData = await fetchUserSearchResponse.json();
-        const searchedStrings = userSearchData.map((search) => search.searchedString);
-  
-        setDefaultSearchOptions(await searchedStrings.map((search) => {
-          return {
-            label: search,
-            history: true
-          };
-        }));
-      } catch (error) {
-        console.error(error);
-      };
+  const fetchUserSearch = async (userID, numberOfEntry) => {
+    try {
+      const fetchUserSearchResponse = await fetch(
+        `http://localhost:5000/user-search-history?userID=${userID}&limit=${numberOfEntry}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        } 
+      );
+      if (!fetchUserSearchResponse.ok) {
+        throw new Error('Failed to fetch user search data');
+      }
+      const userSearchData = await fetchUserSearchResponse.json();
+      const searchedStrings = userSearchData.map((search) => search.searchedString);
+
+      setDefaultSearchOptions(await searchedStrings.map((search) => {
+        return {
+          label: search,
+          history: true
+        };
+      }));
+    } catch (error) {
+      console.error(error);
     };
+  };
+
+  useEffect(() => {
     fetchUserSearch(user._id, 5);
   }, []);
 
@@ -122,6 +121,7 @@ const SearchBar = () => {
   const handleSearch = async (value) => {
     if (!selectedOption && value !== "") {
       insertUserSearch(user._id, value);
+      fetchUserSearch(user._id, 5);
       navigate(`/home/search/?query=${value}`);
     }
   };
