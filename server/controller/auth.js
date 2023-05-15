@@ -162,7 +162,9 @@ const login = async (req, res) => {
             secure: true, // Serve cookie only over HTTPS (in production)
             signed: true // Enable cookie signing
         };
-        
+        const signedCookie = cookie.serialize('token', token, cookieOptions);
+        const signedCookieWithSignature = `${signedCookie}; ${cookie.sign(signedCookie, 'your_cookie_secret')}`;
+        res.setHeader('Set-Cookie', signedCookieWithSignature);
         res.status(200).json({ user });
     } catch (err) {
         console.log(err.message)
