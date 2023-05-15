@@ -34,7 +34,7 @@ const UserSchema = new mongoose.Schema({
         default: false
     },
     balance: {
-        type: Float32Array,
+        type: Number,
         default: 0
     }
 }, 
