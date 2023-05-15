@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken";
-
+import { sign, unsign } from 'cookie-signature';
 export const verifyToken = async (req, res, next) => {
     try {
         console.log("____________verify___________")
-        let token = req.signedCookies.token
-        console.log(token)
+        let token = req.headers.cookie
+        token = unsign(token, process.env.Cookie_secret);
+        console.log("mytoken:",token)
 
         if(!token) {
             return res.status(403).send("Access Denied");
@@ -18,6 +19,7 @@ export const verifyToken = async (req, res, next) => {
         req.user = verified;
         next();
     } catch(err) {
+        console.log(err.message)
         res.status(500).json({ error: err.message });
     }
 }

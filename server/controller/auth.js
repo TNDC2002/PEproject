@@ -165,7 +165,8 @@ const login = async (req, res) => {
             signed: true // Enable cookie signing
         };
         const serializedCookie = cookie.serialize('token', token, cookieOptions);
-        const signedCookie = sign(serializedCookie, process.env.Cookie_secret);
+        const signedCookie = await sign(serializedCookie, process.env.Cookie_secret);
+        console.log(signedCookie)
         res.setHeader('Set-Cookie', signedCookie);
         res.status(200).json({ user });
     } catch (err) {
