@@ -32,6 +32,10 @@ const UserSchema = new mongoose.Schema({
     verified: {
         type: Boolean,
         default: false
+    },
+    balance: {
+        type: Float32Array,
+        default: 0
     }
 }, 
     { timestamps: true }

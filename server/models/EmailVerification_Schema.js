@@ -19,5 +19,5 @@ const EmailVerificationSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-const EmailVerification = mongoose.model("EmailVerification", EmailVerificationSchema);
+const EmailVerification = mongoose.model("Email Verification", EmailVerificationSchema);
 export default EmailVerification;

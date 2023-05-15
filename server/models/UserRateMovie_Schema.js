@@ -12,6 +12,10 @@ const UserRateMovieSchema = new mongoose.Schema({
    rating: {
     type: Number,
     required: true
+   },
+   media_type: {
+    type: String,
+    required: true
    }
 }, 
     { timestamps: true }

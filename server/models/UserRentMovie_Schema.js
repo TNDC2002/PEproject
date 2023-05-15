@@ -16,6 +16,10 @@ const UserMovieRentalSchema = new mongoose.Schema({
    rentalExpireDate: {
     type: Date,
     required: true
+   },
+   media_type: {
+    type: String,
+    required: true
    }
 }, 
     { timestamps: true }
