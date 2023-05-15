@@ -46,6 +46,16 @@ export const checkFavourite = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+  
+export const fetchSearchResult = async (req, res) => {
+  try {
+    const searchedString = req.query.query;
+    const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.TMDB_API_KEY}&query=${searchedString}&page=1`);
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
 /* RATING MOVIE */
 export const rate = async (req, res) => {
@@ -217,5 +227,6 @@ var output = {
   getShowTrailerID,
   getMovieDiscovery,
   getShowDiscovery,
+  fetchSearchResult
 };
 export default output;
