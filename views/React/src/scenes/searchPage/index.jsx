@@ -44,8 +44,6 @@ const SearchPage = () => {
       fetchSearchResult(query);
     }, [query])
     
-    console.log(result);
-
     if (result.length === 0) {
       return (
         <div>
