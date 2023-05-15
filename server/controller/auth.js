@@ -156,9 +156,13 @@ const login = async (req, res) => {
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         delete user.password;
-        res.cookie('token', token, {
-            signed: true
-        });
+        const cookieOptions = {
+            maxAge: 3600000, // Cookie expiration time (in milliseconds)
+            httpOnly: true, // Restrict cookie access to HTTP requests only
+            secure: true, // Serve cookie only over HTTPS (in production)
+            signed: true // Enable cookie signing
+        };
+        
         res.status(200).json({ user });
     } catch (err) {
         console.log(err.message)

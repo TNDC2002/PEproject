@@ -11,7 +11,7 @@ import { fileURLToPath } from "url";
 import { configViewEngine } from "./config/ViewEngine.js";
 import { initWebRoutes } from "./routes/WebRoutes.js";
 import { register } from "./controller/auth.js";
-import cookieParser from 'cookie-parser';
+import cookie from 'cookie';
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,7 +26,6 @@ app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use("/assets", express.static(path.join(__dirname,'public/assets')));
-app.use(cookieParser(process.env.Cookie_secret));
 
 
 
