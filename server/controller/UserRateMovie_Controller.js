@@ -5,7 +5,7 @@
 
 import * as Rating from "../models/UserRateMovie_Model.js";
 
-const Sample_handler_GET = async (req, res) => {
+const Rating_GET = async (req, res) => {
     // GET the rating
     let Rating_return = await Rating.default.GET(req)
     if (Rating_return.status) {
@@ -15,7 +15,7 @@ const Sample_handler_GET = async (req, res) => {
     }
 }
 
-const Sample_handler_POST = async (req, res) => {
+const Rating_POST = async (req, res) => {
 
     // post the rating
     let Rating_return = await Rating.default.POST(req)
@@ -27,7 +27,7 @@ const Sample_handler_POST = async (req, res) => {
 
 }
 
-const Sample_handler_PUT = async (req, res) => {
+const Rating_PUT = async (req, res) => {
 
     //UPDATE the rate
     let Rating_return = await Rating.default.PUT(req)
@@ -39,12 +39,12 @@ const Sample_handler_PUT = async (req, res) => {
 
 }
 
-const Sample_handler_DELETE = async (req, res) => {
+const Rating_DELETE = async (req, res) => {
 
     //DELETE the rate
     let Delete_return = await Rating.default.DELETE(req)
     if (Delete_return) {
-        return res.status(Rating_return.status).json({ error: Rating_return.error });
+        return res.status(Delete_return.status).json({ error: Delete_return.error });
     }else{
         return res.status(200).json({ Delete_return });
     }
@@ -52,9 +52,9 @@ const Sample_handler_DELETE = async (req, res) => {
 }
 
 const handler = {
-    GET_handler: Sample_handler_GET,
-    POST_handler: Sample_handler_POST,
-    PUT_handler: Sample_handler_PUT,
-    DELETE_handler: Sample_handler_DELETE
+    GET_handler: Rating_GET,
+    POST_handler: Rating_POST,
+    PUT_handler: Rating_PUT,
+    DELETE_handler: Rating_DELETE
 }
-export default handler
+export default handler;

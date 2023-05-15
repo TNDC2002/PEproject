@@ -3,12 +3,12 @@
 */
 /* After setup your controller goto ../routes/WebRoutes.js to setup the URL */
 
-import * as Rental from "../models/Rental.js";
+import * as Rental from "../models/UserRentMovie_Model.js";
 
 const Rental_GET = async (req, res) => {
     // GET the Rental
-    let Rental_return = await Rental.default.GET(req)
-    console.log(Rental_return)
+    let Rental_return = await Rental.default.GET(req);
+    console.log(Rental_return);
     if (Rental_return.status) {
         return res.status(Rental_return.status).json({ error: Rental_return.error });
     }else{
@@ -22,7 +22,7 @@ const Rental_POST = async (req, res) => {
     let Rental_return = await Rental.default.POST(req)
     if (Rental_return) {
         return res.status(Rental_return.status).json({ error: Rental_return.error });
-    }else{
+    } else {
         return res.status(200).json({ Rental_return });
     }
 
@@ -34,7 +34,7 @@ const Rental_PUT = async (req, res) => {
     let Rental_return = await Rental.default.PUT(req)
     if (Rental_return) {
         return res.status(Rental_return.status).json({ error: Rental_return.error });
-    }else{
+    } else {
         return res.status(200).json({ Rental_return });
     }
 
@@ -46,16 +46,16 @@ const Rental_DELETE = async (req, res) => {
     let Delete_return = await Rental.default.DELETE(req)
     if (Delete_return) {
         return res.status(Delete_return.status).json({ error: Delete_return.error });
-    }else{
+    } else {
         return res.status(200).json({ Delete_return });
     }
 
 }
 
 const handler = {
-    GET_Rental: Rental_GET,
-    POST_Rental: Rental_POST,
-    PUT_Rental: Rental_PUT,
-    DELETE_Rental: Rental_DELETE
+    GET_handler: Rental_GET,
+    POST_handler: Rental_POST,
+    PUT_handler: Rental_PUT,
+    DELETE_handler: Rental_DELETE
 }
-export default handler
+export default handler;
