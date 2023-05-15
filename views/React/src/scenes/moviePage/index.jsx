@@ -42,7 +42,7 @@ const MoviePage = () => {
   const [recommendations, setRecommendations] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [credits, setCredits] = useState(null);
-
+  const [rateDefaultValue, setRateDefaultValue] = useState(0);
   const mainPlayerRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -82,10 +82,14 @@ const MoviePage = () => {
       userID: userID,
       movieID: movieID,
       rating: rating,
+      media_type: "movie"
     };
-    const addRating = await fetch(
+
+    const method = isRated ? "PUT" : "POST";
+
+    const addRatingResponse = await fetch(
      "http://localhost:5000/api/rate",{
-      method: "POST",
+      method: method,
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -95,9 +99,36 @@ const MoviePage = () => {
     )
   }
 
-  const handleRateClick = () => {
-    rate(userID, movieID, rate);
-    setIsRated(!isRated)
+  const unrate = async (userID, movieID) => {
+    const requestData = {
+      userID: userID,
+      movieID: movieID,
+      media_type: "movie"
+    };
+
+    console.log("DELETE STUFF NOW")
+    const removeRatingResponse = await fetch(
+      "http://localhost:5000/api/unrate",{
+       method: "DELETE",
+       headers: {
+         Authorization: `Bearer ${token}`,
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(requestData),
+      } 
+     )
+  }
+
+  const handleRateClick = (rateValue) => {
+    if (rateValue === null) {
+      unrate(user._id, movieID);
+      setRateDefaultValue(0);
+    }
+    else {
+      rate(user._id, movieID, rateValue);
+      setRateDefaultValue(rateValue);
+    }
+
   }
 
   const rent = async (userID, movieID) => {
@@ -140,6 +171,26 @@ const MoviePage = () => {
     const result = await checkFavoriteResponse.json();
     return result.Favourite_return.favorited;
   };
+
+  const checkRated = async (userID, movieID) => {
+    const requestData = {
+      userID: userID,
+      movieID: movieID,
+      media_type: "movie"
+    };
+
+    const url = new URL("http://localhost:5000/api/rate/check");
+    url.search = new URLSearchParams(requestData).toString();
+
+    const checkRatedResponse = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+
+    const result = await checkRatedResponse.json();
+    return result;
+  }
+
 
   const checkRented = async (userID, movieID) => {
     const requestData = {
@@ -233,15 +284,17 @@ const MoviePage = () => {
   }, [movieID]);
   
   useEffect(() => {
-    const fetchFavourite = async () => {
+    const fetchInformation = async () => {
       const checkFavouriteResponse = await checkFavorite(user._id, movieID);
       setIsFavourited(checkFavouriteResponse);
+
+      const checkRatedResponse = await checkRated(user._id, movieID);      
+      setIsRated(checkRatedResponse.Rating_return.Rated);
+      setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
       
-      const checkRentedResponse = await checkRented(user._id, movieID);
-      setIsRented(checkRentedResponse);
     };
-    fetchFavourite();
-  }, [movieID, user._id]);
+    fetchInformation();
+  }, [user._id, movieID]);
 
   const handleFavouriteClick = () => {
     // Call the favourite function with the necessary values here
@@ -429,8 +482,8 @@ const MoviePage = () => {
             <Rating 
               name="half-rating" 
               precision={0.5}
-              value={isRated}
-              onChange={(handleRateClick)}
+              value={rateDefaultValue}
+              onChange={(event, rateValue) => handleRateClick(rateValue)}
             ></Rating>
           </Grid>
         </Grid>
