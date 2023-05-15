@@ -50,22 +50,17 @@ let initWebRoutes = (app) => {
       router.get("/user/:userID/favourite", user.default.fetchFavourites);
 
     /* PRIMARY MONGOL ROUTE */
-      router.get("/api/rate", Rate.default.GET_handler);
-      router.get("/api/rent", Rental.default.GET_handler);
+      router.get("/api/rate/check", Rate.default.GET_handler);
       router.get("/api/favourite/check", Favourite.default.GET_handler);
       
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
       app.post("/auth/register", upload.single("picture"), auth.default.register);
       router.post("/auth/login", auth.default.login);
-
-      router.post("/movie/rent", middleware.default.verifyToken, movieAPI.default.rent);
-      router.post("/movie/rent/check", movieAPI.default.checkRented);
       router.post("/user-search-history/insert", middleware.default.verifyToken, user.default.insertSearch);
       
       /* PRIMARY MONGOL ROUTE */
       router.post("/api/rate", Rate.default.POST_handler);
-      router.post("/api/rent", Rental.default.POST_handler);
       router.post("/api/favourite", Favourite.default.POST_handler);
 
   
@@ -74,14 +69,12 @@ let initWebRoutes = (app) => {
 
       /* PRIMARY MONGOL ROUTE */
       router.put("/api/rate", Rate.default.PUT_handler);
-      router.put("/api/rent", Rental.default.PUT_handler);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
 
       /* PRIMARY MONGOL ROUTE */
-      router.delete("/api/rate", Rate.default.DELETE_handler);
-      router.delete("/api/rent", Rental.default.DELETE_handler);  
+      router.delete("/api/unrate", Rate.default.DELETE_handler);
       router.delete("/api/unfavourite", Favourite.default.DELETE_handler);
 
   // Don't touch anything else
