@@ -31,7 +31,7 @@ export const authSlice = createSlice({
 
         setLogout: (state) => {
             state.user = null;
-            deleteCookie('token');
+            deleteCookie();
 
         },
 
