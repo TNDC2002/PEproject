@@ -5,9 +5,10 @@ import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import FlexBetween from "../../components/FlexBetween";
 import { useParams } from "react-router";
 import ShowDiscoveryCard from "./ShowDiscoveryCard";
+import Carousel from "./Carousel";
 
 const HomeList = () => {
-  const [discovery, setDiscovery] = useState(null);
+  const [discovery, setDiscovery] = useState();
   const [showDiscovery, setShowDiscovery] = useState(null);
   const [page, setPage] = useState(1);
   const [showPage, setShowPage] = useState(1);
@@ -19,13 +20,16 @@ const HomeList = () => {
           `http://localhost:5000/movie/discovery/${page}`
         );
         const data = await response.json();
-        setDiscovery(data);
+        if (data !== null) {
+          setDiscovery(data);
+        }
       } catch (err) {
         console.error(err);
       }
     };
     fetchDiscovery();
   }, [page]);
+  
 
   const handlePrevPage = () => {
     setPage((prevPage) => prevPage - 1);
@@ -42,7 +46,9 @@ const HomeList = () => {
           `http://localhost:5000/movie/showDiscovery/${showPage}`
         );
         const data = await response.json();
-        setShowDiscovery(data);
+        if(data !== null){
+          setShowDiscovery(data);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -58,8 +64,10 @@ const HomeList = () => {
     setShowPage((nextPage) => nextPage + 1);
   };
 
+  console.log(discovery);
   return (
     <div>
+      {discovery && discovery.length > 0 && <Carousel movie={discovery[0]} />}
       <Box>
         <Box>
           <Typography
