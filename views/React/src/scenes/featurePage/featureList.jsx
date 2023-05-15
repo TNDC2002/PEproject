@@ -86,6 +86,7 @@ const FeatureList = ({ category }) => {
             <ArrowForwardIos sx={{ fontSize: '30px', color: 'white', margin: '0 0.75rem'  }}></ArrowForwardIos>
           </IconButton>
         </FlexBetween>
+        </FlexBetween>
       </Box>
     );
 };
