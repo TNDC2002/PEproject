@@ -42,6 +42,7 @@ let initWebRoutes = (app) => {
       router.get("/movie/discovery/:page", movieAPI.default.getMovieDiscovery);
       router.get("/movie/showDiscovery/:page", movieAPI.default.getShowDiscovery);
       router.get("/search", movieAPI.default.fetchSearchResult);
+      router.get("/user/:userID/favourite", user.default.fetchFavourites);
       router.get('/', SampleController.default.Sample_handler_GET);
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
