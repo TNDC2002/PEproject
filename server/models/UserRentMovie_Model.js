@@ -3,8 +3,8 @@ import axios from "axios"
 
 const GET_rental = async (req) => {
     try {
-        const { userID, movieID } = req.body
-        const Rental = await UserMovieRental.findOne({ userID: userID, movieID: movieID })
+        const { userID, movieID, media_type } = req.body
+        const Rental = await UserMovieRental.findOne({ userID: userID, movieID: movieID, media_type: media_type })
         let today = new Date();
         if (Rental.rentalExpireDate && Rental.rentalExpireDate > today) {
             return Rental;
@@ -44,7 +44,7 @@ const GET_rental = async (req) => {
 
 const POST_rental = async (req) => {
     try {
-        let { userID, movieID, Duration } = req.body
+        let { userID, movieID, media_type, Duration } = req.body
         Duration = Number(Duration)
         let BeginDate = new Date();
         let ExpireDate = new Date();
@@ -53,7 +53,8 @@ const POST_rental = async (req) => {
             userID: userID,
             movieID: movieID,
             rentalBeginDate: BeginDate,
-            rentalExpireDate: ExpireDate
+            rentalExpireDate: ExpireDate,
+            media_type: media_type
         });
         newrental.save()
             .then(async () => {
@@ -73,14 +74,15 @@ const POST_rental = async (req) => {
 
 const PUT_rental = async (req) => {
     try {
-        let { userID, movieID, Duration } = req.body
-        Duration = Number(Duration)
-        const Rental = await UserMovieRental.findOne({ userID: userID, movieID: movieID })
+        let { userID, movieID, media_type, Duration } = req.body;
+        Duration = Number(Duration);
+        const Rental = await UserMovieRental.findOne({ userID: userID, movieID: movieID, media_type: media_type });
         Rental.rentalExpireDate.setDate(Rental.rentalExpireDate.getDate() + Duration);
 
         let UpdateRental = await UserMovieRental.findOneAndUpdate({
             userID: userID,
-            movieID: movieID
+            movieID: movieID,
+            media_type: media_type
         }, {
             rentalExpireDate: Rental.rentalExpireDate
         })
@@ -101,10 +103,11 @@ const PUT_rental = async (req) => {
 
 const DELETE_rental = async (req) => {
     try {
-        const { userID, movieID } = req.body
+        const { userID, movieID, media_type } = req.body
         let Rental = {
             userID: userID,
-            movieID: movieID
+            movieID: movieID,
+            media_type: media_type
         }
         console.log("-----------------------------------------------")
         UserMovieRental.findOneAndRemove(Rental)

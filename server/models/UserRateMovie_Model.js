@@ -3,8 +3,8 @@ import UserRateMovie from "./UserRateMovie_Schema.js"
 
 const GET_rating = async (req) => {
     try {
-        const { userID, movieID } = req.body
-        const RATE = await UserRateMovie.findOne({ userID: userID, movieID:movieID })
+        const { userID, movieID, media_type } = req.body
+        const RATE = await UserRateMovie.findOne({ userID: userID, movieID:movieID, media_type: media_type })
         if (RATE.userID){
             return RATE;
         }else{
@@ -26,12 +26,13 @@ const GET_rating = async (req) => {
 
 const POST_rating = async (req) => {
     try {
-        const { userID, movieID, rating } = req.body
+        const { userID, movieID, rating, media_type } = req.body
 
         const newRating = new UserRateMovie({
             userID: userID,
             movieID: movieID,
             rating: rating,
+            media_type: media_type
         });
         newRating.save()
             .then(async () => {
@@ -50,10 +51,11 @@ const POST_rating = async (req) => {
 }
 const PUT_rating = async (req) => {
     try {
-        const { userID, movieID, rating } = req.body
+        const { userID, movieID, rating, media_type } = req.body
         let Rated = await UserRateMovie.findOneAndUpdate({
             userID: userID,
-            movieID: movieID
+            movieID: movieID,
+            media_type: media_type
         },{
             rating:rating
         })
@@ -73,10 +75,11 @@ const PUT_rating = async (req) => {
 }
 const DELETE_rating = async (req) => {
     try {
-        const { userID, movieID } = req.body
+        const { userID, movieID, media_type } = req.body
         let Rated = {
             userID: userID,
-            movieID: movieID
+            movieID: movieID,
+            media_type: media_type
         }
         console.log("-----------------------------------------------")
         UserRateMovie.findOneAndRemove(Rated)
