@@ -3,18 +3,16 @@ import UserRateMovie from "./UserRateMovie_Schema.js"
 
 const GET_rating = async (req) => {
     try {
-        const { userID, movieID, media_type } = req.body
-        const RATE = await UserRateMovie.findOne({ userID: userID, movieID:movieID, media_type: media_type })
-        if (RATE.userID){
-            return RATE;
+        const { userID, movieID, media_type } = req.body;
+        const Rate = await UserRateMovie.findOne({ userID: userID, movieID:movieID, media_type: media_type })
+        if (Rate.userID){
+            return Rate;
         }else{
             return {
                 status: 500,
                 error: "not found"
             }
         }
-        
-        
     } catch (err) {
         return {
             status: 500,
@@ -26,7 +24,7 @@ const GET_rating = async (req) => {
 
 const POST_rating = async (req) => {
     try {
-        const { userID, movieID, rating, media_type } = req.body
+        const { userID, movieID, rating, media_type } = req.body;
 
         const newRating = new UserRateMovie({
             userID: userID,
@@ -49,6 +47,7 @@ const POST_rating = async (req) => {
 
     }
 }
+
 const PUT_rating = async (req) => {
     try {
         const { userID, movieID, rating, media_type } = req.body
@@ -102,10 +101,12 @@ const DELETE_rating = async (req) => {
 
     }
 }
+
 var output = {
     GET: GET_rating,
     POST: POST_rating,
     PUT: PUT_rating,
     DELETE: DELETE_rating
 };
+
 export default output;

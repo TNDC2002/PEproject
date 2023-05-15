@@ -4,11 +4,11 @@ import axios from "axios"
 const GET_rental = async (req) => {
     try {
         const { userID, movieID, media_type } = req.body
-        const Rental = await UserMovieRental.findOne({ userID: userID, movieID: movieID, media_type: media_type })
+        const Rent = await UserMovieRental.findOne({ userID: userID, movieID: movieID, media_type: media_type })
         let today = new Date();
-        if (Rental.rentalExpireDate && Rental.rentalExpireDate > today) {
-            return Rental;
-        } else if (Rental.rentalExpireDate && Rental.rentalExpireDate <= today) {
+        if (Rent.rentalExpireDate && Rent.rentalExpireDate > today) {
+            return Rent;
+        } else if (Rent.rentalExpireDate && Rent.rentalExpireDate <= today) {
 
             let url = "http://localhost:" + process.env.PORT + "/api/rent"
             try{
@@ -22,17 +22,12 @@ const GET_rental = async (req) => {
             }catch(error){
                 console.log("ERROR --- rental.js --- AUTO-DELETE failed")
             }
-
-                
-
         } else {
             return {
                 status: 500,
                 error: "not found"
             }
         }
-
-
     } catch (err) {
         return {
             status: 500,
@@ -49,14 +44,14 @@ const POST_rental = async (req) => {
         let BeginDate = new Date();
         let ExpireDate = new Date();
         ExpireDate.setDate(ExpireDate.getDate() + Duration);
-        const newrental = new UserMovieRental({
+        const newRent = new UserMovieRental({
             userID: userID,
             movieID: movieID,
             rentalBeginDate: BeginDate,
             rentalExpireDate: ExpireDate,
             media_type: media_type
         });
-        newrental.save()
+        newRent.save()
             .then(async () => {
             })
             .catch((error) => {
@@ -76,15 +71,15 @@ const PUT_rental = async (req) => {
     try {
         let { userID, movieID, media_type, Duration } = req.body;
         Duration = Number(Duration);
-        const Rental = await UserMovieRental.findOne({ userID: userID, movieID: movieID, media_type: media_type });
-        Rental.rentalExpireDate.setDate(Rental.rentalExpireDate.getDate() + Duration);
+        const Rented = await UserMovieRental.findOne({ userID: userID, movieID: movieID, media_type: media_type });
+        Rented.rentalExpireDate.setDate(Rented.rentalExpireDate.getDate() + Duration);
 
-        let UpdateRental = await UserMovieRental.findOneAndUpdate({
+        let updatedRented = await UserMovieRental.findOneAndUpdate({
             userID: userID,
             movieID: movieID,
             media_type: media_type
         }, {
-            rentalExpireDate: Rental.rentalExpireDate
+            rentalExpireDate: Rented.rentalExpireDate
         })
             .then(() => { })
             .catch((error) => {
@@ -104,13 +99,13 @@ const PUT_rental = async (req) => {
 const DELETE_rental = async (req) => {
     try {
         const { userID, movieID, media_type } = req.body
-        let Rental = {
+        let Rented = {
             userID: userID,
             movieID: movieID,
             media_type: media_type
         }
         console.log("-----------------------------------------------")
-        UserMovieRental.findOneAndRemove(Rental)
+        UserMovieRental.findOneAndRemove(Rented)
             .then((deletedUser) => {
                 if (deletedUser) {
                     console.log('NOTIFI --- rental.js --- Rental has been deleted!');
