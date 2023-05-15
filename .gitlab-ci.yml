@@ -13,7 +13,7 @@ run-backend-tests:
   image: node:15
   stage: test
   before_script:
-    - cat $TESTING_ENV_FILE
+    - cat "$TESTING_ENV_FILE"
     - cd server
   script:
     - npm test
