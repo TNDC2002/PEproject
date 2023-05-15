@@ -70,7 +70,22 @@ const PUT_history = async (req) => {
 const DELETE_history= async (req) => {
     try {
         const { userID, searchedString } = req.body;
-        let History
+        let History = {
+            userID: userID,
+            searchedString: searchedString
+        }
+        console.log("-----------------------------------------------")
+        UserSearchHistory.findOneAndRemove(History)
+            .then((deletedUser) => {
+                if (deletedUser) {
+                    console.log('NOTIFI --- History.js --- Rate has been deleted!');
+                } else {
+                    console.log('ERROR --- History.js --- Rate matching the conditions was not found.');
+                }
+            })
+            .catch((error) => {
+                console.log("ERROR --- History.js --- can't DELETE to DB")
+            })
     } catch (err) {
         return {
             status: 500,
