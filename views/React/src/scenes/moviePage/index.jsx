@@ -485,6 +485,7 @@ const MoviePage = () => {
               precision={0.5}
               value={rateDefaultValue}
               onChange={(event, rateValue) => handleRateClick(rateValue)}
+              sx={{fontSize:"30px"}}
             ></Rating>
           </Grid>
         </Grid>

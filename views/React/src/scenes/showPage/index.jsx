@@ -493,7 +493,9 @@ const ShowPage = () => {
               precision={0.5}
               value={rateDefaultValue}
               onChange={(event, rateValue) => handleRateClick(rateValue)}
-            ></Rating>          </Grid>
+              sx={{fontSize:"30px"}}
+            ></Rating>          
+            </Grid>
         </Grid>
         <Box sx={{}}>
           {recommendations && (
