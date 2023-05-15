@@ -60,17 +60,21 @@ const MoviePage = () => {
       movieID: movieID,
       media_type: "movie"
     };
-    const addFavouriteResponse = await fetch(
-      "http://localhost:5000/movie/favourite",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      }
-    );
+  
+    const url = isFavourited
+      ? "http://localhost:5000/api/unfavourite" // DELETE endpoint
+      : "http://localhost:5000/api/favourite"; // POST endpoint
+  
+    const method = isFavourited ? "DELETE" : "POST";
+  
+    const addFavouriteResponse = await fetch(url, {
+      method: method,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
   };
 
   const rate = async (userID, movieID, rating) =>{
@@ -124,16 +128,17 @@ const MoviePage = () => {
       movieID: movieID,
       media_type: "movie"
     };
-    const checkFavoriteResponse = await fetch(
-      "http://localhost:5000/movie/favourite/check",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData),
-      }
-    );
+  
+    const url = new URL("http://localhost:5000/api/favourite/check");
+    url.search = new URLSearchParams(requestData).toString();
+  
+    const checkFavoriteResponse = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+  
     const result = await checkFavoriteResponse.json();
-    return result.favorited;
+    return result.Favourite_return.favorited;
   };
 
   const checkRented = async (userID, movieID) => {
@@ -226,14 +231,14 @@ const MoviePage = () => {
     };
     fetchCredits();
   }, [movieID]);
-  console.log(credits)
   
   useEffect(() => {
     const fetchFavourite = async () => {
       const checkFavouriteResponse = await checkFavorite(user._id, movieID);
+      setIsFavourited(checkFavouriteResponse);
+      
       const checkRentedResponse = await checkRented(user._id, movieID);
       setIsRented(checkRentedResponse);
-      setIsFavourited(checkFavouriteResponse);
     };
     fetchFavourite();
   }, [movieID, user._id]);

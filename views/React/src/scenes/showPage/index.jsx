@@ -55,23 +55,27 @@ const ShowPage = () => {
   const token = useSelector((state) => state.token);
   const theme = useTheme();
 
-  const favourite = async (userID, showID) => {
+  const favourite = async (userID, movieID) => {
     const requestData = {
       userID: userID,
-      movieID: showID,
+      movieID: movieID,
       media_type: "tv"
     };
-    const addFavouriteResponse = await fetch(
-      "http://localhost:5000/movie/favourite",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      }
-    );
+  
+    const url = isFavourited
+      ? "http://localhost:5000/api/unfavourite" // DELETE endpoint
+      : "http://localhost:5000/api/favourite"; // POST endpoint
+  
+    const method = isFavourited ? "DELETE" : "POST";
+  
+    const addFavouriteResponse = await fetch(url, {
+      method: method,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
   };
 
   const rent = async (userID, showID) => {
@@ -96,22 +100,23 @@ const ShowPage = () => {
     });
   };
 
-  const checkFavorite = async (userID, showID) => {
+  const checkFavorite = async (userID, movieID) => {
     const requestData = {
       userID: userID,
-      movieID: showID,
+      movieID: movieID,
       media_type: "tv"
     };
-    const checkFavoriteResponse = await fetch(
-      "http://localhost:5000/movie/favourite/check",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData),
-      }
-    );
+  
+    const url = new URL("http://localhost:5000/api/favourite/check");
+    url.search = new URLSearchParams(requestData).toString();
+  
+    const checkFavoriteResponse = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+  
     const result = await checkFavoriteResponse.json();
-    return result.favorited;
+    return result.Favourite_return.favorited;
   };
 
   const checkRented = async (userID, showID) => {
