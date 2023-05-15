@@ -14,8 +14,9 @@ import * as middleware from "../middleware/auth.js";
 import * as auth from "../controller/auth.js";
 import * as movieAPI from "../controller/movieAPI.js";
 import * as user from "../controller/user.js";
-import * as Rate from "../controller/RatingSystem.js"
-import * as Rental from "../controller/RentalController.js"
+import * as Rate from "../controller/UserRateMovie_Controller.js"
+import * as Rental from "../controller/UserRentMovie_Controller.js"
+import * as Favourite from "../controller/UserFavouriteMovie_Controller.js"
 
 let router = express.Router();
 
@@ -47,35 +48,42 @@ let initWebRoutes = (app) => {
       router.get("/movie/showDiscovery/:page", movieAPI.default.getShowDiscovery);
       router.get("/search", movieAPI.default.fetchSearchResult);
       router.get("/user/:userID/favourite", user.default.fetchFavourites);
-      router.get("/api/rate", middleware.default.verifyToken, Rate.default.GET_handler);
-      router.get("/api/rent", middleware.default.verifyToken, Rental.default.GET_Rental);
-      router.get('/', SampleController.default.Sample_handler_GET);
+
+    /* PRIMARY MONGOL ROUTE */
+      router.get("/api/rate", Rate.default.GET_handler);
+      router.get("/api/rent", Rental.default.GET_handler);
+      router.get("/api/favourite/check", Favourite.default.GET_handler);
+      
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
       app.post("/auth/register", upload.single("picture"), auth.default.register);
       router.post("/auth/login", auth.default.login);
       router.post("/movie/favourite", middleware.default.verifyToken, movieAPI.default.favourite);
       router.post("/movie/favourite/check", movieAPI.default.checkFavourite);
-      router.post("/api/rent", middleware.default.verifyToken, Rental.default.POST_Rental);
       router.post("/movie/rent", middleware.default.verifyToken, movieAPI.default.rent);
       router.post("/movie/rent/check", movieAPI.default.checkRented);
       router.post("/user-search-history/insert", middleware.default.verifyToken, user.default.insertSearch);
-      router.post("/api/rate", middleware.default.verifyToken, Rate.default.POST_handler);
-      router.post('/', SampleController.default.Sample_handler_POST);
+      
+      /* PRIMARY MONGOL ROUTE */
+      router.post("/api/rate", Rate.default.POST_handler);
+      router.post("/api/rent", Rental.default.POST_handler);
+      router.post("/api/favourite", Favourite.default.POST_handler);
+
   
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
-      router.put("/api/rate", middleware.default.verifyToken, Rate.default.PUT_handler);
-      router.put("/api/rent", middleware.default.verifyToken, Rental.default.PUT_Rental);
-      router.put('/', SampleController.default.Sample_handler_PUT);
+
+      /* PRIMARY MONGOL ROUTE */
+      router.put("/api/rate", Rate.default.PUT_handler);
+      router.put("/api/rent", Rental.default.PUT_handler);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
-      router.delete("/api/rate", middleware.default.verifyToken, Rate.default.DELETE_handler);
-      router.delete("/api/rent", middleware.default.verifyToken, Rental.default.DELETE_Rental);
-      router.delete('/', SampleController.default.Sample_handler_DELETE);
-  
 
+      /* PRIMARY MONGOL ROUTE */
+      router.delete("/api/rate", Rate.default.DELETE_handler);
+      router.delete("/api/rent", Rental.default.DELETE_handler);  
+      router.delete("/api/unfavourite", Favourite.default.DELETE_handler);
 
   // Don't touch anything else
   app.use("/", router);
