@@ -1,6 +1,6 @@
 import { Repeat } from '@mui/icons-material';
 import { Box, Typography, Button } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'mui-image';
 import { ArrowBackIos, ArrowForwardIos, KeyboardDoubleArrowDown, Campaign } from '@mui/icons-material';
 
@@ -9,6 +9,22 @@ import imagee from '../../assets/images/Logo.png';
 
 export default function Carousel() {
   const [currImg, setCurrImg] = useState(0);
+  const [featuredMovie, setFeaturedMovied] = useState();
+
+  const fetchFeatureMovieImage = async () => {
+    const fetchFeatureMovieImageResponse = await fetch(
+      "http://localhost:5000/movie/featureImage", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+
+    const result = await fetchFeatureMovieImageResponse.json();
+    setFeaturedMovied(result);
+  }
+
+  useEffect(() => {
+    fetchFeatureMovieImage();
+  }, []);
 
   return (
     <Box sx={{ height:"90vh", width:"100vw", backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
