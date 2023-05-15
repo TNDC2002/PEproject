@@ -66,8 +66,8 @@ const ShowPage = () => {
     };
   
     const url = isFavourited
-      ? "http://localhost:5000/api/unfavourite" // DELETE endpoint
-      : "http://localhost:5000/api/favourite"; // POST endpoint
+      ? "http://localhost:5000/api/favourite/delete" // DELETE endpoint
+      : "http://localhost:5000/api/favourite/insert"; // POST endpoint
   
     const method = isFavourited ? "DELETE" : "POST";
   
@@ -90,9 +90,11 @@ const ShowPage = () => {
     };
 
     const method = isRated ? "PUT" : "POST";
+    const url = isRated
+      ? "http://localhost:5000/api/rate/update" // PUT endpoint
+      : "http://localhost:5000/api/rate/insert"; // POST endpoint
 
-    const addRatingResponse = await fetch(
-     "http://localhost:5000/api/rate",{
+    const addRatingResponse = await fetch(url, {
       method: method,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -111,7 +113,7 @@ const ShowPage = () => {
     };
     
     const removeRatingResponse = await fetch(
-      "http://localhost:5000/api/unrate",{
+      "http://localhost:5000/api/rate/delete",{
        method: "DELETE",
        headers: {
          Authorization: `Bearer ${token}`,
@@ -229,7 +231,6 @@ const ShowPage = () => {
     };
     fetchCredits();
   }, [showID]);
-  console.log(credits)
 
   useEffect(() => {
     const fetchShowTrailerIDs = async () => {
