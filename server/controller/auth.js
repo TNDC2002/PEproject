@@ -161,14 +161,10 @@ const login = async (req, res) => {
         const cookieOptions = {
             maxAge: 36000000, // Cookie expiration time (in milliseconds)
             httpOnly: true, // Restrict cookie access to HTTP requests only
-            sameSite: 'lax',
             // secure: false, // Serve cookie only over HTTPS (in production)
             signed: true // Enable cookie signing
         };
-        // const serializedCookie = cookie.serialize('token', token, cookieOptions);
-        // const signedCookie = await sign(serializedCookie, process.env.Cookie_secret);
-        // console.log(signedCookie)
-        // res.setHeader('Set-Cookie', signedCookie);
+
         res.cookie('token', token, cookieOptions);
         res.status(200).json({ user });
     } catch (err) {
