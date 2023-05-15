@@ -14,7 +14,7 @@ run-backend-tests:
   stage: test
   before_script:
     - cd server
-    - cat ${TESTING_ENV_FILE}
+    - cat "$TESTING_ENV_FILE"
   script:
     - npm test
 
