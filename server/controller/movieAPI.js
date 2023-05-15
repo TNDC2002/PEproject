@@ -230,6 +230,21 @@ export const getMovieDiscovery = async (req, res) => {
   }
 };
 
+export const getImageCarousel = async (req, res) => {
+  try {
+    const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`);
+    if(response.data !== null){
+      const updatedResult = response.data.results.map(movies => ({
+        movieID: movies.id,
+        backdrop_path: movies.backdrop_path,
+        poster_path: movies.poster_path
+      }));
+      res.json(updatedResult);
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 export const getShowDiscovery = async (req, res) => {
   try {
@@ -258,6 +273,7 @@ var output = {
   getShowTrailerID,
   getMovieDiscovery,
   getShowDiscovery,
-  fetchSearchResult
+  fetchSearchResult,
+  getImageCarousel
 };
 export default output;
