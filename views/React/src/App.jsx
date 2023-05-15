@@ -13,6 +13,7 @@ import MoviePage from "./scenes/moviePage";
 import ShowPage from "./scenes/showPage";
 import SearchPage from "./scenes/searchPage";
 import MyListPage from "./scenes/mylistPage";
+import FeaturePage from "./scenes/featurePage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -27,8 +28,12 @@ function App() {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route
-              path="/home"
+              path="/Home"
               element={isAuth ? <HomePage /> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/Feature Movies"
+              element={isAuth ? <FeaturePage /> : <Navigate to="/" />}
             />
             <Route
               path="/home/search"

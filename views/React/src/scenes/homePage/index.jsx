@@ -1,19 +1,17 @@
-import { useState } from "react";
-import { useMediaQuery } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import MovieCard from "./MovieCard";
+import { Grid, IconButton, Box, Typography } from "@mui/material";
+import FlexBetween from "../../components/FlexBetween";
 import Navbar from "../navbar";
-import MovieList from "./MovieList";
-import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
+import HomeList from "../homePage/HomeList";
+import Carousel from "./Carousel";
 
 const HomePage = () => {
   return (
     <div>
       <Navbar />
-      <YouTubePlayer videoId={""} />
-      <MovieList category="popular" />
-      <MovieList category="nowPlaying" />
-      <MovieList category="topRated" />
-      <MovieList category="upcoming" />
+      <Carousel />
+      <HomeList />
     </div>
   );
 };

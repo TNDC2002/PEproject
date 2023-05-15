@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
 import multer from "multer";
@@ -10,7 +10,6 @@ import morgan from "morgan";
 import { fileURLToPath } from "url";
 import { configViewEngine } from "./config/ViewEngine.js";
 import { initWebRoutes } from "./routes/WebRoutes.js";
-import { register } from "./controller/auth.js";
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,36 +38,52 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 /* ROUTES FILE */
-app.post("/auth/register", upload.single("picture"), register);
 
 /* ROUTES */
-configViewEngine(app)
-initWebRoutes(app)
+configViewEngine(app);
+initWebRoutes(app);
 /* SERVER SETUP AND MONGOOSE SETUP */
 let PORT = process.env.PORT || 6969;
 
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  app.listen(PORT, () => {
-    let notification = "\x1b[1m\x1b[90mWelcome to the internet!!! \x1b[37mPORT: \x1b[36m\x1b[4m" + PORT + '\x1b[0m'
-    let _6969 = "\x1b[1m\x1b[90mIf the U see \x1b[37mPORT: \x1b[36m\x1b[4m6969\x1b[0m\x1b[1m\x1b[90m! then you FUCKED UP \x1b[33mヽ(*・ω・)ﾉ\x1b[0m"
-
-    console.log("\x1b[35m===============================================================================================\x1b[0m")
-    console.log("\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m")
-    console.log("\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m")
-    console.log("\x1b[35m|\x1b[0m                          " + notification + "                              \x1b[35m|\x1b[0m")
-    console.log("\x1b[35m|\x1b[0m                     " + _6969 + "                 \x1b[35m|\x1b[0m")
-    console.log("\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m")
-    console.log("\x1b[35m===============================================================================================\x1b[0m")
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   })
-}).catch((error) => console.log(error))
+  .then(() => {
+    app.listen(PORT, () => {
+      let notification =
+        "\x1b[1m\x1b[90mWelcome to the internet!!! \x1b[37mPORT: \x1b[36m\x1b[4m" +
+        PORT +
+        "\x1b[0m";
+      let _6969 =
+        "\x1b[1m\x1b[90mIf the U see \x1b[37mPORT: \x1b[36m\x1b[4m6969\x1b[0m\x1b[1m\x1b[90m! then you FUCKED UP \x1b[33mヽ(*・ω・)ﾉ\x1b[0m";
 
-
-
-
-
-
-
-
+      console.log(
+        "\x1b[35m===============================================================================================\x1b[0m"
+      );
+      console.log(
+        "\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m"
+      );
+      console.log(
+        "\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m"
+      );
+      console.log(
+        "\x1b[35m|\x1b[0m                          " +
+          notification +
+          "                              \x1b[35m|\x1b[0m"
+      );
+      console.log(
+        "\x1b[35m|\x1b[0m                     " +
+          _6969 +
+          "                 \x1b[35m|\x1b[0m"
+      );
+      console.log(
+        "\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m"
+      );
+      console.log(
+        "\x1b[35m===============================================================================================\x1b[0m"
+      );
+    });
+  })
+  .catch((error) => console.log(error));

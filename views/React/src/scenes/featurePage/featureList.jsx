@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import MovieCard from "./MovieCard";
+import FeatureCard from "./FeatureCard";
 import FlexBetween from "../../components/FlexBetween";
 import { Grid, IconButton, Box, Typography } from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
@@ -12,9 +12,9 @@ const CATEGORY_API_ENDPOINTS = {
   upcoming: "upcoming",
 };
 
-const MovieList = ({ category }) => {
-  const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
+const FeatureList = ({ category }) => {
+    const [movies, setMovies] = useState([]);
+    const [page, setPage] = useState(1);
 
 
   useEffect(() => {
@@ -56,21 +56,38 @@ const MovieList = ({ category }) => {
         <Typography sx={{
           color: 'black',
           fontWeight: 'bold',
-          fontSize: '1rem',
-          backgroundColor: 'white',
-          padding: '0.5rem',
-          margin: '1rem 0.5rem',
-          border: 'hidden',
-          borderRadius: '0.5rem '
-        }}>{page}</Typography>
-        <IconButton onClick={handleNextPage} sx={{
-          padding: '0 0.5rem 0 0'
-        }}>
-          <ArrowForwardIos sx={{ color: 'white' }}></ArrowForwardIos>
-        </IconButton>
-      </FlexBetween>
-    </Box>
-  );
+          color: 'white'
+        }}> {category.toUpperCase()} Movies </Typography>
+        <Grid container spacing={2.25} justifyContent="center">
+          {movies.map((movie) => (
+            <Grid item key={movie.id}>
+              <FeatureCard movie={movie} />
+            </Grid>
+          ))}
+        </Grid>
+        <FlexBetween>
+          <IconButton onClick={handlePrevPage} disabled={page === 1} sx={{
+            padding: '0 0 0 0.5rem'
+          }}>
+            <ArrowBackIos sx={{ fontSize: '30px', color: 'white', margin: '0 0.75rem' }}></ArrowBackIos>
+          </IconButton>
+          <Typography sx={{
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: '1.5rem',
+            padding: '0.5rem',
+            margin: '1rem 0.5rem',
+            border: 'hidden',
+            borderRadius: '0.5rem '
+          }}>{page}</Typography>
+          <IconButton onClick={handleNextPage} sx={{
+            padding: '0 0.5rem 0 0'
+          }}>
+            <ArrowForwardIos sx={{ fontSize: '30px', color: 'white', margin: '0 0.75rem'  }}></ArrowForwardIos>
+          </IconButton>
+        </FlexBetween>
+      </Box>
+    );
 };
 
-export default MovieList;
+export default FeatureList;

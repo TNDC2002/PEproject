@@ -9,8 +9,14 @@ body,
   font-family: "Montserrat", sans-serif;
 }
 
-html { height: 100%; overflow:auto; }
-body { height: 100%; }
+html {
+  height: 100%;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+body {
+  height: 100%;
+}
 
 body::-webkit-scrollbar {
   display: none;
