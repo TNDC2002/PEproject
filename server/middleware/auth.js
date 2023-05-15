@@ -3,9 +3,9 @@ import { sign, unsign } from 'cookie-signature';
 export const verifyToken = async (req, res, next) => {
     try {
         console.log("____________verify___________")
+        console.log("mytoken:",req.headers)
         let token = req.headers.cookie
         token = unsign(token, process.env.Cookie_secret);
-        console.log("mytoken:",token)
 
         if(!token) {
             return res.status(403).send("Access Denied");

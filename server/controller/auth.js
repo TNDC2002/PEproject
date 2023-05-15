@@ -159,15 +159,17 @@ const login = async (req, res) => {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         delete user.password;
         const cookieOptions = {
-            maxAge: 3600000, // Cookie expiration time (in milliseconds)
+            maxAge: 36000000, // Cookie expiration time (in milliseconds)
             httpOnly: true, // Restrict cookie access to HTTP requests only
-            secure: true, // Serve cookie only over HTTPS (in production)
+            sameSite: 'lax',
+            // secure: false, // Serve cookie only over HTTPS (in production)
             signed: true // Enable cookie signing
         };
-        const serializedCookie = cookie.serialize('token', token, cookieOptions);
-        const signedCookie = await sign(serializedCookie, process.env.Cookie_secret);
-        console.log(signedCookie)
-        res.setHeader('Set-Cookie', signedCookie);
+        // const serializedCookie = cookie.serialize('token', token, cookieOptions);
+        // const signedCookie = await sign(serializedCookie, process.env.Cookie_secret);
+        // console.log(signedCookie)
+        // res.setHeader('Set-Cookie', signedCookie);
+        res.cookie('token', token, cookieOptions);
         res.status(200).json({ user });
     } catch (err) {
         console.log(err.message)
