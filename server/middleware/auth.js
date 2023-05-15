@@ -3,18 +3,17 @@ import { sign, unsign } from 'cookie-signature';
 export const verifyToken = async (req, res, next) => {
     try {
         console.log("____________verify___________")
-        console.log("mytoken:",req.headers)
-        let token = req.headers.cookie
-        token = unsign(token, process.env.Cookie_secret);
-
+        let token = req.signedCookies.token;
+        // token = unsign(token, process.env.Cookie_secret);
         if(!token) {
+            console.log("Access Denied")
             return res.status(403).send("Access Denied");
         }
-        
+
         if(token.startsWith("Bearer ")) {
             token = token.slice(7, token.length).trimLeft();
         }
-
+        console.log(token)
         const verified = jwt.verify(token, process.env.JWT_SECRET);
         req.user = verified;
         next();

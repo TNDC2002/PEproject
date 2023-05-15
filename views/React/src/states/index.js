@@ -14,6 +14,7 @@ const deleteCookie = async () => {
       {
         method: "GET",
         body: JSON.stringify(requestData),
+        credentials: 'include'
       }
     );
 };
