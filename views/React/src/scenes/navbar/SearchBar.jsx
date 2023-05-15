@@ -16,6 +16,7 @@ const SearchBar = () => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [options, setOptions] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
+
   const theme = useTheme();
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
@@ -48,7 +49,7 @@ const SearchBar = () => {
   const fetchUserSearch = async (userID, numberOfEntry) => {
     try {
       const fetchUserSearchResponse = await fetch(
-        `http://localhost:5000/user-search-history?userID=${userID}&limit=${numberOfEntry}`,
+        `http://localhost:5000/api/history/get?userID=${userID}&limit=${numberOfEntry}`,
         {
           method: "GET",
           headers: {
@@ -61,7 +62,7 @@ const SearchBar = () => {
         throw new Error('Failed to fetch user search data');
       }
       const userSearchData = await fetchUserSearchResponse.json();
-      const searchedStrings = userSearchData.map((search) => search.searchedString);
+      const searchedStrings = userSearchData.History_return.map((search) => search.searchedString);
 
       setDefaultSearchOptions(await searchedStrings.map((search) => {
         return {
@@ -69,6 +70,7 @@ const SearchBar = () => {
           history: true
         };
       }));
+      console.log("Just fetched new searches");
     } catch (error) {
       console.error(error);
     };
@@ -96,7 +98,7 @@ const SearchBar = () => {
     };
 
     const insertUserSearchResponse = await fetch(
-      "http://localhost:5000/user-search-history/insert",
+      "http://localhost:5000/api/history/insert",
       {
         method: "POST",
         headers: { 
@@ -120,7 +122,7 @@ const SearchBar = () => {
 
   const handleSearch = async (value) => {
     if (!selectedOption && value !== "") {
-      insertUserSearch(user._id, value);
+      await insertUserSearch(user._id, value);
       fetchUserSearch(user._id, 5);
       navigate(`/home/search/?query=${value}`);
     }
