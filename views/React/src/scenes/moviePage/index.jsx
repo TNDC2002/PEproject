@@ -62,6 +62,7 @@ const MoviePage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
+        credentials: 'include'
       }
     );
   };
@@ -85,6 +86,7 @@ const MoviePage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
+      credentials: 'include'
     });
   };
 
@@ -99,6 +101,7 @@ const MoviePage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestData),
+        credentials: 'include'
       }
     );
     const result = await checkFavoriteResponse.json();
@@ -116,6 +119,7 @@ const MoviePage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestData),
+        credentials: 'include'
       }
     );
     const result = await checkRentedResponse.json();
@@ -127,7 +131,10 @@ const MoviePage = () => {
     const fetchMovieDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/detail/${movieID}`
+          `http://localhost:5000/movie/detail/${movieID}`, {
+
+          credentials: 'include'
+        }
         );
         const data = await response.json();
         setMovie(data);
@@ -147,6 +154,7 @@ const MoviePage = () => {
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            credentials: 'include'
           }
         );
         const data = await response.json();
@@ -167,6 +175,7 @@ const MoviePage = () => {
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            credentials: 'include'
           }
         );
         const data = await response.json();
