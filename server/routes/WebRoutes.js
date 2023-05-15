@@ -17,6 +17,7 @@ import * as user from "../controller/user.js";
 import * as Rate from "../controller/UserRateMovie_Controller.js"
 import * as Rental from "../controller/UserRentMovie_Controller.js"
 import * as Favourite from "../controller/UserFavouriteMovie_Controller.js"
+import * as History from "../controller/UserSearchHistory_Controller.js"
 
 let router = express.Router();
 
@@ -42,7 +43,6 @@ let initWebRoutes = (app) => {
       router.get("/movie/credits/:showID", movieAPI.default.getShowCredits);
       router.get("/movie/tvRecommendations/:showID", movieAPI.default.getShowRecommendations);
       router.get("/movie/tvTrailer/:showID", movieAPI.default.getShowTrailerID);
-      router.get("/user-search-history/", middleware.default.verifyToken, user.default.fetchSearches);
       router.get("/movie/showTrailer/:showId", movieAPI.default.getShowTrailerID);
       router.get("/movie/discovery/:page", movieAPI.default.getMovieDiscovery);
       router.get("/movie/showDiscovery/:page", movieAPI.default.getShowDiscovery);
@@ -52,30 +52,32 @@ let initWebRoutes = (app) => {
     /* MONGOL API ROUTE */
       router.get("/api/rate/check", Rate.default.GET_handler);
       router.get("/api/favourite/check", Favourite.default.GET_handler);
-      
+      router.get("/api/history/get", History.default.GET_handler);
+
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
       app.post("/auth/register", upload.single("picture"), auth.default.register);
       router.post("/auth/login", auth.default.login);
-      router.post("/user-search-history/insert", middleware.default.verifyToken, user.default.insertSearch);
       
       /* MONGOL API ROUTE */
-      router.post("/api/rate", Rate.default.POST_handler);
-      router.post("/api/favourite", Favourite.default.POST_handler);
+      router.post("/api/history/insert", History.default.POST_handler);
+      router.post("/api/rate/insert", Rate.default.POST_handler);
+      router.post("/api/favourite/insert", Favourite.default.POST_handler);
 
   
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
 
       /* MONGOL API ROUTE */
-      router.put("/api/rate", Rate.default.PUT_handler);
+      router.put("/api/history/update", History.default.PUT_handler);
+      router.put("/api/rate/update", Rate.default.PUT_handler);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
 
       /* MONGOL API ROUTE */
-      router.delete("/api/unrate", Rate.default.DELETE_handler);
-      router.delete("/api/unfavourite", Favourite.default.DELETE_handler);
+      router.delete("/api/rate/delete", Rate.default.DELETE_handler);
+      router.delete("/api/favourite/delete", Favourite.default.DELETE_handler);
 
   // Don't touch anything else
   app.use("/", router);
