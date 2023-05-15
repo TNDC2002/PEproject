@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     mode: "dark",
     user: null,
+    token: null,
     movies: [],
 };
 const deleteCookie = async () => {

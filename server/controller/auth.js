@@ -52,6 +52,7 @@ export const register = async (req, res) => {
         res.status(201).json(savedUser);
 
     } catch (err) {
+        console.log(err.message)
         res.status(500).json({ error: err.message });
     }
 };
@@ -157,7 +158,8 @@ const login = async (req, res) => {
         delete user.password;
         res.cookie('token', token, {
             signed: true
-        }).status(200).json({ user });
+        });
+        res.status(200).json({ user });
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ error: err.message });
