@@ -1,4 +1,4 @@
-import UserMovieRental from "./UserRentMovie.js"
+import UserMovieRental from "./UserRentMovie_Schema.js"
 import axios from "axios"
 
 const GET_rental = async (req) => {

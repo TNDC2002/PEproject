@@ -1,4 +1,4 @@
-import UserRateMovie from "./UserRateMovie.js"
+import UserRateMovie from "./UserRateMovie_Schema.js"
 
 
 const GET_rating = async (req) => {
