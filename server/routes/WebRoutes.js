@@ -48,7 +48,7 @@ let initWebRoutes = (app) => {
       router.get("/movie/showDiscovery/:page", movieAPI.default.getShowDiscovery);
       router.get("/search", movieAPI.default.fetchSearchResult);
       router.get("/user/:userID/favourite", user.default.fetchFavourites);
-
+      router.get("/movie/featureImage", movieAPI.default.getImageCarousel);
     /* MONGOL API ROUTE */
       router.get("/api/rate/check", Rate.default.GET_handler);
       router.get("/api/favourite/check", Favourite.default.GET_handler);
