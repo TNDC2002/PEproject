@@ -45,6 +45,7 @@ const ShowPage = () => {
   const [trailerVideoId, setTrailerVideoId] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [credits, setCredits] = useState(null);
+  const [rateDefaultValue, setRateDefaultValue] = useState(0);
 
   const mainPlayerRef = useRef(null);
 
@@ -52,6 +53,8 @@ const ShowPage = () => {
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
+  const [isRated, setIsRated] = useState(false);
+
   const token = useSelector((state) => state.token);
   const theme = useTheme();
 
@@ -77,6 +80,47 @@ const ShowPage = () => {
       body: JSON.stringify(requestData),
     });
   };
+
+  const rate = async (userID, movieID, rating) =>{
+    const requestData = {
+      userID: userID,
+      movieID: movieID,
+      rating: rating,
+      media_type: "tv"
+    };
+
+    const method = isRated ? "PUT" : "POST";
+
+    const addRatingResponse = await fetch(
+     "http://localhost:5000/api/rate",{
+      method: method,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+     } 
+    )
+  }
+
+  const unrate = async (userID, movieID) => {
+    const requestData = {
+      userID: userID,
+      movieID: movieID,
+      media_type: "tv"
+    };
+    
+    const removeRatingResponse = await fetch(
+      "http://localhost:5000/api/unrate",{
+       method: "DELETE",
+       headers: {
+         Authorization: `Bearer ${token}`,
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(requestData),
+      } 
+     )
+  }
 
   const rent = async (userID, showID) => {
     const rentalBeginDate = new Date();
@@ -118,6 +162,25 @@ const ShowPage = () => {
     const result = await checkFavoriteResponse.json();
     return result.Favourite_return.favorited;
   };
+
+    const checkRated = async (userID, movieID) => {
+    const requestData = {
+      userID: userID,
+      movieID: movieID,
+      media_type: "tv"
+    };
+
+    const url = new URL("http://localhost:5000/api/rate/check");
+    url.search = new URLSearchParams(requestData).toString();
+
+    const checkRatedResponse = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+
+    const result = await checkRatedResponse.json();
+    return result;
+  }
 
   const checkRented = async (userID, showID) => {
     const requestData = {
@@ -208,13 +271,15 @@ const ShowPage = () => {
   }, [showID]);
 
   useEffect(() => {
-    const fetchFavourite = async () => {
+    const fetchInformation = async () => {
       const checkFavouriteResponse = await checkFavorite(user._id, showID);
-      const checkRentedResponse = await checkRented(user._id, showID);
-      setIsRented(checkRentedResponse);
       setIsFavourited(checkFavouriteResponse);
+
+      const checkRatedResponse = await checkRated(user._id, showID);      
+      setIsRated(checkRatedResponse.Rating_return.Rated);
+      setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
     };
-    fetchFavourite();
+    fetchInformation();
   }, [showID, user._id]);
 
   const handleFavouriteClick = () => {
@@ -222,6 +287,20 @@ const ShowPage = () => {
     favourite(user._id, showID);
     setIsFavourited(!isFavourited);
   };
+
+  const handleRateClick = (rateValue) => {
+    if (rateValue === null) {
+      unrate(user._id, showID);
+      setIsRated(false);
+      setRateDefaultValue(0);
+    }
+    else {
+      rate(user._id, showID, rateValue);
+      setIsRated(true);
+      setRateDefaultValue(rateValue);
+    }
+
+  }
 
   const handleRentClick = () => {
     // Call the favourite function with the necessary values here
@@ -409,8 +488,12 @@ const ShowPage = () => {
                 <strong>Already Rented</strong>
               )}
             </Button>
-            <Rating name="half-rating" precision={0.5}></Rating>
-          </Grid>
+            <Rating 
+              name="half-rating" 
+              precision={0.5}
+              value={rateDefaultValue}
+              onChange={(event, rateValue) => handleRateClick(rateValue)}
+            ></Rating>          </Grid>
         </Grid>
         <Box sx={{}}>
           {recommendations && (
