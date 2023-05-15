@@ -105,8 +105,7 @@ const MoviePage = () => {
       movieID: movieID,
       media_type: "movie"
     };
-
-    console.log("DELETE STUFF NOW")
+    
     const removeRatingResponse = await fetch(
       "http://localhost:5000/api/unrate",{
        method: "DELETE",
@@ -117,18 +116,6 @@ const MoviePage = () => {
        body: JSON.stringify(requestData),
       } 
      )
-  }
-
-  const handleRateClick = (rateValue) => {
-    if (rateValue === null) {
-      unrate(user._id, movieID);
-      setRateDefaultValue(0);
-    }
-    else {
-      rate(user._id, movieID, rateValue);
-      setRateDefaultValue(rateValue);
-    }
-
   }
 
   const rent = async (userID, movieID) => {
@@ -301,6 +288,20 @@ const MoviePage = () => {
     favourite(user._id, movieID);
     setIsFavourited(!isFavourited);
   };
+
+  const handleRateClick = (rateValue) => {
+    if (rateValue === null) {
+      unrate(user._id, movieID);
+      setIsRated(false);
+      setRateDefaultValue(0);
+    }
+    else {
+      rate(user._id, movieID, rateValue);
+      setIsRated(true);
+      setRateDefaultValue(rateValue);
+    }
+
+  }
 
   const handleRentClick = () => {
     // Call the favourite function with the necessary values here
