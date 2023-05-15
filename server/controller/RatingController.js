@@ -3,7 +3,7 @@
 */
 /* After setup your controller goto ../routes/WebRoutes.js to setup the URL */
 
-import * as Rating from "../models/Rating.js";
+import * as Rating from "../models/UserRateMovie_Model.js";
 
 const Sample_handler_GET = async (req, res) => {
     // GET the rating
