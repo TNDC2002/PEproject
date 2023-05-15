@@ -1,18 +1,16 @@
-import UserSearchHistory from "./UserSearchHistory_Schema";
+import UserSearchHistory from "./UserSearchHistory_Schema.js";
 
 
 const GET_history = async (req) => {
     try {
-        const { userID } = req.body;
-        const History = await UserSearchHistory.findOne({ userID: userID });
-        if (History.userID){
-            return History;
-        }else{
-            return {
-                status: 500,
-                error: "not found"
-            }
-        }
+        const userID  = req.query.userID;
+        const limit = parseInt(req.query.limit) || 10;
+
+        const History = await UserSearchHistory.find({ userID: userID })
+            .limit(limit)
+            .sort({ updatedAt: -1});
+
+        return History;
     } catch (err) {
         return {
             status: 500,
@@ -25,26 +23,34 @@ const GET_history = async (req) => {
 const POST_history = async (req) => {
     try {
         const { userID, searchedString, createdAt } = req.body;
-        const newHistory = new UserSearchHistory({
-            userID: userID,
-            searchedString: searchedString,
-            createdAt: createdAt
-        });
-        newHistory.save()
-            .then(async () => {
-            })
-            .catch((error) => {
-                console.log("ERROR --- History.js --- can't SAVE to DB")
-            })
 
+        // Check if entry already exists
+        const existingHistory = await UserSearchHistory.findOne({
+            userID: userID,
+            searchedString: searchedString
+        });
+
+        if (existingHistory) {
+            // Entry exists, update the createdAt field
+            existingHistory.createdAt = createdAt;
+            await existingHistory.save();
+        } else {
+            // Entry doesn't exist, create a new entry
+            const newHistory = new UserSearchHistory({
+                userID: userID,
+                searchedString: searchedString,
+                createdAt: createdAt
+            });
+            await newHistory.save();
+        }
     } catch (err) {
         return {
             status: 500,
             error: err.message
         }
-
     }
 }
+
 const PUT_history = async (req) => {
     try {
         const { userID, searchedString, createdAt } = req.body;
