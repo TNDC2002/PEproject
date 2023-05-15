@@ -1,18 +1,11 @@
-import UserFavouriteMovie from "./UserFavouriteMovie_Schema";
+import UserFavouriteMovie from "./UserFavouriteMovie_Schema.js";
 
 
 const GET_favourite = async (req) => {
     try {
-        const { userID, movieID, media_type } = req.body;
+        const { userID, movieID, media_type } = req.query;
         const Favourite = await UserFavouriteMovie.findOne({ userID: userID, movieID:movieID, media_type: media_type });
-        if (Favourite.userID){
-            return Favourite;
-        }else{
-            return {
-                status: 500,
-                error: "not found"
-            }
-        }
+        return { favorited: Favourite !== null };
     } catch (err) {
         return {
             status: 500,
@@ -25,6 +18,8 @@ const GET_favourite = async (req) => {
 const POST_favourite = async (req) => {
     try {
         const { userID, movieID, media_type } = req.body;
+        const Favourite = await UserFavouriteMovie.findOne({ userID: userID, movieID:movieID, media_type: media_type });
+
         const newFavourite = new UserFavouriteMovie({
             userID: userID,
             movieID: movieID,
