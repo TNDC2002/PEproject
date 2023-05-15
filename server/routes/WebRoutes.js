@@ -49,7 +49,7 @@ let initWebRoutes = (app) => {
       router.get("/search", movieAPI.default.fetchSearchResult);
       router.get("/user/:userID/favourite", user.default.fetchFavourites);
 
-    /* PRIMARY MONGOL ROUTE */
+    /* MONGOL API ROUTE */
       router.get("/api/rate/check", Rate.default.GET_handler);
       router.get("/api/favourite/check", Favourite.default.GET_handler);
       
@@ -59,7 +59,7 @@ let initWebRoutes = (app) => {
       router.post("/auth/login", auth.default.login);
       router.post("/user-search-history/insert", middleware.default.verifyToken, user.default.insertSearch);
       
-      /* PRIMARY MONGOL ROUTE */
+      /* MONGOL API ROUTE */
       router.post("/api/rate", Rate.default.POST_handler);
       router.post("/api/favourite", Favourite.default.POST_handler);
 
@@ -67,13 +67,13 @@ let initWebRoutes = (app) => {
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
 
-      /* PRIMARY MONGOL ROUTE */
+      /* MONGOL API ROUTE */
       router.put("/api/rate", Rate.default.PUT_handler);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
 
-      /* PRIMARY MONGOL ROUTE */
+      /* MONGOL API ROUTE */
       router.delete("/api/unrate", Rate.default.DELETE_handler);
       router.delete("/api/unfavourite", Favourite.default.DELETE_handler);
 
