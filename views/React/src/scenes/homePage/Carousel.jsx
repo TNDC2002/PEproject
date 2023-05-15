@@ -1,20 +1,69 @@
 import { Repeat } from '@mui/icons-material';
-import { Box } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import React, { useState } from 'react';
 import Image from 'mui-image';
-import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
-import Fade from '@mui/material';
+import { ArrowBackIos, ArrowForwardIos, KeyboardDoubleArrowDown, Campaign } from '@mui/icons-material';
 
 import { images } from './CarouselData';
-import imagee from '../../assets/images/SmashBruh.png';
+import imagee from '../../assets/images/Logo.png';
 
 export default function Carousel() {
   const [currImg, setCurrImg] = useState(2);
   return (
     <Box sx={{ height:"90vh", width:"100vw", backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
       <Box className="carouselInner" sx={{ backgroundColor: 'black', height: '100%', width: '100%', display: 'flex'}}>
-      <Box className='imgWrapper' sx={{ width: "50%" }}>
-        <img width='100%' height='100%' src={imagee}/>
+      <Box className='imgWrapper' sx={{
+        width: '50%',
+        position: 'relative',
+        overflow: 'hidden',
+        }}>
+        <Box sx={{ 
+          position: 'absolute',
+          padding: '0.5rem',
+          margin: '1rem',
+          gap: '5px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'white',
+          border: '2px solid black',
+          borderRadius: '15px'
+        }}>
+          <Campaign sx={{
+            color: 'black'
+          }}/>
+          <Typography sx={{
+            fontSize: '15px',
+            fontWeight: 'bold',
+            color: 'black',
+          }}>Latest Movie</Typography>
+        </Box>
+        <Image display='block' fit='cover' position='center' width='100%' height='100%' src={imagee}/>
+        <Box className='discover' 
+        onClick={() => {
+          window.scrollTo(0, 650);
+        }} 
+        sx={{ 
+          position: 'absolute',
+          inset: 0,
+          padding: '2rem',
+          fontSize: 'large',
+          background: 'rgba(0, 0, 0, 0.6)',
+          display: 'flex',
+          alignItems: 'end',
+          justifyContent: 'center',
+          opacity: 0,
+          transition: '200ms ease-in-out',
+          '&:hover':{
+            opacity: 1,
+            cursor: 'pointer'
+          }
+        }}>
+          <Typography sx={{
+            fontSize: '20px',
+          }}>Discover More Movies</Typography>
+          <KeyboardDoubleArrowDown fontSize='large'/>
+        </Box>
       </Box>
         {/* replace this img with ONLY the most popular MOVIE atm */}
         <Box className="left" 
@@ -45,10 +94,8 @@ export default function Carousel() {
           display: 'flex' 
           // background: 'linear-gradient(to top, black, white)'
 
-          // add PICTURES and change onClick of Left and Right buttons
-
           }}>
-            <img width='100%' src={images[currImg].img} />
+            {/* <img width='100%' src={images[currImg].img} /> */}
           {/* replace this with PICTURES ARRAY the most POPULAR film */}
 
           </Box>
@@ -66,7 +113,6 @@ export default function Carousel() {
             opacity: 0.8,
             '&:hover':{
               opacity: 0.9,
-              
             }
             }}>
           <ArrowForwardIos />
