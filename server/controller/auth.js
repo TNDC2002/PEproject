@@ -164,7 +164,6 @@ const login = async (req, res) => {
             // secure: false, // Serve cookie only over HTTPS (in production)
             signed: true // Enable cookie signing
         };
-
         res.cookie('token', token, cookieOptions);
         res.status(200).json({ user });
     } catch (err) {

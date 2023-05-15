@@ -13,11 +13,11 @@ const deleteCookie = async () => {
       "http://localhost:5000/auth/logout",
       {
         method: "GET",
-        body: JSON.stringify(requestData),
         credentials: 'include'
       }
     );
 };
+
 
 export const authSlice = createSlice({
     name: "auth",
