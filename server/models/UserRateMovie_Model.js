@@ -3,22 +3,15 @@ import UserRateMovie from "./UserRateMovie_Schema.js"
 
 const GET_rating = async (req) => {
     try {
-        const { userID, movieID, media_type } = req.body;
+        const { userID, movieID, media_type } = req.query;
         const Rate = await UserRateMovie.findOne({ userID: userID, movieID:movieID, media_type: media_type })
-        if (Rate.userID){
-            return Rate;
-        }else{
-            return {
-                status: 500,
-                error: "not found"
-            }
-        }
+        return { Rated: Rate !== null,
+                RateValue: Rate ? Rate.rating : 0 };
     } catch (err) {
         return {
             status: 500,
             error: err.message
         }
-
     }
 }
 
