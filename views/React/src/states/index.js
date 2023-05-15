@@ -32,7 +32,7 @@ export const authSlice = createSlice({
 
         setLogout: (state) => {
             state.user = null;
-            deleteCookie();
+            deleteCookie('token');
 
         },
 
