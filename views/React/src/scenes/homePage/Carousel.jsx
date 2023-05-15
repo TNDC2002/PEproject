@@ -8,7 +8,8 @@ import { images } from './CarouselData';
 import imagee from '../../assets/images/Logo.png';
 
 export default function Carousel() {
-  const [currImg, setCurrImg] = useState(2);
+  const [currImg, setCurrImg] = useState(0);
+
   return (
     <Box sx={{ height:"90vh", width:"100vw", backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
       <Box className="carouselInner" sx={{ backgroundColor: 'black', height: '100%', width: '100%', display: 'flex'}}>
@@ -60,7 +61,8 @@ export default function Carousel() {
           }
         }}>
           <Typography sx={{
-            fontSize: '20px',
+            fontSize: '25px',
+            fontWeight: 'bold'
           }}>Discover More Movies</Typography>
           <KeyboardDoubleArrowDown fontSize='large'/>
         </Box>
