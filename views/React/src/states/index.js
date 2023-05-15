@@ -5,6 +5,17 @@ const initialState = {
     user: null,
     movies: [],
 };
+const deleteCookie = async () => {
+    const requestData = {
+    };
+    const addFavouriteResponse = await fetch(
+      "http://localhost:5000/auth/logout",
+      {
+        method: "GET",
+        body: JSON.stringify(requestData),
+      }
+    );
+};
 
 export const authSlice = createSlice({
     name: "auth",
@@ -21,6 +32,7 @@ export const authSlice = createSlice({
         setLogout: (state) => {
             state.user = null;
             deleteCookie('token');
+
         },
 
         updateUser: (state, action) => {
