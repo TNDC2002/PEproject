@@ -50,6 +50,7 @@ const MoviePage = () => {
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
+  const [isRated, setIsRated] = useState(false);
   const token = useSelector((state) => state.token);
   const theme = useTheme();
 
@@ -70,6 +71,29 @@ const MoviePage = () => {
       }
     );
   };
+
+  const rate = async (userID, movieID, rating) =>{
+    const requestData = {
+      userID: userID,
+      movieID: movieID,
+      rating: rating,
+    };
+    const addRating = await fetch(
+     "http://localhost:5000/api/rate",{
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+     } 
+    )
+  }
+
+  const handleRateClick = () => {
+    rate(userID, movieID, rate);
+    setIsRated(!isRated)
+  }
 
   const rent = async (userID, movieID) => {
     const rentalBeginDate = new Date();
@@ -389,7 +413,12 @@ const MoviePage = () => {
                 <strong>Already Rented</strong>
               )}
             </Button>
-            <Rating name="half-rating" precision={0.5}></Rating>
+            <Rating 
+              name="half-rating" 
+              precision={0.5}
+              value={isRated}
+              onChange={(handleRateClick)}
+            ></Rating>
           </Grid>
         </Grid>
         <Box sx={{}}>
