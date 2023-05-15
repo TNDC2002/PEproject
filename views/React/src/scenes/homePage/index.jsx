@@ -16,13 +16,8 @@ const HomePage = () => {
     <div>
       <Navbar />
       <Carousel />
-      <Box sx={{
-        width: '100vw',
-        height: '100%'
-      }}>
         <Typography>Discover More!</Typography>
         <KeyboardDoubleArrowDown />
-      </Box>
       <HomeList />
     </div>
   );
