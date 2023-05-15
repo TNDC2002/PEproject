@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
 import Image from "mui-image";
+import Navbar from "../navbar";
 
 const MyListPage = () => {
     const [favouriteMovie, setFavouriteMovie ] = useState([]);
@@ -32,6 +33,7 @@ const MyListPage = () => {
     }, [])
     return (
         <div>
+            <Navbar></Navbar>
          <Box>
             <strong>Your favourite movies:</strong>
             {favouriteMovie.map((movie) => (
