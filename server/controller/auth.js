@@ -163,7 +163,7 @@ const login = async (req, res) => {
             signed: true // Enable cookie signing
         };
         const signedCookie = cookie.serialize('token', token, cookieOptions);
-        const signedCookieWithSignature = `${signedCookie}; ${cookie.sign(signedCookie, 'your_cookie_secret')}`;
+        const signedCookieWithSignature = `${signedCookie}; ${cookie.sign(signedCookie, process.env.Cookie_secret)}`;
         res.setHeader('Set-Cookie', signedCookieWithSignature);
         res.status(200).json({ user });
     } catch (err) {
