@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Navigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Rating
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
@@ -39,12 +40,17 @@ const MoviePage = () => {
   const [movie, setMovie] = useState(null);
   const [youtubeIDs, setVideoIDS] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [credits, setCredits] = useState(null);
+
+  const mainPlayerRef = useRef(null);
 
   const dispatch = useDispatch();
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
+  const [isRated, setIsRated] = useState(false);
   const token = useSelector((state) => state.token);
   const theme = useTheme();
 
@@ -66,6 +72,29 @@ const MoviePage = () => {
       }
     );
   };
+
+  const rate = async (userID, movieID, rating) =>{
+    const requestData = {
+      userID: userID,
+      movieID: movieID,
+      rating: rating,
+    };
+    const addRating = await fetch(
+     "http://localhost:5000/api/rate",{
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+     } 
+    )
+  }
+
+  const handleRateClick = () => {
+    rate(userID, movieID, rate);
+    setIsRated(!isRated)
+  }
 
   const rent = async (userID, movieID) => {
     const rentalBeginDate = new Date();
@@ -153,12 +182,15 @@ const MoviePage = () => {
         );
         const data = await response.json();
         setVideoIDS(data.results);
+        setSelectedVideo(data.results[0].key)
       } catch (error) {
         console.error(error);
       }
     };
     fetchVideoIDs();
   }, [movieID]);
+
+
 
   //FETCH RECOMMENDATIONS
   useEffect(() => {
@@ -180,6 +212,22 @@ const MoviePage = () => {
     fetchRecommendations();
   }, [movieID]);
 
+  useEffect(() => {
+    const fetchCredits = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/movie/credits/${movieID}`
+        );
+        const data = await response.json();
+        setCredits(data.cast);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCredits();
+  }, [movieID]);
+  console.log(credits)
+  
   useEffect(() => {
     const fetchFavourite = async () => {
       const checkFavouriteResponse = await checkFavorite(user._id, movieID);
@@ -234,30 +282,36 @@ const MoviePage = () => {
           <Typography color="text.primary">{movie.title}</Typography>
         </Breadcrumbs>
 
-        {youtubeIDs !== null && youtubeIDs.length > 0 ? (
+        {youtubeIDs && youtubeIDs.length > 0 && (
           <>
-            <YouTubePlayer videoId={youtubeIDs[0].key} />
+            {/* Main video player */}
+            <div ref={mainPlayerRef}>
+              <YouTubePlayer videoId={selectedVideo} width={800} height={600} thumbnail={false} />
+            </div>
+            {/* Trailer text */}
+            <Box>
+              <Typography>
+                Other Trailer
+              </Typography>
+            </Box>
 
+            {/* List of videos */}
             <Box sx={{ overflowX: "auto" }}>
-              {youtubeIDs && (
-                <Box>
-                  <Typography variant="h5" sx={{ pb: 1 }}>
-                    <strong>Trailer:</strong>
-                  </Typography>
-                  <Box sx={{ display: "flex", flexDirection: "row" }}>
-                    {youtubeIDs.map((video) => (
-                      <Grid item key={video.key}>
-                        <YouTubePlayer videoId={video.key} />
-                      </Grid>
-                    ))}
-                  </Box>
-                </Box>
-              )}
+              <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
+                {youtubeIDs.map((video) => (
+                  <Grid item key={video.key} onClick={() => {
+                    setSelectedVideo(video.key)
+                    mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
+                  }}>
+                    <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
+                    {/* <YouTubePlayer videoId={video.key} width={356} height={200} thumbnail={true}/> */}
+                  </Grid>
+                ))}
+              </Box>
             </Box>
           </>
-        ) : (
-          <></>
         )}
+
 
         <Grid container spacing={3} sx={{ my: 2 }}>
           <Grid item xs={12} sm={6} md={3} lg={3}>
@@ -321,6 +375,10 @@ const MoviePage = () => {
                   <strong>Production:</strong>{" "}
                   {movie.production_companies.map((g) => g.name).join(", ")}
                 </Typography>
+                <Typography variant="body1" sx={{ my: 0.5 }}>
+                  <strong>Cast:</strong>{" "}
+                  {credits?.slice(0, 5)?.map((g) => g.name)?.join(", ")}
+                </Typography>
               </Grid>
 
               <Grid item xs={12} md={6}>
@@ -363,6 +421,12 @@ const MoviePage = () => {
                 <strong>Already Rented</strong>
               )}
             </Button>
+            <Rating 
+              name="half-rating" 
+              precision={0.5}
+              value={isRated}
+              onChange={(handleRateClick)}
+            ></Rating>
           </Grid>
         </Grid>
         <Box sx={{}}>

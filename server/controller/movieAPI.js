@@ -151,6 +151,18 @@ export const getRecommendations = async (req, res) => {
   }
 };
 
+export const getMovieCredits = async (req, res) => {
+  try {
+    const { movieID } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${process.env.TMDB_API_KEY}`
+    );
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 /*
 TV SHOW'S DATA API
 */
@@ -159,6 +171,18 @@ export const getShowDetail = async (req, res) => {
     const { showID } = req.params;
     const response = await axios.get(
       `https://api.themoviedb.org/3/tv/${showID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    );
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getShowCredits = async (req, res) => {
+  try {
+    const { movieID } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/tv/${showID}/credits?api_key=${process.env.TMDB_API_KEY}`
     );
     res.json(response.data);
   } catch (err) {
@@ -227,7 +251,9 @@ var output = {
   getDetail,
   getTrailerID,
   getRecommendations,
+  getMovieCredits,
   getShowDetail,
+  getShowCredits,
   getShowRecommendations,
   getShowTrailerID,
   getMovieDiscovery,

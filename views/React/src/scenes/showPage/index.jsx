@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Navigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
@@ -20,12 +20,17 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Rating
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from "../navbar";
 import {
@@ -38,8 +43,12 @@ const ShowPage = () => {
   const [show, setShow] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
   const [trailerVideoId, setTrailerVideoId] = useState(null);
-  const { showID } = useParams();
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [credits, setCredits] = useState(null);
 
+  const mainPlayerRef = useRef(null);
+
+  const { showID } = useParams();
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
@@ -139,6 +148,22 @@ const ShowPage = () => {
   }, [showID]);
 
   useEffect(() => {
+    const fetchCredits = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/movie/credits/${showID}`
+        );
+        const data = await response.json();
+        setCredits(data.cast);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCredits();
+  }, [showID]);
+  console.log(credits)
+
+  useEffect(() => {
     const fetchShowTrailerIDs = async () => {
       try {
         const response = await fetch(
@@ -150,6 +175,7 @@ const ShowPage = () => {
         );
         const data = await response.json();
         setTrailerVideoId(data.results);
+        setSelectedVideo(data.results[0].key)
       } catch (error) {
         console.error(error);
       }
@@ -202,7 +228,6 @@ const ShowPage = () => {
     return <Loading />;
   }
 
-  console.log(trailerVideoId);
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
 
@@ -229,18 +254,24 @@ const ShowPage = () => {
 
         {trailerVideoId !== null && trailerVideoId.length > 0 ? (
           <>
-            <YouTubePlayer videoId={trailerVideoId[0].key} />
-
+            <div ref={mainPlayerRef}>
+              <YouTubePlayer videoId={selectedVideo} width={800} height={600} thumbnail={false}/>
+            </div>
+            <Box>
+              <Typography>
+                Other Trailer
+              </Typography>
+            </Box>
             <Box sx={{ overflowX: "auto" }}>
               {trailerVideoId && (
                 <Box>
-                  <Typography variant="h5" sx={{ pb: 1 }}>
-                    <strong>Trailer:</strong>
-                  </Typography>
-                  <Box sx={{ display: "flex", flexDirection: "row" }}>
+                  <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
                     {trailerVideoId.map((video) => (
-                      <Grid item key={video.key} spacing={2}>
-                        <YouTubePlayer videoId={video.key} />
+                      <Grid item key={video.key} onClick={() => {
+                        setSelectedVideo(video.key)
+                        mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
+                      }}>
+                        <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
                       </Grid>
                     ))}
                   </Box>
@@ -293,14 +324,24 @@ const ShowPage = () => {
               {show.original_name}
             </Typography>
 
-            <Button variant="contained" sx={{ mx: 0.5, my: 1 }}>
-              <VideocamIcon></VideocamIcon> <strong>Trailer </strong>
-            </Button>
-
             <Button variant="contained" sx={{ mx: 0.5 }}>
               <strong>IMDB:</strong> {show.vote_average}
             </Button>
-
+            
+            <Box >
+              <FormControl >
+                <InputLabel id="demo-simple-select-label">Season</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Season"
+                >
+                  <MenuItem value={10}>Season 1</MenuItem>
+                  <MenuItem value={20}>Season 2</MenuItem>
+                  <MenuItem value={30}>Season 3</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
             <Typography variant="body1" sx={{ my: 0.5 }}>
               <strong>Overview:</strong> {show.overview}
             </Typography>
@@ -311,22 +352,29 @@ const ShowPage = () => {
                   <strong>Release Date:</strong> {show.first_air_date}
                 </Typography>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
+                  <strong>Directors:</strong>{" "}
+                  {show.created_by.map((g) => g.name).join(", ")}
+                </Typography>
+                <Typography variant="body1" sx={{ my: 0.5 }}>
                   <strong>Production:</strong>{" "}
                   {show.production_companies.map((g) => g.name).join(", ")}
                 </Typography>
+
               </Grid>
+
+
 
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
                   <strong>Duration:</strong> {show.episode_run_time} min
                 </Typography>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
-                  <strong>Country:</strong>{" "}
-                  {show.production_countries.map((g) => g.name).join(", ")}
-                </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
                   <strong>Genre:</strong>{" "}
                   {show.genres.map((g) => g.name).join(", ")}
+                </Typography>
+                <Typography variant="body1" sx={{ my: 0.5 }}>
+                  <strong>Cast:</strong>{" "}
+                  {credits?.slice(0, 5)?.map((g) => g.name)?.join(", ")}
                 </Typography>
               </Grid>
             </Grid>
@@ -356,6 +404,7 @@ const ShowPage = () => {
                 <strong>Already Rented</strong>
               )}
             </Button>
+            <Rating name="half-rating" precision={0.5}></Rating>
           </Grid>
         </Grid>
         <Box sx={{}}>

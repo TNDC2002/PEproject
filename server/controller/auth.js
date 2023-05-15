@@ -23,6 +23,15 @@ let transporter = nodemailer.createTransport({
 //         console.log(success);
 //     }
 // })
+//test transporter
+transporter.verify((error, success) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log("Ready for messages");
+        console.log(success);
+    }
+})
 
 /* REGISTER USER */
 export const register = async (req, res) => {
