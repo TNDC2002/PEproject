@@ -12,6 +12,7 @@ import { themeSettings } from "./theme";
 import MoviePage from "./scenes/moviePage";
 import ShowPage from "./scenes/showPage";
 import SearchPage from "./scenes/searchPage";
+import MyListPage from "./scenes/mylistPage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -48,6 +49,10 @@ function App() {
             <Route
               path="/profile/:userID"
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/my list"
+              element={isAuth ? <MyListPage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>

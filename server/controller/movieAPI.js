@@ -6,11 +6,12 @@ import axios from "axios";
 /* FAVOURITE MOVIE */
 export const favourite = async (req, res) => {
   // Get the payload
-  const { userID, movieID } = req.body;
+  const { userID, movieID, media_type } = req.body;
   // Check if the entry has already existed
   const favouriteMovie = await UserFavouriteMovie.findOne({
     userID: userID,
     movieID: movieID,
+    media_type: media_type
   });
   if (favouriteMovie) {
     try {
@@ -24,6 +25,7 @@ export const favourite = async (req, res) => {
       const newFavourite = new UserFavouriteMovie({
         userID: userID,
         movieID: movieID,
+        media_type: media_type
       });
       const savedFavourite = await newFavourite.save();
 
@@ -36,10 +38,11 @@ export const favourite = async (req, res) => {
 
 export const checkFavourite = async (req, res) => {
   try {
-    const { userID, movieID } = req.body;
+    const { userID, movieID, media_type } = req.body;
     const favoriteMovie = await UserFavouriteMovie.findOne({
       userID: userID,
       movieID: movieID,
+      media_type: media_type
     });
     res.json({ favorited: favoriteMovie !== null });
   } catch (err) {

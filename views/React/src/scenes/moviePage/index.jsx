@@ -52,6 +52,7 @@ const MoviePage = () => {
     const requestData = {
       userID: userID,
       movieID: movieID,
+      media_type: "movie"
     };
     const addFavouriteResponse = await fetch(
       "http://localhost:5000/movie/favourite",
@@ -92,6 +93,7 @@ const MoviePage = () => {
     const requestData = {
       userID: userID,
       movieID: movieID,
+      media_type: "movie"
     };
     const checkFavoriteResponse = await fetch(
       "http://localhost:5000/movie/favourite/check",
