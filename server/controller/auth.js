@@ -4,6 +4,8 @@ import User from "../models/User.js";
 import EmailVerification from "../models/EmailVerification.js"
 import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
+import cookie from 'cookie';
+import { sign, unsign } from 'cookie-signature';
 dotenv.config()
 
 //transporter stuff
@@ -162,9 +164,9 @@ const login = async (req, res) => {
             secure: true, // Serve cookie only over HTTPS (in production)
             signed: true // Enable cookie signing
         };
-        const signedCookie = cookie.serialize('token', token, cookieOptions);
-        const signedCookieWithSignature = `${signedCookie}; ${cookie.sign(signedCookie, process.env.Cookie_secret)}`;
-        res.setHeader('Set-Cookie', signedCookieWithSignature);
+        const serializedCookie = cookie.serialize('token', token, cookieOptions);
+        const signedCookie = sign(serializedCookie, process.env.Cookie_secret);
+        res.setHeader('Set-Cookie', signedCookie);
         res.status(200).json({ user });
     } catch (err) {
         console.log(err.message)
