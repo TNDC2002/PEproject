@@ -16,6 +16,8 @@ import ShowPage from "./scenes/showPage";
 import SearchPage from "./scenes/searchPage";
 import MyListPage from "./scenes/mylistPage";
 import FeaturePage from "./scenes/featurePage";
+import TvPage from "./scenes/tvPage";
+import ProfilePage from "./scenes/profilePage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
