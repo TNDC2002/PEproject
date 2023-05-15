@@ -13,8 +13,8 @@ run-backend-tests:
   image: node:15
   stage: test
   before_script:
-    - cp ${TESTING_ENV_FILE} server/.env
     - cd server
+    - cp ${TESTING_ENV_FILE} .env
     - rm -rf node_modules
     - rm -rf package-lock.json
     - npm install
