@@ -1,6 +1,6 @@
-import UserFavouriteMovie from "../models/UserFavouriteMovie.js";
-import UserRateMovie from "../models/UserRateMovie.js";
-import UserRentMovie from "../models/UserRentMovie.js";
+import UserFavouriteMovie from "../models/UserFavouriteMovie_Schema.js";
+import UserRateMovie from "../models/UserRateMovie_Schema.js";
+import UserRentMovie from "../models/UserRentMovie_Schema.js";
 import axios from "axios";
 
 /* FAVOURITE MOVIE */

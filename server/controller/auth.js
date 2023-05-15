@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../models/User.js";
-import EmailVerification from "../models/EmailVerification.js"
+import User from "../models/User_Schema.js";
+import EmailVerification from "../models/EmailVerification_Schema.js"
 import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
 dotenv.config()
