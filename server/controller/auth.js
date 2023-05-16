@@ -157,11 +157,23 @@ const login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." })
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+        const salt = await bcrypt.genSalt();
+        const tokenHash = await bcrypt.hash(token, salt);
+        //save token to DB
+        let update = await User.findOneAndUpdate({
+            userID: user.userID
+        },{
+            token:tokenHash
+        })
+        .then(()=>{})
+        .catch((error) => {
+            console.log("ERROR --- Auth.js --- can't UPDATE token to DB")
+        })
+
         delete user.password;
         const cookieOptions = {
             maxAge: 36000000, // Cookie expiration time (in milliseconds)
             httpOnly: true, // Restrict cookie access to HTTP requests only
-            // secure: false, // Serve cookie only over HTTPS (in production)
             signed: true // Enable cookie signing
         };
         res.cookie('token', token, cookieOptions);
@@ -175,6 +187,26 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
     res.clearCookie("token");
     res.status(200).send("deleted");
+}
+const GetAUTH = async (req, res) => {
+    try {
+        console.log("____________verify___________")
+        let token = req.signedCookies.token;
+        if(!token) {
+            console.log("Access Denied")
+            return res.status(403).send("Access Denied");
+        }
+        if(token.startsWith("Bearer ")) {
+            token = token.slice(7, token.length).trimLeft();
+        }
+        console.log(token)
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = verified;
+        next();
+    } catch(err) {
+        console.log(err.message)
+        res.status(500).json({ error: err.message });
+    }
 }
 
 var output = {
