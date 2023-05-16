@@ -163,7 +163,7 @@ const login = async (req, res) => {
         let update = await User.findOneAndUpdate({ _id: user._id },{
             token:tokenHash
         })
-        .then((update)=>{ console.log(update)})
+        .then((update)=>{ })
         .catch((error) => {
             console.log("ERROR --- Auth.js --- can't UPDATE token to DB")
         })
@@ -172,7 +172,8 @@ const login = async (req, res) => {
         const cookieOptions = {
             maxAge: 36000000, // Cookie expiration time (in milliseconds)
             httpOnly: true, // Restrict cookie access to HTTP requests only
-            signed: true // Enable cookie signing
+            signed: true, // Enable cookie signing
+            sameSite: 'Lax'
         };
         res.cookie('token', token, cookieOptions);
         res.status(200).json({ user });
@@ -188,11 +189,17 @@ const logout = async (req, res) => {
 }
 const GetAUTH = async (req, res) => {
     try {
+        console.log("___GetAUTH___")
         let token = req.signedCookies.token;
-        let UUID = req.signedCookies.UUID
-        const user = await User.findOne({ _id: UUID });
+        console.log("cookie:",req.signedCookies)
+        if(!token){
+            return res.status(200).json({ authenticated: false });
+        }
+        const UUID = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findOne({ _id: UUID.id });
         const isMatch = await bcrypt.compare(token, user.token);
         if(isMatch){
+            console.log("___res true")
             return res.status(200).json({ authenticated: true });
         }else{
             return res.status(200).json({ authenticated: false });
@@ -200,7 +207,7 @@ const GetAUTH = async (req, res) => {
         
     } catch (err) {
         console.log(err.message)
-        res.status(500).json({ error: err.message });
+        res.status(200).json({ error: err.message,authenticated: false });
     }
 }
 

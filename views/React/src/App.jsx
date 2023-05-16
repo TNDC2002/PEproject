@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./scenes/homePage";
 import TvPage from "./scenes/tvPage";
 import LoginPage from "./scenes/loginPage";
@@ -15,17 +15,35 @@ import ShowPage from "./scenes/showPage";
 function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-  const isAuth = async () => {
-    const loggedInResponse = await fetch("http://localhost:5000/auth/info", {
-      method: "Get",
-      headers: { "Content-Type": "application/json" },
-      credentials: 'include'
-    });
-    const loggedIn = await loggedInResponse.json();
-    return (loggedIn.authenticated)
-  };
-  
-  
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/auth/info", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        });
+        const data = await response.json();
+        console.log("isAUTH:", data); // Log the authentication data
+        setAuthenticated(data.authenticated);
+        setLoading(false);
+      } catch (error) {
+        console.log("Authentication check error:", error);
+        setLoading(false);
+      }
+    };
+
+    checkAuthentication();
+  }, []);
+
+  if (loading) {
+    // Show loading state while checking authentication
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="app">
       <BrowserRouter>
@@ -35,23 +53,53 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route
               path="/home"
-              element={isAuth ? <HomePage /> : <Navigate to="/" replace />}
+              element={
+                authenticated ? (
+                  <HomePage />
+                ) : (
+                  <Navigate to="/" replace state={{ from: "/home" }} />
+                )
+              }
             />
             <Route
               path="/movie/:movieID"
-              element={isAuth ? <MoviePage /> : <Navigate to="/" replace />}
+              element={
+                authenticated ? (
+                  <MoviePage />
+                ) : (
+                  <Navigate to="/" replace state={{ from: "/movie/:movieID" }} />
+                )
+              }
             />
             <Route
               path="/TV Shows"
-              element={isAuth ? <TvPage /> : <Navigate to="/" replace />}
+              element={
+                authenticated ? (
+                  <TvPage />
+                ) : (
+                  <Navigate to="/" replace state={{ from: "/TV Shows" }} />
+                )
+              }
             />
             <Route
               path="/TV Shows/:showID"
-              element={isAuth ? <ShowPage /> : <Navigate to="/" replace />}
+              element={
+                authenticated ? (
+                  <ShowPage />
+                ) : (
+                  <Navigate to="/" replace state={{ from: "/TV Shows/:showID" }} />
+                )
+              }
             />
             <Route
               path="/profile/:userID"
-              element={isAuth ? <ProfilePage /> : <Navigate to="/" replace />}
+              element={
+                authenticated ? (
+                  <ProfilePage />
+                ) : (
+                  <Navigate to="/" replace state={{ from: "/profile/:userID" }} />
+                )
+              }
             />
           </Routes>
         </ThemeProvider>
