@@ -77,7 +77,8 @@ console.log(selectedSeason)
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "tv"
+      media_type: "tv",
+      season: selectedSeason
     };
   
     const url = isFavourited
@@ -101,7 +102,8 @@ console.log(selectedSeason)
       userID: userID,
       movieID: movieID,
       rating: rating,
-      media_type: "tv"
+      media_type: "tv",
+      season: selectedSeason
     };
 
     const method = isRated ? "PUT" : "POST";
@@ -124,7 +126,8 @@ console.log(selectedSeason)
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "tv"
+      media_type: "tv",
+      season: selectedSeason
     };
     
     const removeRatingResponse = await fetch(
@@ -149,6 +152,7 @@ console.log(selectedSeason)
       movieID: showID,
       rentalBeginDate: rentalBeginDate,
       rentalExpireDate: rentalExpireDate,
+      season: selectedSeason
     };
 
     const addRentResponse = await fetch("http://localhost:5000/movie/rent", {
@@ -165,7 +169,8 @@ console.log(selectedSeason)
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "tv"
+      media_type: "tv",
+      season: selectedSeason
     };
   
     const url = new URL("http://localhost:5000/api/favourite/check");
@@ -184,7 +189,8 @@ console.log(selectedSeason)
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "tv"
+      media_type: "tv",
+      season: selectedSeason
     };
 
     const url = new URL("http://localhost:5000/api/rate/check");
@@ -203,6 +209,7 @@ console.log(selectedSeason)
     const requestData = {
       userID: userID,
       movieID: showID,
+      season: selectedSeason
     };
     const checkRentedResponse = await fetch(
       "http://localhost:5000/movie/rent/check",
@@ -293,20 +300,22 @@ console.log(selectedSeason)
     fetchRecommendations();
   }, [showID]);
 
+  const fetchInformation = async () => {
+    const checkFavouriteResponse = await checkFavorite(user._id, showID);
+    setIsFavourited(checkFavouriteResponse);
+
+    const checkRatedResponse = await checkRated(user._id, showID);      
+    setIsRated(checkRatedResponse.Rating_return.Rated);
+    setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
+  };
+
   useEffect(() => {
-    const fetchInformation = async () => {
-      const checkFavouriteResponse = await checkFavorite(user._id, showID);
-      setIsFavourited(checkFavouriteResponse);
-
-      const checkRatedResponse = await checkRated(user._id, showID);      
-      setIsRated(checkRatedResponse.Rating_return.Rated);
-      setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
-
-      
-    };
     fetchInformation();
   }, [showID, user._id]);
 
+  useEffect(() => {
+    fetchInformation();
+  }, [selectedSeason]);
 
   const handleFavouriteClick = () => {
     // Call the favourite function with the necessary values here

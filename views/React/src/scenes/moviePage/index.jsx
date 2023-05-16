@@ -76,7 +76,8 @@ const MoviePage = () => {
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "movie"
+      media_type: "movie",
+      season: 0
     };
 
     const method = isFavourited ? "DELETE" : "POST";
@@ -99,7 +100,8 @@ const MoviePage = () => {
       userID: userID,
       movieID: movieID,
       rating: rating,
-      media_type: "movie"
+      media_type: "movie",
+      season: 0
     };
 
     const method = isRated ? "PUT" : "POST";
@@ -122,7 +124,8 @@ const MoviePage = () => {
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "movie"
+      media_type: "movie",
+      season: 0
     };
     
     const removeRatingResponse = await fetch(
@@ -137,19 +140,16 @@ const MoviePage = () => {
      )
   }
 
-  const rent = async (userID, movieID) => {
-    const rentalBeginDate = new Date();
-    const rentalExpireDate = new Date(rentalBeginDate);
-    rentalExpireDate.setDate(rentalExpireDate.getDate() + 7);
-
+  const rent = async (userID, movieID, duration) => {
     const requestData = {
       userID: userID,
       movieID: movieID,
-      rentalBeginDate: rentalBeginDate,
-      rentalExpireDate: rentalExpireDate,
+      media_type: "movie",
+      Duration: duration,
+      season: 0
     };
 
-    const addRentResponse = await fetch("http://localhost:5000/movie/rent", {
+    const addRentResponse = await fetch("http://localhost:5000/api/rent/insert", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -166,7 +166,8 @@ const MoviePage = () => {
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "movie"
+      media_type: "movie",
+      season: 0
     };
   
     const url = new URL("http://localhost:5000/api/favourite/check");
@@ -185,7 +186,8 @@ const MoviePage = () => {
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "movie"
+      media_type: "movie",
+      season: 0
     };
 
     const url = new URL("http://localhost:5000/api/rate/check");
@@ -205,17 +207,21 @@ const MoviePage = () => {
     const requestData = {
       userID: userID,
       movieID: movieID,
+      media_type: "movie",
+      season: 0
     };
-    const checkRentedResponse = await fetch(
-      "http://localhost:5000/movie/rent/check",
+
+    const url = new URL("http://localhost:5000/api/rent/check");
+    url.search = new URLSearchParams(requestData).toString();
+
+    const checkRentedResponse = await fetch(url,
       {
-        method: "POST",
+        method: "GET",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData),
       }
     );
     const result = await checkRentedResponse.json();
-    return result.rented;
+    return result;
   };
 
   //FETCH MOVIE DETAIL
@@ -301,6 +307,9 @@ const MoviePage = () => {
       setIsRated(checkRatedResponse.Rating_return.Rated);
       setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
       
+      const checkRentedResponse = await checkRented(user._id, movieID);
+      setIsRented(checkRentedResponse.Rental_return.Rented);
+      console.log(checkRentedResponse);
     };
     fetchInformation();
   }, [user._id, movieID]);
