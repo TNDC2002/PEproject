@@ -228,6 +228,7 @@ console.log(selectedSeason)
       } catch (err) {
         console.error(err);
       }
+      setSelectedSeason(1);
     };
     fetchShowDetails();
   }, [showID]);
