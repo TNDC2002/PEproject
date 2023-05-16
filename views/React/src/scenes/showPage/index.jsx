@@ -64,10 +64,11 @@ const ShowPage = () => {
 
   const [seasonOptions , setSeasonOptions ] = useState(null);
 
-  const handleSeasonChange = (value) => {
-    setSelectedSeason(value);
-  }
-
+  const handleSeasonChange = (event) => {
+    const selectedSeasonValue = event.target.value;
+    setSelectedSeason(selectedSeasonValue);
+  };
+console.log(selectedSeason)
   
 
  
@@ -223,14 +224,15 @@ const ShowPage = () => {
         );
         const data = await response.json();
         setShow(data);
-        setSeasonOptions(Array.from({ length: data.seasons.length }, (_, index) => index + 1));
+        setSeasonOptions(Array.from({ length: data.seasons.length-1 }, (_, index) => index + 1));
       } catch (err) {
         console.error(err);
       }
     };
     fetchShowDetails();
   }, [showID]);
-  console.log(selectedSeasonData)
+  console.log(seasonOptions)
+  
 
   useEffect(() => {
     const fetchCredits = async () => {
@@ -300,19 +302,7 @@ const ShowPage = () => {
     fetchInformation();
   }, [showID, user._id]);
 
-  /*
-  useEffect(() => {
-    const updateSeason = async () => {
-      if (selectedSeasonData == null) {
-        setSelectedSeasonData(show.seasons[0])
-      } else(
-        setSelectedSeasonData(show.seasons[selectedSeason])
-      );
-      
-    }
-    updateSeason();
-  }, [selectedSeason]);
-*/
+
   const handleFavouriteClick = () => {
     // Call the favourite function with the necessary values here
     favourite(user._id, showID);
@@ -342,7 +332,7 @@ const ShowPage = () => {
   if (!show) {
     return <Loading />;
   }
-
+console.log(show.seasons)
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
 
@@ -451,18 +441,18 @@ const ShowPage = () => {
                   value={selectedSeason}
                   onChange={handleSeasonChange}
                 >
-                  /* {seasonOptions.map((optionValue) => (
-      <option key={optionValue} value={optionValue}>
-        {optionValue}
-      </option>
-    ))} */
+                  {seasonOptions.map((optionValue) => (
+                  <MenuItem key={optionValue} value={optionValue}>
+                    Season {optionValue}
+                  </MenuItem>
+                ))} 
                 </Select>
               </FormControl>
             </Box>
             <Typography variant="body1" sx={{ my: 0.5 }}>
-              <strong>Overview:</strong> {show.overview}
+              <strong>Overview:</strong> {show.seasons[selectedSeason].overview}
             </Typography>
-
+                    
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
