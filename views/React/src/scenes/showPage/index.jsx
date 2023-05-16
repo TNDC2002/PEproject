@@ -224,7 +224,11 @@ console.log(selectedSeason)
         );
         const data = await response.json();
         setShow(data);
+        if (data.seasons.length === 1) {
+          setSeasonOptions([1]);
+        } else {
         setSeasonOptions(Array.from({ length: data.seasons.length-1 }, (_, index) => index + 1));
+        }
       } catch (err) {
         console.error(err);
       }
@@ -450,10 +454,15 @@ console.log(show.seasons)
                 </Select>
               </FormControl>
             </Box>
-            <Typography variant="body1" sx={{ my: 0.5 }}>
-              <strong>Overview:</strong> {show.seasons[selectedSeason].overview}
-            </Typography>
-                    
+              <Typography variant="body1" sx={{ my: 0.5 }}>
+                {seasonOptions[0] === 1 ? (                
+                <div><strong>Overview: </strong> {show.overview}</div>
+                ) : (
+                  <div><strong>Overview: </strong>{show.seasons[selectedSeason].overview}</div>
+                )}
+              </Typography>
+
+            
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
