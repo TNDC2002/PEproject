@@ -3,8 +3,8 @@ import UserFavouriteMovie from "./UserFavouriteMovie_Schema.js";
 
 const GET_favourite = async (req) => {
     try {
-        const { userID, movieID, media_type } = req.query;
-        const Favourite = await UserFavouriteMovie.findOne({ userID: userID, movieID:movieID, media_type: media_type });
+        const { userID, movieID, media_type, season } = req.query;
+        const Favourite = await UserFavouriteMovie.findOne({ userID: userID, movieID:movieID, media_type: media_type, season: season });
         return { favorited: Favourite !== null };
     } catch (err) {
         return {
@@ -17,13 +17,13 @@ const GET_favourite = async (req) => {
 
 const POST_favourite = async (req) => {
     try {
-        const { userID, movieID, media_type } = req.body;
-        const Favourite = await UserFavouriteMovie.findOne({ userID: userID, movieID:movieID, media_type: media_type });
+        const { userID, movieID, media_type, season } = req.body;
 
         const newFavourite = new UserFavouriteMovie({
             userID: userID,
             movieID: movieID,
-            media_type: media_type
+            media_type: media_type,
+            season: season
         });
         newFavourite.save()
             .then(async () => {
@@ -52,11 +52,12 @@ const PUT_favourite= async (req) => {
 }
 const DELETE_favourite= async (req) => {
     try {
-        const { userID, movieID, media_type } = req.body
+        const { userID, movieID, media_type, season } = req.body
         let Favourited = {
             userID: userID,
             movieID: movieID,
-            media_type: media_type
+            media_type: media_type,
+            season: season
         }
         console.log("-----------------------------------------------")
         UserFavouriteMovie.findOneAndRemove(Favourited)
