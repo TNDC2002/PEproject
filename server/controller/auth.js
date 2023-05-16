@@ -175,7 +175,6 @@ const login = async (req, res) => {
             signed: true // Enable cookie signing
         };
         res.cookie('token', token, cookieOptions);
-        res.cookie('UUID', user._id, cookieOptions);
         res.status(200).json({ user });
     } catch (err) {
         console.log(err.message)
@@ -189,20 +188,17 @@ const logout = async (req, res) => {
 }
 const GetAUTH = async (req, res) => {
     try {
-        console.log("____________verify___________")
         let token = req.signedCookies.token;
-        if(!token) {
-            console.log("Access Denied")
-            return res.status(403).send("Access Denied");
+        let UUID = req.signedCookies.UUID
+        const user = await User.findOne({ _id: UUID });
+        const isMatch = await bcrypt.compare(token, user.token);
+        if(isMatch){
+            return res.status(200).json({ authenticated: true });
+        }else{
+            return res.status(200).json({ authenticated: false });
         }
-        if(token.startsWith("Bearer ")) {
-            token = token.slice(7, token.length).trimLeft();
-        }
-        console.log(token)
-        const verified = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = verified;
-        next();
-    } catch(err) {
+        
+    } catch (err) {
         console.log(err.message)
         res.status(500).json({ error: err.message });
     }
