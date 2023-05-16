@@ -6,9 +6,10 @@ import FlexBetween from "../../components/FlexBetween";
 import { useParams } from "react-router";
 import ShowDiscoveryCard from "./ShowDiscoveryCard";
 import Carousel from "./Carousel";
+import Loading from "../../components/Loading";
 
 const HomeList = () => {
-  const [discovery, setDiscovery] = useState();
+  const [discovery, setDiscovery] = useState(null);
   const [showDiscovery, setShowDiscovery] = useState(null);
   const [page, setPage] = useState(1);
   const [showPage, setShowPage] = useState(1);
@@ -29,7 +30,6 @@ const HomeList = () => {
     };
     fetchDiscovery();
   }, [page]);
-  
 
   const handlePrevPage = () => {
     setPage((prevPage) => prevPage - 1);
@@ -46,7 +46,7 @@ const HomeList = () => {
           `http://localhost:5000/movie/showDiscovery/${showPage}`
         );
         const data = await response.json();
-        if(data !== null){
+        if (data !== null) {
           setShowDiscovery(data);
         }
       } catch (err) {
@@ -64,10 +64,14 @@ const HomeList = () => {
     setShowPage((nextPage) => nextPage + 1);
   };
 
-  console.log(discovery);
+  if (discovery === null) {
+    return <Loading></Loading>;
+  }
+
+  console.log(discovery[0]);
   return (
     <div>
-      {discovery && discovery.length > 0 && <Carousel movie={discovery[0]} />}
+      <Carousel movie={discovery[0]} />
       <Box>
         <Box>
           <Typography
