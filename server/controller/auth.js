@@ -209,7 +209,8 @@ var output = {
     verified,
     login,
     logout,
-    register
+    register,
+    GetAUTH
 }
 
 export default output

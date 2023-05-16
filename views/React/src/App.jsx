@@ -15,8 +15,26 @@ import ShowPage from "./scenes/showPage";
 function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-  const isAuth = Boolean(useSelector((state) => state.user));
-
+  const isAuth = async () => {
+    const loggedInResponse = await fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+      credentials: 'include'
+    });
+    const loggedIn = await loggedInResponse.json();
+    onSubmitProps.resetForm();
+    if (loggedIn) {
+      dispatch(
+        setLogin({
+          user: loggedIn.user,
+        })
+      );
+      navigate("/home");
+    }
+  }
+  
+  
   return (
     <div className="app">
       <BrowserRouter>
