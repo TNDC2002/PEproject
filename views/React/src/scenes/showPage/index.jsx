@@ -59,8 +59,10 @@ const ShowPage = () => {
   const token = useSelector((state) => state.token);
   const theme = useTheme();
 
-  const [selectedSeason, setSelectedSeason] = useState(0);
+  const [selectedSeason, setSelectedSeason] = useState(1);
   const [selectedSeasonData, setSelectedSeasonData] = useState(null);
+
+  const [seasonOptions , setSeasonOptions ] = useState(null);
 
   const handleSeasonChange = (value) => {
     setSelectedSeason(value);
@@ -221,9 +223,8 @@ const ShowPage = () => {
         );
         const data = await response.json();
         setShow(data);
-        setSelectedSeasonData(data.seasons);
+        setSeasonOptions(Array.from({ length: data.seasons.length }, (_, index) => index + 1));
       } catch (err) {
-        console.log(showID);
         console.error(err);
       }
     };
@@ -450,11 +451,11 @@ const ShowPage = () => {
                   value={selectedSeason}
                   onChange={handleSeasonChange}
                 >
-                  {selectedSeasonData.map((season_number) => (
-                    <MenuItem key={selectedSeasonData.id} value={selectedSeasonData.season_number}>
-                      {season_number}
-                    </MenuItem>
-                  ))}
+                  /* {seasonOptions.map((optionValue) => (
+      <option key={optionValue} value={optionValue}>
+        {optionValue}
+      </option>
+    ))} */
                 </Select>
               </FormControl>
             </Box>
