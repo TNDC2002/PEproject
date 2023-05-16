@@ -5,6 +5,8 @@ import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import FlexBetween from "../../components/FlexBetween";
 import { useParams } from "react-router";
 import ShowDiscoveryCard from "./ShowDiscoveryCard";
+import Carousel from "./Carousel";
+import Loading from "../../components/Loading";
 
 const HomeList = () => {
   const [discovery, setDiscovery] = useState(null);
@@ -58,8 +60,13 @@ const HomeList = () => {
     setShowPage((nextPage) => nextPage + 1);
   };
 
+  if(discovery === null){
+    return <Loading/>
+  }
+
   return (
     <div>
+      <Carousel movie={discovery[Math.floor(Math.random() * discovery.length)]}/>
       <Box>
         <Box>
           <Typography

@@ -7,25 +7,11 @@ import { ArrowBackIos, ArrowForwardIos, KeyboardDoubleArrowDown, Campaign } from
 import { images } from './CarouselData';
 import imagee from '../../assets/images/Logo.png';
 
-export default function Carousel() {
+export default function Carousel({movie}) {
   const [currImg, setCurrImg] = useState(0);
-  const [featuredMovie, setFeaturedMovied] = useState();
 
-  const fetchFeatureMovieImage = async () => {
-    const fetchFeatureMovieImageResponse = await fetch(
-      "http://localhost:5000/movie/featureImage", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    });
 
-    const result = await fetchFeatureMovieImageResponse.json();
-    setFeaturedMovied(result);
-  }
-
-  useEffect(() => {
-    fetchFeatureMovieImage();
-  }, []);
-
+  const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   return (
     <Box sx={{ height:"90vh", width:"100vw", backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
       <Box className="carouselInner" sx={{ backgroundColor: 'black', height: '100%', width: '100%', display: 'flex'}}>
@@ -55,7 +41,7 @@ export default function Carousel() {
             color: 'black',
           }}>Latest Movie</Typography>
         </Box>
-        <Image display='block' fit='cover' position='center' width='100%' height='100%' src={imagee}/>
+        <Image display='block' fit='cover' position='center' width='100%' height='100%' src={imageUrl}/>
         <Box className='discover' 
         onClick={() => {
           window.scrollTo(0, 650);

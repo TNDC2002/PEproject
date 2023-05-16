@@ -10,7 +10,6 @@ const HomePage = () => {
   return (
     <div>
       <Navbar />
-      <Carousel />
       <HomeList />
     </div>
   );
