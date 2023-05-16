@@ -157,11 +157,11 @@ const login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." })
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-        // const salt = await bcrypt.genSalt();
-        // const tokenHash = await bcrypt.hash(token, salt);
+        const salt = await bcrypt.genSalt();
+        const tokenHash = await bcrypt.hash(token, salt);
         //save token to DB
-        let update = await User.findOneAndUpdate({ email: email },{
-            token:token
+        let update = await User.findOneAndUpdate({ _id: user._id },{
+            token:tokenHash
         })
         .then((update)=>{ console.log(update)})
         .catch((error) => {
@@ -175,6 +175,7 @@ const login = async (req, res) => {
             signed: true // Enable cookie signing
         };
         res.cookie('token', token, cookieOptions);
+        res.cookie('UUID', user._id, cookieOptions);
         res.status(200).json({ user });
     } catch (err) {
         console.log(err.message)
