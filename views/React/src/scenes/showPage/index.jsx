@@ -20,7 +20,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Rating
+  Rating,
+  Menu
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
@@ -57,6 +58,17 @@ const ShowPage = () => {
 
   const token = useSelector((state) => state.token);
   const theme = useTheme();
+
+  const [selectedSeason, setSelectedSeason] = useState(0);
+  const [selectedSeasonData, setSelectedSeasonData] = useState(null);
+
+  const handleSeasonChange = (value) => {
+    setSelectedSeason(value);
+  }
+
+  
+
+ 
 
   const favourite = async (userID, movieID) => {
     const requestData = {
@@ -209,6 +221,7 @@ const ShowPage = () => {
         );
         const data = await response.json();
         setShow(data);
+        setSelectedSeasonData(data.seasons);
       } catch (err) {
         console.log(showID);
         console.error(err);
@@ -216,6 +229,7 @@ const ShowPage = () => {
     };
     fetchShowDetails();
   }, [showID]);
+  console.log(selectedSeasonData)
 
   useEffect(() => {
     const fetchCredits = async () => {
@@ -279,10 +293,25 @@ const ShowPage = () => {
       const checkRatedResponse = await checkRated(user._id, showID);      
       setIsRated(checkRatedResponse.Rating_return.Rated);
       setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
+
+      
     };
     fetchInformation();
   }, [showID, user._id]);
 
+  /*
+  useEffect(() => {
+    const updateSeason = async () => {
+      if (selectedSeasonData == null) {
+        setSelectedSeasonData(show.seasons[0])
+      } else(
+        setSelectedSeasonData(show.seasons[selectedSeason])
+      );
+      
+    }
+    updateSeason();
+  }, [selectedSeason]);
+*/
   const handleFavouriteClick = () => {
     // Call the favourite function with the necessary values here
     favourite(user._id, showID);
@@ -415,15 +444,17 @@ const ShowPage = () => {
             
             <Box >
               <FormControl >
-                <InputLabel id="demo-simple-select-label">Season</InputLabel>
+                <InputLabel >Season</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
                   label="Season"
+                  value={selectedSeason}
+                  onChange={handleSeasonChange}
                 >
-                  <MenuItem value={10}>Season 1</MenuItem>
-                  <MenuItem value={20}>Season 2</MenuItem>
-                  <MenuItem value={30}>Season 3</MenuItem>
+                  {selectedSeasonData.map((season_number) => (
+                    <MenuItem key={selectedSeasonData.id} value={selectedSeasonData.season_number}>
+                      {season_number}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Box>
