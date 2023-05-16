@@ -157,15 +157,13 @@ const login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." })
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-        const salt = await bcrypt.genSalt();
-        const tokenHash = await bcrypt.hash(token, salt);
+        // const salt = await bcrypt.genSalt();
+        // const tokenHash = await bcrypt.hash(token, salt);
         //save token to DB
-        let update = await User.findOneAndUpdate({
-            userID: user.userID
-        },{
-            token:tokenHash
+        let update = await User.findOneAndUpdate({ email: email },{
+            token:token
         })
-        .then(()=>{})
+        .then((update)=>{ console.log(update)})
         .catch((error) => {
             console.log("ERROR --- Auth.js --- can't UPDATE token to DB")
         })
