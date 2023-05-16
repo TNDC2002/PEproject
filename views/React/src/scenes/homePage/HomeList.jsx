@@ -68,7 +68,6 @@ const HomeList = () => {
     return <Loading></Loading>;
   }
 
-  console.log(discovery[0]);
   return (
     <div>
       <Carousel movie={discovery[0]} />

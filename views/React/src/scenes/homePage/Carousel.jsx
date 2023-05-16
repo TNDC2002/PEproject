@@ -10,13 +10,12 @@ import {
 } from "@mui/icons-material";
 
 import { images } from "./CarouselData";
-import imagee from "../../assets/images/Logo.png";
 
 export default function Carousel({ movie }) {
   const [currImg, setCurrImg] = useState(0);
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-  console.log(movie);
+
   return (
     <Box
       sx={{
