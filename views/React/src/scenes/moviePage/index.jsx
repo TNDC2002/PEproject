@@ -20,7 +20,14 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Rating
+  Rating,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  CardHeader,
+  CardContent,
+  Card
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
@@ -49,10 +56,21 @@ const MoviePage = () => {
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
-  const [isRented, setIsRented] = useState(false);
   const [isRated, setIsRated] = useState(false);
+  const [isRented, setIsRented] = useState(false);
   const token = useSelector((state) => state.token);
   const theme = useTheme();
+
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+ 
 
   const favourite = async (userID, movieID) => {
     const requestData = {
@@ -140,6 +158,9 @@ const MoviePage = () => {
       body: JSON.stringify(requestData),
     });
   };
+
+  
+
 
   const checkFavorite = async (userID, movieID) => {
     const requestData = {
@@ -488,8 +509,92 @@ const MoviePage = () => {
               onChange={(event, rateValue) => handleRateClick(rateValue)}
               sx={{fontSize:"30px"}}
             ></Rating>
+
+            
+                <Button
+                  variant="contained"
+                  onClick={handleOpen}
+                >
+                  View Pricing Plan
+                </Button>
+
+                <Dialog open={open} onClose={handleClose}>
+                  <DialogTitle>Pricing Plan</DialogTitle>
+                  <DialogContent>
+                    <Container maxWidth="lg">
+                      <Box py={8} textAlign="center">
+                        <Box mb={3}>
+                          <Container maxWidth="lg">
+                            <Typography variant="h3" component="span">Pricing Plan</Typography>
+                          </Container>
+                        </Box>
+                        <Grid container spacing={3}>
+                          <Grid item xs={12} md={4}>
+                            <Card variant="outlined">
+                              <CardHeader title="1-Week Plan" ></CardHeader>
+                              <CardContent>
+                                <Box px={1}>
+                                  <Typography variant="h3" component="h2" gutterBottom={true}>
+                                    100 SD
+                                    <Typography variant="h6"  component="span">/week</Typography>
+                                  </Typography>
+                                  <Typography variant="subtitle1" component="p">1080p Quality</Typography>
+                                  <Typography variant="subtitle1" component="p">Limited movies & TV shows</Typography>
+                                </Box>
+                                <Button variant="contained" >Smash</Button>
+                              </CardContent>
+                            </Card>
+                          </Grid>
+
+                          <Grid item xs={12} md={4}>
+                          <Card variant="outlined">
+                              <CardHeader title="1-Month Plan"></CardHeader>
+                              <CardContent>
+                                <Box px={1}>
+                                  <Typography variant="h3" component="h2" gutterBottom={true}>
+                                    1000 SD
+                                    <Typography variant="h6"  component="span">/month</Typography>
+                                  </Typography>
+                                  <Typography variant="subtitle1" component="p">4k Quality</Typography>
+                                  <Typography variant="subtitle1" component="p">Limited movies & TV shows</Typography>
+
+                                </Box>
+                                <Button variant="contained">Smash</Button>
+                              </CardContent>
+                            </Card>
+                          </Grid>
+
+                          <Grid item xs={12} md={4}>
+                          <Card variant="outlined">
+                              <CardHeader title="1-Year Plan"></CardHeader>
+                              <CardContent>
+                                <Box px={1}>
+                                  <Typography variant="h3" component="h2" gutterBottom={true}>
+                                    10000 SD
+                                    <Typography variant="h6"  component="span">/year</Typography>
+                                  </Typography>
+                                  <Typography variant="subtitle1" component="p">4k+ Quality</Typography>
+                                  <Typography variant="subtitle1" component="p">Unlimited movies & TV shows</Typography>
+                                  <Typography variant="subtitle1" component="p">Cancle anytime</Typography>
+
+                                </Box>
+                                <Button variant="contained">Smash</Button>
+                              </CardContent>
+                            </Card>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Container>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button variant="contained" onClick={handleClose}>Close</Button>
+                  </DialogActions>
+                </Dialog>
+
+
           </Grid>
         </Grid>
+
         <Box sx={{}}>
           {recommendations && (
             <Box>
