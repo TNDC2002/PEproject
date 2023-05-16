@@ -16,23 +16,14 @@ function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isAuth = async () => {
-    const loggedInResponse = await fetch("http://localhost:5000/auth/login", {
-      method: "POST",
+    const loggedInResponse = await fetch("http://localhost:5000/auth/info", {
+      method: "Get",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
       credentials: 'include'
     });
     const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
-    if (loggedIn) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user,
-        })
-      );
-      navigate("/home");
-    }
-  }
+    return (loggedIn.authenticated)
+  };
   
   
   return (
@@ -44,23 +35,23 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route
               path="/home"
-              element={isAuth ? <HomePage /> : <Navigate to="/" />}
+              element={isAuth ? <HomePage /> : <Navigate to="/" replace />}
             />
             <Route
               path="/movie/:movieID"
-              element={isAuth ? <MoviePage /> : <Navigate to="/" />}
+              element={isAuth ? <MoviePage /> : <Navigate to="/" replace />}
             />
             <Route
               path="/TV Shows"
-              element={isAuth ? <TvPage /> : <Navigate to="/" />}
+              element={isAuth ? <TvPage /> : <Navigate to="/" replace />}
             />
             <Route
               path="/TV Shows/:showID"
-              element={isAuth ? <ShowPage /> : <Navigate to="/" />}
+              element={isAuth ? <ShowPage /> : <Navigate to="/" replace />}
             />
             <Route
               path="/profile/:userID"
-              element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+              element={isAuth ? <ProfilePage /> : <Navigate to="/" replace />}
             />
           </Routes>
         </ThemeProvider>
