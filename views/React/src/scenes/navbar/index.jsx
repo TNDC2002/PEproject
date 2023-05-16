@@ -87,7 +87,10 @@ const Navbar = ({}) => {
     const firstName =`${user.firstName}`;
     const email = `${user.email}`;
     const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
-    
+    const handleLogout = () => {
+        navigate("/");
+        dispatch(setLogout());
+      };
     return (
         <AppBar sx={{ 
             top: "0",
@@ -282,7 +285,7 @@ const Navbar = ({}) => {
                                     <Typography padding="0.25rem 1rem">Help</Typography>
                                 </MenuItem>
                                 <Divider />
-                                <MenuItem onClick={()=> dispatch(setLogout())}>
+                                <MenuItem onClick={handleLogout}>
                                     <Logout/>
                                     <Typography padding="0.25rem 1rem">Logout</Typography>
                                 </MenuItem>

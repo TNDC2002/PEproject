@@ -10,11 +10,11 @@ const deleteCookie = async () => {
     const requestData = {
     };
     const addFavouriteResponse = await fetch(
-      "http://localhost:5000/auth/logout",
-      {
-        method: "GET",
-        credentials: 'include'
-      }
+        "http://localhost:5000/auth/logout",
+        {
+            method: "GET",
+            credentials: 'include'
+        }
     );
 };
 
@@ -34,7 +34,8 @@ export const authSlice = createSlice({
         setLogout: (state) => {
             state.user = null;
             deleteCookie('token');
-            useNavigate('/')
+            const history = useHistory();
+            history.push("/");
         },
 
         updateUser: (state, action) => {
