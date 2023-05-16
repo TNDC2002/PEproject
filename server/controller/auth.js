@@ -173,7 +173,8 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    res.clearCookie("token").redirect('/');
+    res.clearCookie("token");
+    res.status(200).send("deleted");
 }
 
 var output = {

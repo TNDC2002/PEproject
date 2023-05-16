@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { useNavigate } from 'react-router-dom';
 const initialState = {
     mode: "dark",
     user: null,
@@ -34,7 +34,7 @@ export const authSlice = createSlice({
         setLogout: (state) => {
             state.user = null;
             deleteCookie('token');
-
+            useNavigate('/')
         },
 
         updateUser: (state, action) => {
