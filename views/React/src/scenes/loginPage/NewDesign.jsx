@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { sizing } from "@mui/system";
 
 import {
   Box,
@@ -20,13 +20,13 @@ import {
 import AppRegistrationTwoToneIcon from "@mui/icons-material/AppRegistrationTwoTone";
 import LoginIcon from "@mui/icons-material/Login";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-
+import { styled } from "@mui/material/styles";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Image from "../../assets/images/background.png";
 import Card from "../../assets/images/SmashBruh.png";
 
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import { useFormik } from "formik";
+import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -34,59 +34,91 @@ import { setMode, setLogin } from "../../states";
 import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
 
-const RegisterSchema = yup.object().shape({
-  firstName: yup.string().required("First name is required"),
-  lastName: yup.string().required("Last name is required"),
-});
-
-const PictureSchema = yup.object().shape({
-  picture: yup.string().required("Profile picture is required"),
-});
-
-const AccountSchema = yup.object().shape({
+const registerSchema = yup.object().shape({
+  firstName: yup.string().required("required"),
+  lastName: yup.string().required("required"),
   email: yup
     .string()
-    .email("Invalid email")
-    .required("Email is required"),
-  password: yup.string().required("Password is required"),
-});
-
-const CombineRegisterSchema = yup.object().shape({
-  ...RegisterSchema.fields,
-  ...PictureSchema.fields,
-  ...AccountSchema.fields,
+    .email("invalid email")
+    .required("required"),
+  password: yup.string().required("required"),
+  picture: yup.string().required("required"),
 });
 
 const loginSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email("invalid email")
-      .required("required"),
-    password: yup.string().required("required"),
-  });
+  email: yup
+    .string()
+    .email("invalid email")
+    .required("required"),
+  password: yup.string().required("required"),
+});
+
+const initialValuesRegister = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  picture: "",
+};
+
+const initialValuesLogin = {
+  email: "",
+  password: "",
+};
 
 const theme = createTheme({
-    components: {
-      MuiTextField: {
-        styleOverrides: {
-          root: {
-            "& .MuiInputBase-input": {
-              color: "black",
-            },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiInputBase-input": {
+            color: "black",
           },
         },
       },
     },
-  });
+  },
+});
 
-
+const SignInButton = ({ image, size = "100%" }) => {
+  return (
+    <Button
+      type="submit"
+      fullWidth
+      variant="contained"
+      sx={{
+        backgroundColor: "#B3005E",
+        color: "black",
+        borderRadius: "40em",
+        fontSize: "17px",
+        fontWeight: 600,
+        padding: "1em 2em",
+        cursor: "pointer",
+        transition: "all 0.3s ease-in-out",
+        border: "1px solid black",
+        boxShadow: "0 0 0 0 black",
+        "&:hover": {
+          transform: "translateY(-4px) translateX(-2px)",
+          boxShadow: "2px 5px 0 0 black",
+          backgroundColor: "#E90064",
+        },
+        "&:active": {
+          transform: "translateY(2px) translateX(1px)",
+          boxShadow: "0 0 0 0 black",
+        },
+      }}
+    >
+      <Typography style={{ color: "whitesmoke" }} fontSize={15}>
+        Sign in
+      </Typography>
+    </Button>
+  );
+};
 
 const NewDesign = () => {
   const [pageType, setPageType] = useState("login");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [page, setPage] = useState(0);
 
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
@@ -135,206 +167,217 @@ const NewDesign = () => {
     }
   };
 
-  
-  const {
-    values,
-    isSubmitting,
-    touched,
-    errors,
-    handleChange,
-    handleBlur,
-    setFieldValue,
-    resetForm,
-    handleSubmit
-    
-
-  } = useFormik({
-
-    onSubmit: async (values, onSubmitProps) => {
-        if (isLogin) await login(values, onSubmitProps);
-        if (!isLogin) await register(values, onSubmitProps);
-      },
-    initialValues: isLogin 
-    ? { email: "", password: "" } 
-    : { firstName: "", lastName: "", email: "", password: "", picture: "" },
-  validationSchema: isLogin ? loginSchema : CombineRegisterSchema
-  });
-
-  console.log(values);
-  console.log(errors);
-
-  
+  const handleFormSubmit = async (values, onSubmitProps) => {
+    if (isLogin) await login(values, onSubmitProps);
+    if (isRegister) await register(values, onSubmitProps);
+  };
 
   return (
-    <form onSubmit={handleSubmit} >
-      <Container
-        maxWidth={false}
-        sx={{
-          backgroundImage: `url(${Image})`,
-          backgroundColor: (t) =>
-            t.palette.mode === "light"
-              ? t.palette.grey[50]
-              : t.palette.grey[900],
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <Container>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="100vh"
+    <Formik
+      onSubmit={handleFormSubmit}
+      initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
+      validationSchema={isLogin ? loginSchema : registerSchema}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        setFieldValue,
+        resetForm,
+      }) => (
+        <form onSubmit={handleSubmit}>
+          <Container
+            maxWidth={false}
+            sx={{
+              backgroundImage: `url(${Image})`,
+              backgroundColor: (t) =>
+                t.palette.mode === "light"
+                  ? t.palette.grey[50]
+                  : t.palette.grey[900],
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
           >
-            <Grid container justifyContent="center">
-              <CssBaseline />
-
-              <Grid
-                item
-                xs={12}
-                sm={8}
-                md={5}
-                component={Paper}
-                elevation={6}
-                square
-                sx={{
-                  height: "100%",
-                  backgroundColor: "whitesmoke",
-                  opacity: "0.9",
-                }}
-                color="black"
+            <Container>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="100vh"
               >
-                <Box
+                <Grid
+                  container
+                  justifyContent="center"
+                  width="90%"
                   sx={{
-                    height: "100%",
-
-                    my: 10,
-                    mx: 4,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
+                    transition: "all 0.3s ease-in-out",
+                    "&:hover": {
+                      transform: "translateY(-4px) translateX(-2px)",
+                      boxShadow: "2px 5px 0 0 black",
+                      backgroundColor: "#E90064",
+                    },
                   }}
                 >
-                  <Stack direction="row" spacing={0} justifyContent="center">
-                    <Typography style={{ color: "#B3005E" }} fontSize={40}>
-                      Smash
-                    </Typography>
+                  <CssBaseline />
 
-                    <Typography style={{ color: "#060047" }} fontSize={40}>
-                      Bruh
-                    </Typography>
-                  </Stack>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={8}
+                    md={6}
+                    component={Paper}
+                    elevation={6}
+                    square
+                    sx={{
+                      height: "100%",
 
-                  <Stack direction="row" spacing={8} justifyContent="center">
-                    <Button
-                      startIcon={<LoginIcon />}
-                      variant="text"
-                      style={{
-                        maxWidth: "200px",
-                        maxHeight: "50px",
-                        minWidth: "30px",
-                        minHeight: "30px",
-                      }}
-                      onClick={() => {
-                        setPageType("login");
-                        resetForm();
-                      }}
+                      backgroundColor: "whitesmoke",
+                      opacity: "0.9",
+                    }}
+                    color="black"
+                  >
+                    <Box
                       sx={{
-                        height: 70,
-                        color: "#B3005E",
+                        height: "100%",
+
+                        my: 10,
+                        mx: 4,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
                       }}
                     >
-                      {isLogin ? (
-                        <Typography
-                          sx={{
-                            color: "#B3005E",
-                            textDecoration: "underline",
-                            "&:hover": {
-                              textDecoration: "underline black",
-                            },
-                          }}
-                          display="inline"
-                          style={{ color: "#B3005E" }}
-                          fontSize={20}
-                        >
-                          Sign in
+                      <Stack
+                        direction="row"
+                        spacing={0}
+                        justifyContent="center"
+                      >
+                        <Typography style={{ color: "#B3005E" }} fontSize={40}>
+                          Smash
                         </Typography>
-                      ) : (
-                        <Typography
-                          sx={{
-                            color: "#B3005E",
 
-                            "&:hover": {
-                              textDecoration: "underline black",
-                            },
-                          }}
-                          display="inline"
-                          style={{ color: "#B3005E" }}
-                          fontSize={20}
-                        >
-                          Sign in
+                        <Typography style={{ color: "#060047" }} fontSize={40}>
+                          Bruh
                         </Typography>
-                      )}
-                    </Button>
+                      </Stack>
 
-                    <Button
-                      startIcon={<AppRegistrationTwoToneIcon />}
-                      variant="text"
-                      style={{
-                        maxWidth: "200px",
-                        maxHeight: "50px",
-                        minWidth: "30px",
-                        minHeight: "30px",
-                      }}
-                      onClick={() => {
-                        setPageType("register");
-                        resetForm();
-                      }}
-                      sx={{
-                        height: 70,
-                        color: "#B3005E",
-                        "&:hover": {
-                          backgroundColor: "whitesmoke",
-                          color: "black",
-                        },
-                      }}
-                    >
-                      {isLogin ? (
-                        <Typography
+                      <Stack
+                        direction="row"
+                        spacing={8}
+                        justifyContent="center"
+                      >
+                        <Button
+                          startIcon={<LoginIcon />}
+                          variant="text"
+                          style={{
+                            maxWidth: "200px",
+                            maxHeight: "50px",
+                            minWidth: "30px",
+                            minHeight: "30px",
+                          }}
+                          onClick={() => {
+                            setPageType("login");
+                            resetForm();
+                          }}
                           sx={{
+                            height: 70,
                             color: "#B3005E",
+                          }}
+                        >
+                          {isLogin ? (
+                            <Typography
+                              sx={{
+                                color: "#B3005E",
+                                textDecoration: "underline",
+                                "&:hover": {
+                                  textDecoration: "underline black",
+                                },
+                              }}
+                              display="inline"
+                              style={{ color: "#B3005E" }}
+                              fontSize={20}
+                            >
+                              Sign in
+                            </Typography>
+                          ) : (
+                            <Typography
+                              sx={{
+                                color: "#B3005E",
 
-                            "&:hover": {
-                              textDecoration: "underline black",
-                            },
+                                "&:hover": {
+                                  textDecoration: "underline black",
+                                },
+                              }}
+                              display="inline"
+                              style={{ color: "#B3005E" }}
+                              fontSize={20}
+                            >
+                              Sign in
+                            </Typography>
+                          )}
+                        </Button>
+
+                        <Button
+                          startIcon={<AppRegistrationTwoToneIcon />}
+                          variant="text"
+                          style={{
+                            maxWidth: "200px",
+                            maxHeight: "50px",
+                            minWidth: "30px",
+                            minHeight: "30px",
                           }}
-                          display="inline"
-                          style={{ color: "#B3005E" }}
-                          fontSize={20}
-                        >
-                          Registrate
-                        </Typography>
-                      ) : (
-                        <Typography
+                          onClick={() => {
+                            setPageType("register");
+                            resetForm();
+                          }}
                           sx={{
+                            height: 70,
                             color: "#B3005E",
-                            textDecoration: "underline",
                             "&:hover": {
-                              textDecoration: "underline black",
+                              backgroundColor: "whitesmoke",
+                              color: "black",
                             },
                           }}
-                          display="inline"
-                          style={{ color: "#B3005E" }}
-                          fontSize={20}
                         >
-                          Registrate
-                        </Typography>
-                      )}
-                    </Button>
-                    
-                  </Stack>
-                  <ThemeProvider theme={theme}>
-                  {isRegister ? (
+                          {isLogin ? (
+                            <Typography
+                              sx={{
+                                color: "#B3005E",
+
+                                "&:hover": {
+                                  textDecoration: "underline black",
+                                },
+                              }}
+                              display="inline"
+                              style={{ color: "#B3005E" }}
+                              fontSize={20}
+                            >
+                              Registrate
+                            </Typography>
+                          ) : (
+                            <Typography
+                              sx={{
+                                color: "#B3005E",
+                                textDecoration: "underline",
+                                "&:hover": {
+                                  textDecoration: "underline black",
+                                },
+                              }}
+                              display="inline"
+                              style={{ color: "#B3005E" }}
+                              fontSize={20}
+                            >
+                              Registrate
+                            </Typography>
+                          )}
+                        </Button>
+                      </Stack>
+
+                      <ThemeProvider theme={theme}>
+                        {isRegister ? (
                           <Box>
                             <Typography fontSize={18} color="#B3005E">
                               What is your name?
@@ -343,7 +386,7 @@ const NewDesign = () => {
                               label="First Name"
                               onBlur={handleBlur}
                               onChange={handleChange}
-                              value={values.firstName || ""}
+                              value={values.firstName}
                               name="firstName"
                               error={
                                 Boolean(touched.firstName) &&
@@ -360,10 +403,10 @@ const NewDesign = () => {
                               label="Last Name"
                               onBlur={handleBlur}
                               onChange={handleChange}
-                              value={values.lastName || ""}
+                              value={values.lastName}
                               name="lastName"
                               error={
-                                Boolean(touched.lastName) &&
+                                Boolean(touched.lastName) &
                                 Boolean(errors.lastName)
                               }
                               helperText={touched.lastName && errors.lastName}
@@ -404,7 +447,16 @@ const NewDesign = () => {
                                 Boolean(touched.email) && Boolean(errors.email)
                               }
                               helperText={touched.email && errors.email}
-                              sx={{ gridColumn: "span 4" }}
+                              sx={{
+                                gridColumn: "span 4",
+                                transition: "all 0.3s ease-in-out",
+                                "&:hover": {
+                                  transform:
+                                    "translateY(-4px) translateX(-2px)",
+                                  boxShadow: "2px 5px 0 0 black",
+                                  backgroundColor: "#E90064",
+                                },
+                              }}
                               margin="normal"
                               required
                               fullWidth
@@ -421,7 +473,16 @@ const NewDesign = () => {
                                 Boolean(errors.password)
                               }
                               helperText={touched.password && errors.password}
-                              sx={{ gridColumn: "span 4" }}
+                              sx={{
+                                gridColumn: "span 4",
+                                transition: "all 0.3s ease-in-out",
+                                "&:hover": {
+                                  transform:
+                                    "translateY(-4px) translateX(-2px)",
+                                  boxShadow: "2px 5px 0 0 black",
+                                  backgroundColor: "#E90064",
+                                },
+                              }}
                               margin="normal"
                               required
                               fullWidth
@@ -433,19 +494,7 @@ const NewDesign = () => {
                               }
                               label="Remember me"
                             />
-                            <Button
-                              type="submit"
-                              fullWidth
-                              variant="contained"
-                              sx={{ height: 40, mt: 3, mb: 2 }}
-                            >
-                              <Typography
-                                style={{ color: "whitesmoke" }}
-                                fontSize={15}
-                              >
-                                Sign in
-                              </Typography>
-                            </Button>
+                            <SignInButton></SignInButton>
                           </Box>
                         ) : picRegister ? (
                           <Box maxWidth="100%" width="100%" px={2}>
@@ -524,7 +573,7 @@ const NewDesign = () => {
                                   setPageType("register");
                                 }}
                               >
-                                Previous step
+                                Last step
                               </Button>
                               <Button
                                 variant="text"
@@ -590,10 +639,9 @@ const NewDesign = () => {
                                   setPageType("picRegister");
                                 }}
                               >
-                                Previous step
+                                Last step
                               </Button>
                               <Button
-                                disabled={isSubmitting}
                                 variant="text"
                                 type="submit"
                                 endIcon={<NavigateNextIcon />}
@@ -601,38 +649,44 @@ const NewDesign = () => {
                                   height: 70,
                                   color: "#B3005E",
                                 }}
+                                onClick={() => {
+                                  handleSubmit();
+                                  resetForm();
+                                  setPageType("login");
+                                }}
                               >
                                 Finish registration
                               </Button>
                             </Box>
                           </Box>
                         )}
-
-                  
-                  </ThemeProvider>
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={false}
-                sm={4}
-                md={6}
-                sx={{
-                  backgroundImage: `url(${Card})`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundColor: (t) =>
-                    t.palette.mode === "light"
-                      ? t.palette.grey[50]
-                      : t.palette.grey[900],
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              />
-            </Grid>
-          </Box>
-        </Container>
-      </Container>
-    </form>
+                      </ThemeProvider>
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={false}
+                    sm={4}
+                    md={6}
+                    sx={{
+                      backgroundImage: `url(${Card})`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundColor: (t) =>
+                        t.palette.mode === "light"
+                          ? t.palette.grey[50]
+                          : t.palette.grey[900],
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  />
+                </Grid>
+              </Box>
+            </Container>
+          </Container>
+        </form>
+      )}
+    </Formik>
   );
 };
+
 export default NewDesign;
