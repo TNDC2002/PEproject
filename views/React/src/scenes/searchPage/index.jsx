@@ -108,36 +108,25 @@ const SearchPage = () => {
                 {movie.title}
               </Typography>
 
-              <Button variant="contained" sx={{ mx: 0.5 }}>
-                <strong>IMDB:</strong> {movie.vote_average}
-              </Button>
-
-              <Typography variant="body1" sx={{ my: 0.5 }}>
+              <Typography variant="h5" sx={{ my: 0.5 }}>
                 <strong>Overview:</strong> {movie.overview}
               </Typography>
 
-              <Typography variant="body1" sx={{ my: 0.5 }}>
+              <Typography variant="h5" sx={{ my: 0.5 }}>
                 <strong>Popularity:</strong> {movie.popularity}
               </Typography>
 
-              <Typography variant="body1" sx={{ my: 0.5 }}>
+              <Typography variant="h5" sx={{ my: 0.5 }}>
                 <strong>Release Date:</strong> {movie.release_date}
               </Typography>
 
-              <Typography variant="body1" sx={{ my: 0.5 }}>
+              <Typography variant="h5" sx={{ my: 0.5 }}>
                 <strong>Vote Average:</strong> {movie.vote_average}
               </Typography>
 
-              <Typography variant="body1" sx={{ my: 0.5 }}>
+              <Typography variant="h5" sx={{ my: 0.5 }}>
                 <strong>Vote Count:</strong> {movie.vote_count}
               </Typography>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
-                  <Typography variant="body1" sx={{ my: 0.5 }}>
-                    <strong>Release Date:</strong> {movie.release_date}
-                  </Typography>
-                </Grid>
-              </Grid>
             </Grid>
           </Grid>
         ))}
