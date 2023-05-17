@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Navbar from "../navbar/index.jsx";
 import Loading from "../../components/Loading";
-
+import { useNavigate } from "react-router-dom";
 const SearchPage = () => {
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -46,6 +47,10 @@ const SearchPage = () => {
     fetchSearchResult(query);
   }, [query]);
 
+  if (!result) {
+    return <Loading />;
+  }
+
   if (result.length === 0) {
     return (
       <div>
@@ -67,6 +72,13 @@ const SearchPage = () => {
                 : "https://via.placeholder.com/500x300.png?text=No+Image"
             }
             alt={movie.label}
+            onClick={() => {
+              if (movie.media_type === "movie") {
+                navigate(`/movie/${movie.id}`);
+              } else {
+                navigate(`/TV Shows/${movie.id}`);
+              }
+            }}
           />
           <p>{movie.label}</p>
         </div>
