@@ -1,10 +1,11 @@
 import Ava from "../../assets/image/bob.png";
-import accountCard from "../../assets/image/accountBox.png";
-import movieCard from "../../assets/image/movieBox.png";
-import BackgroundImage from "../../assets/image/profileCover2.jpg";
+
+
+import BotBackgroundImage from "../../assets/image/profileCoverBot2.png";
+import ProfileBehind from "../../assets/image/ProfileBehind.png";
 import { keyframes } from "@emotion/react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import StarAnimation from "./StarAnimation";
 import EditIcon from "@mui/icons-material/Edit";
 import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik";
@@ -52,34 +53,24 @@ const Avatar = ({ image, size = "100%" }) => {
   );
 };
 
-const CoverImage = ({ image }) => {
-  return (
-    <img
-      style={{
-        objectFit: "cover",
-        objectPosition: "center top",
-        width: "100%",
-        height: "100%",
-      }}
-      src={`${image}`}
-      alt=""
-    />
-  );
-};
+
 
 const MainProfile = styled(Box)({
   height: "100vh",
   width: "100vw",
-  background: "lightgray",
-  overflowX: Hidden,
+  backgroundImage: `url(${ProfileBehind})`,
+  backgroundColor: "black",
+  overflowX: "Hidden",
+  
 });
 
 const ProfileContainer = styled(Box)({
   height: "100vh",
   width: "90%",
-  background: "#060047",
+  
   marginLeft: "5%",
   marginRight: "5%",
+ 
 });
 
 const TopPortion = styled(Box)({
@@ -91,7 +82,7 @@ const TopPortion = styled(Box)({
 const Background = styled(Box)({
   height: "80%",
   width: "100%",
-  background: "cyan",
+  background: "#B3005E",
   overflow: Hidden,
 });
 
@@ -436,17 +427,31 @@ const NewDesign = () => {
       {({ handleChange, handleSubmit, handleBlur }) => (
         <form onSubmit={handleSubmit}>
           <ThemeProvider theme={theme}>
-            <MainProfile>
+          
+              <MainProfile>
               <ProfileContainer>
+              <StarAnimation></StarAnimation>
+              <Box sx={{
+        
+        backgroundImage: `url(${BotBackgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100%",
+        
+      }}> 
                 <TopPortion>
-                  <Background>
-                    <CoverImage image={BackgroundImage}></CoverImage>
+                  <Background  sx={{background: "rgb(6,0,71)",
+background: "linear-gradient(0deg, rgba(6,0,71,1) 0%, rgba(179,0,94,1) 100%)",}}>
+                 
+                  
+                    
                   </Background>
                   <UserImage>
                     <Avatar image={Ava}></Avatar>
                   </UserImage>
                 </TopPortion>
-                <Stack
+                  
+                <Stack 
                   direction={"row"}
                   style={{
                     marginLeft: "50px",
@@ -458,12 +463,12 @@ const NewDesign = () => {
                   {editMode ? (
                     <SaveButton
                       onClick={() => handleSaveClick(values, onSubmitProps)}
-                      sx={{ top: "-10px" }}
+                      
                     />
                   ) : (
                     <EditButton
                       onClick={handleEditIconClick}
-                      sx={{ top: "-100px" }}
+                      
                     ></EditButton>
                   )}
                 </Stack>
@@ -472,12 +477,14 @@ const NewDesign = () => {
                   direction={"row"}
                   style={{
                     opacity: 1,
-                    backgroundColor: "blue",
+                    backgroundColor: "red",
                     overflow: "visible", // Allow content to overflow
                     position: "relative",
                     justifyContent: "center",
                   }}
                 >
+                  
+                  
                   <Typography
                     style={{
                       color: "whitesmoke",
@@ -493,7 +500,7 @@ const NewDesign = () => {
                   <Stack
                     direction="row"
                     spacing={40}
-                    style={{ opacity: 1, marginTop: "70px" }}
+                    style={{ opacity: 1, marginTop: "70px",  }}
                   >
                     <CustomCard>
                       <CardInner>
@@ -924,10 +931,16 @@ const NewDesign = () => {
                         </Stack>
                       </CardInner>
                     </CustomCard>
+                    
                   </Stack>
+                  
+                  </Box>
                 </Box>
               </ProfileContainer>
-            </MainProfile>
+             
+            
+              </MainProfile>
+            
           </ThemeProvider>
         </form>
       )}
