@@ -1,5 +1,5 @@
 import Ava from "../../assets/image/bob.png";
-
+import Navbar from "../navbar";
 
 import BotBackgroundImage from "../../assets/image/profileCoverBot2.png";
 import ProfileBehind from "../../assets/image/ProfileBehind.png";
