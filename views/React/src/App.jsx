@@ -21,6 +21,16 @@ function App() {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
+        // Get the current route path
+        const currentPath = window.location.pathname;
+
+        // Skip authentication check if the current route is "/"
+        if (currentPath === "/") {
+          setLoading(false);
+          setAuthenticated(true);
+          return;
+        }
+
         const response = await fetch("http://localhost:5000/auth/info", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
