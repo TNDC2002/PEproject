@@ -4,7 +4,7 @@ import axios from "axios"
 const GET_rental = async (req) => {
     try {
         const { userID, movieID, media_type, season } = req.query;
-        const Rent = await UserMovieRental.findOne({ userID: userID, movieID: movieID, media_type: media_type })
+        const Rent = await UserMovieRental.findOne({ userID: userID, movieID: movieID, media_type: media_type, season: season })
         
         return {Rented: Rent !== null,
                     Rental_information: Rent};
