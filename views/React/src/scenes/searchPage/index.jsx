@@ -36,7 +36,7 @@ const SearchPage = () => {
               ? movie.original_name
               : movie.original_title,
             id: movie.id,
-            poster_path: movie.backdrop_path,
+            poster_path: movie.poster_path,
             media_type: movie.media_type,
           }));
         setResult(results);
@@ -60,6 +60,7 @@ const SearchPage = () => {
     );
   }
 
+  console.log(result);
   return (
     <div>
       <Navbar></Navbar>
