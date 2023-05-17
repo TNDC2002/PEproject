@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useTheme, Typography, Box, Button } from "@mui/material";
+import { useTheme, Typography, Box, Button, Grid } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Navbar from "../navbar/index.jsx";
 import Loading from "../../components/Loading";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Image from "mui-image";
 const SearchPage = () => {
   const [result, setResult] = useState(null);
   const dispatch = useDispatch();
@@ -32,12 +33,18 @@ const SearchPage = () => {
             (movie) => movie.media_type === "tv" || movie.media_type === "movie"
           )
           .map((movie) => ({
-            label: movie.original_name
+            title: movie.original_name
               ? movie.original_name
               : movie.original_title,
             id: movie.id,
             poster_path: movie.poster_path,
             media_type: movie.media_type,
+            overview: movie.overview,
+            genre_ids: movie.genre_ids,
+            popularity: movie.popularity,
+            release_date: movie.release_date,
+            vote_average: movie.vote_average,
+            vote_count: movie.vote_count,
           }));
         setResult(results);
       } catch (err) {
@@ -64,7 +71,7 @@ const SearchPage = () => {
   return (
     <div>
       <Navbar></Navbar>
-      {result.map((movie) => (
+      {/* {result.map((movie) => (
         <div key={movie.id}>
           <img
             src={
@@ -72,7 +79,7 @@ const SearchPage = () => {
                 ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                 : "https://via.placeholder.com/500x300.png?text=No+Image"
             }
-            alt={movie.label}
+            alt={movie.title}
             onClick={() => {
               if (movie.media_type === "movie") {
                 navigate(`/movie/${movie.id}`);
@@ -81,9 +88,36 @@ const SearchPage = () => {
               }
             }}
           />
-          <p>{movie.label}</p>
+          <p>{movie.title}</p>
         </div>
-      ))}
+      ))} */}
+
+      <Box sx={{}}>
+        <Grid container spacing={2}>
+          {result.map((movie) => (
+            <Grid item key={movie.id}>
+              <Link to={`/movie/${movie.id}`}>
+                <Box
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                >
+                  <Image
+                    width="175px"
+                    height="275px"
+                    src={
+                      movie.poster_path
+                        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                        : "https://via.placeholder.com/150x250.png?text=No+Image"
+                    }
+                    alt={`${movie.title} poster`}
+                  />
+                </Box>
+              </Link>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </div>
   );
 };
