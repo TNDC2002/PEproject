@@ -1,5 +1,4 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import FlexBetween from "../../components/FlexBetween";
 import { useNavigate } from "react-router-dom";
 import Image from "mui-image";
 import React, { useState } from "react";
