@@ -16,15 +16,6 @@ let transporter = nodemailer.createTransport({
         pass: process.env.AUTH_PASS,
     }
 })
-// //test transporter
-// transporter.verify((error, success) => {
-//     if(error){
-//         console.log(error);
-//     }else {
-//         console.log("Ready for messages");
-//         console.log(success);
-//     }
-// })
 
 /* REGISTER USER */
 export const register = async (req, res) => {
