@@ -71,7 +71,6 @@ const ShowPage = () => {
     const selectedSeasonValue = event.target.value;
     setSelectedSeason(selectedSeasonValue);
   };
-console.log(selectedSeason)
   
 const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -83,10 +82,10 @@ const [open, setOpen] = useState(false);
   };
  
 
-  const favourite = async (userID, movieID) => {
+  const favourite = async (userID, showID) => {
     const requestData = {
       userID: userID,
-      movieID: movieID,
+      movieID: showID,
       media_type: "tv",
       season: selectedSeason
     };
@@ -107,10 +106,10 @@ const [open, setOpen] = useState(false);
     });
   };
 
-  const rate = async (userID, movieID, rating) =>{
+  const rate = async (userID, showID, rating) =>{
     const requestData = {
       userID: userID,
-      movieID: movieID,
+      movieID: showID,
       rating: rating,
       media_type: "tv",
       season: selectedSeason
@@ -132,10 +131,10 @@ const [open, setOpen] = useState(false);
     )
   }
 
-  const unrate = async (userID, movieID) => {
+  const unrate = async (userID, showID) => {
     const requestData = {
       userID: userID,
-      movieID: movieID,
+      movieID: showID,
       media_type: "tv",
       season: selectedSeason
     };
@@ -171,10 +170,10 @@ const [open, setOpen] = useState(false);
     });
   };
 
-  const checkFavorite = async (userID, movieID) => {
+  const checkFavorite = async (userID, showID) => {
     const requestData = {
       userID: userID,
-      movieID: movieID,
+      movieID: showID,
       media_type: "tv",
       season: selectedSeason
     };
@@ -191,10 +190,10 @@ const [open, setOpen] = useState(false);
     return result.Favourite_return.favorited;
   };
 
-    const checkRated = async (userID, movieID) => {
+    const checkRated = async (userID, showID) => {
     const requestData = {
       userID: userID,
-      movieID: movieID,
+      movieID: showID,
       media_type: "tv",
       season: selectedSeason
     };
@@ -228,7 +227,7 @@ const [open, setOpen] = useState(false);
       }
     );
     const result = await checkRentedResponse.json();
-    return result.rented;
+    return result;
   };
 
   useEffect(() => {
@@ -251,7 +250,6 @@ const [open, setOpen] = useState(false);
     };
     fetchShowDetails();
   }, [showID]);
-  console.log(seasonOptions)
   
 
   useEffect(() => {
@@ -316,9 +314,8 @@ const [open, setOpen] = useState(false);
     setIsRated(checkRatedResponse.Rating_return.Rated);
     setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
 
-    const checkRentedResponse = await checkRented(user._id, movieID);
+    const checkRentedResponse = await checkRented(user._id, showID);
     setIsRented(checkRentedResponse.Rental_return.Rented);
-    console.log(checkRentedResponse);
   };
 
   useEffect(() => {
@@ -359,7 +356,6 @@ const [open, setOpen] = useState(false);
   if (!show) {
     return <Loading />;
   }
-console.log(show.seasons)
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
 
