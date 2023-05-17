@@ -66,7 +66,7 @@ const MyListPage = () => {
                         fontWeight:'bold',
                         borderBottom: '2px solid white',
                         paddingBottom: '0.5rem'
-                    }}>Your favourite movies</Typography>
+                    }}>Your favourite shows</Typography>
                     <Box sx={{ padding:'1rem 0', display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
                         {favouriteShow.map((show) => (
                         <Grid title={show.name} key={show.id} item lg={3}>
@@ -77,7 +77,7 @@ const MyListPage = () => {
                                     boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
                                 }
                             }}>
-                                <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}/>
+                                <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons[show.intendedSeason].poster_path}`}/>
                             </Box>
                         </Grid>
                         ))}
