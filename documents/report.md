@@ -230,10 +230,10 @@ export default YouTubePlayer;
 >- **Automatic Billing**: To make renting movies even easier, we offer automatic billing, so users don't have to worry about remembering to pay for their rental. Once the rental period is over, we automatically charge the user's payment method on file.
 >- **Refunds and Cancellations**: We understand that sometimes plans change, so we offer easy refunds and cancellations. Users can cancel their rental or request a refund with just a few clicks, and our customer support team is always available to help if needed.
 
-## Performance and Sercurity
-    - Performance
-    - Sercurity
-
+## Performance and Sercurity<a name = "security">
+> To ensure optimal database performance and storage, we have implemented a **verification procedure** that is simple and easy to use. The following is a brief overview of how this procedure works:
+>- **Automatic mailing**: When a user register on our web page, an email is automatically sent to the user. The email contain a 6 digits PIN code as well as the remaining time the user have to finish the verification.
+>- **Optimal resource usage**: By verifying users, we can skim out on inactive and spam accounts, reducing the amount of memory needed on the database.
 ## Test Case
     - Test Case 1
     - Test Case 2
