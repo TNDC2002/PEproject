@@ -338,15 +338,12 @@ const MoviePage = () => {
 
   const handleRentClick = (event) => {
     // Call the favourite function with the necessary values here
-    rent(user._id, movieID, rentDuration);
+    const buttonValue = event.target.value
+    rent(user._id, movieID, buttonValue);
     setIsRented(!isRented);
     setOpen(true);
-    const buttonValue = event.target.value
-    setRentDuration(buttonValue);
     handleClose();
-    
   };
-  console.log(rentDuration)
 
   if (!movie) {
     return <Loading />;
