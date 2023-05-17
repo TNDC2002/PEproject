@@ -87,6 +87,12 @@ const TvPage = () => {
     <Box>
       <Navbar />
       <TvList
+        shows={topRatedShows}
+        category="topRated"
+        page={topRatedPage}
+        setPage={setTopRatedPage}
+      />
+      <TvList
         shows={popularShows}
         category="popular"
         page={popularPage}
@@ -97,12 +103,6 @@ const TvPage = () => {
         category="airingToday"
         page={airingTodayPage}
         setPage={setAiringTodayPage}
-      />
-      <TvList
-        shows={topRatedShows}
-        category="topRated"
-        page={topRatedPage}
-        setPage={setTopRatedPage}
       />
       <TvList
         shows={onTheAirShows}
