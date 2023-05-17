@@ -6,6 +6,7 @@ import Navbar from "../navbar/index.jsx";
 import Loading from "../../components/Loading";
 import { useNavigate, Link } from "react-router-dom";
 import Image from "mui-image";
+import FlexBetween from "../../components/FlexBetween.jsx";
 const SearchPage = () => {
   const [result, setResult] = useState(null);
   const dispatch = useDispatch();
@@ -93,18 +94,45 @@ const SearchPage = () => {
       ))} */}
 
       <Box sx={{}}>
-        <Grid container spacing={2}>
-          {result.map((movie) => (
-            <Grid item key={movie.id}>
-              <Link to={`/movie/${movie.id}`}>
+        {result.map((movie) => (
+          // <Grid item key={movie.id}>
+          //   <Link
+          //     to={
+          //       movie.media_type === "movie"
+          //         ? `/movie/${movie.id}`
+          //         : `/TV Shows/${movie.id}`
+          //     }
+          //   >
+          //     <FlexBetween
+          //       onClick={() => {
+          //         window.scrollTo({ top: 0, behavior: "smooth" });
+          //       }}
+          //     >
+          //       <Image
+          //         width="175px"
+          //         height="275px"
+          //         src={
+          //           movie.poster_path
+          //             ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+          //             : "https://via.placeholder.com/150x250.png?text=No+Image"
+          //         }
+          //         alt={`${movie.title} poster`}
+          //       />
+
+          //     </FlexBetween>
+          //   </Link>
+          // </Grid>
+          <Grid container spacing={3} sx={{ my: 2 }}>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <Box sx={{ position: "relative", display: "inline-flex" }}>
                 <Box
-                  onClick={() => {
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  sx={{
+                    borderRadius: "10px",
+                    boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
                   }}
                 >
                   <Image
-                    width="175px"
-                    height="275px"
+                    sx={{ borderRadius: "10px" }}
                     src={
                       movie.poster_path
                         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -113,10 +141,32 @@ const SearchPage = () => {
                     alt={`${movie.title} poster`}
                   />
                 </Box>
-              </Link>
+              </Box>
             </Grid>
-          ))}
-        </Grid>
+
+            <Grid item xs={12} sm={6} md={9} lg={9}>
+              <Typography sx={{ fontSize: 40, fontWeight: "medium" }}>
+                {movie.title}
+              </Typography>
+
+              <Button variant="contained" sx={{ mx: 0.5 }}>
+                <strong>IMDB:</strong> {movie.vote_average}
+              </Button>
+
+              <Typography variant="body1" sx={{ my: 0.5 }}>
+                <strong>Overview:</strong> {movie.overview}
+              </Typography>
+
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
+                  <Typography variant="body1" sx={{ my: 0.5 }}>
+                    <strong>Release Date:</strong> {movie.release_date}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        ))}
       </Box>
     </div>
   );
