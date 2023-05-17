@@ -10,9 +10,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { updateUser } from "../../states";
-import MovieCreationOutlinedIcon from '@mui/icons-material/MovieCreationOutlined';
-import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
-import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
+import MovieCreationOutlinedIcon from "@mui/icons-material/MovieCreationOutlined";
+import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 const editSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
@@ -36,6 +36,7 @@ import {
   Container,
   createTheme,
   ThemeProvider,
+  Input,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Translate } from "@mui/icons-material";
@@ -76,7 +77,7 @@ const MainProfile = styled(Box)({
 const ProfileContainer = styled(Box)({
   height: "100vh",
   width: "90%",
-  background: "black",
+  background: "#060047",
   marginLeft: "5%",
   marginRight: "5%",
 });
@@ -99,7 +100,7 @@ const UserImage = styled(Box)({
   height: "110%",
   width: "15%",
   borderRadius: "50%",
-  
+
   right: "42.5%",
 
   backgroundColor: "red",
@@ -342,6 +343,49 @@ const SaveButton = ({ onClick }) => {
   );
 };
 
+const StyledForm = styled(Box)({
+  
+  width: "200px",
+  height: "10px",
+  position: "relative",
+  marginTop: "-3px",
+  
+  overflow: "visible",
+});
+
+const StyledInput = styled(Input)({
+  
+  color: "#fff",
+  fontSize: "15px",
+  backgroundColor: "transparent",
+  width: "300px",
+  height: "30px",
+  boxSizing: "border-box",
+  paddingInline: "0.5em",
+  paddingBlock: "0.7em",
+  border: "none",
+  borderBottom: "transparent",
+  "& .input-border": {
+    position: "absolute",
+    background: "#5891ff",
+    width: "0%",
+    height: "2px",
+    bottom: "0",
+    left: "0",
+    transition: "0.3s",
+  },
+  "&:hover": {
+    background: "#4985e01f",
+  },
+  "&:focus": {
+    outline: "none",
+  },
+  "&:focus ~ .input-border": {
+    width: "100%",
+    
+  },
+});
+
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, sans-serif",
@@ -444,18 +488,16 @@ const NewDesign = () => {
                   >
                     User 3152
                   </Typography>
-                </Stack >
+                </Stack>
                 <Box display="flex" justifyContent="center">
                   <Stack
                     direction="row"
                     spacing={40}
                     style={{ opacity: 1, marginTop: "70px" }}
                   >
-                    
                     <CustomCard>
                       <CardInner>
                         <Stack direction="column">
-                          
                           <Box
                             sx={{
                               width: "100%",
@@ -476,103 +518,139 @@ const NewDesign = () => {
                             >
                               About me
                             </Typography>
-                            
                           </Box>
                           <Box
-                            
                             display="flex"
                             sx={{ width: "100%", height: "250px" }}
                           >
-                           <Typography sx={{ color: "whitesmoke" }}>
-                              <Stack direction="column" sx={{ color: "whitesmoke", marginTop: "20px", marginLeft: "20px"}} >
-                              
-                              <Stack direction="row" sx={{ color: "whitesmoke",  marginLeft: "20px"}} >
-                              
-                              <MovieCreationOutlinedIcon sx={{ color: "whitesmoke", fontSize: 70 }}></MovieCreationOutlinedIcon>
-                              <Stack direction="column" sx={{ color: "whitesmoke",marginLeft: "20px"}} >
-                              <Typography
-                                fontSize={(20/6)*5}
-                                fontWeight="bold"
-                                
-                                style={{
-                                  color: "#FF5F9E",
-                                  marginTop: "3px"
-                                }}
-                              >
-                                Total Movies
-                              </Typography>
-                              <Typography
-                                fontSize={25}
-                                
-                                
-                                style={{
+                            <Typography sx={{ color: "whitesmoke" }}>
+                              <Stack
+                                direction="column"
+                                sx={{
                                   color: "whitesmoke",
-                                 
+                                  marginTop: "20px",
+                                  marginLeft: "20px",
                                 }}
                               >
-                                929
-                              </Typography>
-                              </Stack>
-                              </Stack>
+                                <Stack
+                                  direction="row"
+                                  sx={{
+                                    color: "whitesmoke",
+                                    marginLeft: "20px",
+                                  }}
+                                >
+                                  <MovieCreationOutlinedIcon
+                                    sx={{ color: "whitesmoke", fontSize: 70 }}
+                                  ></MovieCreationOutlinedIcon>
+                                  <Stack
+                                    direction="column"
+                                    sx={{
+                                      color: "whitesmoke",
+                                      marginLeft: "20px",
+                                    }}
+                                  >
+                                    <Typography
+                                      fontSize={(20 / 6) * 5}
+                                      fontWeight="bold"
+                                      style={{
+                                        color: "#FF5F9E",
+                                        marginTop: "3px",
+                                      }}
+                                    >
+                                      Total Movies
+                                    </Typography>
+                                    <Typography
+                                      fontSize={25}
+                                      style={{
+                                        color: "whitesmoke",
+                                      }}
+                                    >
+                                      929
+                                    </Typography>
+                                  </Stack>
+                                </Stack>
 
-                              <Stack direction="row" sx={{ color: "whitesmoke", marginTop: "20px", marginLeft: "20px"}} >
+                                <Stack
+                                  direction="row"
+                                  sx={{
+                                    color: "whitesmoke",
+                                    marginTop: "20px",
+                                    marginLeft: "20px",
+                                  }}
+                                >
+                                  <ShoppingBasketOutlinedIcon
+                                    sx={{ color: "whitesmoke", fontSize: 70 }}
+                                  ></ShoppingBasketOutlinedIcon>
+                                  <Stack
+                                    direction="column"
+                                    sx={{
+                                      color: "whitesmoke",
+                                      marginLeft: "20px",
+                                    }}
+                                  >
+                                    <Typography
+                                      fontSize={(20 / 6) * 5}
+                                      fontWeight="bold"
+                                      style={{
+                                        color: "#FF5F9E",
+                                        marginTop: "3px",
+                                      }}
+                                    >
+                                      Current Lending
+                                    </Typography>
+                                    <Typography
+                                      fontSize={25}
+                                      style={{
+                                        color: "whitesmoke",
+                                        fontWeight: "regular",
+                                      }}
+                                    >
+                                      320
+                                    </Typography>
+                                  </Stack>
+                                </Stack>
 
-                              < ShoppingBasketOutlinedIcon sx={{ color: "whitesmoke", fontSize: 70 }}></ShoppingBasketOutlinedIcon>
-                              <Stack direction="column" sx={{ color: "whitesmoke",marginLeft: "20px"}} >
-                              <Typography
-                                fontSize={(20/6)*5}
-                                fontWeight="bold"
-                                
-                                style={{
-                                  color: "#FF5F9E",
-                                  marginTop: "3px"
-                                }}
-                              >
-                                Current Lending
-                              </Typography>
-                              <Typography
-                                fontSize={25}
-                                
-                                
-                                style={{
-                                  color: "whitesmoke",
-                                  fontWeight: "regular"
-                                }}
-                              >
-                                320
-                              </Typography>
+                                <Stack
+                                  direction="row"
+                                  sx={{
+                                    color: "whitesmoke",
+                                    marginTop: "20px",
+                                    marginLeft: "20px",
+                                  }}
+                                >
+                                  <ThumbUpAltOutlinedIcon
+                                    sx={{ color: "whitesmoke", fontSize: 70 }}
+                                  ></ThumbUpAltOutlinedIcon>
+                                  <Stack
+                                    direction="column"
+                                    sx={{
+                                      color: "whitesmoke",
+                                      marginLeft: "20px",
+                                    }}
+                                  >
+                                    <Typography
+                                      fontSize={(20 / 6) * 5}
+                                      fontWeight="bold"
+                                      style={{
+                                        color: "#FF5F9E",
+                                        marginTop: "3px",
+                                      }}
+                                    >
+                                      Total Favorite
+                                    </Typography>
+                                    <Typography
+                                      fontSize={25}
+                                      fontWeight="regular"
+                                      style={{
+                                        color: "whitesmoke",
+                                      }}
+                                    >
+                                      210
+                                    </Typography>
+                                  </Stack>
+                                </Stack>
                               </Stack>
-                              </Stack>
-
-                              <Stack direction="row" sx={{ color: "whitesmoke", marginTop: "20px", marginLeft: "20px"}} >
-                              <ThumbUpAltOutlinedIcon sx={{ color: "whitesmoke", fontSize: 70 }}></ThumbUpAltOutlinedIcon>
-                              <Stack direction="column" sx={{ color: "whitesmoke",marginLeft: "20px"}} >
-                              <Typography
-                                fontSize={(20/6)*5}
-                                fontWeight="bold"
-                                
-                                style={{
-                                  color: "#FF5F9E",
-                                  marginTop: "3px"
-                                }}
-                              >
-                                Total Favorite 
-                              </Typography>
-                              <Typography
-                                fontSize={25}
-                                fontWeight="regular"
-                                
-                                style={{
-                                  color: "whitesmoke",
-                                 
-                                }}
-                              >
-                                210
-                              </Typography>
-                              </Stack>
-                              </Stack>
-                              </Stack>
-                           </Typography>
+                            </Typography>
                           </Box>
                         </Stack>
                       </CardInner>
@@ -621,6 +699,7 @@ const NewDesign = () => {
                               </Typography>
                               {!editMode ? (
                                 <Typography
+                                  marginLeft = {1}
                                   fontSize={15}
                                   fontWeight="light"
                                   data-testid="user-first-name"
@@ -631,43 +710,45 @@ const NewDesign = () => {
                                   {user.firstName}
                                 </Typography>
                               ) : (
-                                <TextField
+                                <StyledForm>
+                                <StyledInput
+                                  
+                                  placeholder="Type your text"
+                                  required
+                                  type="text"
                                   defaultValue={user.firstName}
-                                  name="firstName"
                                   onBlur={handleBlur}
                                   onChange={handleChange}
-                                  sx={{
-                                    "& fieldset": { border: "none" },
-                                    backgroundColor: "white",
-                                  }}
+                                  name="firstName"
                                   inputProps={{
-                                    style: {
-                                      color: "black",
-                                      padding: 0,
-                                      height: "100%",
-                                    },
-                                    "data-testid": "user-first-name-input",
+                                    "data-testid": "user-fisrt-name-input",
                                   }}
                                 />
+                                <span className="input-border" />
+                              </StyledForm>
                               )}
                             </Stack>
                             <Stack
                               direction="row"
                               style={{ marginTop: "20px" }}
                             >
+                              
                               <Typography
                                 fontSize={15}
                                 fontWeight="bold"
-                                marginRight={1}
+                                marginRight={2}
                                 marginLeft={2}
                                 style={{
                                   color: "whitesmoke",
+                                  
                                 }}
                               >
                                 Last name:
+                                
                               </Typography>
                               {!editMode ? (
                                 <Typography
+                                  marginLeft = {1}
                                   fontSize={15}
                                   fontWeight="light"
                                   data-testid="user-last-name"
@@ -678,26 +759,25 @@ const NewDesign = () => {
                                   {user.lastName}
                                 </Typography>
                               ) : (
-                                <TextField
+                                <StyledForm>
+                                <StyledInput
+                                  marginLeft = {1}
+                                  placeholder="Type your text"
+                                  required
+                                  type="text"
                                   defaultValue={user.lastName}
                                   onBlur={handleBlur}
                                   onChange={handleChange}
                                   name="lastName"
-                                  sx={{
-                                    "& fieldset": { border: "none" },
-                                    backgroundColor: "white",
-                                  }}
                                   inputProps={{
-                                    style: {
-                                      color: "black",
-                                      padding: 0,
-                                      height: "100%",
-                                    },
-                                    "data-testid": "user-last-name-input",
+                                    "data-testid": "user-lastname-input",
                                   }}
                                 />
+                                <span className="input-border" />
+                              </StyledForm>
                               )}
                             </Stack>
+
                             <Stack
                               direction="row"
                               style={{ marginTop: "20px" }}
@@ -707,6 +787,7 @@ const NewDesign = () => {
                                 fontWeight="bold"
                                 marginRight={1}
                                 marginLeft={2}
+
                                 style={{
                                   color: "whitesmoke",
                                 }}
@@ -715,6 +796,7 @@ const NewDesign = () => {
                               </Typography>
                               {!editMode ? (
                                 <Typography
+                                  marginLeft = {1}
                                   fontSize={15}
                                   fontWeight="light"
                                   data-testid="user-email"
@@ -725,24 +807,22 @@ const NewDesign = () => {
                                   {user.email}
                                 </Typography>
                               ) : (
-                                <TextField
-                                  defaultValue={user.email}
-                                  onBlur={handleBlur}
-                                  onChange={handleChange}
-                                  name="email"
-                                  sx={{
-                                    "& fieldset": { border: "none" },
-                                    backgroundColor: "white",
-                                  }}
-                                  inputProps={{
-                                    style: {
-                                      color: "black",
-                                      padding: 0,
-                                      height: "100%",
-                                    },
-                                    "data-testid": "user-email-input",
-                                  }}
-                                />
+                                <StyledForm>
+                                  <StyledInput
+                                    
+                                    placeholder="Type your text"
+                                    required
+                                    type="text"
+                                    defaultValue={user.email}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    name="email"
+                                    inputProps={{
+                                      "data-testid": "user-email-input",
+                                    }}
+                                  />
+                                  <span className="input-border" />
+                                </StyledForm>
                               )}
                             </Stack>
                             <Stack
@@ -762,6 +842,7 @@ const NewDesign = () => {
                               </Typography>
                               {!editMode ? (
                                 <Typography
+                                marginLeft = {1}
                                   fontSize={15}
                                   fontWeight="light"
                                   data-testid="user-phoneNumber"
@@ -769,34 +850,34 @@ const NewDesign = () => {
                                     color: "whitesmoke",
                                   }}
                                 >
-                                  "add phone number"
+                                  add phone number
                                 </Typography>
                               ) : (
-                                <TextField
-                                  defaultValue={user.email}
+                                <StyledForm>
+                                <StyledInput
+                                  
+                                  placeholder="Type your text"
+                                  required
+                                  type="text"
+                                  defaultValue={"add phone number"}
                                   onBlur={handleBlur}
                                   onChange={handleChange}
                                   name="email"
-                                  sx={{
-                                    "& fieldset": { border: "none" },
-                                    backgroundColor: "white",
-                                  }}
                                   inputProps={{
-                                    style: {
-                                      color: "black",
-                                      padding: 0,
-                                      height: "100%",
-                                    },
-                                    "data-testid": "user-email-input",
+                                    "data-testid": "add phone number",
                                   }}
                                 />
+                                <span className="input-border" />
+                              </StyledForm>
                               )}
                             </Stack>
+
                             <Stack
                               direction="row"
                               style={{ marginTop: "20px" }}
                             >
                               <Typography
+                                
                                 fontSize={15}
                                 fontWeight="bold"
                                 marginRight={1}
@@ -809,6 +890,7 @@ const NewDesign = () => {
                               </Typography>
                               {!editMode ? (
                                 <Typography
+                                  marginLeft = {1}
                                   fontSize={15}
                                   fontWeight="light"
                                   data-testid="user-Address"
@@ -816,27 +898,26 @@ const NewDesign = () => {
                                     color: "whitesmoke",
                                   }}
                                 >
-                                  "add address"
+                                  add address
                                 </Typography>
                               ) : (
-                                <TextField
-                                  defaultValue={user.email}
+                                <StyledForm>
+                                <StyledInput
+                                  
+                                  placeholder="Type your text"
+                                  required
+                                  type="text"
+                                  defaultValue={"add address"}
                                   onBlur={handleBlur}
                                   onChange={handleChange}
                                   name="email"
-                                  sx={{
-                                    "& fieldset": { border: "none" },
-                                    backgroundColor: "white",
-                                  }}
                                   inputProps={{
-                                    style: {
-                                      color: "black",
-                                      padding: 0,
-                                      height: "100%",
-                                    },
                                     "data-testid": "user-email-input",
                                   }}
                                 />
+                                <span className="input-border" />
+                              </StyledForm>
+                               
                               )}
                             </Stack>
                           </Stack>
