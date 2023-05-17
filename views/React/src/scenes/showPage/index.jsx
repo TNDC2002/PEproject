@@ -21,7 +21,10 @@ import {
   DialogContent,
   DialogActions,
   Rating,
-  Menu
+  Menu,
+  CardHeader,
+  CardContent,
+  Card
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
@@ -70,7 +73,14 @@ const ShowPage = () => {
   };
 console.log(selectedSeason)
   
+const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
  
 
   const favourite = async (userID, movieID) => {
@@ -142,20 +152,16 @@ console.log(selectedSeason)
      )
   }
 
-  const rent = async (userID, showID) => {
-    const rentalBeginDate = new Date();
-    const rentalExpireDate = new Date(rentalBeginDate);
-    rentalExpireDate.setDate(rentalExpireDate.getDate() + 7);
-
+  const rent = async (userID, showID, duration) => {
     const requestData = {
       userID: userID,
       movieID: showID,
-      rentalBeginDate: rentalBeginDate,
-      rentalExpireDate: rentalExpireDate,
+      media_type: "tv",
+      Duration: duration,
       season: selectedSeason
     };
 
-    const addRentResponse = await fetch("http://localhost:5000/movie/rent", {
+    const addRentResponse = await fetch("http://localhost:5000/api/rent/insert", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -209,14 +215,16 @@ console.log(selectedSeason)
     const requestData = {
       userID: userID,
       movieID: showID,
+      media_type: "tv",
       season: selectedSeason
     };
-    const checkRentedResponse = await fetch(
-      "http://localhost:5000/movie/rent/check",
+    const url = new URL("http://localhost:5000/api/rent/check");
+    url.search = new URLSearchParams(requestData).toString();
+
+    const checkRentedResponse = await fetch(url,
       {
-        method: "POST",
+        method: "GET",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData),
       }
     );
     const result = await checkRentedResponse.json();
@@ -307,6 +315,10 @@ console.log(selectedSeason)
     const checkRatedResponse = await checkRated(user._id, showID);      
     setIsRated(checkRatedResponse.Rating_return.Rated);
     setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
+
+    const checkRentedResponse = await checkRented(user._id, movieID);
+    setIsRented(checkRentedResponse.Rental_return.Rented);
+    console.log(checkRentedResponse);
   };
 
   useEffect(() => {
@@ -337,10 +349,11 @@ console.log(selectedSeason)
 
   }
 
-  const handleRentClick = () => {
-    // Call the favourite function with the necessary values here
-    rent(user._id, showID);
+  const handleRentClick = (event) => {
+    const buttonValue = event.target.value;
+    rent(user._id, showID, buttonValue);
     setIsRented(!isRented);
+    handleClose();
   };
 
   if (!show) {
@@ -515,7 +528,7 @@ console.log(show.seasons)
 
             <Button
               variant="contained"
-              onClick={handleRentClick}
+              onClick={handleOpen}
               disabled={isRented}
             >
               {!isRented ? (
@@ -530,6 +543,91 @@ console.log(show.seasons)
                 <strong>Already Rented</strong>
               )}
             </Button>
+            <Dialog open={open} onClose={handleClose}>
+                  <DialogTitle>Pricing Plan</DialogTitle>
+                  <DialogContent>
+                    <Container maxWidth="lg">
+                      <Box py={8} textAlign="center">
+                        <Box mb={3}>
+                          <Container maxWidth="lg">
+                            <Typography variant="h3" component="span">Pricing Plan</Typography>
+                          </Container>
+                        </Box>
+                        <Grid container spacing={3}>
+                          <Grid item xs={12} md={4}>
+                            <Card variant="outlined">
+                              <CardHeader title="1-Day Plan" ></CardHeader>
+                              <CardContent>
+                                <Box px={1}>
+                                  <Typography variant="h3" component="h2" gutterBottom={true}>
+                                    100 SD
+                                    <Typography variant="h6"  component="span">/week</Typography>
+                                  </Typography>
+                                  <Typography variant="subtitle1" component="p">1080p Quality</Typography>
+                                  <Typography variant="subtitle1" component="p">Limited movies & TV shows</Typography>
+                                </Box>
+                                <Button 
+                                variant="contained" 
+                                onClick={handleRentClick}
+                                value={1}
+                                >Smash</Button>
+                              </CardContent>
+                            </Card>
+                          </Grid>
+
+                          <Grid item xs={12} md={4}>
+                          <Card variant="outlined">
+                              <CardHeader title="1-Week Plan"></CardHeader>
+                              <CardContent>
+                                <Box px={1}>
+                                  <Typography variant="h3" component="h2" gutterBottom={true}>
+                                    1000 SD
+                                    <Typography variant="h6"  component="span">/month</Typography>
+                                  </Typography>
+                                  <Typography variant="subtitle1" component="p">4k Quality</Typography>
+                                  <Typography variant="subtitle1" component="p">Limited movies & TV shows</Typography>
+
+                                </Box>
+                                <Button 
+                                  variant="contained" 
+                                  onClick={handleRentClick}
+                                  value={7}
+                                  >Smash</Button>
+                              </CardContent>
+                            </Card>
+                          </Grid>
+
+                          <Grid item xs={12} md={4}>
+                          <Card variant="outlined">
+                              <CardHeader title="1-Month Plan"></CardHeader>
+                              <CardContent>
+                                <Box px={1}>
+                                  <Typography variant="h3" component="h2" gutterBottom={true}>
+                                    10000 SD
+                                    <Typography variant="h6"  component="span">/year</Typography>
+                                  </Typography>
+                                  <Typography variant="subtitle1" component="p">4k+ Quality</Typography>
+                                  <Typography variant="subtitle1" component="p">Unlimited movies & TV shows</Typography>
+                                  <Typography variant="subtitle1" component="p">Cancle anytime</Typography>
+
+                                </Box>
+                                <Button 
+                                  variant="contained" 
+                                  onClick={handleRentClick}
+                                  value={30}
+                                  >Smash</Button>
+                              </CardContent>
+                            </Card>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Container>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button variant="contained" onClick={handleClose}>Close</Button>
+                  </DialogActions>
+                </Dialog>
+            
             <Rating 
               name="half-rating" 
               precision={0.5}

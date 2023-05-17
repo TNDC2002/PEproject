@@ -58,7 +58,6 @@ const MoviePage = () => {
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRated, setIsRated] = useState(false);
   const [isRented, setIsRented] = useState(false);
-  const [rentDuration, setRentDuration] = useState(null);
   const token = useSelector((state) => state.token);
   const theme = useTheme();
   
@@ -337,11 +336,9 @@ const MoviePage = () => {
   }
 
   const handleRentClick = (event) => {
-    // Call the favourite function with the necessary values here
     const buttonValue = event.target.value
     rent(user._id, movieID, buttonValue);
     setIsRented(!isRented);
-    setOpen(true);
     handleClose();
   };
 
