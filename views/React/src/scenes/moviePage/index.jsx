@@ -58,11 +58,13 @@ const MoviePage = () => {
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRated, setIsRated] = useState(false);
   const [isRented, setIsRented] = useState(false);
+  const [rentDuration, setRentDuration] = useState(null);
   const token = useSelector((state) => state.token);
   const theme = useTheme();
-
+  
 
   const [open, setOpen] = useState(false);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -334,11 +336,17 @@ const MoviePage = () => {
 
   }
 
-  const handleRentClick = () => {
+  const handleRentClick = (event) => {
     // Call the favourite function with the necessary values here
-    rent(user._id, movieID);
+    rent(user._id, movieID, rentDuration);
     setIsRented(!isRented);
+    setOpen(true);
+    const buttonValue = event.target.value
+    setRentDuration(buttonValue);
+    handleClose();
+    
   };
+  console.log(rentDuration)
 
   if (!movie) {
     return <Loading />;
@@ -496,7 +504,7 @@ const MoviePage = () => {
 
             <Button
               variant="contained"
-              onClick={handleRentClick}
+              onClick={handleOpen}
               disabled={isRented}
             >
               {!isRented ? (
@@ -520,12 +528,7 @@ const MoviePage = () => {
             ></Rating>
 
             
-                <Button
-                  variant="contained"
-                  onClick={handleOpen}
-                >
-                  View Pricing Plan
-                </Button>
+                
 
                 <Dialog open={open} onClose={handleClose}>
                   <DialogTitle>Pricing Plan</DialogTitle>
@@ -540,7 +543,7 @@ const MoviePage = () => {
                         <Grid container spacing={3}>
                           <Grid item xs={12} md={4}>
                             <Card variant="outlined">
-                              <CardHeader title="1-Week Plan" ></CardHeader>
+                              <CardHeader title="1-Day Plan" ></CardHeader>
                               <CardContent>
                                 <Box px={1}>
                                   <Typography variant="h3" component="h2" gutterBottom={true}>
@@ -550,14 +553,18 @@ const MoviePage = () => {
                                   <Typography variant="subtitle1" component="p">1080p Quality</Typography>
                                   <Typography variant="subtitle1" component="p">Limited movies & TV shows</Typography>
                                 </Box>
-                                <Button variant="contained" >Smash</Button>
+                                <Button 
+                                variant="contained" 
+                                onClick={handleRentClick}
+                                value={1}
+                                >Smash</Button>
                               </CardContent>
                             </Card>
                           </Grid>
 
                           <Grid item xs={12} md={4}>
                           <Card variant="outlined">
-                              <CardHeader title="1-Month Plan"></CardHeader>
+                              <CardHeader title="1-Week Plan"></CardHeader>
                               <CardContent>
                                 <Box px={1}>
                                   <Typography variant="h3" component="h2" gutterBottom={true}>
@@ -568,14 +575,18 @@ const MoviePage = () => {
                                   <Typography variant="subtitle1" component="p">Limited movies & TV shows</Typography>
 
                                 </Box>
-                                <Button variant="contained">Smash</Button>
+                                <Button 
+                                  variant="contained" 
+                                  onClick={handleRentClick}
+                                  value={7}
+                                  >Smash</Button>
                               </CardContent>
                             </Card>
                           </Grid>
 
                           <Grid item xs={12} md={4}>
                           <Card variant="outlined">
-                              <CardHeader title="1-Year Plan"></CardHeader>
+                              <CardHeader title="1-Month Plan"></CardHeader>
                               <CardContent>
                                 <Box px={1}>
                                   <Typography variant="h3" component="h2" gutterBottom={true}>
@@ -587,7 +598,11 @@ const MoviePage = () => {
                                   <Typography variant="subtitle1" component="p">Cancle anytime</Typography>
 
                                 </Box>
-                                <Button variant="contained">Smash</Button>
+                                <Button 
+                                  variant="contained" 
+                                  onClick={handleRentClick}
+                                  value={30}
+                                  >Smash</Button>
                               </CardContent>
                             </Card>
                           </Grid>
