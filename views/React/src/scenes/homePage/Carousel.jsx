@@ -8,6 +8,8 @@ import {
   KeyboardDoubleArrowDown,
   Campaign,
 } from "@mui/icons-material";
+import { Link } from "react-scroll";
+import carouselVideo from "../trailerPlayer/carouselVideo"
 
 import { images } from "./CarouselData";
 
@@ -17,6 +19,7 @@ export default function Carousel({ movie }) {
   const imageUrl = `https://image.tmdb.org/t/p/original${movie.poster_path}`;
   const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
 
+  console.log(movie.id)
   return (
     <Box
       sx={{
@@ -46,79 +49,79 @@ export default function Carousel({ movie }) {
             overflow: "hidden",
           }}
         >
-          <Box
-            sx={{
-              position: "absolute",
-              padding: "0.5rem",
-              margin: "1rem",
-              gap: "5px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "white",
-              border: "2px solid black",
-              borderRadius: "15px",
-            }}
-          >
-            <Campaign
+          <Link to="scrollTo" spy={true} smooth={true} offset={-80} duration={500}>
+            <Box
               sx={{
-                color: "black",
+                position: "absolute",
+                padding: "0.5rem",
+                margin: "3rem 1rem",
+                gap: "5px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                opacity: 0.8,
+                background: "linear-gradient(to left, black, grey)",
+                // border: "2px solid black",
+                borderLeft: "0",
+                // borderRadius: "15px",
+                transform: 'rotate(-90deg)'
               }}
+            >
+              <Campaign
+                sx={{
+                  color: "white",
+                }}
+              />
+              <Typography
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                  color: "white",
+                }}
+              >
+                Latest Movie
+              </Typography>
+            </Box>
+            <Image
+            position='center'
+              display="block"
+              fit="contain"
+              src={imageUrl}
             />
-            <Typography
+            <Box
+              className="discoverMore"
               sx={{
-                fontSize: "15px",
-                fontWeight: "bold",
-                color: "black",
+                position: "absolute",
+                inset: 0,
+                padding: "2rem",
+                fontSize: "large",
+                background: "rgba(0, 0, 0, 0.6)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                opacity: 0,
+                transition: "200ms ease-in-out",
+                "&:hover": {
+                  opacity: 1,
+                  cursor: "pointer",
+                },
               }}
             >
-              Latest Movie
-            </Typography>
-          </Box>
-          <Image
-            display="block"
-            fit="contain"
-            position="center"
-            width="100%"
-            height="100%"
-            src={imageUrl}
-          />
-          <Box
-            className="discoverMore"
-            onClick={() => {
-              window.scrollTo(0, 650);
-            }}
-            sx={{
-              position: "absolute",
-              inset: 0,
-              padding: "2rem",
-              fontSize: "large",
-              background: "rgba(0, 0, 0, 0.6)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              opacity: 0,
-              transition: "200ms ease-in-out",
-              "&:hover": {
-                opacity: 1,
-                cursor: "pointer",
-              },
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "25px",
-                fontWeight: "bold",
-              }}
-            >
-              Discover More Movies
-            </Typography>
-            <KeyboardDoubleArrowDown fontSize="large" />
-          </Box>
+              <Typography
+                sx={{
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                }}
+              >
+                Discover More Movies
+              </Typography>
+              <KeyboardDoubleArrowDown fontSize="large" />
+            </Box>
+          </Link>
         </Box>
         {/* replace this img with ONLY the most popular MOVIE atm */}
         <Box sx={{
-          backgroundImage: `url(${backdropUrl})`,
+          // backgroundImage: `url(${backdropUrl})`,
           height: "100%",
           flex: "70%",
           backgroundPosition: "center",
@@ -159,6 +162,8 @@ export default function Carousel({ movie }) {
               // background: 'linear-gradient(to top, black, white)'
             }}
           >
+            <Typography> {movie.id} </Typography>
+            <carouselVideo discoveryId={movie.id}/>
             {/* <img width='100%' src={images[currImg].img} /> */}
             {/* replace this with PICTURES ARRAY the most POPULAR film */}
           </Box>
@@ -184,6 +189,13 @@ export default function Carousel({ movie }) {
           </Box>
         </Box>
       </Box>
+      <Box 
+        id= "scrollTo"
+      sx={{ 
+          backgroundColor: 'black',
+          width: '100vw',
+          height: '10px'
+        }}></Box>
     </Box>
   );
 }
