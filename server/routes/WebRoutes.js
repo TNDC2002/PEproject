@@ -53,7 +53,7 @@ let initWebRoutes = (app) => {
       router.get("/api/rate/check", Rate.default.GET_handler);
       router.get("/api/favourite/check", Favourite.default.GET_handler);
       router.get("/api/history/get", History.default.GET_handler);
-
+      router.get("/api/rent/check", Rental.default.GET_handler);
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
       app.post("/auth/register", upload.single("picture"), auth.default.register);
@@ -63,7 +63,7 @@ let initWebRoutes = (app) => {
       router.post("/api/history/insert", History.default.POST_handler);
       router.post("/api/rate/insert", Rate.default.POST_handler);
       router.post("/api/favourite/insert", Favourite.default.POST_handler);
-
+      router.post("/api/rent/insert", Rental.default.POST_handler);
   
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
