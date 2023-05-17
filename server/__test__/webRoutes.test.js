@@ -2,16 +2,22 @@ import request from 'supertest';
 import express from 'express';
 import { initWebRoutes } from '../routes/WebRoutes.js';
 import * as movieAPI from "../controller/movieAPI.js";
-import { log } from 'console';
+// const { configureMockAdapter } = require('./mock_TMDB.js');
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 initWebRoutes(app);
 
+// beforeAll(() => {
+//     // Configure the mock adapter for TMDB API
+//     configureMockAdapter();
+//   });
+
 describe('Test routes responses', () => {
 
     test('1 GET /movie/detail/:movieID responds with 200 status', async () => {
-        const response = await request(app).get('/movie/detail/502356');
+        const response = await request(app).get('/movie/detail/123456}');
+        jest.spyOn(movieAPI, 'getDetail').mockResolvedValue({ id: 123456, title: 'Mock Movie' });
         expect(response.status).toBe(200);
     });
 
