@@ -9,9 +9,10 @@ import {
   Campaign,
 } from "@mui/icons-material";
 import { Link } from "react-scroll";
-import carouselVideo from "../trailerPlayer/carouselVideo"
+import CarouselVideo from "../trailerPlayer/CarouselVideo"
 
 import { images } from "./CarouselData";
+import zIndex from "@mui/material/styles/zIndex";
 
 export default function Carousel({ movie }) {
   const [currImg, setCurrImg] = useState(0);
@@ -52,6 +53,7 @@ export default function Carousel({ movie }) {
           <Link to="scrollTo" spy={true} smooth={true} offset={-80} duration={500}>
             <Box
               sx={{
+                zIndex:'5',
                 position: "absolute",
                 padding: "0.5rem",
                 margin: "3rem 1rem",
@@ -83,11 +85,13 @@ export default function Carousel({ movie }) {
               </Typography>
             </Box>
             <Image
-            position='center'
+            style={{zIndex: '3'}}
+              position='absolute'
               display="block"
               fit="contain"
               src={imageUrl}
             />
+            console
             <Box
               className="discoverMore"
               sx={{
@@ -163,7 +167,7 @@ export default function Carousel({ movie }) {
             }}
           >
             <Typography> {movie.id} </Typography>
-            <carouselVideo discoveryId={movie.id}/>
+            <CarouselVideo discoveryId={movie.id}/>
             {/* <img width='100%' src={images[currImg].img} /> */}
             {/* replace this with PICTURES ARRAY the most POPULAR film */}
           </Box>
@@ -192,9 +196,10 @@ export default function Carousel({ movie }) {
       <Box 
         id= "scrollTo"
       sx={{ 
+          position: 'relative',
           backgroundColor: 'black',
           width: '100vw',
-          height: '10px'
+          height: '1px'
         }}></Box>
     </Box>
   );

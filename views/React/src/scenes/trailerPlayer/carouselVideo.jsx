@@ -3,14 +3,16 @@ import { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import { Box } from '@mui/material';
 
-const carouselVideo = ({ discoveryId }) => {
+const CarouselVideo = ({ discoveryid }) => {
     const [videoKey, setVideoKey] = useState(null);
     //FETCH VIDEO ID
     useEffect(() => {
         const fetchVideoIDs = async () => {
           const response = await fetch(
-            `https://api.themoviedb.org/3/movie/${discoveryId}/videos?api_key=37be93e690e7adb076e5110e93fda06f`
+            `https://api.themoviedb.org/3/movie/${discoveryid}/videos?api_key=37be93e690e7adb076e5110e93fda06f`
           );
+          console.log(response);
+          console.log("hufaisglfugufsfjslhfhoshhild");
           const data = await response.json();
           const video = data.results.find((v) => v.type === "Trailer" && v.site === "YouTube");
           if (video) {
@@ -19,9 +21,8 @@ const carouselVideo = ({ discoveryId }) => {
         };
     
         fetchVideoIDs();
-      }, [discoveryId]);
+      }, [discoveryid]);
     
-      console.log(videoKey);
   
 
   return (
@@ -40,5 +41,5 @@ const carouselVideo = ({ discoveryId }) => {
   );
 };
 
-export default carouselVideo;
+export default CarouselVideo;
 

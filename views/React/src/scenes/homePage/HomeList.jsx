@@ -63,10 +63,12 @@ const HomeList = () => {
   if(discovery === null){
     return <Loading/>
   }
+  
+  
 
   return (
     <div>
-      <Carousel movie={discovery[Math.floor(Math.random() * discovery.length)]}/>
+      <Carousel movie={discovery[Math.floor(Math.random() * discovery.length)]} />
       <Box>
         <Box>
           <Typography
