@@ -4,7 +4,6 @@ import { Grid, IconButton, Box, Typography } from "@mui/material";
 import FlexBetween from "../../components/FlexBetween";
 import Navbar from "../navbar";
 import HomeList from "../homePage/HomeList";
-import Carousel from "./Carousel";
 
 const HomePage = () => {
   return (
