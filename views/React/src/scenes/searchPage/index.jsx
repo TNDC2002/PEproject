@@ -75,7 +75,7 @@ const SearchPage = () => {
       <Box sx={{}}>
         {result.map((movie) => (
           <Grid container spacing={3} sx={{ my: 2 }}>
-            <Grid item key={movie.id} xs={12} sm={6} md={3} lg={3}>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
               <Box sx={{ position: "relative", display: "inline-flex" }}>
                 <Box
                   sx={{
@@ -102,10 +102,15 @@ const SearchPage = () => {
                 </Box>
               </Box>
             </Grid>
+
             <Grid item xs={12} sm={6} md={9} lg={9}>
               <Typography sx={{ fontSize: 40, fontWeight: "medium" }}>
                 {movie.title}
               </Typography>
+
+              <Button variant="contained" sx={{ mx: 0.5 }}>
+                <strong>IMDB:</strong> {movie.vote_average}
+              </Button>
 
               <Typography variant="body1" sx={{ my: 0.5 }}>
                 <strong>Overview:</strong> {movie.overview}
@@ -126,6 +131,13 @@ const SearchPage = () => {
               <Typography variant="body1" sx={{ my: 0.5 }}>
                 <strong>Vote Count:</strong> {movie.vote_count}
               </Typography>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
+                  <Typography variant="body1" sx={{ my: 0.5 }}>
+                    <strong>Release Date:</strong> {movie.release_date}
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         ))}
