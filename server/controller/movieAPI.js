@@ -52,9 +52,10 @@ export const checkFavourite = async (req, res) => {
 
 export const fetchSearchResult = async (req, res) => {
   try {
+    const page = req.query.page;
     const searchedString = req.query.query;
     const response = await axios.get(
-      `https://api.themoviedb.org/3/search/multi?api_key=${process.env.TMDB_API_KEY}&query=${searchedString}&page=1`
+      `https://api.themoviedb.org/3/search/multi?api_key=${process.env.TMDB_API_KEY}&query=${searchedString}&page=${page}`
     );
     res.json(response.data);
   } catch (err) {
