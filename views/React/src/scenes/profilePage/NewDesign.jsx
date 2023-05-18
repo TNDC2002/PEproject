@@ -2,7 +2,6 @@ import Ava from "../../assets/image/bob.png";
 
 import BotBackgroundImage from "../../assets/image/profileCoverBot2.png";
 import ProfileBehind from "../../assets/image/ProfileBehind.png";
-import { keyframes } from "@emotion/react";
 import { useState } from "react";
 import StarAnimation from "./StarAnimation";
 import EditIcon from "@mui/icons-material/Edit";
@@ -20,15 +19,11 @@ const editSchema = yup.object().shape({
     .string()
     .email("invalid email")
     .required("required"),
+  password: yup.string().required("required"),
 });
 import {
   Box,
-  Button,
-  TextField,
   Stack,
-  Paper,
-  Grid,
-  IconButton,
   Typography,
   Hidden,
   Card,
@@ -818,53 +813,6 @@ const NewDesign = () => {
                                 style={{ marginTop: "20px" }}
                               >
                                 <Typography
-                                  fontSize={15}
-                                  fontWeight="bold"
-                                  marginRight={1}
-                                  marginLeft={2}
-                                  style={{
-                                    color: "whitesmoke",
-                                  }}
-                                >
-                                  Phone Number:
-                                </Typography>
-                                {!editMode ? (
-                                  <Typography
-                                    marginLeft={1}
-                                    fontSize={15}
-                                    fontWeight="light"
-                                    data-testid="user-phoneNumber"
-                                    style={{
-                                      color: "whitesmoke",
-                                    }}
-                                  >
-                                    add phone number
-                                  </Typography>
-                                ) : (
-                                  <StyledForm>
-                                    <StyledInput
-
-                                      placeholder="Type your text"
-                                      required
-                                      type="text"
-                                      defaultValue={"add phone number"}
-                                      onBlur={handleBlur}
-                                      onChange={handleChange}
-                                      name="email"
-                                      inputProps={{
-                                        "data-testid": "add phone number",
-                                      }}
-                                    />
-                                    <span className="input-border" />
-                                  </StyledForm>
-                                )}
-                              </Stack>
-
-                              <Stack
-                                direction="row"
-                                style={{ marginTop: "20px" }}
-                              >
-                                <Typography
 
                                   fontSize={15}
                                   fontWeight="bold"
@@ -874,7 +822,7 @@ const NewDesign = () => {
                                     color: "whitesmoke",
                                   }}
                                 >
-                                  Address:
+                                  Password:
                                 </Typography>
                                 {!editMode ? (
                                   <Typography
@@ -886,7 +834,7 @@ const NewDesign = () => {
                                       color: "whitesmoke",
                                     }}
                                   >
-                                    add address
+                                    *************
                                   </Typography>
                                 ) : (
                                   <StyledForm>
@@ -895,12 +843,12 @@ const NewDesign = () => {
                                       placeholder="Type your text"
                                       required
                                       type="text"
-                                      defaultValue={"add address"}
+                                      defaultValue={""}
                                       onBlur={handleBlur}
                                       onChange={handleChange}
-                                      name="email"
+                                      name="password"
                                       inputProps={{
-                                        "data-testid": "user-email-input",
+                                        "data-testid": "user-password-input",
                                       }}
                                     />
                                     <span className="input-border" />
