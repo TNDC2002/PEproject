@@ -7,7 +7,7 @@ import * as uploader from "../middleware/FileUploader.js"
 import passport from 'passport'
 import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
 import { Strategy as FacebookStrategy } from "passport-facebook";
-
+import User from "../models/User.js";
 //uploader setup
 var upload = uploader.default()
 //Passport setup

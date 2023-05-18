@@ -1,6 +1,4 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import User from "../models/User.js";
+
 import oAuth2 from '../models/oAuth2_model.js'
 import * as dotenv from 'dotenv';
 dotenv.config()
