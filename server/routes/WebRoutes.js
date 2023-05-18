@@ -150,15 +150,18 @@ let initWebRoutes = (app) => {
     router.get("/user-search-history/", middleware.default.verifyToken, user.default.fetchSearches);
     router.get("/auth/logout", auth.default.logout);
     router.get("/auth/info", auth.default.GetAUTH);
-    app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-    app.get("/auth/google/callback", passport.authenticate("google", { session: false }), oAuth2.default.GG_oAuth2);
-    app.get("/auth/facebook", passport.authenticate("facebook"));
-    app.get("/auth/facebook/callback", passport.authenticate("facebook", { session: false }), oAuth2.default.FB_oAuth2);
-    app.get("/auth/github", passport.authenticate("github"));
-    app.get("/auth/github/callback", passport.authenticate("github", { session: false }), oAuth2.default.GH_oAuth2);
-    app.get("/auth/twitter", passport.authenticate("twitter"));
-    app.get("/auth/twitter/callback", passport.authenticate("twitter", { session: false }), oAuth2.default.TW_oAuth2);
-
+    router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+    router.get("/auth/google/callback", passport.authenticate("google", { session: false, successRedirect: "http://localhost:5173/auth/google", failureRedirect: "http://localhost:5173/" }));
+    router.get("/login/google",  oAuth2.default.GG_oAuth2);
+    router.get("/auth/facebook", passport.authenticate("facebook"));
+    router.get("/auth/facebook/callback", passport.authenticate("facebook", { session: false,  successRedirect: "http://localhost:5173/auth/facebook", failureRedirect: "http://localhost:5173/"  }));
+    router.get("/login/facebook",  oAuth2.default.FB_oAuth2);
+    router.get("/auth/github", passport.authenticate("github"));
+    router.get("/auth/github/callback", passport.authenticate("github", { session: false, successRedirect: "http://localhost:5173/auth/github", failureRedirect: "http://localhost:5173/"  }));
+    router.get("/login/github",  oAuth2.default.GH_oAuth2);
+    router.get("/auth/twitter", passport.authenticate("twitter"));
+    router.get("/auth/twitter/callback", passport.authenticate("twitter", { session: false,  successRedirect: "http:/0localhost:5173/auth/twitter", failureRedirect: "http://localhost:5173/"  }));
+    router.get("/login/twitter",  oAuth2.default.TW_oAuth2);
     router.get('/', SampleController.default.Sample_handler_GET);
     /* POST syntax:
         router.post('<route>',<controller_name>.default.<function>) */
