@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { useTheme, Typography, Box, Button, Grid } from "@mui/material";
+import {
+  useTheme,
+  Typography,
+  Box,
+  Button,
+  Grid,
+  IconButton,
+} from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Navbar from "../navbar/index.jsx";
@@ -7,10 +14,13 @@ import Loading from "../../components/Loading";
 import { useNavigate, Link } from "react-router-dom";
 import Image from "mui-image";
 import FlexBetween from "../../components/FlexBetween.jsx";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+
 const SearchPage = () => {
   const [result, setResult] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -20,7 +30,7 @@ const SearchPage = () => {
     const fetchSearchResult = async (value) => {
       try {
         const fetchSearchResultResponse = await fetch(
-          `http://localhost:5000/search/?query=${value}`,
+          `http://localhost:5000/search/?query=${value}&page=${page}`,
           {
             method: "GET",
             headers: {
@@ -53,7 +63,15 @@ const SearchPage = () => {
       }
     };
     fetchSearchResult(query);
-  }, [query]);
+  }, [query, page]);
+
+  const handlePrevPage = () => {
+    setPage((prevPage) => prevPage - 1);
+  };
+
+  const handleNextPage = () => {
+    setPage((nextPage) => nextPage + 1);
+  };
 
   if (!result) {
     return <Loading />;
@@ -72,6 +90,42 @@ const SearchPage = () => {
   return (
     <div>
       <Navbar></Navbar>
+      <FlexBetween>
+        <IconButton
+          onClick={handlePrevPage}
+          disabled={page === 1}
+          sx={{
+            padding: "0 0 0 0.5rem",
+          }}
+        >
+          <ArrowBackIos
+            sx={{ fontSize: "30px", color: "white", margin: "0 0.75rem" }}
+          ></ArrowBackIos>
+        </IconButton>
+        <Typography
+          sx={{
+            color: "white",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+            padding: "0.5rem",
+            margin: "1rem 0.5rem",
+            border: "hidden",
+            borderRadius: "0.5rem ",
+          }}
+        >
+          {page}
+        </Typography>
+        <IconButton
+          onClick={handleNextPage}
+          sx={{
+            padding: "0 0.5rem 0 0",
+          }}
+        >
+          <ArrowForwardIos
+            sx={{ fontSize: "30px", color: "white", margin: "0 0.75rem" }}
+          ></ArrowForwardIos>
+        </IconButton>
+      </FlexBetween>
       <Box sx={{}}>
         {result.map((movie) => (
           <Grid container spacing={3} sx={{ my: 2 }}>
@@ -131,6 +185,42 @@ const SearchPage = () => {
           </Grid>
         ))}
       </Box>
+      <FlexBetween>
+        <IconButton
+          onClick={handlePrevPage}
+          disabled={page === 1}
+          sx={{
+            padding: "0 0 0 0.5rem",
+          }}
+        >
+          <ArrowBackIos
+            sx={{ fontSize: "30px", color: "white", margin: "0 0.75rem" }}
+          ></ArrowBackIos>
+        </IconButton>
+        <Typography
+          sx={{
+            color: "white",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+            padding: "0.5rem",
+            margin: "1rem 0.5rem",
+            border: "hidden",
+            borderRadius: "0.5rem ",
+          }}
+        >
+          {page}
+        </Typography>
+        <IconButton
+          onClick={handleNextPage}
+          sx={{
+            padding: "0 0.5rem 0 0",
+          }}
+        >
+          <ArrowForwardIos
+            sx={{ fontSize: "30px", color: "white", margin: "0 0.75rem" }}
+          ></ArrowForwardIos>
+        </IconButton>
+      </FlexBetween>
     </div>
   );
 };
