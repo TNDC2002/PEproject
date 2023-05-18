@@ -1,6 +1,7 @@
 variables:
   IMAGE_NAME: khanglun20000/pe_vgugroup5
-  IMAGE_TAG: node-app-1.0
+  IMAGE_SERVER_TAG: node-app-server-image
+  IMAGE_CLIENT_TAG: node-app-client-image
 
 run-frontend-tests:
   image: node:15
@@ -35,5 +36,7 @@ build-image:
     - apk add --no-cache git
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
   script:
-    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
-    - docker push $IMAGE_NAME:$IMAGE_TAG
+    - docker build -t $IMAGE_NAME:IMAGE_SERVER_TAG .
+    - docker push $IMAGE_NAME:$IMAGE_SERVER_TAG
+    - docker build $IMAGE_NAME:IMAGE_CLIENT_TAG .
+    - docker push $IMAGE_NAME:$IMAGE_CLIENT_TAG
