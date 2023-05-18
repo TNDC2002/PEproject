@@ -118,10 +118,6 @@ const Stars2 = styled(Box)({
 
 
 const StarAnimation = ({ backgroundImage }) => {
-
-
-
-
   return (
     <Box style={{
       "@keyframes animStar": {
@@ -165,8 +161,6 @@ const StarAnimation = ({ backgroundImage }) => {
         "-webkit-box-shadow": "0 0 30px #241d20",
         boxShadow: "0 0 30px #241d20",
         "-webkit-transition": "-webkit-transform 0.4s",
-        transition: "-webkit-transform 0.4s",
-        transition: "transform 0.4s",
         transition: "transform 0.4s, -webkit-transform 0.4s",
         backgroundImage: `url(${backgroundImage})`,
       },
