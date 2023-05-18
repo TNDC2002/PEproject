@@ -51,6 +51,11 @@ const UserSchema = new mongoose.Schema({
         required: false,
         unique: true
     },
+    TwId:{
+        type: String,
+        required: false,
+        unique: true
+    },
     GhId:{
         type: String,
         required: false,
