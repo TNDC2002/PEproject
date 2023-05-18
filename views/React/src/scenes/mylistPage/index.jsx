@@ -4,6 +4,7 @@ import { Box, Typography, Grid, Rating } from "@mui/material";
 import Image from "mui-image";
 import Navbar from "../navbar";
 import { styled } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 import ReactPlayer from 'react-player/youtube';
 
 
@@ -13,6 +14,7 @@ const MyListPage = () => {
     const [rentedMovie, setRentedMovie ] = useState([]);
     const [rentedShow, setRentedShow ] = useState([]);
     const user = useSelector((state) => state.user);
+    const navigate = useNavigate();
 
     const [hoveredMovieId, setHoveredMovieId] = useState(null);
     const [hoveredShowId, setHoveredShowId] = useState(null);
@@ -177,14 +179,17 @@ const MyListPage = () => {
                                     <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}/>
                                     {/* <Typography>{movie.title}</Typography> */}
                                     {hoveredMovieId === movie.id && (
-                                        <Box className="hover" sx={{
+                                        <Box 
+                                        onClick={() => navigate(`/movie/${movie.id}`)}
+                                        className="hover" sx={{
                                             display:'flex',
                                             position: 'absolute',
                                             width: '100%',
                                             height: '100%',
-                                            opacity: 0.8
+                                            opacity: 0.8,
                                         }}>
-                                            <Box className="backdropContainer" sx={{
+                                            <Box
+                                            className="backdropContainer" sx={{
                                                 backgroundColor: 'black',
                                                 opacity: 1,
                                                 width: '100%',
@@ -262,7 +267,9 @@ const MyListPage = () => {
                                     <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons[show.intendedSeason].poster_path}`}/>
                                     {/* <Typography>{movie.title}</Typography> */}
                                     {hoveredShowId === show.id && (
-                                        <Box className="hover" sx={{
+                                        <Box 
+                                        onClick={() => navigate(`/TV Shows/${show.id}`)}
+                                        className="hover" sx={{
                                             display:'flex',
                                             position: 'absolute',
                                             width: '100%',
