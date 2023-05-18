@@ -19,6 +19,7 @@ const MyListPage = () => {
 
     const [hoveredMovieId, setHoveredMovieId] = useState(null);
     const [hoveredShowId, setHoveredShowId] = useState(null);
+    const [hoveredMediaData, setHoveredMediaData] = useState(null);
 
     const[isHovered, setIsHovered] = useState(false)
 
@@ -42,6 +43,117 @@ const MyListPage = () => {
         }
         fetchUserFavouriteMovieShow(user._id);
     }, [])  
+
+    const fetchHoveredMediaUser = async (userID, mediaID, media_type, season) => {
+        const requestData = {
+            userID: userID,
+            movieID: mediaID,
+            media_type: media_type,
+            season: season,
+            };
+        
+        const favourite_url = new URL("http://localhost:5000/api/favourite/check");
+        favourite_url.search = new URLSearchParams(requestData).toString();
+
+        const rate_url = new URL("http://localhost:5000/api/rate/check");
+        rate_url.search = new URLSearchParams(requestData).toString();
+
+        const rent_url = new URL("http://localhost:5000/api/rent/check");
+        rent_url.search = new URLSearchParams(requestData).toString();
+
+        const checkFavoriteResponse = await fetch(favourite_url, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+        });
+        const checkFavouriteResult = await checkFavoriteResponse.json();
+
+        const checkRateResponse = await fetch(rate_url, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+        });
+        const checkRateResult = await checkRateResponse.json();
+
+        const checkRentResponse = await fetch(rent_url, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+        const checkRentResult = await checkRentResponse.json();
+
+        const hoveredMovieInfo = {...checkFavouriteResult, ...checkRateResult, ...checkRentResult}
+        setHoveredMediaData(hoveredMovieInfo);
+    }
+
+    const Spinner = styled("Box")({
+        height: "85vh",
+        width: "100vw",
+        fontSize: "18px",
+        fontWeight: 600,
+        letterSpacing: "1rem",
+        color: "#f5f5f5",
+        filter: "drop-shadow(0 0 50px)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: '1rem',
+        "& .MuiTypography-root": {
+            fontSize: '30px',
+            animation: "bouncy 2.5s ease infinite",
+            filter: "drop-shadow(0 0 10px #f5f5f5)",
+            marginRight: "0.2em",
+            marginLeft: "0.2em",
+            "&:nth-child(1)": {
+              animationDelay: "0s",
+            },
+            "&:nth-child(2)": {
+              animationDelay: "0.25s",
+              padding:"0 5rem 0 0"
+            },
+            "&:nth-child(3)": {
+              animationDelay: "0.5s",
+            },
+            "&:nth-child(4)": {
+              animationDelay: "0.75s",
+            },
+            "&:nth-child(5)": {
+              animationDelay: "1s",
+            },
+            "&:nth-child(6)": {
+              animationDelay: "1.25s",
+            },
+            "&:nth-child(7)": {
+              animationDelay: "1.5s",
+            },
+            "&:nth-child(8)": {
+              animationDelay: "1.75s",
+            },
+            "&:nth-child(9)": {
+              animationDelay: "2s",
+            },
+            "&:nth-child(10)": {
+              animationDelay: "2.25s",
+            },
+            "&:nth-child(11)": {
+              animationDelay: "2.5s",
+            },
+            "&:nth-child(12)": {
+              animationDelay: "2.75s",
+            },
+            "&:nth-child(13)": {
+              animationDelay: "3s",
+            },
+            "&:nth-child(14)": {
+              animationDelay: "3.25s",
+            },
+          },
+        "@keyframes bouncy": {
+            "0%, 100%": {
+            transform: "translateY(0)",
+            },
+            "50%": {
+            transform: "translateY(-50px)",
+            },
+        },
+    });
     
     return (
         <Box>
@@ -94,7 +206,8 @@ const MyListPage = () => {
                             {favouriteMovie.map((movie) => (
                             <Grid title={movie.title} key={movie.id} item xs={12} sm={6} md={4} lg={3}>
                                 <Box
-                                onMouseEnter={() => setHoveredMovieId(movie.id)}
+                                onMouseEnter={() => {setHoveredMovieId(movie.id);
+                                                    fetchHoveredMediaUser(user._id, movie.id, "movie", 0)}}
                                 onMouseLeave={() => setHoveredMovieId(null)}
                                 sx={{
                                     position: 'relative',
@@ -182,7 +295,8 @@ const MyListPage = () => {
                             {favouriteShow.map((show) => (
                             <Grid title={show.name} key={show.id} item xs={12} sm={6} md={4} lg={3}>
                                 <Box
-                                onMouseEnter={() => setHoveredShowId(show.id)}
+                                onMouseEnter={() => {setHoveredShowId(show.id);
+                                                    fetchHoveredMediaUser(user._id, show.id, "tv", show.intendedSeason)}}
                                 onMouseLeave={() => setHoveredShowId(null)}
                                 sx={{
                                     position: 'relative',
