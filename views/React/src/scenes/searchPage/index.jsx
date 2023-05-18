@@ -81,7 +81,53 @@ const SearchPage = () => {
     return (
       <div>
         <Navbar></Navbar>
-        <strong> The thing you looking for does not seem to exist LOL</strong>
+        <FlexBetween>
+          <IconButton
+            onClick={handlePrevPage}
+            disabled={page === 1}
+            sx={{
+              padding: "0 0 0 0.5rem",
+            }}
+          >
+            <ArrowBackIos
+              sx={{ fontSize: "30px", color: "white", margin: "0 0.75rem" }}
+            ></ArrowBackIos>
+          </IconButton>
+          <Typography
+            sx={{
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "1.5rem",
+              padding: "0.5rem",
+              margin: "1rem 0.5rem",
+              border: "hidden",
+              borderRadius: "0.5rem ",
+            }}
+          >
+            {page}
+          </Typography>
+          <IconButton
+            onClick={handleNextPage}
+            sx={{
+              padding: "0 0.5rem 0 0",
+            }}
+          >
+            <ArrowForwardIos
+              sx={{ fontSize: "30px", color: "white", margin: "0 0.75rem" }}
+            ></ArrowForwardIos>
+          </IconButton>
+        </FlexBetween>
+        <Box sx={{ justifyContent: "center", width: "100%" }}>
+          <iframe
+            src="https://giphy.com/embed/Ru9sjtZ09XOEg"
+            width="892"
+            height="500"
+            frameBorder="0"
+            class="giphy-embed"
+            allowFullScreen
+          ></iframe>
+          <Typography>No more search found!</Typography>
+        </Box>
       </div>
     );
   }
