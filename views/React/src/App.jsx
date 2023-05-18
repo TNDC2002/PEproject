@@ -2,9 +2,6 @@ import React from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import HomePage from "./scenes/homePage";
 import LoginPage from "./scenes/loginPage";
-import NavPage from "./scenes/profilePage";
-import Original from "./scenes/profilePage/Original";
-import NewDesign from "./scenes/profilePage/NewDesign";
 
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
