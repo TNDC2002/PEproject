@@ -38,10 +38,20 @@ const GH_oAuth2 = async (req, res) => {
         res.status(200).json({ user: oAuth2_return.user });
     }
 }
+const TW_oAuth2 = async (req, res) => {
+    let oAuth2_return = await oAuth2.Tw_Callback(req)
+    if (oAuth2_return.status) {
+        return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
+    }else{
+        res.cookie('token', token, cookieOptions);
+        res.status(200).json({ user: oAuth2_return.user });
+    }
+}
 
 const output = {
     GG_oAuth2,
     FB_oAuth2,
-    GH_oAuth2
+    GH_oAuth2,
+    TW_oAuth2
 }
 export default output
