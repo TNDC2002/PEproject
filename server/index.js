@@ -10,7 +10,6 @@ import morgan from "morgan";
 import { fileURLToPath } from "url";
 import { configViewEngine } from "./config/ViewEngine.js";
 import { initWebRoutes } from "./routes/WebRoutes.js";
-import { register } from "./controller/auth.js";
 import cookieParser from 'cookie-parser';
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
@@ -38,10 +37,6 @@ const storage = multer.diskStorage({
     cb(null,file.originalname);
   }
 });
-
-const upload = multer({ storage });
-/* ROUTES FILE */
-app.post("/auth/register", upload.single("picture"), register);
 
 /* ROUTES */
 configViewEngine(app)

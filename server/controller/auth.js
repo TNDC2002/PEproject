@@ -15,39 +15,6 @@ let transporter = nodemailer.createTransport({
     }
 })
 
-/* REGISTER USER */
-export const register = async (req, res) => {
-    try {
-        const {
-            firstName,
-            lastName,
-            email,
-            password,
-            picturePath
-        } = req.body;
-        console.log(req.body);
-        const salt = await bcrypt.genSalt();
-        const passwordHash = await bcrypt.hash(password, salt);
-
-        const newUser = new User({
-            firstName,
-            lastName,
-            email,
-            password: passwordHash,
-            picturePath
-        })
-        const savedUser = await newUser.save();
-
-        sendVerificationEmail(savedUser);
-
-        res.status(201).json(savedUser);
-
-    } catch (err) {
-        console.log(err.message)
-        res.status(500).json({ error: err.message });
-    }
-};
-
 let generateRandomNumber = () => {
     // Generate a random number between 0 and 999999
     const randomNumber = Math.floor(Math.random() * 1000000);
@@ -91,7 +58,6 @@ const sendVerificationEmail = ({ email }, res) => {
         })
 };
 
-//export
 const verify = async (req, res) => {
     try {
         let { userId, verifyPIN } = req.params;
@@ -134,6 +100,39 @@ const verified = async (req, res) => {
         res.sendfile.join(__dirname, "./../views/verified.html");
     } catch (err) { }
 }
+
+/* REGISTER USER */
+const register = async (req, res) => {
+    try {
+        const {
+            firstName,
+            lastName,
+            email,
+            password,
+            picturePath
+        } = req.body;
+        console.log(req.body);
+        const salt = await bcrypt.genSalt();
+        const passwordHash = await bcrypt.hash(password, salt);
+
+        const newUser = new User({
+            firstName,
+            lastName,
+            email,
+            password: passwordHash,
+            picturePath
+        })
+        const savedUser = await newUser.save();
+
+        sendVerificationEmail(savedUser);
+
+        res.status(201).json(savedUser);
+
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({ error: err.message });
+    }
+};
 
 /* LOGGING IN */
 const login = async (req, res) => {
