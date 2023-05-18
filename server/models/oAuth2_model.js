@@ -13,14 +13,6 @@ const Gg_Callback = async (req) => {
             }
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return {
-                status: 400,
-                error: "Invalid credentials."
-            }
-        }
-
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         const salt = await bcrypt.genSalt();
         const tokenHash = await bcrypt.hash(token, salt);
@@ -58,14 +50,6 @@ const Fb_Callback = async (req) => {
             }
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return {
-                status: 400,
-                error: "Invalid credentials."
-            }
-        }
-
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         const salt = await bcrypt.genSalt();
         const tokenHash = await bcrypt.hash(token, salt);
@@ -99,14 +83,6 @@ const Gh_Callback = async (req) => {
             return {
                 status: 400,
                 error: "User does not exist."
-            }
-        }
-
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return {
-                status: 400,
-                error: "Invalid credentials."
             }
         }
 
