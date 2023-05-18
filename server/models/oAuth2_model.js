@@ -22,17 +22,20 @@ const Gg_Callback = async (req) => {
         })
             .then((update) => { })
             .catch((error) => {
-                console.log("ERROR --- Auth.js --- can't UPDATE token to DB")
+                return {
+                    status: 400,
+                    error: "fail to apply token"
+                }
             })
 
         delete user.password;
         return {
-         user: user,
-         token: token
+            user: user,
+            token: token
         }
     } catch (err) {
         console.log(err.message)
-        return{
+        return {
             status: 500,
             error: err.message
         }
@@ -59,17 +62,20 @@ const Fb_Callback = async (req) => {
         })
             .then((update) => { })
             .catch((error) => {
-                console.log("ERROR --- Auth.js --- can't UPDATE token to DB")
+                return {
+                    status: 400,
+                    error: "fail to apply token"
+                }
             })
 
         delete user.password;
         return {
-         user: user,
-         token: token
+            user: user,
+            token: token
         }
     } catch (err) {
         console.log(err.message)
-        return{
+        return {
             status: 500,
             error: err.message
         }
@@ -95,17 +101,20 @@ const Gh_Callback = async (req) => {
         })
             .then((update) => { })
             .catch((error) => {
-                console.log("ERROR --- Auth.js --- can't UPDATE token to DB")
+                return {
+                    status: 400,
+                    error: "fail to apply token"
+                }
             })
 
         delete user.password;
         return {
-         user: user,
-         token: token
+            user: user,
+            token: token
         }
     } catch (err) {
         console.log(err.message)
-        return{
+        return {
             status: 500,
             error: err.message
         }
