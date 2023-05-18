@@ -16,8 +16,8 @@ passport.use(
     "google",
     new GoogleStrategy(
         {
-            clientID: process.env.GG_Client_ID,
-            clientSecret: process.env.GG_Client_secret,
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: "/auth/google/callback",
         },
         (accessToken, refreshToken, profile, done) => {
@@ -69,8 +69,8 @@ passport.use(
 passport.use(
     "github",
     new GitHubStrategy({
-        clientID: GITHUB_CLIENT_ID,
-        clientSecret: GITHUB_CLIENT_SECRET,
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
         callbackURL: "/auth/github/callback"
     },
         (accessToken, refreshToken, profile, done) => {
