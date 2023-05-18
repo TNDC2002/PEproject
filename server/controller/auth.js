@@ -4,8 +4,6 @@ import User from "../models/User.js";
 import EmailVerification from "../models/EmailVerification.js"
 import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
-import cookie from 'cookie';
-import { sign, unsign } from 'cookie-signature';
 dotenv.config()
 
 //transporter stuff
