@@ -50,6 +50,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false,
         unique: true
+    },
+    GhId:{
+        type: String,
+        required: false,
+        unique: true
     }
 }, 
     { timestamps: true }

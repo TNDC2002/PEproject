@@ -4,10 +4,11 @@
 
 import express from "express";
 import * as uploader from "../middleware/FileUploader.js"
+import User from "../models/User.js";
 import passport from 'passport'
 import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
 import { Strategy as FacebookStrategy } from "passport-facebook";
-import User from "../models/User.js";
+import { Strategy as GitHubStrategy } from 'passport-github';
 //uploader setup
 var upload = uploader.default()
 //Passport setup
@@ -65,6 +66,29 @@ passport.use(
         }
     )
 );
+passport.use(
+    "github",
+    new GitHubStrategy({
+        clientID: GITHUB_CLIENT_ID,
+        clientSecret: GITHUB_CLIENT_SECRET,
+        callbackURL: "/auth/github/callback"
+    },
+        (accessToken, refreshToken, profile, done) => {
+            const GhId = profile.id;
+            const firstName = profile.name.givenName;
+            const lastName = profile.name.familyName;
+            const email = profile.emails[0].value;
+            const picturePath = profile.photos[0].value;
+            const newUser = new User({
+                firstName,
+                lastName,
+                email,
+                picturePath,
+                GhId
+            })
+            const savedUser = newUser.save();
+            done(null, { id: FbId });
+        }));
 
 /* Import your controller here by syntax:
     import * as <your controller name> from "../controller/<ControllerFile>.js" */
