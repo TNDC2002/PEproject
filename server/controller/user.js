@@ -3,6 +3,7 @@ import UserFavouriteMovie from "../models/UserFavouriteMovie_Schema.js";
 import UserMovieRental from "../models/UserRentMovie_Schema.js";
 import axios from "axios";
 import User from "../models/User_Schema.js";
+import bcrypt from "bcrypt";
 
 /* READ */
 export const getUser = async (req, res) => {
@@ -24,23 +25,20 @@ export const updateUserProfile = async (req, res) => {
         _id: userID,
     });
 
-    console.log(req.body);
-
     if (user) {
         user.firstName = req.body.firstName || user.firstName;
         user.lastName = req.body.lastName || user.lastName;
         user.email = req.body.email || user.email;
-
-        if (req.body.password) {
-            user.password = req.body.password;
-        }
-
+        const salt = await bcrypt.genSalt();
+        const passwordHash = await bcrypt.hash(req.body.password, salt);
+        user.password = passwordHash || user.password;
         const updatedUser = await user.save();
 
         res.json({
             firstName: updatedUser.firstName,
             lastName: updatedUser.lastName,
             email: updatedUser.email,
+            password: updatedUser.password,
         })
     }
     else {

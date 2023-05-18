@@ -392,6 +392,7 @@ const NewDesign = () => {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
+          password: data.password,
         };
         dispatch(updateUser({ user: updatedUser }));
       })
@@ -839,7 +840,6 @@ const NewDesign = () => {
                                 ) : (
                                   <StyledForm>
                                     <StyledInput
-
                                       placeholder="Type your text"
                                       required
                                       type="text"
@@ -853,7 +853,6 @@ const NewDesign = () => {
                                     />
                                     <span className="input-border" />
                                   </StyledForm>
-
                                 )}
                               </Stack>
                             </Stack>
