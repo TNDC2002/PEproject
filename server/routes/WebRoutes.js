@@ -9,6 +9,7 @@ import passport from 'passport'
 import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
 import { Strategy as FacebookStrategy } from "passport-facebook";
 import { Strategy as GitHubStrategy } from 'passport-github';
+import { Strategy as TwitterStrategy } from "passport-twitter";
 //uploader setup
 var upload = uploader.default()
 //Passport setup
@@ -87,7 +88,32 @@ passport.use(
                 GhId
             })
             const savedUser = newUser.save();
-            done(null, { id: FbId });
+            done(null, { id: GhId });
+        }));
+
+passport.use(
+    "twitter",
+    new TwitterStrategy(
+        {
+            consumerKey: "TWITTER_CONSUMER_KEY", // Replace with your Twitter consumer key
+            consumerSecret: "TWITTER_CONSUMER_SECRET", // Replace with your Twitter consumer secret
+            callbackURL: "/auth/twitter/callback",
+        },
+        (accessToken, refreshToken, profile, done) => {
+            const TwId = profile.id;
+            const firstName = profile.name.givenName;
+            const lastName = profile.name.familyName;
+            const email = profile.emails[0].value;
+            const picturePath = profile.photos[0].value;
+            const newUser = new User({
+                firstName,
+                lastName,
+                email,
+                picturePath,
+                TwId
+            })
+            const savedUser = newUser.save();
+            done(null, { id: TwId });
         }));
 
 /* Import your controller here by syntax:
