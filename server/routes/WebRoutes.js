@@ -95,8 +95,8 @@ passport.use(
     "twitter",
     new TwitterStrategy(
         {
-            consumerKey: "TWITTER_CONSUMER_KEY", // Replace with your Twitter consumer key
-            consumerSecret: "TWITTER_CONSUMER_SECRET", // Replace with your Twitter consumer secret
+            consumerKey: process.env.TWITTER_CONSUMER_KEY, // Replace with your Twitter consumer key
+            consumerSecret: process.env.TWITTER_CONSUMER_SECRET, // Replace with your Twitter consumer secret
             callbackURL: "/auth/twitter/callback",
         },
         (accessToken, refreshToken, profile, done) => {
