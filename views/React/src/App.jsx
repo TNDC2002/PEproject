@@ -17,7 +17,7 @@ import SearchPage from "./scenes/searchPage";
 import MyListPage from "./scenes/mylistPage";
 import FeaturePage from "./scenes/featurePage";
 import TvPage from "./scenes/tvPage";
-import ProfilePage from "./scenes/profilePage";
+import ProfilePage from "./scenes/profilePage/NewDesign";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -35,7 +35,7 @@ function App() {
               path="/Home"
               element={isAuth ? <HomePage /> : <Navigate to="/" />}
             />
-            <Route 
+            <Route
               path="/Feature Movies"
               element={isAuth ? <FeaturePage /> : <Navigate to="/" />}
             />
@@ -45,16 +45,7 @@ function App() {
             />
             <Route
               path="/profile/:userID"
-              element={isAuth ? <NavPage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/profile/:userID/Original"
-              element={isAuth ? <Original /> : <Navigate to="/" />}
-            />
-
-            <Route
-              path="/profile/:userID/NewDesign"
-              element={isAuth ? <NewDesign /> : <Navigate to="/" />}
+              element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
             <Route
               path="/movie/:movieID"
@@ -67,10 +58,6 @@ function App() {
             <Route
               path="/TV Shows/:showID"
               element={isAuth ? <ShowPage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/profile/:userID"
-              element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
             <Route
               path="/my list"
