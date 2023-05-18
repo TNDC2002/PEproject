@@ -1,3 +1,5 @@
+
+import User from "../models/User.js";
 import passport from 'passport'
 import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
 import { Strategy as FacebookStrategy } from "passport-facebook";
