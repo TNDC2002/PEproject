@@ -125,7 +125,7 @@ export default function Carousel({ movie }) {
         </Box>
         {/* replace this img with ONLY the most popular MOVIE atm */}
         <Box sx={{
-          // backgroundImage: `url(${backdropUrl})`,
+          backgroundImage: `url(${backdropUrl})`,
           height: "100%",
           flex: "70%",
           backgroundPosition: "center",
@@ -151,7 +151,7 @@ export default function Carousel({ movie }) {
               },
             }}
           >
-            <ArrowBackIos />
+            {/* <ArrowBackIos /> */}
           </Box>
           <Box
             className="center"
@@ -166,7 +166,7 @@ export default function Carousel({ movie }) {
               // background: 'linear-gradient(to top, black, white)'
             }}
           >
-            <Typography> {movie.id} </Typography>
+            {/* <Typography> {movie.id} </Typography> */}
             <CarouselVideo discoveryId={movie.id}/>
             {/* <img width='100%' src={images[currImg].img} /> */}
             {/* replace this with PICTURES ARRAY the most POPULAR film */}
@@ -189,7 +189,7 @@ export default function Carousel({ movie }) {
               },
             }}
           >
-            <ArrowForwardIos />
+            {/* <ArrowForwardIos /> */}
           </Box>
         </Box>
       </Box>
