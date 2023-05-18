@@ -151,11 +151,14 @@ let initWebRoutes = (app) => {
     router.get("/auth/logout", auth.default.logout);
     router.get("/auth/info", auth.default.GetAUTH);
     app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-    app.get("/auth/google/callback", passport.authenticate("google", { successRedirect: "/", failureRedirect: "/login" }), oAuth2.default.GG_oAuth2);
+    app.get("/auth/google/callback", passport.authenticate("google", { session: false }), oAuth2.default.GG_oAuth2);
     app.get("/auth/facebook", passport.authenticate("facebook"));
-    app.get("/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "/", failureRedirect: "/login" }), oAuth2.default.FB_oAuth2);
-    app.get("/auth/github", passport.authenticate("facebook"));
-    app.get("/auth/github/callback", passport.authenticate("facebook", { successRedirect: "/", failureRedirect: "/login" }), oAuth2.default.FB_oAuth2);
+    app.get("/auth/facebook/callback", passport.authenticate("facebook", { session: false }), oAuth2.default.FB_oAuth2);
+    app.get("/auth/github", passport.authenticate("github"));
+    app.get("/auth/github/callback", passport.authenticate("github", { session: false }), oAuth2.default.GH_oAuth2);
+    app.get("/auth/twitter", passport.authenticate("twitter"));
+    app.get("/auth/twitter/callback", passport.authenticate("twitter", { session: false }), oAuth2.default.TW_oAuth2);
+
     router.get('/', SampleController.default.Sample_handler_GET);
     /* POST syntax:
         router.post('<route>',<controller_name>.default.<function>) */
