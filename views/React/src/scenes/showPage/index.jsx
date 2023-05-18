@@ -24,7 +24,8 @@ import {
   Menu,
   CardHeader,
   CardContent,
-  Card
+  Card,
+  Divider
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
@@ -35,6 +36,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from "../navbar";
 import {
@@ -363,21 +366,21 @@ const [open, setOpen] = useState(false);
     <div>
       <Navbar></Navbar>
       <Container maxWidth="lg">
-        <Breadcrumbs aria-label="breadcrumb" sx={{ my: 2 }}>
+        <Breadcrumbs aria-label="breadcrumb" sx={{margin: '4px', padding: '4px'}}>
           <Link
-            underline="hover"
-            color="inherit"
+            
+            color="white"
             onClick={() => {
               window.location.href = "/home";
             }}
           >
-            Home
+            <Typography><h3>Home</h3></Typography>
           </Link>
 
           <Link underline="hover" color="inherit">
-            Movies
+            <h3>Movies</h3>
           </Link>
-          <Typography color="text.primary">{show.original_name}</Typography>
+          <Typography  fontWeight="lighter"><h3>{show.original_name}</h3></Typography>
         </Breadcrumbs>
 
         {trailerVideoId !== null && trailerVideoId.length > 0 ? (
@@ -385,33 +388,14 @@ const [open, setOpen] = useState(false);
             <div ref={mainPlayerRef}>
               <YouTubePlayer videoId={selectedVideo} width={800} height={600} thumbnail={false}/>
             </div>
-            <Box>
-              <Typography>
-                Other Trailer
-              </Typography>
-            </Box>
-            <Box sx={{ overflowX: "auto" }}>
-              {trailerVideoId && (
-                <Box>
-                  <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
-                    {trailerVideoId.map((video) => (
-                      <Grid item key={video.key} onClick={() => {
-                        setSelectedVideo(video.key)
-                        mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
-                      }}>
-                        <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
-                      </Grid>
-                    ))}
-                  </Box>
-                </Box>
-              )}
-            </Box>
+            
           </>
         ) : (
           <></>
         )}
 
-        <Grid container spacing={3} sx={{ my: 2 }}>
+        
+        <Grid container spacing={3} sx={{padding: '20px'}}>
           <Grid item xs={12} sm={6} md={3} lg={3}>
             <Box sx={{ position: "relative", display: "inline-flex" }}>
               <Box
@@ -452,9 +436,11 @@ const [open, setOpen] = useState(false);
               {show.original_name}
             </Typography>
 
-            <Button variant="contained" sx={{ mx: 0.5 }}>
-              <strong>IMDB:</strong> {show.vote_average}
-            </Button>
+            <Stack direction="row" spacing={2}>
+              <Avatar >
+                  <FavoriteBorderOutlinedIcon></FavoriteBorderOutlinedIcon>
+              </Avatar>
+            </Stack>
             
             <Box >
               <FormControl >
@@ -501,7 +487,7 @@ const [open, setOpen] = useState(false);
 
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
-                  <strong>Duration:</strong> {show.episode_run_time} min
+                  <strong>Air:</strong> {show.episode_run_time} min
                 </Typography>
                 <Typography variant="body1" sx={{ my: 0.5 }}>
                   <strong>Genre:</strong>{" "}
@@ -526,6 +512,7 @@ const [open, setOpen] = useState(false);
               variant="contained"
               onClick={handleOpen}
               disabled={isRented}
+              
             >
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
@@ -633,7 +620,10 @@ const [open, setOpen] = useState(false);
             ></Rating>          
             </Grid>
         </Grid>
-        <Box sx={{}}>
+        <Divider variant="middle" sx={{ borderBottomWidth: '6px ', height:'6px', paddingBottom: '20px'}}/>
+          
+                  
+        <Box sx={{paddingTop: '20px'}}>
           {recommendations && (
             <Box>
               <Typography variant="h5" sx={{ pb: 1 }}>
@@ -679,5 +669,25 @@ const [open, setOpen] = useState(false);
 export default ShowPage;
 
 /**
- * []
+ * <Box>
+              <Typography>
+                Other Trailer
+              </Typography>
+            </Box>
+            <Box sx={{ overflowX: "auto" }}>
+              {trailerVideoId && (
+                <Box>
+                  <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
+                    {trailerVideoId.map((video) => (
+                      <Grid item key={video.key} onClick={() => {
+                        setSelectedVideo(video.key)
+                        mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
+                      }}>
+                        <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
+                      </Grid>
+                    ))}
+                  </Box>
+                </Box>
+              )}
+            </Box>
  */
