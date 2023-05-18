@@ -16,8 +16,7 @@ initWebRoutes(app);
 describe('Test routes responses', () => {
 
     test('1 GET /movie/detail/:movieID responds with 200 status', async () => {
-        const response = await request(app).get('/movie/detail/123456}');
-        jest.spyOn(movieAPI, 'getDetail').mockResolvedValue({ id: 123456, title: 'Mock Movie' });
+        const response = await request(app).get('/movie/detail/502356}');
         expect(response.status).toBe(200);
     });
 
