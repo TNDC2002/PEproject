@@ -90,12 +90,6 @@ const Gg_Callback = async (req) => {
             })
 
         delete user.password;
-        const cookieOptions = {
-            maxAge: 36000000, // Cookie expiration time (in milliseconds)
-            httpOnly: true, // Restrict cookie access to HTTP requests only
-            signed: true, // Enable cookie signing
-            sameSite: 'Lax'
-        };
         return {
          user: user,
          token: token
@@ -141,12 +135,6 @@ const Fb_Callback = async (req) => {
             })
 
         delete user.password;
-        const cookieOptions = {
-            maxAge: 36000000, // Cookie expiration time (in milliseconds)
-            httpOnly: true, // Restrict cookie access to HTTP requests only
-            signed: true, // Enable cookie signing
-            sameSite: 'Lax'
-        };
         return {
          user: user,
          token: token
