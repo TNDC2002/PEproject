@@ -128,7 +128,8 @@ let initWebRoutes = (app) => {
     app.get("/auth/google/callback", passport.authenticate("google", { successRedirect: "/", failureRedirect: "/login" }), oAuth2.default.GG_oAuth2);
     app.get("/auth/facebook", passport.authenticate("facebook"));
     app.get("/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "/", failureRedirect: "/login" }), oAuth2.default.FB_oAuth2);
-
+    app.get("/auth/github", passport.authenticate("facebook"));
+    app.get("/auth/github/callback", passport.authenticate("facebook", { successRedirect: "/", failureRedirect: "/login" }), oAuth2.default.FB_oAuth2);
     router.get('/', SampleController.default.Sample_handler_GET);
     /* POST syntax:
         router.post('<route>',<controller_name>.default.<function>) */
