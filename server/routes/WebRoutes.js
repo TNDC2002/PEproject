@@ -75,7 +75,7 @@ let initWebRoutes = (app) => {
   router.put("/api/history/update", History.default.PUT_handler);
   router.put("/api/rate/update", Rate.default.PUT_handler);
   router.get("/:userID", verifyToken, getUser);
-  router.put("/:userID", verifyToken, updateUserProfile);
+  router.put("/profile/:userID", verifyToken, updateUserProfile);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
