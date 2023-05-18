@@ -58,14 +58,24 @@ passport.use(
     )
 );
 
-const Gg_Callback = async (req)=>{
+const Gg_Callback = async (req) => {
     try {
         const { GgId } = req.body;
         const user = await User.findOne({ GgId: GgId });
-        if (!user) return res.status(400).json({ msg: "User does not exist." })
+        if (!user) {
+            return {
+                status: 400,
+                error: "User does not exist."
+            }
+        }
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." })
+        if (!isMatch) {
+            return {
+                status: 400,
+                error: "Invalid credentials."
+            }
+        }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         const salt = await bcrypt.genSalt();
@@ -86,22 +96,37 @@ const Gg_Callback = async (req)=>{
             signed: true, // Enable cookie signing
             sameSite: 'Lax'
         };
-        res.cookie('token', token, cookieOptions);
-        res.status(200).json({ user });
+        return {
+         user: user,
+         token: token
+        }
     } catch (err) {
         console.log(err.message)
-        res.status(500).json({ error: err.message });
+        return{
+            status: 500,
+            error: err.message
+        }
     }
 }
 
-const Fb_Callback = async (req)=>{
+const Fb_Callback = async (req) => {
     try {
         const { FbId } = req.body;
         const user = await User.findOne({ FbId: FbId });
-        if (!user) return res.status(400).json({ msg: "User does not exist." })
+        if (!user) {
+            return {
+                status: 400,
+                error: "User does not exist."
+            }
+        }
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." })
+        if (!isMatch) {
+            return {
+                status: 400,
+                error: "Invalid credentials."
+            }
+        }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         const salt = await bcrypt.genSalt();
@@ -122,11 +147,16 @@ const Fb_Callback = async (req)=>{
             signed: true, // Enable cookie signing
             sameSite: 'Lax'
         };
-        res.cookie('token', token, cookieOptions);
-        res.status(200).json({ user });
+        return {
+         user: user,
+         token: token
+        }
     } catch (err) {
         console.log(err.message)
-        res.status(500).json({ error: err.message });
+        return{
+            status: 500,
+            error: err.message
+        }
     }
 }
 let output = {
