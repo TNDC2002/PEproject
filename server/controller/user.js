@@ -53,28 +53,28 @@ export const fetchFavourites = async (req, res) => {
     try {
         const userID = req.params.userID;
         const userFavoriteMovies = await UserFavouriteMovie.find({ userID });
-        
+
         // Extract only the movieIDs from the user's favorite movies
         const movieDataList = userFavoriteMovies.map(movie => ({
-        movieID: movie.movieID,
-        media_type: movie.media_type
+            movieID: movie.movieID,
+            media_type: movie.media_type
         }));
-    
+
         // Fetch movie details from TMDB for each movieID and media_type
         const moviePromises = movieDataList.map(async movieData => {
-        const { movieID, media_type } = movieData;
-        const endpoint = media_type === 'tv' ? 'tv' : 'movie';
-        const url = `https://api.themoviedb.org/3/${endpoint}/${movieID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`;
-        const response = await axios.get(url);
-        return {
-            ...response.data,
-            media_type
-        };
+            const { movieID, media_type } = movieData;
+            const endpoint = media_type === 'tv' ? 'tv' : 'movie';
+            const url = `https://api.themoviedb.org/3/${endpoint}/${movieID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`;
+            const response = await axios.get(url);
+            return {
+                ...response.data,
+                media_type
+            };
         });
 
         // Wait for all the requests to complete
         const movieResponses = await Promise.all(moviePromises);
-        
+
         // Send the movie objects as the response
         res.json(movieResponses);
 
