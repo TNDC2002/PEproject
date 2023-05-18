@@ -40,6 +40,16 @@ const UserSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    FbId:{
+        type: String,
+        required: false,
+        unique: true
+    },
+    GgId:{
+        type: String,
+        required: false,
+        unique: true
     }
 }, 
     { timestamps: true }

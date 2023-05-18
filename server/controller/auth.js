@@ -6,6 +6,7 @@ import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
 dotenv.config()
 
+
 //transporter stuff
 let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -148,13 +149,13 @@ const login = async (req, res) => {
         const salt = await bcrypt.genSalt();
         const tokenHash = await bcrypt.hash(token, salt);
         //save token to DB
-        let update = await User.findOneAndUpdate({ _id: user._id },{
-            token:tokenHash
+        let update = await User.findOneAndUpdate({ _id: user._id }, {
+            token: tokenHash
         })
-        .then((update)=>{ })
-        .catch((error) => {
-            console.log("ERROR --- Auth.js --- can't UPDATE token to DB")
-        })
+            .then((update) => { })
+            .catch((error) => {
+                console.log("ERROR --- Auth.js --- can't UPDATE token to DB")
+            })
 
         delete user.password;
         const cookieOptions = {
@@ -179,23 +180,23 @@ const GetAUTH = async (req, res) => {
     try {
         console.log("___GetAUTH___")
         let token = req.signedCookies.token;
-        console.log("cookie:",req.signedCookies)
-        if(!token){
+        console.log("cookie:", req.signedCookies)
+        if (!token) {
             return res.status(200).json({ authenticated: false });
         }
         const UUID = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findOne({ _id: UUID.id });
         const isMatch = await bcrypt.compare(token, user.token);
-        if(isMatch){
+        if (isMatch) {
             console.log("___res true")
             return res.status(200).json({ authenticated: true });
-        }else{
+        } else {
             return res.status(200).json({ authenticated: false });
         }
-        
+
     } catch (err) {
         console.log(err.message)
-        res.status(200).json({ error: err.message,authenticated: false });
+        res.status(200).json({ error: err.message, authenticated: false });
     }
 }
 
