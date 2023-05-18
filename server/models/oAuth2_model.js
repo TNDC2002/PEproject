@@ -162,6 +162,7 @@ const Tw_Callback = async (req) => {
 let output = {
     Gg_Callback,
     Fb_Callback,
-    Gh_Callback
+    Gh_Callback,
+    Tw_Callback
 }
 export default output
