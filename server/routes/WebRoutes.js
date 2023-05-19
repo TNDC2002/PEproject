@@ -222,13 +222,6 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  // Retrieve the user object from the session using the serialized id
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
-});
-
 /* Import your controller here by syntax:
     import * as <your controller name> from "../controller/<ControllerFile>.js" */
 import * as SampleController from "../controller/SampleController.js";

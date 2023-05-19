@@ -12,6 +12,7 @@ import { themeSettings } from "./theme";
 import MoviePage from "./scenes/moviePage";
 import ShowPage from "./scenes/showPage";
 import callBackPage from "./scenes/callBackPage";
+import Loading from "./components/Loading";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -65,7 +66,7 @@ function App() {
 
   if (loading) {
     // Show loading state while checking authentication
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   return (

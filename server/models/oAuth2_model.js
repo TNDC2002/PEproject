@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 const expiresIn = (60 * 60)*7; 
 const Gg_Callback = async (req) => {
     try {
+        console.log("cookie: ", req.session)
         const GgId = req.session.passport.user;
         const user = await User.findOne({ GgId: GgId });
         if (!user) {
