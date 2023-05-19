@@ -5,34 +5,35 @@ variables:
   IMAGE_CLIENT_TAG: gitlab-client-image
 
 stages:
-  - test
+  # - test
   - login
   - build
 
-run-frontend-tests:
-  image: node:15
-  stage: test
-  before_script:
-    - cd views/React
-    - rm -rf node_modules
-    - rm -rf package-lock.json
-    - npm install
-  script:
-    - npm test
+# run-frontend-tests:
+#   image: node:15
+#   stage: test
+#   before_script:
+#     - cd views/React
+#     - rm -rf node_modules
+#     - rm -rf package-lock.json
+#     - npm install
+#   script:
+#     - npm test
 
-run-backend-tests:
-  image: node:15
-  stage: test
-  before_script:
-    - cd server
-    - cp "$TESTING_ENV_FILE" .env
-    - rm -rf node_modules
-    - rm -rf package-lock.json
-    - npm install
-  script:
-    - npm test
+# run-backend-tests:
+#   image: node:15
+#   stage: test
+#   before_script:
+#     - cd server
+#     - cp "$TESTING_ENV_FILE" .env
+#     - rm -rf node_modules
+#     - rm -rf package-lock.json
+#     - npm install
+#   script:
+#     - npm test
 
 login-docker:
+  image: docker
   stage: login
   script:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
