@@ -14,7 +14,7 @@ const GG_oAuth2 = async (req, res) => {
     if (oAuth2_return.status) {
         return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
     }else{
-        res.cookie('token', token, cookieOptions);
+        res.cookie('token', oAuth2_return.token, cookieOptions);
         res.status(200).json({ user: oAuth2_return.user });
     }
 }
@@ -24,7 +24,7 @@ const FB_oAuth2 = async (req, res) => {
     if (oAuth2_return.status) {
         return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
     }else{
-        res.cookie('token', token, cookieOptions);
+        res.cookie('token', oAuth2_return.token, cookieOptions);
         res.status(200).json({ user: oAuth2_return.user });
     }
 }
@@ -34,7 +34,7 @@ const GH_oAuth2 = async (req, res) => {
     if (oAuth2_return.status) {
         return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
     }else{
-        res.cookie('token', token, cookieOptions);
+        res.cookie('token', oAuth2_return.token, cookieOptions);
         res.status(200).json({ user: oAuth2_return.user });
     }
 }
@@ -43,7 +43,7 @@ const TW_oAuth2 = async (req, res) => {
     if (oAuth2_return.status) {
         return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
     }else{
-        res.cookie('token', token, cookieOptions);
+        res.cookie('token', oAuth2_return.token, cookieOptions);
         res.status(200).json({ user: oAuth2_return.user });
     }
 }
