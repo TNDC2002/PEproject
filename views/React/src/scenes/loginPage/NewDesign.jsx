@@ -131,8 +131,20 @@ const NewDesign = () => {
     }
   };
 
-  const handleClick = () => {
-    window.location.href = "http://localhost:5000/auth/google";
+  const google = () => {
+    window.open("http://localhost:5000/auth/google", "_self");
+  };
+
+  const facebook = () => {
+    window.open("http://localhost:5000/auth/facebook", "_self");
+  };
+
+  const github = () => {
+    window.open("http://localhost:5000/auth/github", "_self");
+  };
+
+  const twitter = () => {
+    window.open("http://localhost:5000/auth/twitter", "_self");
   };
 
   const {
@@ -447,7 +459,7 @@ const NewDesign = () => {
                                 boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
                               },
                             }}
-                            onClick={() => {}}
+                            onClick={google}
                           >
                             <GoogleIcon />
                           </IconButton>
@@ -458,7 +470,7 @@ const NewDesign = () => {
                                 boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
                               },
                             }}
-                            onClick={() => {}}
+                            onClick={facebook}
                           >
                             <FacebookIcon />
                           </IconButton>
@@ -469,7 +481,7 @@ const NewDesign = () => {
                                 boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
                               },
                             }}
-                            onClick={() => {}}
+                            onClick={github}
                           >
                             <GitHubIcon />
                           </IconButton>
@@ -480,7 +492,7 @@ const NewDesign = () => {
                                 boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
                               },
                             }}
-                            onClick={() => {}}
+                            onClick={twitter}
                           >
                             <TwitterIcon />
                           </IconButton>
