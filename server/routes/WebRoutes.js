@@ -72,6 +72,8 @@ passport.use(
       callbackURL: "/auth/facebook/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
+        console.log("______________________facebook_______________________")
+        console.log(profile)
       const GgId = profile.id;
       const firstName = profile.name.givenName;
       const lastName = profile.name.familyName;
@@ -277,7 +279,7 @@ let initWebRoutes = (app) => {
     })
   );
   router.get("/login/google", oAuth2.default.GG_oAuth2);
-  router.get("/auth/facebook", passport.authenticate("facebook"));
+  router.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
   router.get(
     "/auth/facebook/callback",
     passport.authenticate("facebook", {
