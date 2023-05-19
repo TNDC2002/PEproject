@@ -53,7 +53,7 @@ export default function Carousel({ movie }) {
           <Link to="scrollTo" spy={true} smooth={true} offset={-80} duration={500}>
             <Box
               sx={{
-                zIndex:'5',
+                zIndex:'10',
                 position: "absolute",
                 padding: "0.5rem",
                 margin: "3rem 1rem",
@@ -91,10 +91,10 @@ export default function Carousel({ movie }) {
               fit="contain"
               src={imageUrl}
             />
-            console
             <Box
               className="discoverMore"
               sx={{
+                zIndex:'5',
                 position: "absolute",
                 inset: 0,
                 padding: "2rem",
