@@ -138,7 +138,6 @@ import * as auth from "../controller/auth.js";
 import * as movieAPI from "../controller/movieAPI.js";
 import * as user from "../controller/user.js";
 import * as oAuth2 from "../controller/oAuth2_Controller.js"
-import { Console } from "console";
 
 let router = express.Router();
 
