@@ -132,7 +132,6 @@ const SearchPage = () => {
             <Typography>U</Typography>
             <Typography>L</Typography>
             <Typography>T</Typography>
-            <Typography>S</Typography>
             <iframe width="400" height="400" src="https://www.youtube.com/embed/6Cr_8tvvQ0k?autoplay=1&loop=1&controls=0&playlist=6Cr_8tvvQ0k" title="YouTube video player" frameborder="0" allow="accelerometer; loop; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>          
           </Spinner>
         </Box>
