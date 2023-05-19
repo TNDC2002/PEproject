@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import {
   Box,
   Button,
@@ -82,8 +81,6 @@ const NewDesign = () => {
   const [pageType, setPageType] = useState("login");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [page, setPage] = useState(0);
 
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
