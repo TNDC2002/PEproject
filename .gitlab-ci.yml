@@ -32,12 +32,6 @@ stages:
 #   script:
 #     - npm test
 
-login-docker:
-  image: docker
-  stage: login
-  script:
-    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
-
 build-server-image:
   image: docker
   stage: build
@@ -48,6 +42,7 @@ build-server-image:
   before_script:
     - apk add --no-cache git
     - cd server
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
   script:
     - docker build -t $IMAGE_SERVER_NAME:$IMAGE_SERVER_TAG .
     - docker push $IMAGE_SERVER_NAME
@@ -62,6 +57,7 @@ build-client-image:
   before_script:
     - apk add --no-cache git
     - cd views/React
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
   script:
     - docker build -t $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG .
     - docker push $IMAGE_CLIENT_TAG
