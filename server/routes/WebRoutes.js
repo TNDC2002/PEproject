@@ -36,10 +36,15 @@ passport.use(
                     GgId
                 }
                 let user = null;
-                user = await User.findOne(data);
-                if (user) {
+                user = await User.findOne(email);
+                if (user){
+                    let update = await User.findOneAndUpdate(email, data)
+                        .then((update) => { })
+                        .catch((error) => {
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE GgId DB")
+                        })
                     done(null, { id: GgId });
-                } else {
+                }else {
                     console.log("_____________________________________________________")
                     console.log(data)
                     const newUser = new User(data)
@@ -77,8 +82,13 @@ passport.use(
                     GgId
                 }
                 let user = null;
-                user = await User.findOne(data);
-                if (user) {
+                user = await User.findOne(email);
+                if (user){
+                    let update = await User.findOneAndUpdate(email, data)
+                        .then((update) => { })
+                        .catch((error) => {
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE GgId DB")
+                        })
                     done(null, { id: GgId });
                 } else {
                     console.log("_____________________________________________________")
@@ -117,8 +127,13 @@ passport.use(
                     GgId
                 }
                 let user = null;
-                user = await User.findOne(data);
-                if (user) {
+                user = await User.findOne(email);
+                if (user){
+                    let update = await User.findOneAndUpdate(email, data)
+                        .then((update) => { })
+                        .catch((error) => {
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE GgId DB")
+                        })
                     done(null, { id: GgId });
                 } else {
                     console.log("_____________________________________________________")
@@ -159,8 +174,13 @@ passport.use(
                     GgId
                 }
                 let user = null;
-                user = await User.findOne(data);
-                if (user) {
+                user = await User.findOne(email);
+                if (user){
+                    let update = await User.findOneAndUpdate(email, data)
+                        .then((update) => { })
+                        .catch((error) => {
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE GgId DB")
+                        })
                     done(null, { id: GgId });
                 } else {
                     console.log("_____________________________________________________")
