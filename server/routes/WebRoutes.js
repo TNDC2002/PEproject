@@ -279,7 +279,7 @@ let initWebRoutes = (app) => {
     })
   );
   router.get("/login/google", oAuth2.default.GG_oAuth2);
-  router.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
+  router.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile", "user_photos"] }));
   router.get(
     "/auth/facebook/callback",
     passport.authenticate("facebook", {
