@@ -140,7 +140,6 @@ const SearchPage = () => {
     );
   }
 
-  console.log(result);
   return (
     <div>
       <Navbar></Navbar>
@@ -180,19 +179,28 @@ const SearchPage = () => {
           ></ArrowForwardIos>
         </IconButton>
       </FlexBetween>
-      <Box sx={{}}>
+      <Box sx={{
+        margin: '2rem',
+      }}>
         {result.map((movie) => (
-          <Grid container spacing={3} sx={{ my: 2 }}>
+          <Grid container sx={{ my: 2 }}>
             <Grid item xs={12} sm={6} md={3} lg={3}>
               <Box sx={{ position: "relative", display: "inline-flex" }}>
-                <Box
+                <Box className="posterContainer"
                   sx={{
-                    borderRadius: "10px",
-                    boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+                    backgroundColor: '#4B4B4B',
+                    // borderRadius: "10px",
+                    display:'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    "&:hover":{
+                      cursor: 'pointer'
+                    }
                   }}
                 >
                   <Image
-                    sx={{ borderRadius: "10px" }}
+                  width="95%"
+                  height="95%"
                     src={
                       movie.poster_path
                         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -203,7 +211,7 @@ const SearchPage = () => {
                       if (movie.media_type === "movie") {
                         navigate(`/movie/${movie.id}`);
                       } else {
-                        navigate(`/TV Shows/${movie.id}`);
+                        navigate(`/TV Shows/${show.id}`);
                       }
                     }}
                   />
@@ -211,30 +219,62 @@ const SearchPage = () => {
               </Box>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={9} lg={9}>
-              <Typography sx={{ fontSize: 40, fontWeight: "medium" }}>
-                {movie.title}
-              </Typography>
+            <Grid item xs={12} sm={6} md={9} lg={9} paddingLeft={0}>
+              <Box className="infoOverlay" sx={{
+                width: '100%',
+                height: '100%',
+                paddingLeft: '20px',
+                "&:hover": {
+                  cursor: 'pointer',
+                  backgroundColor: '#323232'
+                }
+              }}>
+                <Typography 
+                onClick={() => {
+                  if (movie.media_type === "movie") {
+                    navigate(`/movie/${movie.id}`);
+                  } else {
+                    navigate(`/TV Shows/${show.id}`);
+                  }
+                }}
+                sx={{ 
+                  fontSize: 40, 
+                  fontWeight: "medium",
+                  "&:hover":{
+                    textDecoration: 'underline',
+                  }
+                }}>
+                  {movie.title}
+                </Typography>
+                <Box 
+                onClick={() => {
+                  if (movie.media_type === "movie") {
+                    navigate(`/movie/${movie.id}`);
+                  } else {
+                    navigate(`/TV Shows/${show.id}`);
+                  }
+                }}>
+                  <Typography variant="h5" sx={{ my: 0.5, "&:hover":{ textDecoration: 'underline' }}}>
+                    <strong>Overview:</strong> {movie.overview}
+                  </Typography>
 
-              <Typography variant="h5" sx={{ my: 0.5 }}>
-                <strong>Overview:</strong> {movie.overview}
-              </Typography>
+                  <Typography variant="h5" sx={{ my: 0.5, "&:hover":{ textDecoration: 'underline' } }}>
+                    <strong>Popularity:</strong> {movie.popularity}
+                  </Typography>
 
-              <Typography variant="h5" sx={{ my: 0.5 }}>
-                <strong>Popularity:</strong> {movie.popularity}
-              </Typography>
+                  <Typography variant="h5" sx={{ my: 0.5, "&:hover":{ textDecoration: 'underline' } }}>
+                    <strong>Release Date:</strong> {movie.release_date}
+                  </Typography>
 
-              <Typography variant="h5" sx={{ my: 0.5 }}>
-                <strong>Release Date:</strong> {movie.release_date}
-              </Typography>
+                  <Typography variant="h5" sx={{ my: 0.5, "&:hover":{ textDecoration: 'underline' } }}>
+                    <strong>Vote Average:</strong> {movie.vote_average}
+                  </Typography>
 
-              <Typography variant="h5" sx={{ my: 0.5 }}>
-                <strong>Vote Average:</strong> {movie.vote_average}
-              </Typography>
-
-              <Typography variant="h5" sx={{ my: 0.5 }}>
-                <strong>Vote Count:</strong> {movie.vote_count}
-              </Typography>
+                  <Typography variant="h5" sx={{ my: 0.5, "&:hover":{ textDecoration: 'underline' } }}>
+                    <strong>Vote Count:</strong> {movie.vote_count}
+                  </Typography>
+                </Box>
+              </Box>
             </Grid>
           </Grid>
         ))}
