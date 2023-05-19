@@ -15,7 +15,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Image from "mui-image";
 import FlexBetween from "../../components/FlexBetween.jsx";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
-import Spinner from "../../components/Spinner"
+import Spinner from "../../components/ScreenSpinner"
 
 const SearchPage = () => {
   const [result, setResult] = useState(null);
