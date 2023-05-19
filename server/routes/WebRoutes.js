@@ -62,21 +62,35 @@ passport.use(
             clientSecret: process.env.FACEBOOK_APP_SECRET,
             callbackURL: "/auth/facebook/callback",
         },
-        (accessToken, refreshToken, profile, done) => {
-            const FbId = profile.id;
+        async (accessToken, refreshToken, profile, done) => {
+            const GgId = profile.id;
             const firstName = profile.name.givenName;
             const lastName = profile.name.familyName;
             const email = profile.emails[0].value;
             const picturePath = profile.photos[0].value;
-            const newUser = new User({
-                firstName,
-                lastName,
-                email,
-                picturePath,
-                FbId
-            })
-            const savedUser = newUser.save();
-            done(null, { id: FbId });
+            try {
+                let data = {
+                    firstName,
+                    lastName,
+                    email,
+                    picturePath,
+                    GgId
+                }
+                let user = null;
+                user = await User.findOne(data);
+                if (user) {
+                    done(null, { id: GgId });
+                } else {
+                    console.log("_____________________________________________________")
+                    console.log(data)
+                    const newUser = new User(data)
+                    const savedUser = await newUser.save();
+                    done(null, { id: GgId });
+                }
+            } catch (error) {
+                console.log("___________________________________________________")
+                console.log(error)
+            }
 
         }
     )
@@ -88,22 +102,39 @@ passport.use(
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
         callbackURL: "/auth/github/callback"
     },
-        (accessToken, refreshToken, profile, done) => {
-            const GhId = profile.id;
+        async (accessToken, refreshToken, profile, done) => {
+            const GgId = profile.id;
             const firstName = profile.name.givenName;
             const lastName = profile.name.familyName;
             const email = profile.emails[0].value;
             const picturePath = profile.photos[0].value;
-            const newUser = new User({
-                firstName,
-                lastName,
-                email,
-                picturePath,
-                GhId
-            })
-            const savedUser = newUser.save();
-            done(null, { id: GhId });
-        }));
+            try {
+                let data = {
+                    firstName,
+                    lastName,
+                    email,
+                    picturePath,
+                    GgId
+                }
+                let user = null;
+                user = await User.findOne(data);
+                if (user) {
+                    done(null, { id: GgId });
+                } else {
+                    console.log("_____________________________________________________")
+                    console.log(data)
+                    const newUser = new User(data)
+                    const savedUser = await newUser.save();
+                    done(null, { id: GgId });
+                }
+            } catch (error) {
+                console.log("___________________________________________________")
+                console.log(error)
+            }
+
+        }
+    )
+);
 
 passport.use(
     "twitter",
@@ -113,22 +144,39 @@ passport.use(
             consumerSecret: process.env.TWITTER_SECRET, // Replace with your Twitter consumer secret
             callbackURL: "/auth/twitter/callback",
         },
-        (accessToken, refreshToken, profile, done) => {
-            const TwId = profile.id;
+        async (accessToken, refreshToken, profile, done) => {
+            const GgId = profile.id;
             const firstName = profile.name.givenName;
             const lastName = profile.name.familyName;
             const email = profile.emails[0].value;
             const picturePath = profile.photos[0].value;
-            const newUser = new User({
-                firstName,
-                lastName,
-                email,
-                picturePath,
-                TwId
-            })
-            const savedUser = newUser.save();
-            done(null, { id: TwId });
-        }));
+            try {
+                let data = {
+                    firstName,
+                    lastName,
+                    email,
+                    picturePath,
+                    GgId
+                }
+                let user = null;
+                user = await User.findOne(data);
+                if (user) {
+                    done(null, { id: GgId });
+                } else {
+                    console.log("_____________________________________________________")
+                    console.log(data)
+                    const newUser = new User(data)
+                    const savedUser = await newUser.save();
+                    done(null, { id: GgId });
+                }
+            } catch (error) {
+                console.log("___________________________________________________")
+                console.log(error)
+            }
+
+        }
+    )
+);
 passport.serializeUser((user, done) => {
     // Serialize the user object to store in the session
     done(null, user.id);
