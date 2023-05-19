@@ -9,6 +9,7 @@ import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
 import { Strategy as FacebookStrategy } from "passport-facebook";
 import { Strategy as GitHubStrategy } from "passport-github";
 import { Strategy as TwitterStrategy } from "passport-twitter";
+import axios from "axios";
 //uploader setup
 var upload = uploader.default();
 //Passport setup
@@ -43,7 +44,7 @@ passport.use(
             picturePath,
             GgId,
           })
-            .then((update) => {})
+            .then((update) => { })
             .catch((error) => {
               console.log("ERROR --- Webroutes.js --- can't UPDATE GgId DB");
               console.log(error.message);
@@ -72,8 +73,8 @@ passport.use(
       callbackURL: "/auth/facebook/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
-        console.log("______________________facebook_______________________")
-        console.log(profile)
+      console.log("______________________facebook_______________________")
+      console.log(profile)
       const GgId = profile.id;
       const firstName = profile.name.givenName;
       const lastName = profile.name.familyName;
@@ -96,7 +97,7 @@ passport.use(
             picturePath,
             GgId,
           })
-            .then((update) => {})
+            .then((update) => { })
             .catch((error) => {
               console.log("ERROR --- Webroutes.js --- can't UPDATE FbId DB");
               console.log(error.message);
@@ -123,12 +124,26 @@ passport.use(
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: "/auth/github/callback",
+      scope: ["user:email"],
     },
     async (accessToken, refreshToken, profile, done) => {
+      var email = '';
+      await axios
+        .get("https://api.github.com/user/emails", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((response) => {
+          email = response.data[0].email;
+          // Process the emails as needed
+        })
+        .catch((error) => {
+          console.error("Error fetching user emails from GitHub:", error);
+        });
       const GgId = profile.id;
-      const firstName = profile.name.givenName;
-      const lastName = profile.name.familyName;
-      const email = profile.emails[0].value;
+      const firstName = profile.username;
+      const lastName = '_';
       const picturePath = profile.photos[0].value;
       try {
         let data = {
@@ -147,7 +162,7 @@ passport.use(
             picturePath,
             GgId,
           })
-            .then((update) => {})
+            .then((update) => { })
             .catch((error) => {
               console.log("ERROR --- Webroutes.js --- can't UPDATE GhId DB");
               console.log(error.message);
@@ -199,7 +214,7 @@ passport.use(
             picturePath,
             GgId,
           })
-            .then((update) => {})
+            .then((update) => { })
             .catch((error) => {
               console.log("ERROR --- Webroutes.js --- can't UPDATE TwId DB");
               console.log(error.message);

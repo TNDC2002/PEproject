@@ -44,6 +44,18 @@ function App() {
           console.log("isAUTH:", data.authenticated); // Log the authentication data
           window.location.href = "/home";
           return;
+        }else if(currentPath === "/auth/github"){
+          setLoading(false);
+          setAuthenticated(true);
+          const response = await fetch("http://localhost:5000/login/github", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          });
+          const data = await response.json();
+          console.log("isAUTH:", data.authenticated); // Log the authentication data
+          window.location.href = "/home";
+          return;
         }
 
         const response = await fetch("http://localhost:5000/auth/info", {

@@ -84,7 +84,9 @@ const Fb_Callback = async (req) => {
 }
 const Gh_Callback = async (req) => {
     try {
+        
         const GhId = req.session.passport.user;
+        console.log(GhId)
         const user = await User.findOne({ GhId: GhId });
         if (!user) {
             return {
