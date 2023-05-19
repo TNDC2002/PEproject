@@ -13,6 +13,7 @@ import { Strategy as TwitterStrategy } from "passport-twitter";
 var upload = uploader.default();
 //Passport setup
 passport.use(
+<<<<<<< Updated upstream
   "google",
   new GoogleStrategy(
     {
@@ -55,6 +56,163 @@ passport.use(
           const newUser = new User(data);
           const savedUser = await newUser.save();
           done(null, { id: GgId });
+=======
+    "google",
+    new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: "/auth/google/callback",
+            includeEmail: true,
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            const GgId = profile.id;
+            const firstName = profile.name.givenName;
+            const lastName = profile.name.familyName;
+            const email = profile.emails[0].value;
+            const picturePath = profile.photos[0].value;
+            try {
+                let data = {
+                    firstName,
+                    lastName,
+                    email,
+                    picturePath,
+                    GgId
+                }
+                let user = null;
+                user = await User.findOne({ email });
+                if (user) {
+                    let update = await User.findOneAndUpdate(email, {
+                        firstName,
+                        lastName,
+                        picturePath,
+                        GgId
+                    })
+                        .then((update) => { })
+                        .catch((error) => {
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE GgId DB")
+                            console.log(error.message)
+                        })
+                    done(null, { id: GgId });
+                } else {
+                    console.log("_____________________________________________________")
+                    console.log(data)
+                    const newUser = new User(data)
+                    const savedUser = await newUser.save();
+                    done(null, { id: GgId });
+                }
+            } catch (error) {
+                console.log("___________________________________________________")
+                console.log(error)
+            }
+
+        }
+    )
+);
+passport.use(
+    "facebook",
+    new FacebookStrategy(
+        {
+            clientID: process.env.FACEBOOK_APP_ID,
+            clientSecret: process.env.FACEBOOK_APP_SECRET,
+            callbackURL: "/auth/facebook/callback",
+            includeEmail: true,
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            const GgId = profile.id;
+            const firstName = profile.name.givenName;
+            const lastName = profile.name.familyName;
+            const email = profile.emails[0].value;
+            const picturePath = profile.photos[0].value;
+            try {
+                let data = {
+                    firstName,
+                    lastName,
+                    email,
+                    picturePath,
+                    GgId
+                }
+                let user = null;
+                user = await User.findOne({ email });
+                if (user) {
+                    let update = await User.findOneAndUpdate(email, {
+                        firstName,
+                        lastName,
+                        picturePath,
+                        GgId
+                    })
+                        .then((update) => { })
+                        .catch((error) => {
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE FbId DB")
+                            console.log(error.message)
+                        })
+                    done(null, { id: GgId });
+                } else {
+                    console.log("_____________________________________________________")
+                    console.log(data)
+                    const newUser = new User(data)
+                    const savedUser = await newUser.save();
+                    done(null, { id: GgId });
+                }
+            } catch (error) {
+                console.log("___________________________________________________")
+                console.log(error)
+            }
+
+        }
+    )
+);
+passport.use(
+    "github",
+    new GitHubStrategy({
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: "/auth/github/callback",
+        includeEmail: true,
+    },
+        async (accessToken, refreshToken, profile, done) => {
+            console.log("___GITHUB___",profile)
+            const GgId = profile.id;
+            const firstName = profile.displayName;
+            const lastName = null;
+            const email = profile.email;
+            const picturePath = profile.avatar_url;
+            try {
+                let data = {
+                    firstName,
+                    lastName,
+                    email,
+                    picturePath,
+                    GgId
+                }
+                let user = null;
+                user = await User.findOne({ email });
+                if (user) {
+                    let update = await User.findOneAndUpdate(email, {
+                        firstName,
+                        lastName,
+                        picturePath,
+                        GgId
+                    })
+                        .then((update) => { })
+                        .catch((error) => {
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE GhId DB")
+                            console.log(error.message)
+                        })
+                    done(null, { id: GgId });
+                } else {
+                    console.log("_____________________________________________________")
+                    console.log(data)
+                    const newUser = new User(data)
+                    const savedUser = await newUser.save();
+                    done(null, { id: GgId });
+                }
+            } catch (error) {
+                console.log("___________________________________________________")
+                console.log(error)
+            }
+
+>>>>>>> Stashed changes
         }
       } catch (error) {
         console.log("___________________________________________________");
@@ -167,6 +325,7 @@ passport.use(
 );
 
 passport.use(
+<<<<<<< Updated upstream
   "twitter",
   new TwitterStrategy(
     {
@@ -209,6 +368,58 @@ passport.use(
           const newUser = new User(data);
           const savedUser = await newUser.save();
           done(null, { id: GgId });
+=======
+    "twitter",
+    new TwitterStrategy(
+        {
+            consumerKey: process.env.TWITTER_KEY, // Replace with your Twitter consumer key
+            consumerSecret: process.env.TWITTER_SECRET, // Replace with your Twitter consumer secret
+            callbackURL: "/auth/twitter/callback",
+            includeEmail: true,
+            proxy: true
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            const GgId = profile.id;
+            const firstName = profile.name.givenName;
+            const lastName = profile.name.familyName;
+            const email = profile.emails[0].value;
+            const picturePath = profile.photos[0].value;
+            try {
+                let data = {
+                    firstName,
+                    lastName,
+                    email,
+                    picturePath,
+                    GgId
+                }
+                let user = null;
+                user = await User.findOne({ email });
+                if (user) {
+                    let update = await User.findOneAndUpdate(email, {
+                        firstName,
+                        lastName,
+                        picturePath,
+                        GgId
+                    })
+                        .then((update) => { })
+                        .catch((error) => {
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE TwId DB")
+                            console.log(error.message)
+                        })
+                    done(null, { id: GgId });
+                } else {
+                    console.log("_____________________________________________________")
+                    console.log(data)
+                    const newUser = new User(data)
+                    const savedUser = await newUser.save();
+                    done(null, { id: GgId });
+                }
+            } catch (error) {
+                console.log("___________________________________________________")
+                console.log(error)
+            }
+
+>>>>>>> Stashed changes
         }
       } catch (error) {
         console.log("___________________________________________________");
