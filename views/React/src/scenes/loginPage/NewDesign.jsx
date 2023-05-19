@@ -143,6 +143,10 @@ const NewDesign = () => {
     window.open("http://localhost:5000/auth/github", "_self");
   };
 
+  const twitter = () => {
+    window.open("http://localhost:5000/auth/twitter", "_self");
+  };
+
   const {
     values,
     isSubmitting,
@@ -466,7 +470,7 @@ const NewDesign = () => {
                                 boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
                               },
                             }}
-                            onClick={() => {}}
+                            onClick={facebook}
                           >
                             <FacebookIcon />
                           </IconButton>
@@ -477,7 +481,7 @@ const NewDesign = () => {
                                 boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
                               },
                             }}
-                            onClick={() => {}}
+                            onClick={github}
                           >
                             <GitHubIcon />
                           </IconButton>
@@ -488,7 +492,7 @@ const NewDesign = () => {
                                 boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
                               },
                             }}
-                            onClick={() => {}}
+                            onClick={twitter}
                           >
                             <TwitterIcon />
                           </IconButton>
