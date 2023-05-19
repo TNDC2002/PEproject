@@ -87,7 +87,7 @@ passport.use(
                     let update = await User.findOneAndUpdate(email, data)
                         .then((update) => { })
                         .catch((error) => {
-                            console.log("ERROR --- Webroutes.js --- can't UPDATE GgId DB")
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE FbId DB")
                         })
                     done(null, { id: GgId });
                 } else {
@@ -132,7 +132,7 @@ passport.use(
                     let update = await User.findOneAndUpdate(email, data)
                         .then((update) => { })
                         .catch((error) => {
-                            console.log("ERROR --- Webroutes.js --- can't UPDATE GgId DB")
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE GhId DB")
                         })
                     done(null, { id: GgId });
                 } else {
@@ -179,7 +179,7 @@ passport.use(
                     let update = await User.findOneAndUpdate(email, data)
                         .then((update) => { })
                         .catch((error) => {
-                            console.log("ERROR --- Webroutes.js --- can't UPDATE GgId DB")
+                            console.log("ERROR --- Webroutes.js --- can't UPDATE TwId DB")
                         })
                     done(null, { id: GgId });
                 } else {
