@@ -15,6 +15,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Image from "mui-image";
 import FlexBetween from "../../components/FlexBetween.jsx";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import Spinner from "../../components/Spinner"
 
 const SearchPage = () => {
   const [result, setResult] = useState(null);
@@ -118,15 +119,22 @@ const SearchPage = () => {
           </IconButton>
         </FlexBetween>
         <Box sx={{ justifyContent: "center", width: "100%" }}>
-          <iframe
-            src="https://giphy.com/embed/Ru9sjtZ09XOEg"
-            width="892"
-            height="500"
-            frameBorder="0"
-            class="giphy-embed"
-            allowFullScreen
-          ></iframe>
-          <Typography>No more search found!</Typography>
+          <Spinner>
+            <Typography>N</Typography>
+            <Typography>O</Typography>
+            <Typography>M</Typography>
+            <Typography>O</Typography>
+            <Typography>R</Typography>
+            <Typography>E</Typography>
+            <Typography>R</Typography>
+            <Typography>E</Typography>
+            <Typography>S</Typography>
+            <Typography>U</Typography>
+            <Typography>L</Typography>
+            <Typography>T</Typography>
+            <Typography>S</Typography>
+            <iframe width="400" height="400" src="https://www.youtube.com/embed/6Cr_8tvvQ0k?autoplay=1&loop=1&controls=0&playlist=6Cr_8tvvQ0k" title="YouTube video player" frameborder="0" allow="accelerometer; loop; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>          
+          </Spinner>
         </Box>
       </div>
     );
