@@ -1,26 +1,66 @@
-import { Repeat } from "@mui/icons-material";
 import { Box, Typography, Button } from "@mui/material";
-import React, { useState } from "react";
+import { React, useState } from "react";
+import { useParams } from "react-router-dom";
 import Image from "mui-image";
-import {
-  ArrowBackIos,
-  ArrowForwardIos,
-  KeyboardDoubleArrowDown,
-  Campaign,
-} from "@mui/icons-material";
+import { ArrowBackIos, ArrowForwardIos, KeyboardDoubleArrowDown, Campaign } from "@mui/icons-material";
 import { Link } from "react-scroll";
 import CarouselVideo from "../trailerPlayer/CarouselVideo"
+import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 
 import { images } from "./CarouselData";
 import zIndex from "@mui/material/styles/zIndex";
 
 export default function Carousel({ movie }) {
   const [currImg, setCurrImg] = useState(0);
+  // const [movie, setMovie] = useState(null);
+  const [youtubeIDs, setVideoIDS] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+
+  const { movieID } = useParams();
 
   const imageUrl = `https://image.tmdb.org/t/p/original${movie.poster_path}`;
   const backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
 
-  console.log(movie.id)
+  // //FETCH MOVIE DETAIL
+  // useEffect(() => {
+  //   const fetchMovieDetails = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `http://localhost:5000/movie/detail/${movieID}`
+  //       );
+  //       const data = await response.json();
+  //       setMovie(data);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
+  //   fetchMovieDetails();
+  // }, [movieID]);
+
+  // //FETCH VIDEO ID
+  // useEffect(() => {
+  //   const fetchVideoIDs = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `http://localhost:5000/movie/trailer/${movieID}`,
+  //         {
+  //           method: "GET",
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       );
+  //       const data = await response.json();
+  //       setVideoIDS(data.results);
+  //       setSelectedVideo(data.results[0].key)
+  //       console.log("snfoauidyluavegui;hiojpok[pgojhiodfsjokp[l[")
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchVideoIDs();
+  // }, [movieID]);
+  // console.log(selectedVideo)
+
   return (
     <Box
       sx={{
@@ -36,10 +76,10 @@ export default function Carousel({ movie }) {
       <Box
         className="carouselInner"
         sx={{
-          backgroundColor: "black",
           height: "100%",
           width: "100%",
           display: "flex",
+          backgroundColor: 'black'
         }}
       >
         <Box
@@ -125,13 +165,13 @@ export default function Carousel({ movie }) {
         </Box>
         {/* replace this img with ONLY the most popular MOVIE atm */}
         <Box sx={{
-          backgroundImage: `url(${backdropUrl})`,
           height: "100%",
           flex: "70%",
+          display: "flex",
+          backgroundImage: `url(${backdropUrl})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          display: "flex",
         }}>
           <Box
             className="left"
@@ -141,14 +181,11 @@ export default function Carousel({ movie }) {
             sx={{
               flex: "15%",
               height: "100%",
-              background: "linear-gradient(to right, black, black, transparent)",
+              backgroundColor: 'black',
               display: "grid",
               placeItems: "center",
               cursor: "pointer",
               opacity: 0.8,
-              "&:hover": {
-                opacity: 0.9,
-              },
             }}
           >
             {/* <ArrowBackIos /> */}
@@ -161,13 +198,16 @@ export default function Carousel({ movie }) {
               width: "100%",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
+              backgroundSize: "contain",
               display: "flex",
+              justifyContent: 'center',
+              alignItems: 'center',
+              opacity: 0.96
               // background: 'linear-gradient(to top, black, white)'
             }}
           >
             {/* <Typography> {movie.id} </Typography> */}
-            <CarouselVideo discoveryId={movie.id}/>
+            <CarouselVideo discovery={movie}/>
             {/* <img width='100%' src={images[currImg].img} /> */}
             {/* replace this with PICTURES ARRAY the most POPULAR film */}
           </Box>
@@ -179,14 +219,11 @@ export default function Carousel({ movie }) {
             sx={{
               flex: "15%",
               height: "100%",
-              background: "linear-gradient(to right, transparent, black, black)",
+              backgroundColor: 'black',
               display: "grid",
               placeItems: "center",
               cursor: "pointer",
               opacity: 0.8,
-              "&:hover": {
-                opacity: 0.9,
-              },
             }}
           >
             {/* <ArrowForwardIos /> */}
