@@ -2,9 +2,10 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+const expiresIn = (60 * 60)*7; 
 const Gg_Callback = async (req) => {
     try {
-        const { GgId } = req.body;
+        const GgId = req.session.passport.user;
         const user = await User.findOne({ GgId: GgId });
         if (!user) {
             return {
@@ -13,7 +14,7 @@ const Gg_Callback = async (req) => {
             }
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn});
         const salt = await bcrypt.genSalt();
         const tokenHash = await bcrypt.hash(token, salt);
         //save token to DB
@@ -44,7 +45,7 @@ const Gg_Callback = async (req) => {
 
 const Fb_Callback = async (req) => {
     try {
-        const { FbId } = req.body;
+        const FbId = req.session.passport.user;
         const user = await User.findOne({ FbId: FbId });
         if (!user) {
             return {
@@ -53,7 +54,7 @@ const Fb_Callback = async (req) => {
             }
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn});
         const salt = await bcrypt.genSalt();
         const tokenHash = await bcrypt.hash(token, salt);
         //save token to DB
@@ -83,7 +84,7 @@ const Fb_Callback = async (req) => {
 }
 const Gh_Callback = async (req) => {
     try {
-        const { GhId } = req.body;
+        const GhId = req.session.passport.user;
         const user = await User.findOne({ GhId: GhId });
         if (!user) {
             return {
@@ -92,7 +93,7 @@ const Gh_Callback = async (req) => {
             }
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn});
         const salt = await bcrypt.genSalt();
         const tokenHash = await bcrypt.hash(token, salt);
         //save token to DB
@@ -122,7 +123,7 @@ const Gh_Callback = async (req) => {
 }
 const Tw_Callback = async (req) => {
     try {
-        const { TwId } = req.body;
+        const TwId = req.session.passport.user;
         const user = await User.findOne({ TwId: TwId });
         if (!user) {
             return {
@@ -131,7 +132,7 @@ const Tw_Callback = async (req) => {
             }
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn});
         const salt = await bcrypt.genSalt();
         const tokenHash = await bcrypt.hash(token, salt);
         //save token to DB

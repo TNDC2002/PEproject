@@ -12,63 +12,39 @@ const cookieOptions = {
 const GG_oAuth2 = async (req, res) => {
     let oAuth2_return = await oAuth2.Gg_Callback(req)
     if (oAuth2_return.status) {
-        console.log("status: ",oAuth2_return.status, "error:",oAuth2_return.error );
-    } else {
-        const serializedCookieOptions = JSON.stringify(cookieOptions);
-        const queryParams = querystring.stringify({
-            token: token,
-            user: oAuth2_return.user,
-            cookieOptions: serializedCookieOptions,
-        });
-        const redirectUrl = `http://localhost:5173/auth/callback?${queryParams}`;
-        res.redirect(redirectUrl);
+        return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
+    }else{
+        res.cookie('token', token, cookieOptions);
+        res.status(200).json({ user: oAuth2_return.user });
     }
 }
 
 const FB_oAuth2 = async (req, res) => {
     let oAuth2_return = await oAuth2.Fb_Callback(req)
     if (oAuth2_return.status) {
-        console.log("status: ",oAuth2_return.status, "error:",oAuth2_return.error );
-    } else {
-        const serializedCookieOptions = JSON.stringify(cookieOptions);
-        const queryParams = querystring.stringify({
-            token: token,
-            user: oAuth2_return.user,
-            cookieOptions: serializedCookieOptions,
-        });
-        const redirectUrl = `http://localhost:5173/auth/callback?${queryParams}`;
-        res.redirect(redirectUrl);
+        return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
+    }else{
+        res.cookie('token', token, cookieOptions);
+        res.status(200).json({ user: oAuth2_return.user });
     }
 }
 
 const GH_oAuth2 = async (req, res) => {
     let oAuth2_return = await oAuth2.Gh_Callback(req)
     if (oAuth2_return.status) {
-        console.log("status: ",oAuth2_return.status, "error:",oAuth2_return.error );
-    } else {
-        const serializedCookieOptions = JSON.stringify(cookieOptions);
-        const queryParams = querystring.stringify({
-            token: token,
-            user: oAuth2_return.user,
-            cookieOptions: serializedCookieOptions,
-        });
-        const redirectUrl = `http://localhost:5173/auth/callback?${queryParams}`;
-        res.redirect(redirectUrl);
+        return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
+    }else{
+        res.cookie('token', token, cookieOptions);
+        res.status(200).json({ user: oAuth2_return.user });
     }
 }
 const TW_oAuth2 = async (req, res) => {
     let oAuth2_return = await oAuth2.Tw_Callback(req)
     if (oAuth2_return.status) {
-        console.log("status: ",oAuth2_return.status, "error:",oAuth2_return.error );
-    } else {
-        const serializedCookieOptions = JSON.stringify(cookieOptions);
-        const queryParams = querystring.stringify({
-            token: token,
-            user: oAuth2_return.user,
-            cookieOptions: serializedCookieOptions,
-        });
-        const redirectUrl = `http://localhost:5173/auth/callback?${queryParams}`;
-        res.redirect(redirectUrl);
+        return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
+    }else{
+        res.cookie('token', token, cookieOptions);
+        res.status(200).json({ user: oAuth2_return.user });
     }
 }
 
