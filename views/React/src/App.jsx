@@ -25,7 +25,7 @@ function App() {
         const currentPath = window.location.pathname;
 
         // Skip authentication check if the current route is "/"
-        if (currentPath === "/") {
+        if (currentPath === "/" || currentPath === "/auth/google" || currentPath === "/auth/facebook" || currentPath === "/auth/github" || currentPath === "/auth/twitter") {
           setLoading(false);
           setAuthenticated(true);
           return;
