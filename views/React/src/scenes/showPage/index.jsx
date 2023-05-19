@@ -68,8 +68,7 @@ const ShowPage = () => {
   const token = useSelector((state) => state.token);
   const theme = useTheme();
 
-  const [selectedSeason, setSelectedSeason] = useState(1);
-  const [seasonOptions , setSeasonOptions ] = useState(null);
+  
 
   //function for popover
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -88,6 +87,9 @@ const ShowPage = () => {
     const selectedSeasonValue = event.target.value;
     setSelectedSeason(selectedSeasonValue);
   };
+  const [selectedSeason, setSelectedSeason] = useState(1);
+  const [seasonOptions , setSeasonOptions ] = useState(null);
+
   //open and close form
   const [open, setOpen] = useState(false);
   const handleOpen = () => {

@@ -35,6 +35,10 @@ import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
+import StarIcon from '@mui/icons-material/Star';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import Popover from '@mui/material/Popover';
 import Navbar from "../navbar";
 import {
   Favorite,
@@ -61,6 +65,19 @@ const MoviePage = () => {
   const token = useSelector((state) => state.token);
   const theme = useTheme();
   
+
+  //function for popover
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const anchorRef = useRef(null);
+  
+  //open and close popover
+  const handlePopoverOpen = () => {
+    setPopoverOpen(true);
+  };
+
+  const handlePopoverClose = () => {
+    setPopoverOpen(false);
+  };
 
   const [open, setOpen] = useState(false);
 
@@ -326,11 +343,13 @@ const MoviePage = () => {
       unrate(user._id, movieID);
       setIsRated(false);
       setRateDefaultValue(0);
+      handlePopoverClose();
     }
     else {
       rate(user._id, movieID, rateValue);
       setIsRated(true);
       setRateDefaultValue(rateValue);
+      handlePopoverClose();
     }
 
   }
@@ -351,27 +370,21 @@ const MoviePage = () => {
     <div>
       <Navbar></Navbar>
       <Container maxWidth="lg">
-        <Breadcrumbs aria-label="breadcrumb" sx={{ my: 2 }}>
+      <Breadcrumbs aria-label="breadcrumb" sx={{margin: '4px', padding: '4px'}} >
           <Link
-            underline="hover"
-            color="inherit"
+            style={{ color: 'white', textDecoration:'none'}}
+            
             onClick={() => {
-              window.location.href = "/Home";
+              window.location.href = "/home";
             }}
           >
-            Home
+            <Typography><h3>Home</h3></Typography>
           </Link>
 
-          <Link 
-            underline="hover" 
-            color="inherit"
-            onClick={() => {
-              window.location.href = "/Feature Movies";
-            }}  
-          >
-            Feature Movies
+          <Link style={{ color: 'white', textDecoration:'none' }} >
+            <h3>Movies</h3>
           </Link>
-          <Typography color="text.primary">{movie.title}</Typography>
+          <Typography  fontWeight="lighter"><h3>{movie.title}</h3></Typography>
         </Breadcrumbs>
 
         {youtubeIDs && youtubeIDs.length > 0 && (
@@ -381,31 +394,12 @@ const MoviePage = () => {
               <YouTubePlayer videoId={selectedVideo} width={800} height={600} thumbnail={false} />
             </div>
             {/* Trailer text */}
-            <Box>
-              <Typography>
-                Other Trailer
-              </Typography>
-            </Box>
-
-            {/* List of videos */}
-            <Box sx={{ overflowX: "auto" }}>
-              <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
-                {youtubeIDs.map((video) => (
-                  <Grid item key={video.key} onClick={() => {
-                    setSelectedVideo(video.key)
-                    mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
-                  }}>
-                    <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
-                    {/* <YouTubePlayer videoId={video.key} width={356} height={200} thumbnail={true}/> */}
-                  </Grid>
-                ))}
-              </Box>
-            </Box>
+            
           </>
         )}
 
 
-        <Grid container spacing={3} sx={{ my: 2 }}>
+        <Grid container spacing={3} padding='20px'>
           <Grid item xs={12} sm={6} md={3} lg={3}>
             <Box sx={{ position: "relative", display: "inline-flex" }}>
               <Box
@@ -420,24 +414,7 @@ const MoviePage = () => {
                   alt={`${movie.title} poster`}
                 />
               </Box>
-              <IconButton
-                onClick={handleFavouriteClick}
-                variant="contained"
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 0,
-                  transform: "translate(50%, 50%)",
-                }}
-              >
-                {!isFavourited ? (
-                  <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
-                ) : (
-                  <FavoriteOutlinedIcon
-                    sx={{ fontSize: "40px", color: theme.palette.primary.main }}
-                  />
-                )}
-              </IconButton>
+             
             </Box>
           </Grid>
 
@@ -446,42 +423,86 @@ const MoviePage = () => {
               {movie.title}
             </Typography>
 
-            <Button variant="contained" sx={{ mx: 0.5, my: 1 }}>
-              <VideocamIcon></VideocamIcon> <strong>Trailer </strong>
-            </Button>
+            <Stack direction="row" spacing={3} padding='4px'> 
+             
+              <Avatar 
+                onClick={handleFavouriteClick}
+              >
+                {!isFavourited ? (
+                  <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
+                ) : (
+                  <FavoriteOutlinedIcon
+                    sx={{ fontSize: "23px", color: theme.palette.primary.main }}
+                  />
+                )}
+              </Avatar>
 
-            <Button variant="contained" sx={{ mx: 0.5 }}>
-              <strong>IMDB:</strong> {movie.vote_average}
-            </Button>
+              <Avatar
+                ref={anchorRef}
+                onClick={handlePopoverOpen}
+              >
+                {!isRated ? (
+                  <StarIcon sx={{ fontSize: "23px" }} />
+                ) : (
+                  <StarIcon
+                    sx={{ fontSize: "23px", color: 'yellow' }}
+                  />
+                )}
+              </Avatar>
+            </Stack>
 
-            <Typography variant="body1" sx={{ my: 0.5 }}>
+            <Popover
+              open={popoverOpen}
+              anchorEl={anchorRef.current}
+              onClose={handlePopoverClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <Rating 
+              name="half-rating" 
+              precision={0.5}
+              value={rateDefaultValue}
+              onChange={(event, rateValue) => handleRateClick(rateValue)}
+              sx={{fontSize:"30px"}}
+            ></Rating>
+            </Popover>
+
+            
+
+            <Typography padding='4px'>
               <strong>Overview:</strong> {movie.overview}
             </Typography>
 
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Release Date:</strong> {movie.release_date}
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Production:</strong>{" "}
                   {movie.production_companies.map((g) => g.name).join(", ")}
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Cast:</strong>{" "}
                   {credits?.slice(0, 5)?.map((g) => g.name)?.join(", ")}
                 </Typography>
               </Grid>
 
               <Grid item xs={12} md={6}>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Duration:</strong> {movie.runtime} min
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Country:</strong>{" "}
                   {movie.production_countries.map((g) => g.name).join(", ")}
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Genre:</strong>{" "}
                   {movie.genres.map((g) => g.name).join(", ")}
                 </Typography>
@@ -500,6 +521,7 @@ const MoviePage = () => {
               variant="contained"
               onClick={handleOpen}
               disabled={isRented}
+              padding='4px'
             >
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
@@ -513,17 +535,7 @@ const MoviePage = () => {
                 <strong>Already Rented</strong>
               )}
             </Button>
-            <Rating 
-              name="half-rating" 
-              precision={0.5}
-              value={rateDefaultValue}
-              onChange={(event, rateValue) => handleRateClick(rateValue)}
-              sx={{fontSize:"30px"}}
-            ></Rating>
-
-            
                 
-
                 <Dialog open={open} onClose={handleClose}>
                   <DialogTitle>Pricing Plan</DialogTitle>
                   <DialogContent>
@@ -612,12 +624,32 @@ const MoviePage = () => {
 
           </Grid>
         </Grid>
+        <Box>
+              <Typography>
+                <h3>Other Trailer:</h3>
+              </Typography>
+            </Box>
 
-        <Box sx={{}}>
+            {/* List of videos */}
+            <Box sx={{ overflowX: "auto" }}>
+              <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
+                {youtubeIDs.map((video) => (
+                  <Grid item key={video.key} onClick={() => {
+                    setSelectedVideo(video.key)
+                    mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
+                  }}>
+                    <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
+                    {/* <YouTubePlayer videoId={video.key} width={356} height={200} thumbnail={true}/> */}
+                  </Grid>
+                ))}
+              </Box>
+            </Box>
+
+        <Box sx={{paddingTop: '20px'}}>
           {recommendations && (
             <Box>
               <Typography variant="h5" sx={{ pb: 1 }}>
-                <strong>You may also like:</strong>
+                <h2>You may also like:</h2>
               </Typography>
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (
