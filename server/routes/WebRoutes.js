@@ -21,7 +21,7 @@ passport.use(
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: "/auth/google/callback",
         },
-        async(accessToken, refreshToken, profile, done) => {
+        async (accessToken, refreshToken, profile, done) => {
             const GgId = profile.id;
             const firstName = profile.name.givenName;
             const lastName = profile.name.familyName;
@@ -37,14 +37,14 @@ passport.use(
                 }
                 let user = null;
                 user = await User.findOne(data);
-                if (user){
+                if (user) {
                     done(null, { id: GgId });
-                }else{
-                console.log("_____________________________________________________")
-                console.log(data)
-                const newUser = new User(data)
-                const savedUser = await newUser.save();
-                done(null, { id: GgId });
+                } else {
+                    console.log("_____________________________________________________")
+                    console.log(data)
+                    const newUser = new User(data)
+                    const savedUser = await newUser.save();
+                    done(null, { id: GgId });
                 }
             } catch (error) {
                 console.log("___________________________________________________")
@@ -129,6 +129,17 @@ passport.use(
             const savedUser = newUser.save();
             done(null, { id: TwId });
         }));
+passport.serializeUser((user, done) => {
+    // Serialize the user object to store in the session
+    done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+    // Retrieve the user object from the session using the serialized id
+    User.findById(id, (err, user) => {
+        done(err, user);
+    });
+});
 
 /* Import your controller here by syntax:
     import * as <your controller name> from "../controller/<ControllerFile>.js" */
@@ -165,17 +176,17 @@ let initWebRoutes = (app) => {
     router.get("/auth/logout", auth.default.logout);
     router.get("/auth/info", auth.default.GetAUTH);
     router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-    router.get("/auth/google/callback", passport.authenticate("google", {  successRedirect: "http://localhost:5173/auth/google", failureRedirect: "http://localhost:5173/" }));
-    router.get("/login/google",  oAuth2.default.GG_oAuth2);
+    router.get("/auth/google/callback", passport.authenticate("google", { successRedirect: "http://localhost:5173/auth/google", failureRedirect: "http://localhost:5173/" }));
+    router.get("/login/google", oAuth2.default.GG_oAuth2);
     router.get("/auth/facebook", passport.authenticate("facebook"));
-    router.get("/auth/facebook/callback", passport.authenticate("facebook", {  successRedirect: "http://localhost:5173/auth/facebook", failureRedirect: "http://localhost:5173/"  }));
-    router.get("/login/facebook",  oAuth2.default.FB_oAuth2);
+    router.get("/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "http://localhost:5173/auth/facebook", failureRedirect: "http://localhost:5173/" }));
+    router.get("/login/facebook", oAuth2.default.FB_oAuth2);
     router.get("/auth/github", passport.authenticate("github"));
-    router.get("/auth/github/callback", passport.authenticate("github", {  successRedirect: "http://localhost:5173/auth/github", failureRedirect: "http://localhost:5173/"  }));
-    router.get("/login/github",  oAuth2.default.GH_oAuth2);
+    router.get("/auth/github/callback", passport.authenticate("github", { successRedirect: "http://localhost:5173/auth/github", failureRedirect: "http://localhost:5173/" }));
+    router.get("/login/github", oAuth2.default.GH_oAuth2);
     router.get("/auth/twitter", passport.authenticate("twitter"));
-    router.get("/auth/twitter/callback", passport.authenticate("twitter", {  successRedirect: "http:/0localhost:5173/auth/twitter", failureRedirect: "http://localhost:5173/"  }));
-    router.get("/login/twitter",  oAuth2.default.TW_oAuth2);
+    router.get("/auth/twitter/callback", passport.authenticate("twitter", { successRedirect: "http:/0localhost:5173/auth/twitter", failureRedirect: "http://localhost:5173/" }));
+    router.get("/login/twitter", oAuth2.default.TW_oAuth2);
 
     router.get('/', SampleController.default.Sample_handler_GET);
     /* POST syntax:
