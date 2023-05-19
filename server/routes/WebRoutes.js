@@ -21,21 +21,35 @@ passport.use(
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: "/auth/google/callback",
         },
-        (accessToken, refreshToken, profile, done) => {
+        async(accessToken, refreshToken, profile, done) => {
             const GgId = profile.id;
             const firstName = profile.name.givenName;
             const lastName = profile.name.familyName;
             const email = profile.emails[0].value;
             const picturePath = profile.photos[0].value;
-            const newUser = new User({
-                firstName,
-                lastName,
-                email,
-                picturePath,
-                GgId
-            })
-            const savedUser = newUser.save();
-            done(null, { id: GgId });
+            try {
+                let data = {
+                    firstName,
+                    lastName,
+                    email,
+                    picturePath,
+                    GgId
+                }
+                let user = null;
+                user = await User.findOne(data);
+                if (user){
+                    done(null, { id: GgId });
+                }else{
+                console.log("_____________________________________________________")
+                console.log(data)
+                const newUser = new User(data)
+                const savedUser = await newUser.save();
+                done(null, { id: GgId });
+                }
+            } catch (error) {
+                console.log("___________________________________________________")
+                console.log(error)
+            }
 
         }
     )
@@ -124,6 +138,7 @@ import * as auth from "../controller/auth.js";
 import * as movieAPI from "../controller/movieAPI.js";
 import * as user from "../controller/user.js";
 import * as oAuth2 from "../controller/oAuth2_Controller.js"
+import { Console } from "console";
 
 let router = express.Router();
 
