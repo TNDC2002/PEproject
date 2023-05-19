@@ -40,6 +40,7 @@ import Stack from '@mui/material/Stack';
 import Popover from '@mui/material/Popover';
 import StarIcon from '@mui/icons-material/Star';
 
+
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from "../navbar";
 import {
@@ -54,22 +55,20 @@ const ShowPage = () => {
   const [trailerVideoId, setTrailerVideoId] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [credits, setCredits] = useState(null);
-  const [rateDefaultValue, setRateDefaultValue] = useState(0);
-
   const mainPlayerRef = useRef(null);
 
   const { showID } = useParams();
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
+
   const [isRated, setIsRated] = useState(false);
+  const [rateDefaultValue, setRateDefaultValue] = useState(0);
 
   const token = useSelector((state) => state.token);
   const theme = useTheme();
 
   const [selectedSeason, setSelectedSeason] = useState(1);
-  const [selectedSeasonData, setSelectedSeasonData] = useState(null);
-
   const [seasonOptions , setSeasonOptions ] = useState(null);
 
   //function for popover
@@ -85,7 +84,6 @@ const ShowPage = () => {
     setPopoverOpen(false);
   };
 
-  
   const handleSeasonChange = (event) => {
     const selectedSeasonValue = event.target.value;
     setSelectedSeason(selectedSeasonValue);
@@ -428,24 +426,7 @@ const ShowPage = () => {
                   alt={`${show.original_name} poster`}
                 />
               </Box>
-              <IconButton
-                onClick={handleFavouriteClick}
-                variant="contained"
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 0,
-                  transform: "translate(50%, 50%)",
-                }}
-              >
-                {!isFavourited ? (
-                  <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
-                ) : (
-                  <FavoriteOutlinedIcon
-                    sx={{ fontSize: "40px", color: theme.palette.primary.main }}
-                  />
-                )}
-              </IconButton>
+              
             </Box>
           </Grid>
 
@@ -471,15 +452,29 @@ const ShowPage = () => {
                   </Select>
                 </FormControl>
               </Box>
-              <Avatar >
-                  <FavoriteBorderOutlinedIcon></FavoriteBorderOutlinedIcon>
+              <Avatar 
+                onClick={handleFavouriteClick}
+              >
+                {!isFavourited ? (
+                  <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
+                ) : (
+                  <FavoriteOutlinedIcon
+                    sx={{ fontSize: "23px", color: theme.palette.primary.main }}
+                  />
+                )}
               </Avatar>
 
               <Avatar
                 ref={anchorRef}
                 onClick={handlePopoverOpen}
               >
-                <StarIcon></StarIcon>
+                {!isRated ? (
+                  <StarIcon sx={{ fontSize: "23px" }} />
+                ) : (
+                  <StarIcon
+                    sx={{ fontSize: "23px", color: 'yellow' }}
+                  />
+                )}
               </Avatar>
             </Stack>
 
@@ -561,7 +556,7 @@ const ShowPage = () => {
               variant="contained"
               onClick={handleOpen}
               disabled={isRented}
-              
+              padding='4px'
             >
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
@@ -663,14 +658,36 @@ const ShowPage = () => {
                       
             </Grid>
         </Grid>
-        <Divider variant="middle" sx={{ borderBottomWidth: '6px ', height:'6px', paddingBottom: '20px'}}/>
+
+        <Box>
+              <Typography>
+                <h3>Other Trailer:</h3>
+              </Typography>
+            </Box>
+            <Box sx={{ overflowX: "auto" }}>
+              {trailerVideoId && (
+                <Box>
+                  <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
+                    {trailerVideoId.map((video) => (
+                      <Grid item key={video.key} onClick={() => {
+                        setSelectedVideo(video.key)
+                        mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
+                      }}>
+                        <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
+                      </Grid>
+                    ))}
+                  </Box>
+                </Box>
+              )}
+            </Box>
+
           
                   
         <Box sx={{paddingTop: '20px'}}>
           {recommendations && (
             <Box>
-              <Typography variant="h5" sx={{ pb: 1 }}>
-                <strong>You may also like:</strong>
+              <Typography sx={{ pb: 1 }}>
+                <h2>You may also like:</h2>
               </Typography>
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (
