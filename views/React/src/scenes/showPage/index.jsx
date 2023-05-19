@@ -28,7 +28,6 @@ import {
   Divider
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import VideocamIcon from "@mui/icons-material/Videocam";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -38,6 +37,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import Popover from '@mui/material/Popover';
+import StarIcon from '@mui/icons-material/Star';
+
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from "../navbar";
 import {
@@ -70,12 +72,26 @@ const ShowPage = () => {
 
   const [seasonOptions , setSeasonOptions ] = useState(null);
 
+  //function for popover
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const anchorRef = useRef(null);
+  
+  //open and close popover
+  const handlePopoverOpen = () => {
+    setPopoverOpen(true);
+  };
+
+  const handlePopoverClose = () => {
+    setPopoverOpen(false);
+  };
+
+  
   const handleSeasonChange = (event) => {
     const selectedSeasonValue = event.target.value;
     setSelectedSeason(selectedSeasonValue);
   };
-  
-const [open, setOpen] = useState(false);
+  //open and close form
+  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -340,11 +356,13 @@ const [open, setOpen] = useState(false);
       unrate(user._id, showID);
       setIsRated(false);
       setRateDefaultValue(0);
+      handlePopoverClose();
     }
     else {
       rate(user._id, showID, rateValue);
       setIsRated(true);
       setRateDefaultValue(rateValue);
+      handlePopoverClose();
     }
 
   }
@@ -366,10 +384,10 @@ const [open, setOpen] = useState(false);
     <div>
       <Navbar></Navbar>
       <Container maxWidth="lg">
-        <Breadcrumbs aria-label="breadcrumb" sx={{margin: '4px', padding: '4px'}}>
+        <Breadcrumbs aria-label="breadcrumb" sx={{margin: '4px', padding: '4px'}} >
           <Link
+            style={{ color: 'white', textDecoration:'none'}}
             
-            color="white"
             onClick={() => {
               window.location.href = "/home";
             }}
@@ -377,7 +395,7 @@ const [open, setOpen] = useState(false);
             <Typography><h3>Home</h3></Typography>
           </Link>
 
-          <Link underline="hover" color="inherit">
+          <Link style={{ color: 'white', textDecoration:'none' }} >
             <h3>Movies</h3>
           </Link>
           <Typography  fontWeight="lighter"><h3>{show.original_name}</h3></Typography>
@@ -436,29 +454,60 @@ const [open, setOpen] = useState(false);
               {show.original_name}
             </Typography>
 
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={3} padding='4px'> 
+              <Box >
+                <FormControl >
+                  <InputLabel >Season</InputLabel>
+                  <Select
+                    label="Season"
+                    value={selectedSeason}
+                    onChange={handleSeasonChange}
+                  >
+                    {seasonOptions.map((optionValue) => (
+                    <MenuItem key={optionValue} value={optionValue}>
+                      Season {optionValue}
+                    </MenuItem>
+                  ))} 
+                  </Select>
+                </FormControl>
+              </Box>
               <Avatar >
                   <FavoriteBorderOutlinedIcon></FavoriteBorderOutlinedIcon>
               </Avatar>
+
+              <Avatar
+                ref={anchorRef}
+                onClick={handlePopoverOpen}
+              >
+                <StarIcon></StarIcon>
+              </Avatar>
             </Stack>
+
+            <Popover
+              open={popoverOpen}
+              anchorEl={anchorRef.current}
+              onClose={handlePopoverClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <Rating 
+              name="half-rating" 
+              precision={0.5}
+              value={rateDefaultValue}
+              onChange={(event, rateValue) => handleRateClick(rateValue)}
+              sx={{fontSize:"30px"}}
+            ></Rating>
+            </Popover>
             
-            <Box >
-              <FormControl >
-                <InputLabel >Season</InputLabel>
-                <Select
-                  label="Season"
-                  value={selectedSeason}
-                  onChange={handleSeasonChange}
-                >
-                  {seasonOptions.map((optionValue) => (
-                  <MenuItem key={optionValue} value={optionValue}>
-                    Season {optionValue}
-                  </MenuItem>
-                ))} 
-                </Select>
-              </FormControl>
-            </Box>
-              <Typography variant="body1" sx={{ my: 0.5 }}>
+
+            
+              <Typography padding='4px'>
                 {seasonOptions[0] === 1 ? (                
                 <div><strong>Overview: </strong> {show.overview}</div>
                 ) : (
@@ -469,14 +518,14 @@ const [open, setOpen] = useState(false);
             
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Release Date:</strong> {show.first_air_date}
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Directors:</strong>{" "}
                   {show.created_by.map((g) => g.name).join(", ")}
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Production:</strong>{" "}
                   {show.production_companies.map((g) => g.name).join(", ")}
                 </Typography>
@@ -486,14 +535,14 @@ const [open, setOpen] = useState(false);
 
 
               <Grid item xs={12} md={6}>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Air:</strong> {show.episode_run_time} min
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Genre:</strong>{" "}
                   {show.genres.map((g) => g.name).join(", ")}
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding='4px'>
                   <strong>Cast:</strong>{" "}
                   {credits?.slice(0, 5)?.map((g) => g.name)?.join(", ")}
                 </Typography>
@@ -611,13 +660,7 @@ const [open, setOpen] = useState(false);
                   </DialogActions>
                 </Dialog>
             
-            <Rating 
-              name="half-rating" 
-              precision={0.5}
-              value={rateDefaultValue}
-              onChange={(event, rateValue) => handleRateClick(rateValue)}
-              sx={{fontSize:"30px"}}
-            ></Rating>          
+                      
             </Grid>
         </Grid>
         <Divider variant="middle" sx={{ borderBottomWidth: '6px ', height:'6px', paddingBottom: '20px'}}/>
