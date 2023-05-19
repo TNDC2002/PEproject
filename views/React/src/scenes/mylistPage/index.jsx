@@ -201,7 +201,7 @@ const MyListPage = () => {
                             padding:'1rem 0', 
                             display: 'flex', 
                             flexWrap: 'wrap', 
-                            gap: '1rem' 
+                            gap: '1rem'
                         }}>
                             {favouriteMovie.map((movie) => (
                             <Grid title={movie.title} key={movie.id} item xs={12} sm={6} md={4} lg={3}>
@@ -230,13 +230,14 @@ const MyListPage = () => {
                                             opacity: 0.8,
                                         }}>
                                             <Box
-                                            className="backdropContainer" sx={{
+                                            className="infoContainer" sx={{
                                                 backgroundColor: 'black',
                                                 opacity: 1,
                                                 width: '100%',
                                                 height: '100%',
+                                                display:'grid',
                                                 alignItems: 'center',
-                                                justifyContent: 'center',
+                                                justifyContent: 'center'
 
                                             }}>
                                                 <Typography sx={{
@@ -248,30 +249,9 @@ const MyListPage = () => {
                                                 <Typography>IMDB: {movie.vote_average} / 10</Typography>
                                                 
                                                 {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
-                                                <Typography></Typography>
-                                                {/* TAKING IMDB POINT NOT RATING FROM USER */}
-                                                {/* <ReactPlayer
-                                                    url={`https://www.youtube.com/watch?v=6Cr_8tvvQ0k`}
-                                                    controls={false}
-                                                    playing={true}
-                                                    loop={true}
-                                                    volume={1}
-                                                    width="100%"
-                                                    height="100%"
-                                                /> */}
+                                                {/* <Typography></Typography> */}      
                                             </Box>
-                                            <Box className="infoContainer">
-                                                {/* <Typography className="Title" sx={{
-                                                    color: 'black'
-                                                }}>
-                                                    {movie.title}
-                                                </Typography> */}
-                                                {/* <Box className="icons">
-                                                    <Box className="controls">
-
-                                                    </Box>
-                                                </Box> */}
-                                            </Box>
+                                            
                                         </Box>
                                     )}
                                 </Box>
@@ -318,11 +298,12 @@ const MyListPage = () => {
                                             height: '100%',
                                             opacity: 0.8
                                         }}>
-                                            <Box className="backdropContainer" sx={{
+                                            <Box className="infoContainer" sx={{
                                                 backgroundColor: 'black',
                                                 opacity: 1,
                                                 width: '100%',
                                                 height: '100%',
+                                                display: 'grid',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
 
@@ -336,28 +317,7 @@ const MyListPage = () => {
                                                 <Typography>IMDB: {show.vote_average} / 10</Typography>
                                                 
                                                 {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
-                                                <Typography></Typography>
-                                                {/* TAKING IMDB POINT NOT RATING FROM USER */}
-                                                {/* <ReactPlayer
-                                                    url={`https://www.youtube.com/watch?v=6Cr_8tvvQ0k`}
-                                                    controls={false}
-                                                    playing={true}
-                                                    loop={true}
-                                                    volume={1}
-                                                    width="100%"
-                                                    height="100%"
-                                                /> */}
-                                            </Box>
-                                            <Box className="infoContainer">
-                                                {/* <Typography className="Title" sx={{
-                                                    color: 'black'
-                                                }}>
-                                                    {movie.title}
-                                                </Typography> */}
-                                                {/* <Box className="icons">
-                                                    <Box className="controls">
-                                                    </Box>
-                                                </Box> */}
+                                                {/* <Typography></Typography> */}
                                             </Box>
                                         </Box>
                                     )}
