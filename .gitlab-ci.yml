@@ -46,7 +46,7 @@ build-server-image:
   script:
     - docker build -t $IMAGE_SERVER_NAME:$IMAGE_SERVER_TAG .
     - docker tag $IMAGE_SERVER_NAME:$IMAGE_SERVER_TAG $REGISTRY_USER:$IMAGE_SERVER_TAG
-    - docker push $$REGISTRY_USER:$IMAGE_SERVER_TAG
+    - docker push $REGISTRY_USER:$IMAGE_SERVER_TAG
 
 build-client-image:
   image: docker
@@ -62,4 +62,4 @@ build-client-image:
   script:
     - docker build -t $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG .
     - docker tag $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG $REGISTRY_USER:$IMAGE_CLIENT_TAG
-    - docker push $$REGISTRY_USER:$IMAGE_CLIENT_TAG
+    - docker push $REGISTRY_USER:$IMAGE_CLIENT_TAG
