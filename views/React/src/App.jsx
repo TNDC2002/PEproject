@@ -11,6 +11,7 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import MoviePage from "./scenes/moviePage";
 import ShowPage from "./scenes/showPage";
+import callBackPage from "./scenes/callBackPage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -25,9 +26,22 @@ function App() {
         const currentPath = window.location.pathname;
 
         // Skip authentication check if the current route is "/"
-        if (currentPath === "/" || currentPath === "/auth/google" || currentPath === "/auth/facebook" || currentPath === "/auth/github" || currentPath === "/auth/twitter") {
+        if (currentPath === "/") {
           setLoading(false);
           setAuthenticated(true);
+          return;
+        }
+        if (currentPath === "/auth/google") {
+          setLoading(false);
+          setAuthenticated(true);
+          const response = await fetch("http://localhost:5000/login/google", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          });
+          const data = await response.json();
+          console.log("isAUTH:", data.authenticated); // Log the authentication data
+          window.location.href = "/home";
           return;
         }
 
@@ -77,7 +91,11 @@ function App() {
                 authenticated ? (
                   <MoviePage />
                 ) : (
-                  <Navigate to="/" replace state={{ from: "/movie/:movieID" }} />
+                  <Navigate
+                    to="/"
+                    replace
+                    state={{ from: "/movie/:movieID" }}
+                  />
                 )
               }
             />
@@ -97,7 +115,11 @@ function App() {
                 authenticated ? (
                   <ShowPage />
                 ) : (
-                  <Navigate to="/" replace state={{ from: "/TV Shows/:showID" }} />
+                  <Navigate
+                    to="/"
+                    replace
+                    state={{ from: "/TV Shows/:showID" }}
+                  />
                 )
               }
             />
@@ -107,10 +129,15 @@ function App() {
                 authenticated ? (
                   <ProfilePage />
                 ) : (
-                  <Navigate to="/" replace state={{ from: "/profile/:userID" }} />
+                  <Navigate
+                    to="/"
+                    replace
+                    state={{ from: "/profile/:userID" }}
+                  />
                 )
               }
             />
+            <Route path="/auth/google" element={<callBackPage />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
