@@ -62,4 +62,4 @@ build-client-image:
   script:
     - docker build -t $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG .
     - docker tag $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG $REGISTRY_USER:$IMAGE_CLIENT_TAG
-    - docker push $$REGISTRY_USER:$IIMAGE_CLIENT_TAG
+    - docker push $$REGISTRY_USER:$IMAGE_CLIENT_TAG
