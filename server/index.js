@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use("/assets", express.static(path.join(__dirname,'public/assets')));
 app.use(cookieParser(process.env.Cookie_secret));
 app.use(session({
-  secret: "your-secret-key",
+  secret: process.env.Session_secret,
   resave: false,
   saveUninitialized: false
 }));
