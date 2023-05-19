@@ -27,16 +27,15 @@ run-backend-tests:
     - npm test
 
 build-image:
-  image: docker:24.0.0-cli
+  image: docker
   services:
-    - docker:24.0.0-dind
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-  before_script:
-    - apk add --no-cache git
-    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+    - docker:dind
+  # variables:
+  #   DOCKER_TLS_CERTDIR: "/certs"
+  # before_script:
+  #   - apk add --no-cache git
+  #   - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
   script:
-    - docker build -t $IMAGE_NAME:IMAGE_SERVER_TAG .
-    - docker push $IMAGE_NAME:$IMAGE_SERVER_TAG
-    - docker build $IMAGE_NAME:IMAGE_CLIENT_TAG .
-    - docker push $IMAGE_NAME:$IMAGE_CLIENT_TAG
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --passord-stdin
+    - docker build -t $CI_REGISTRY_IMAGE .
+    - docker push $CI_REGISTRY_IMAGE
