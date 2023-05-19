@@ -1,10 +1,10 @@
 import Ava from "../../assets/image/bob.png";
-import SmashDong from "../../assets/image/SmashDong.png"
-import PasswordOutlinedIcon from '@mui/icons-material/PasswordOutlined';
-import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined';
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import SmashDong from "../../assets/image/SmashDong.png";
+import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
 import BotBackgroundImage from "../../assets/image/profileCoverBot6.png";
 import ProfileBehind from "../../assets/image/ProfileBehind.png";
-import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useState } from "react";
 import StarAnimation from "./StarAnimation";
 import EditIcon from "@mui/icons-material/Edit";
@@ -15,6 +15,7 @@ import { updateUser } from "../../states";
 import MovieCreationOutlinedIcon from "@mui/icons-material/MovieCreationOutlined";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
+import { Link } from "react-router-dom";
 const editSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
@@ -41,7 +42,7 @@ import {
   Input,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-
+import PaymentDialogs from "./PaymentDialog";
 
 const Avatar = ({ image, size = "100%" }) => {
   return (
@@ -88,7 +89,7 @@ const UserImage = styled(Box)({
   height: "200px",
   width: "200px",
   borderRadius: "50%",
- 
+
   backgroundColor: "red",
 
   border: "7px solid white",
@@ -120,7 +121,6 @@ const CardInner = styled(Card)({
   backdropFilter: "blur(1rem)",
   borderRadius: "8px",
 });
-
 
 const StyledEditButton = styled(Box)({
   display: "flex",
@@ -166,8 +166,6 @@ const StyledEditButton = styled(Box)({
     background: "#FE53BB",
   },
 });
-
-
 
 const StyledContainer = styled(Container)({
   position: "absolute",
@@ -333,7 +331,10 @@ const SaveButton = ({ onClick }) => {
 };
 
 
-const PaymentButton = ({ onClick }) => {
+
+const PasswordButton = ({ setPageType }) => {
+  const [isClicked, setIsClicked] = useState(false);
+
   const Icon = styled(Box)({
     background: "white",
     marginLeft: "1em",
@@ -348,58 +349,65 @@ const PaymentButton = ({ onClick }) => {
     right: "0.3em",
     transition: "all 0.3s",
     id: "Icon",
-    
-  
   });
+  const handleClick = () => {
+    setIsClicked(true);
+    setPageType("password");
+
+    // Add any other logic you want to perform on button click
+  };
   return (
     <Button
-      
       sx={{
-        background: '#FF5F9E',
-        color: 'white',
-        fontFamily: 'inherit',
-        padding: '0.35em',
-        paddingLeft: '1.2em',
-        fontSize: '17px',
-        fontWeight: 'bold',
-        borderRadius: '2em',
-        border: 'none',
-        letterSpacing: '0.05em',
-        display: 'flex',
-        alignItems: 'center',
-        boxShadow: 'inset 0 0 1.6em -0.6em #714da6',
-        overflow: 'hidden',
-        position: 'relative',
-        height: '3.5rem',
-        width: '13rem',
-        paddingRight: '3.3em',
+        background: "#E90064",
+        color: "white",
+        fontFamily: "inherit",
+        padding: "0.35em",
+        paddingLeft: "1.2em",
+        fontSize: "17px",
+        fontWeight: "bold",
+        borderRadius: "2em",
+        border: "none",
+        letterSpacing: "0.05em",
+        display: "flex",
+        alignItems: "center",
+        boxShadow: "inset 0 0 1.6em -0.6em #714da6",
+        overflow: "hidden",
+        position: "relative",
+        height: "3.5rem",
+        width: "13rem",
+        paddingRight: "3.3em",
         transition: "all 0.3s",
 
-        '&:hover' : {
-          
-        },
-
-        '&:active #Icon': {
-          
+        "&:hover": {},
+        "&:active #Icon": {
           transform: "scale(0.95)",
         },
 
-        '&:hover #Icon': {
-          
+        "&:hover #Icon": {
           width: "calc(100% - 0.6em)",
         },
-      }} >  Payment
-        <Icon id = "Icon">
-          <PaymentOutlinedIcon sx={{width: "1.1em",
-  transition: "transform 0.3s",
-  color:  '#FF5F9E'}}></PaymentOutlinedIcon>
-        </Icon>
-     
+      }}
+      onClick={handleClick}
+    >
+      {" "}
+      Profile
+      <Icon id="Icon">
+        <PersonOutlineOutlinedIcon
+          sx={{
+            width: "1.1em",
+            transition: "transform 0.3s",
+            color: "#E90064",
+          }}
+        ></PersonOutlineOutlinedIcon>
+      </Icon>
     </Button>
   );
 };
 
-const PasswordButton = ({ onClick }) => {
+const ProfileButton = ({ setPageType }) => {
+  const [isClicked, setIsClicked] = useState(false);
+
   const Icon = styled(Box)({
     background: "white",
     marginLeft: "1em",
@@ -414,52 +422,57 @@ const PasswordButton = ({ onClick }) => {
     right: "0.3em",
     transition: "all 0.3s",
     id: "Icon",
-    
-  
   });
+  const handleClick = () => {
+    setIsClicked(true);
+    setPageType("isProfile");
+    // Add any other logic you want to perform on button click
+  };
   return (
     <Button
-      
       sx={{
-        background: '#E90064',
-        color: 'white',
-        fontFamily: 'inherit',
-        padding: '0.35em',
-        paddingLeft: '1.2em',
-        fontSize: '17px',
-        fontWeight: 'bold',
-        borderRadius: '2em',
-        border: 'none',
-        letterSpacing: '0.05em',
-        display: 'flex',
-        alignItems: 'center',
-        boxShadow: 'inset 0 0 1.6em -0.6em #714da6',
-        overflow: 'hidden',
-        position: 'relative',
-        height: '3.5rem',
-        width: '13rem',
-        paddingRight: '3.3em',
+        background: "#E90064",
+        color: "white",
+        fontFamily: "inherit",
+        padding: "0.35em",
+        paddingLeft: "1.2em",
+        fontSize: "17px",
+        fontWeight: "bold",
+        borderRadius: "2em",
+        border: "none",
+        letterSpacing: "0.05em",
+        display: "flex",
+        alignItems: "center",
+        boxShadow: "inset 0 0 1.6em -0.6em #714da6",
+        overflow: "hidden",
+        position: "relative",
+        height: "3.5rem",
+        width: "13rem",
+        paddingRight: "3.3em",
         transition: "all 0.3s",
 
-        '&:hover' : {
-          
-        },
-        '&:active #Icon': {
-          
+        "&:hover": {},
+        "&:active #Icon": {
           transform: "scale(0.95)",
         },
 
-        '&:hover #Icon': {
-          
+        "&:hover #Icon": {
           width: "calc(100% - 0.6em)",
         },
-      }} >  Password
-        <Icon id = "Icon">
-          <PasswordOutlinedIcon sx={{width: "1.1em",
-  transition: "transform 0.3s",
-  color: '#E90064'}}></PasswordOutlinedIcon>
-        </Icon>
-     
+      }}
+      onClick={handleClick}
+    >
+      {" "}
+      Password
+      <Icon id="Icon">
+        <PasswordOutlinedIcon
+          sx={{
+            width: "1.1em",
+            transition: "transform 0.3s",
+            color: "#E90064",
+          }}
+        ></PasswordOutlinedIcon>
+      </Icon>
     </Button>
   );
 };
@@ -479,52 +492,51 @@ const HomeButton = ({ onClick }) => {
     left: "0.3em",
     transition: "all 0.3s",
     id: "Icon",
-    
-  
   });
   return (
     <Button
-      
       sx={{
-        background: '#060047',
-        color: 'white',
-        fontFamily: 'inherit',
-        padding: '0.35em',
-        paddingRight: '1.2em',
-        fontSize: '17px',
-        fontWeight: 'bold',
-        borderRadius: '2em',
-        border: 'none',
-        letterSpacing: '0.05em',
-        display: 'flex',
-        alignItems: 'center',
-        boxShadow: 'inset 0 0 1.6em -0.6em #714da6',
-        overflow: 'hidden',
-        position: 'relative',
-        height: '3.5rem',
-        width: '10rem',
-        paddingLeft: '3.3em',
+        background: "#060047",
+        color: "white",
+        fontFamily: "inherit",
+        padding: "0.35em",
+        paddingRight: "1.2em",
+        fontSize: "17px",
+        fontWeight: "bold",
+        borderRadius: "2em",
+        border: "none",
+        letterSpacing: "0.05em",
+        display: "flex",
+        alignItems: "center",
+        boxShadow: "inset 0 0 1.6em -0.6em #714da6",
+        overflow: "hidden",
+        position: "relative",
+        height: "3.5rem",
+        width: "10rem",
+        paddingLeft: "3.3em",
         transition: "all 0.3s",
 
-        '&:hover' : {
-          
-        },
-        '&:active #Icon': {
-          
+        "&:hover": {},
+        "&:active #Icon": {
           transform: "scale(0.95)",
         },
 
-        '&:hover #Icon': {
-          
+        "&:hover #Icon": {
           width: "calc(100% - 0.6em)",
         },
-      }} >  Home
-        <Icon id = "Icon">
-          <ArrowBackOutlinedIcon sx={{width: "1.1em",
-  transition: "transform 0.3s",
-  color: '#060047'}}></ArrowBackOutlinedIcon>
-        </Icon>
-     
+      }}
+    >
+      {" "}
+      Home
+      <Icon id="Icon">
+        <ArrowBackOutlinedIcon
+          sx={{
+            width: "1.1em",
+            transition: "transform 0.3s",
+            color: "#060047",
+          }}
+        ></ArrowBackOutlinedIcon>
+      </Icon>
     </Button>
   );
 };
@@ -539,7 +551,7 @@ const StyledForm = styled(Box)({
 });
 
 const StyledInput = styled(Input)({
-  color: "#B3005E",
+  color: "grey",
   
   fontSize: "15px",
   backgroundColor: "transparent",
@@ -581,9 +593,16 @@ const NewDesign = () => {
   const token = useSelector((state) => state.token);
 
   const [editMode, setEditMode] = useState(false);
+  const [pageType, setPageType] = useState("password");
+  const isProfile = pageType === "profile";
+  const isPassword = pageType === "password";
 
   const handleEditIconClick = () => {
     setEditMode(true);
+  };
+
+  const handlePasswordClick = () => {
+    setPageType("password");
   };
 
   const handleSaveClick = async (values, onSubmitProps) => {
@@ -638,60 +657,53 @@ const NewDesign = () => {
                         background:
                           "linear-gradient(0deg, rgba(6,0,71,1) 0%, rgba(179,0,94,1) 100%)",
                       }}
-                    >
-                     
-                    </Background>
-                    
+                    ></Background>
+
                     <Box
                       sx={{
-                        
                         position: "absolute",
-                        
-                        
+
                         marginLeft: "50px",
-                        
-                        
+
                         bottom: "5rem",
-                        
                       }}
                     >
-                      
-                      <HomeButton sx= {{position: "absolute",right: "42.75%"}} onClick={handleEditIconClick}></HomeButton>
+                        <Link to="/home" style={{ color: "transparent" }}>
+                      <HomeButton
+                        sx={{ position: "absolute", right: "42.75%" }}
+                        onClick={handleEditIconClick}
+                      ></HomeButton>
+                      </Link>
                     </Box>
 
-                    <Stack direction = "row"
+                    <Stack
+                      direction="row"
                       sx={{
-                        
                         position: "absolute",
-                        
-                        
+
                         marginLeft: "85%",
-                        
-                        
+
                         bottom: "1.5rem",
-                        
                       }}
                     >
-                      
                       <h1> </h1>
-                      <Stack direction = "row" display="flex"
-        justifyContent="center"
-        alignItems="center">
-          <h1 > 300</h1>
-                       <Box
-        
-        sx={{
-          backgroundImage: `url(${SmashDong})`,
-          
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          width: 150,
-          height: 150,
-          
-        }}
-      ></Box>
-                      
-                      
+                      <Stack
+                        direction="row"
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <h1> 300</h1>
+                        <Box
+                          sx={{
+                            backgroundImage: `url(${SmashDong})`,
+
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            width: 150,
+                            height: 150,
+                          }}
+                        ></Box>
                       </Stack>
                     </Stack>
                     <Box
@@ -703,22 +715,19 @@ const NewDesign = () => {
                         justifyContent: "center",
                         width: "220px",
                         borderRadius: "50%",
-                        
+
                         right: "42.75%",
-                        
+
                         backgroundColor: "#251b5b",
                         bottom: "-3rem",
                         border: "10px #251b5b",
                       }}
                     >
-                      
                       <UserImage>
                         <Avatar image={Ava}></Avatar>
                       </UserImage>
                     </Box>
                   </TopPortion>
-
-                  
 
                   <Stack
                     direction={"row"}
@@ -736,7 +745,6 @@ const NewDesign = () => {
                         position: "absolute",
                         top: "50px",
                         fontWeight: "bold",
-                        
                       }}
                       fontSize={30}
                     >
@@ -744,402 +752,636 @@ const NewDesign = () => {
                     </Typography>
                   </Stack>
                   <Box display="flex" justifyContent="center">
-                    <Stack
-
-                      direction="row"
-                      spacing={2}
-                      style={{ opacity: 1, marginTop: "130px",marginLeft: "100px" }}
-                    >
-                      <CustomCard sx={{ width: "310px" }}>
-                        <CardInner sx = {{background: "#060047",}}>
-                          <Stack direction="column">
-                            <Box
-                              sx={{
-                                width: "100%",
-                                height: "30%",
-                                backgroundColor: "#060047",
-                              }}
-                            >
-                              <Typography
-                                style={{
-                                  width: "inherit",
-                                  color: "whitesmoke",
-                                  marginTop: "20px",
-                                  marginBottom: "10px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  fontWeight: "bold",
-                                }}
-                                fontSize={30}
-                              >
-                                About me
-                              </Typography>
-                            </Box>
-                            
-                            <Box
-                              display="flex"
-                              sx={{ width: "100%", height: "250px", justifyItems: "center" }}
-                            >
-                              <Typography sx={{ color: "whitesmoke" }}>
-                                <Stack
-                                  direction="column"
-                                  sx={{
-                                    backgroundColor: "whitesmoke",
-                                    color: "whitesmoke",
-                                    marginTop: "10px",
-                                    marginBottom: "10px",
-                                    marginLeft: "25px",
-                                    borderRadius: "25px",
-                                    width: "100%",
-                                    height: "250px"
-
-                                  }}
-                                >
-                                  <Stack
-                                    direction="row"
-                                    sx={{
-                                      color: "whitesmoke",
-                                      marginLeft: "15px",
-                                      marginTop: "20px",
-                                    }}
-                                  >
-                                    <MovieCreationOutlinedIcon
-                                      sx={{ color: "#060047", fontSize: 60,  }}
-                                    ></MovieCreationOutlinedIcon>
-                                    <Stack
-                                      direction="column"
-                                      sx={{
-                                        color: "whitesmoke",
-                                        marginLeft: "20px",
-                                      }}
-                                    >
-                                      <Typography
-                                        fontSize={(18 / 6) * 5}
-                                        fontWeight="bold"
-                                        style={{
-                                          color: "#060047",
-                                          marginTop: "3px",
-                                        }}
-                                      >
-                                        Total Movies
-                                      </Typography>
-                                      <Typography
-                                        fontSize={25}
-                                        style={{
-                                          color: "#060047",
-                                        }}
-                                      >
-                                        929
-                                      </Typography>
-                                    </Stack>
-                                  </Stack>
-
-                                  <Stack
-                                    direction="row"
-                                    sx={{
-                                      color: "whitesmoke",
-                                      marginTop: "10px",
-                                      marginLeft: "15px",
-                                    }}
-                                  >
-                                    <ShoppingBasketOutlinedIcon
-                                      sx={{ color: "#060047", fontSize: 60 }}
-                                    ></ShoppingBasketOutlinedIcon>
-                                    <Stack
-                                      direction="column"
-                                      sx={{
-                                        color: "#060047",
-                                        marginLeft: "20px",
-                                      }}
-                                    >
-                                      <Typography
-                                        fontSize={(18 / 6) * 5}
-                                        fontWeight="bold"
-                                        style={{
-                                          color: "#060047",
-                                          marginTop: "3px",
-                                        }}
-                                      >
-                                        Current Lending
-                                      </Typography>
-                                      <Typography
-                                        fontSize={25}
-                                        style={{
-                                          color: "#060047",
-                                          fontWeight: "regular",
-                                        }}
-                                      >
-                                        320
-                                      </Typography>
-                                    </Stack>
-                                  </Stack>
-
-                                  <Stack
-                                    direction="row"
-                                    sx={{
-                                      color: "whitesmoke",
-                                      marginTop: "10px",
-                                      marginLeft: "15px",
-                                    }}
-                                  >
-                                    <ThumbUpAltOutlinedIcon
-                                      sx={{ color: "#060047", fontSize: 60 }}
-                                    ></ThumbUpAltOutlinedIcon>
-                                    <Stack
-                                      direction="column"
-                                      sx={{
-                                        color: "whitesmoke",
-                                        marginLeft: "20px",
-                                      }}
-                                    >
-                                      <Typography
-                                        fontSize={(18 / 6) * 5}
-                                        fontWeight="bold"
-                                        style={{
-                                          color: "#060047",
-                                          marginTop: "3px",
-                                        }}
-                                      >
-                                        Total Favorite
-                                      </Typography>
-                                      <Typography
-                                        fontSize={25}
-                                        fontWeight="regular"
-                                        style={{
-                                          color: "#060047",
-                                        }}
-                                      >
-                                        210
-                                      </Typography>
-                                    </Stack>
-                                  </Stack>
-                                </Stack>
-                              </Typography>
-                            </Box>
-                          </Stack>
-                        </CardInner>
-                      </CustomCard>
-
-                      <CustomCard sx = {{width: "370px"}}>
-                        <CardInner sx = {{background: "#B3005E",}}>
-                          <Stack direction="column">
-                            <Box
-                              sx={{
-                                width: "100%",
-                                height: "30%",
-                                backgroundColor: "#B3005E",
-                              }}
-                            >
-                              <Typography
-                                style={{
-                                  width: "inherit",
-                                  color: "whitesmoke",
-                                  marginTop: "20px",
-                                  marginBottom: "20px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  fontWeight: "bold",
-                                }}
-                                fontSize={30}
-                              >
-                                Infomation
-                              </Typography>
-                            </Box>
-                            <Stack
-                              direction="column"
-                              spacing={1.5}
-                              style={{ marginTop: "0px", borderRadius: "25px", backgroundColor: "whitesmoke",width: "90%",marginLeft: "19px",
-                              height: "150px"}}
-                            >
-                              <Stack direction="row" marginRight={1} style={{ marginTop: "22.5px" }} >
-                                <Typography
-                                  fontSize={15}
-                                  fontWeight="bold"
-                                  marginRight={1}
-                                  marginLeft={2}
-                                  style={{
-                                    color: "#B3005E",
-                                  }}
-                                >
-                                  First name:
-                                </Typography>
-                                {!editMode ? (
-                                  <Typography
-                                    marginLeft={1}
-                                    fontSize={15}
-                                    fontWeight="bold"
-                                    data-testid="user-first-name"
-                                    style={{
-                                      color: "#B3005E",
-                                    }}
-                                  >
-                                    {user.firstName}
-                                  </Typography>
-                                ) : (
-                                  <StyledForm>
-                                    <StyledInput
-                                      placeholder="Type your text"
-                                      required
-                                      type="text"
-                                      defaultValue={user.firstName}
-                                      onBlur={handleBlur}
-                                      onChange={handleChange}
-                                      name="firstName"
-                                      inputProps={{
-                                        "data-testid": "user-fisrt-name-input",
-                                      }}
-                                    />
-                                    <span className="input-border" />
-                                  </StyledForm>
-                                )}
-                              </Stack>
-                              <Stack
-                                direction="row"
-                                style={{ marginTop: "20px" }}
-                              >
-                                <Typography
-                                  fontSize={15}
-                                  fontWeight="bold"
-                                  marginRight={2}
-                                  marginLeft={2}
-                                  style={{
-                                    color: "#B3005E",
-                                    
-                                  }}
-                                >
-                                  Last name:
-                                </Typography>
-                                {!editMode ? (
-                                  <Typography
-                                    marginLeft={1}
-                                    fontSize={15}
-                                    fontWeight="bold"
-                                    data-testid="user-last-name"
-                                    style={{
-                                      color: "#B3005E",
-                                      
-                                    }}
-                                  >
-                                    {user.lastName}
-                                  </Typography>
-                                ) : (
-                                  <StyledForm>
-                                    <StyledInput
-                                      marginLeft={1}
-                                      placeholder="Type your text"
-                                      required
-                                      type="text"
-                                      defaultValue={user.lastName}
-                                      onBlur={handleBlur}
-                                      onChange={handleChange}
-                                      name="lastName"
-                                      inputProps={{
-                                        "data-testid": "user-lastname-input",
-                                      }}
-                                    />
-                                    <span className="input-border" />
-                                  </StyledForm>
-                                )}
-                              </Stack>
-
-                              <Stack
-                                direction="row"
-                                style={{ marginTop: "20px" }}
-                              >
-                                <Typography
-                                  fontSize={15}
-                                  fontWeight="bold"
-                                  marginRight={1}
-                                  marginLeft={2}
-                                  style={{
-                                    color: "#B3005E",
-                                    
-                                  }}
-                                >
-                                  Email:
-                                </Typography>
-                                {!editMode ? (
-                                  <Typography
-                                    marginLeft={1}
-                                    fontSize={15}
-                                    fontWeight="bold"
-                                    data-testid="user-email"
-                                    style={{
-                                      color: "#B3005E",
-                                      
-                                    }}
-                                  >
-                                    {user.email}
-                                  </Typography>
-                                ) : (
-                                  <StyledForm>
-                                    <StyledInput
-                                      placeholder="Type your text"
-                                      required
-                                      type="text"
-                                      defaultValue={user.email}
-                                      onBlur={handleBlur}
-                                      onChange={handleChange}
-                                      name="email"
-                                      inputProps={{
-                                        "data-testid": "user-email-input",
-                                      }}
-                                    />
-                                    <span className="input-border" />
-                                  </StyledForm>
-                                )}
-
-                                
-                              </Stack>
-                              <Stack
-                    direction={"row"}
-                    style={{
-                      marginLeft: "50px",
-                      opacity: 1,
-                      overflow: "visible", // Allow content to overflow
-                      position: "relative",
-                      marginTop: 50,
-                      marginLeft:100,
-                    }}
-                  >
-                    {editMode ? (
-                      <SaveButton
-                        onClick={() => handleSaveClick(values, onSubmitProps)}
-                      />
-                    ) : (
-                      <EditButton onClick={handleEditIconClick}></EditButton>
-                    )}
-                  </Stack>
-                              
-                            </Stack>
-                          </Stack>
-                        </CardInner>
-                      </CustomCard>
+                    {isPassword ? (
                       <Stack
-                    direction={"column"}
-                    style={{
-                      marginLeft: "50px",
-                      marginTop: "20px",
-                      opacity: 1,
-                      overflow: "visible", // Allow content to overflow
-                      position: "relative",
-                      
-                    }}
-                  >
-                    {editMode ? (
-                      <Box>
-                      <PasswordButton
-                        onClick={() => handleSaveClick(values, onSubmitProps)}
-                      />
-                      
-                      </Box>
+                        direction="row"
+                        spacing={2}
+                        style={{
+                          opacity: 1,
+                          marginTop: "130px",
+                          marginLeft: "-150px",
+                        }}
+                      >
+                        <CustomCard sx={{ width: "310px" }}>
+                          <CardInner sx={{ background: "#060047" }}>
+                            <Stack direction="column">
+                              <Box
+                                sx={{
+                                  width: "100%",
+                                  height: "30%",
+                                  backgroundColor: "#060047",
+                                }}
+                              >
+                                <Typography
+                                  style={{
+                                    width: "inherit",
+                                    color: "whitesmoke",
+                                    marginTop: "20px",
+                                    marginBottom: "10px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    fontWeight: "bold",
+                                  }}
+                                  fontSize={30}
+                                >
+                                  About me
+                                </Typography>
+                              </Box>
+
+                              <Box
+                                display="flex"
+                                sx={{
+                                  width: "100%",
+                                  height: "250px",
+                                  justifyItems: "center",
+                                }}
+                              >
+                                <Typography sx={{ color: "whitesmoke" }}>
+                                  <Stack
+                                    direction="column"
+                                    sx={{
+                                      backgroundColor: "whitesmoke",
+                                      color: "whitesmoke",
+                                      marginTop: "10px",
+                                      marginBottom: "10px",
+                                      marginLeft: "25px",
+                                      borderRadius: "25px",
+                                      width: "100%",
+                                      height: "250px",
+                                    }}
+                                  >
+                                    <Stack
+                                      direction="row"
+                                      sx={{
+                                        color: "whitesmoke",
+                                        marginLeft: "15px",
+                                        marginTop: "20px",
+                                      }}
+                                    >
+                                      <MovieCreationOutlinedIcon
+                                        sx={{ color: "#060047", fontSize: 60 }}
+                                      ></MovieCreationOutlinedIcon>
+                                      <Stack
+                                        direction="column"
+                                        sx={{
+                                          color: "whitesmoke",
+                                          marginLeft: "20px",
+                                        }}
+                                      >
+                                        <Typography
+                                          fontSize={(18 / 6) * 5}
+                                          fontWeight="bold"
+                                          style={{
+                                            color: "#060047",
+                                            marginTop: "3px",
+                                          }}
+                                        >
+                                          Total Movies
+                                        </Typography>
+                                        <Typography
+                                          fontSize={25}
+                                          style={{
+                                            color: "#060047",
+                                          }}
+                                        >
+                                          929
+                                        </Typography>
+                                      </Stack>
+                                    </Stack>
+
+                                    <Stack
+                                      direction="row"
+                                      sx={{
+                                        color: "whitesmoke",
+                                        marginTop: "10px",
+                                        marginLeft: "15px",
+                                      }}
+                                    >
+                                      <ShoppingBasketOutlinedIcon
+                                        sx={{ color: "#060047", fontSize: 60 }}
+                                      ></ShoppingBasketOutlinedIcon>
+                                      <Stack
+                                        direction="column"
+                                        sx={{
+                                          color: "#060047",
+                                          marginLeft: "20px",
+                                        }}
+                                      >
+                                        <Typography
+                                          fontSize={(18 / 6) * 5}
+                                          fontWeight="bold"
+                                          style={{
+                                            color: "#060047",
+                                            marginTop: "3px",
+                                          }}
+                                        >
+                                          Current Lending
+                                        </Typography>
+                                        <Typography
+                                          fontSize={25}
+                                          style={{
+                                            color: "#060047",
+                                            fontWeight: "regular",
+                                          }}
+                                        >
+                                          320
+                                        </Typography>
+                                      </Stack>
+                                    </Stack>
+
+                                    <Stack
+                                      direction="row"
+                                      sx={{
+                                        color: "whitesmoke",
+                                        marginTop: "10px",
+                                        marginLeft: "15px",
+                                      }}
+                                    >
+                                      <ThumbUpAltOutlinedIcon
+                                        sx={{ color: "#060047", fontSize: 60 }}
+                                      ></ThumbUpAltOutlinedIcon>
+                                      <Stack
+                                        direction="column"
+                                        sx={{
+                                          color: "whitesmoke",
+                                          marginLeft: "20px",
+                                        }}
+                                      >
+                                        <Typography
+                                          fontSize={(18 / 6) * 5}
+                                          fontWeight="bold"
+                                          style={{
+                                            color: "#060047",
+                                            marginTop: "3px",
+                                          }}
+                                        >
+                                          Total Favorite
+                                        </Typography>
+                                        <Typography
+                                          fontSize={25}
+                                          fontWeight="regular"
+                                          style={{
+                                            color: "#060047",
+                                          }}
+                                        >
+                                          210
+                                        </Typography>
+                                      </Stack>
+                                    </Stack>
+                                  </Stack>
+                                </Typography>
+                              </Box>
+                            </Stack>
+                          </CardInner>
+                        </CustomCard>
+
+                        <CustomCard sx={{ width: "370px" }}>
+                          <CardInner sx={{ background: "#B3005E" }}>
+                            <Stack direction="column">
+                              <Box
+                                sx={{
+                                  width: "100%",
+                                  height: "30%",
+                                  backgroundColor: "#B3005E",
+                                }}
+                              >
+                                <Typography
+                                  style={{
+                                    width: "inherit",
+                                    color: "whitesmoke",
+                                    marginTop: "20px",
+                                    marginBottom: "20px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    fontWeight: "bold",
+                                  }}
+                                  fontSize={30}
+                                >
+                                  Infomation
+                                </Typography>
+                              </Box>
+                              <Stack
+                                direction="column"
+                                spacing={1.5}
+                                style={{
+                                  marginTop: "0px",
+                                  borderRadius: "25px",
+                                  backgroundColor: "whitesmoke",
+                                  width: "90%",
+                                  marginLeft: "19px",
+                                  height: "150px",
+                                }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  marginRight={1}
+                                  style={{ marginTop: "22.5px" }}
+                                >
+                                  <Typography
+                                    fontSize={15}
+                                    fontWeight="bold"
+                                    marginRight={1}
+                                    marginLeft={2}
+                                    style={{
+                                      color: "#B3005E",
+                                    }}
+                                  >
+                                    First name:
+                                  </Typography>
+                                  
+                                  {!editMode ? (
+                                    <Typography
+                                      marginLeft={1}
+                                      fontSize={15}
+                                      fontWeight="bold"
+                                      data-testid="user-first-name"
+                                      style={{
+                                        color: "#B3005E",
+                                      }}
+                                    >
+                                      {user.firstName}
+                                    </Typography>
+                                  ) : (
+                                    <StyledForm>
+                                      <StyledInput
+                                        placeholder="Type your text"
+                                        required
+                                        type="text"
+                                        defaultValue={user.firstName}
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        name="firstName"
+                                        inputProps={{
+                                          "data-testid":
+                                            "user-fisrt-name-input",
+                                        }}
+                                        sx = {{width: "200px"}}
+                                      />
+                                     
+                                    </StyledForm>
+                                  )}
+                                </Stack>
+                                <Stack
+                                  direction="row"
+                                  style={{ marginTop: "20px" }}
+                                >
+                                  <Typography
+                                    fontSize={15}
+                                    fontWeight="bold"
+                                    marginRight={0}
+                                    marginLeft={2}
+                                    style={{
+                                      color: "#B3005E",
+                                    }}
+                                  >
+                                    Last name:
+                                  </Typography>
+                                  {!editMode ? (
+                                    <Typography
+                                      marginLeft={1}
+                                      fontSize={15}
+                                      fontWeight="bold"
+                                      data-testid="user-last-name"
+                                      style={{
+                                        color: "#B3005E",
+                                      }}
+                                      
+                                    >
+                                      {user.lastName}
+                                    </Typography>
+                                  ) : (
+                                    <StyledForm>
+                                      <StyledInput
+                                        marginLeft={1}
+                                        placeholder="Type your text"
+                                        required
+                                        type="text"
+                                        defaultValue={user.lastName}
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        name="lastName"
+                                        inputProps={{
+                                          "data-testid": "user-lastname-input",
+                                        }}
+                                        sx = {{width: "209px"}}
+                                      />
+                                      <span className="input-border" />
+                                    </StyledForm>
+                                  )}
+                                </Stack>
+
+                                <Stack
+                                  direction="row"
+                                  style={{ marginTop: "20px" }}
+                                >
+                                  <Typography
+                                    fontSize={15}
+                                    fontWeight="bold"
+                                    marginRight={1}
+                                    marginLeft={2}
+                                    style={{
+                                      color: "#B3005E",
+                                    }}
+                                  >
+                                    Email:
+                                  </Typography>
+                                  {!editMode ? (
+                                    <Typography
+                                      marginLeft={1}
+                                      fontSize={15}
+                                      fontWeight="bold"
+                                      data-testid="user-email"
+                                      style={{
+                                        color: "#B3005E",
+                                      }}
+                                    >
+                                      {user.email}
+                                    </Typography>
+                                  ) : (
+                                    <StyledForm>
+                                      <StyledInput
+                                        placeholder="Type your text"
+                                        required
+                                        type="text"
+                                        defaultValue={user.email}
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        name="email"
+                                        inputProps={{
+                                          "data-testid": "user-email-input",
+                                        }}
+                                        sx = {{width: "236px"}}
+                                      />
+                                      <span className="input-border" />
+                                    </StyledForm>
+                                  )}
+                                </Stack>
+                                <Stack
+                                  direction={"row"}
+                                  style={{
+                                    marginLeft: "50px",
+                                    opacity: 1,
+                                    overflow: "visible", // Allow content to overflow
+                                    position: "relative",
+                                    marginTop: 50,
+                                    marginLeft: 100,
+                                  }}
+                                >
+                                  {editMode ? (
+                                    <SaveButton
+                                      onClick={() =>
+                                        handleSaveClick(values, onSubmitProps)
+                                      }
+                                    />
+                                  ) : (
+                                    <EditButton
+                                      onClick={handleEditIconClick}
+                                    ></EditButton>
+                                  )}
+                                </Stack>
+                              </Stack>
+                            </Stack>
+                          </CardInner>
+                        </CustomCard>
+                      </Stack>
                     ) : (
-                      <PasswordButton onClick={handleEditIconClick}></PasswordButton>
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        style={{
+                          opacity: 1,
+                          marginTop: "130px",
+                          marginLeft: "-150px",
+                        }}
+                      >
+                        <CustomCard sx={{ width: "696px" }}>
+                          <CardInner sx={{ background: "#B3005E" }}>
+                            <Stack direction="column">
+                              <Box
+                                sx={{
+                                  width: "100%",
+                                  height: "40%",
+                                  backgroundColor: "#B3005E",
+                                }}
+                              >
+                                <Typography
+                                  style={{
+                                    width: "inherit",
+                                    color: "whitesmoke",
+                                    marginTop: "20px",
+                                    marginBottom: "20px",
+                                    marginLeft: "30px",
+                                    display: "flex",
+
+                                    fontWeight: "bold",
+                                  }}
+                                  fontSize={40}
+                                >
+                                  Change Password
+                                </Typography>
+                              </Box>
+                              <Stack
+                                direction="column"
+                                spacing={1.5}
+                                style={{
+                                  marginTop: "0px",
+                                  borderRadius: "25px",
+                                  backgroundColor: "whitesmoke",
+                                  width: "94%",
+                                  marginLeft: "19px",
+                                  height: "150px",
+                                }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  marginRight={1}
+                                  style={{ marginTop: "22.5px" }}
+                                >
+                                  <Typography
+                                    fontSize={15}
+                                    fontWeight="bold"
+                                    marginRight={1}
+                                    marginLeft={2}
+                                    style={{
+                                      color: "#B3005E",
+                                    }}
+                                  >
+                                    Current Password
+                                  </Typography>
+                                  {!editMode ? (
+                                    <Typography
+                                      marginLeft={1}
+                                      fontSize={15}
+                                      fontWeight="bold"
+                                      style={{
+                                        color: "#B3005E",
+                                      }}
+                                      
+                                    >
+                                      ***********:
+                                    </Typography>
+                                  ) : (
+                                    <StyledForm>
+                                      <StyledInput
+                                        placeholder="Type your text"
+                                        required
+                                        type="text"
+                                        defaultValue={user.firstName}
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        name="firstName"
+                                        inputProps={{
+                                          "data-testid":
+                                            "user-fisrt-name-input",
+                                        }}
+                                        sx = {{width: "460px"}}
+                                      />
+                                      <span className="input-border" />
+                                    </StyledForm>
+                                  )}
+                                </Stack>
+                                <Stack
+                                  direction="row"
+                                  style={{ marginTop: "20px" }}
+                                >
+                                  <Typography
+                                    fontSize={15}
+                                    fontWeight="bold"
+                                    marginRight={2}
+                                    marginLeft={2}
+                                    style={{
+                                      color: "#B3005E",
+                                    }}
+                                  >
+                                    New Password:
+                                  </Typography>
+                                  {!editMode ? (
+                                    <Typography
+                                      marginLeft={1}
+                                      fontSize={15}
+                                      fontWeight="bold"
+                                      data-testid="user-last-name"
+                                      style={{
+                                        color: "#B3005E",
+                                      }}
+                                    >
+                                      {user.lastName}
+                                    </Typography>
+                                  ) : (
+                                    <StyledForm>
+                                      <StyledInput
+                                        marginLeft={1}
+                                        placeholder="Type your text"
+                                        required
+                                        type="text"
+                                        defaultValue={user.lastName}
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        name="lastName"
+                                        inputProps={{
+                                          "data-testid": "user-lastname-input",
+                                        }}
+                                        sx = {{width: "472px"}}
+                                      />
+                                      <span className="input-border" />
+                                    </StyledForm>
+                                  )}
+                                </Stack>
+
+                                <Stack
+                                  direction="row"
+                                  style={{ marginTop: "20px" }}
+                                >
+                                  <Typography
+                                    fontSize={15}
+                                    fontWeight="bold"
+                                    marginRight={1}
+                                    marginLeft={2}
+                                    style={{
+                                      color: "#B3005E",
+                                    }}
+                                  >
+                                    New Password (again):
+                                  </Typography>
+                                  {!editMode ? (
+                                    <Typography
+                                      marginLeft={1}
+                                      fontSize={15}
+                                      fontWeight="bold"
+                                      data-testid="user-email"
+                                      style={{
+                                        color: "#B3005E",
+                                      }}
+                                      
+                                    >
+                                      {user.email}
+                                    </Typography>
+                                  ) : (
+                                    <StyledForm>
+                                      <StyledInput
+                                        placeholder="Type your text"
+                                        required
+                                        type="text"
+                                        defaultValue={user.email}
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        name="email"
+                                        inputProps={{
+                                          "data-testid": "user-email-input",
+                                        }}
+                                        sx = {{width: "424px"}}
+                                      />
+                                      <span className="input-border" />
+                                    </StyledForm>
+                                  )}
+                                </Stack>
+                                <Stack
+                                  direction={"row"}
+                                  style={{
+                                    marginLeft: "50px",
+                                    opacity: 1,
+                                    overflow: "visible", // Allow content to overflow
+                                    position: "relative",
+                                    marginTop: 50,
+                                    marginLeft: 410,
+                                  }}
+                                >
+                                  {editMode ? (
+                                    <SaveButton
+                                      onClick={() =>
+                                        handleSaveClick(values, onSubmitProps)
+                                      }
+                                    />
+                                  ) : (
+                                    <EditButton
+                                      onClick={handleEditIconClick}
+                                    ></EditButton>
+                                  )}
+                                </Stack>
+                              </Stack>
+                            </Stack>
+                          </CardInner>
+                        </CustomCard>
+                      </Stack>
                     )}
-                      <Box sx= {{marginTop: "30px",}}>
-                      <PaymentButton sx= {{marginTop: "100px",}} onClick={handleEditIconClick}></PaymentButton>
+                    <Stack
+                      direction={"column"}
+                      style={{
+                        marginLeft: "800px",
+                        marginTop: "150px",
+                        opacity: 1,
+                        overflow: "visible", // Allow content to overflow
+                        position: "absolute",
+                      }}
+                    >
+                      {isPassword ? (
+                        <ProfileButton setPageType={setPageType} />
+                      ) : (
+                        <PasswordButton setPageType={setPageType} />
+                      )}
+                      <Box sx={{ marginTop: "30px" }}>
+                        <PaymentDialogs/>
                       </Box>
-                  </Stack>
                     </Stack>
                   </Box>
                 </Box>
