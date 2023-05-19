@@ -11,7 +11,6 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import MoviePage from "./scenes/moviePage";
 import ShowPage from "./scenes/showPage";
-import callBackPage from "./scenes/callBackPage";
 import Loading from "./components/Loading";
 
 function App() {
@@ -44,7 +43,7 @@ function App() {
           console.log("isAUTH:", data.authenticated); // Log the authentication data
           window.location.href = "/home";
           return;
-        }else if(currentPath === "/auth/github"){
+        } else if (currentPath === "/auth/github") {
           setLoading(false);
           setAuthenticated(true);
           const response = await fetch("http://localhost:5000/login/github", {
@@ -78,7 +77,7 @@ function App() {
 
   if (loading) {
     // Show loading state while checking authentication
-    return <Loading/>;
+    return <Loading />;
   }
 
   return (
@@ -150,7 +149,6 @@ function App() {
                 )
               }
             />
-            <Route path="/auth/google" element={<callBackPage />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

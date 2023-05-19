@@ -140,10 +140,6 @@ const NewDesign = () => {
     window.open("http://localhost:5000/auth/github", "_self");
   };
 
-  const twitter = () => {
-    window.open("http://localhost:5000/auth/twitter", "_self");
-  };
-
   const {
     values,
     isSubmitting,
@@ -449,50 +445,27 @@ const NewDesign = () => {
                           </Typography>
                         </Button>
                         <FlexBetween>
-                          <IconButton
-                            sx={{
-                              "&:hover": {
-                                transform: "scale(1.1)",
-                                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
-                              },
-                            }}
+                          <Button
+                            variant="outlined"
+                            startIcon={<GoogleIcon />}
                             onClick={google}
                           >
-                            <GoogleIcon />
-                          </IconButton>
-                          <IconButton
-                            sx={{
-                              "&:hover": {
-                                transform: "scale(1.1)",
-                                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
-                              },
-                            }}
+                            GOOGLE
+                          </Button>
+                          <Button
+                            variant="outlined"
+                            startIcon={<FacebookIcon />}
                             onClick={facebook}
                           >
-                            <FacebookIcon />
-                          </IconButton>
-                          <IconButton
-                            sx={{
-                              "&:hover": {
-                                transform: "scale(1.1)",
-                                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
-                              },
-                            }}
+                            FACEBOOK
+                          </Button>
+                          <Button
+                            variant="outlined"
+                            startIcon={<GitHubIcon />}
                             onClick={github}
                           >
-                            <GitHubIcon />
-                          </IconButton>
-                          <IconButton
-                            sx={{
-                              "&:hover": {
-                                transform: "scale(1.1)",
-                                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Customize the box shadow as per your preference
-                              },
-                            }}
-                            onClick={twitter}
-                          >
-                            <TwitterIcon />
-                          </IconButton>
+                            GITHUB
+                          </Button>
                         </FlexBetween>
                       </Box>
                     ) : picRegister ? (
