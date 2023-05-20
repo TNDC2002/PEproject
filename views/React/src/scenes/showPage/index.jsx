@@ -63,7 +63,6 @@ const ShowPage = () => {
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
-
   const [isRated, setIsRated] = useState(false);
   const [rateDefaultValue, setRateDefaultValue] = useState(0);
 

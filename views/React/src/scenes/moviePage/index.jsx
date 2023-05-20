@@ -67,7 +67,6 @@ const MoviePage = () => {
   const [isRented, setIsRented] = useState(false);
   const token = useSelector((state) => state.token);
   const theme = useTheme();
-
   //function for popover
   const [popoverOpen, setPopoverOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -329,7 +328,6 @@ const MoviePage = () => {
 
       const checkRentedResponse = await checkRented(user._id, movieID);
       setIsRented(checkRentedResponse.Rental_return.Rented);
-      console.log(checkRentedResponse);
     };
     fetchInformation();
   }, [user._id, movieID]);
@@ -539,8 +537,25 @@ const MoviePage = () => {
             </Button>
 
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
-              
-              <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
+              {!user._verified ? (
+                <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
+                  <Container sx={{height: '100%'}} maxWidth="lg">
+                  <Box py={6} textAlign="center" display="flex">
+                    <Box mb={3}>
+                      <Container maxWidth="lg" >
+                        <Typography variant="h3" component="span" sx={{}}>
+                          <h2>Your email is not verified</h2>
+                        </Typography>
+                      </Container>
+                    </Box>
+                    <Grid container spacing={3}>
+                    </Grid>
+                  </Box>
+                  </Container>
+                </DialogContent>
+
+                ) : (
+                <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
                 <Container sx={{height: '100%'}} maxWidth="lg">
                   <Box py={6} textAlign="center" display="flex">
                     <Box mb={3}>
@@ -626,6 +641,7 @@ const MoviePage = () => {
                   </Box>
                 </Container>
               </DialogContent>
+              )}
               <DialogActions>
                 <Button variant="contained" onClick={handleClose}>
                   Close
