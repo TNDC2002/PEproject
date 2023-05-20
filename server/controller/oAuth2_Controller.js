@@ -1,5 +1,5 @@
 
-import oAuth2 from '../models/oAuth2_Model.js'
+import * as oAuth2 from '../models/oAuth2_Model.js'
 import * as dotenv from 'dotenv';
 dotenv.config()
 const cookieOptions = {
@@ -11,7 +11,7 @@ const cookieOptions = {
 
 const GG_oAuth2 = async (req, res) => {
     try {
-        let oAuth2_return = await oAuth2.Gg_Callback(req)
+        let oAuth2_return = await oAuth2.default.Gg_Callback(req)
         if (oAuth2_return.status) {
             return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
         } else {
@@ -31,7 +31,7 @@ const GG_oAuth2 = async (req, res) => {
 
 const FB_oAuth2 = async (req, res) => {
     try {
-        let oAuth2_return = await oAuth2.Fb_Callback(req)
+        let oAuth2_return = await oAuth2.default.Fb_Callback(req)
         if (oAuth2_return.status) {
             return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
         } else {
@@ -50,7 +50,7 @@ const FB_oAuth2 = async (req, res) => {
 
 const GH_oAuth2 = async (req, res) => {
     try {
-        let oAuth2_return = await oAuth2.Gh_Callback(req)
+        let oAuth2_return = await oAuth2.default.Gh_Callback(req)
         if (oAuth2_return.status) {
             return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
         } else {
@@ -69,7 +69,7 @@ const GH_oAuth2 = async (req, res) => {
 }
 const TW_oAuth2 = async (req, res) => {
     try {
-        let oAuth2_return = await oAuth2.Tw_Callback(req)
+        let oAuth2_return = await oAuth2.default.Tw_Callback(req)
         if (oAuth2_return.status) {
             return res.status(oAuth2_return.status).json({ error: oAuth2_return.error });
         } else {
