@@ -379,7 +379,6 @@ const MoviePage = () => {
   if (!movie || youtubeIDs === null) {
     return <Loading />;
   }
-
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   return (
     <div>
@@ -581,7 +580,7 @@ const MoviePage = () => {
             </Button>
 
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
-              {!user._verified ? (
+              {!user.verified ? (
                 <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
                   <Container sx={{height: '100%'}} maxWidth="lg">
                   <Box py={6} textAlign="center" display="flex">
