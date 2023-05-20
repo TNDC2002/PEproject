@@ -28,7 +28,6 @@ export const updateBalance = async (req, res) => {
         if (user) {
             user.balance = (user.balance + req.body.balance) || user.balance;
             const updatedUser = await user.save();
-            console.log(updatedUser);
             res.json({ balance: updatedUser.balance })
         }
     }
