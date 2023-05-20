@@ -126,7 +126,7 @@ describe('Test routes responses', () => {
     });
 
     test('23 GET /search responds with 200 status', async () => {
-        const response = await request(app).get('/search');
+        const response = await request(app).get('/search/?query=breaking&page=1');
         expect(response.status).toBe(200);
     });
 
