@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Navigate, useParams, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,6 +44,7 @@ import Navbar from "../navbar";
 import ImageTest from "../../assets/images/background.png";
 import HdOutlinedIcon from '@mui/icons-material/HdOutlined';
 import ClosedCaptionOffIcon from '@mui/icons-material/ClosedCaptionOff';
+import Snackbar from '@mui/material/Snackbar';
 import {
   Favorite,
   FavoriteBorderRounded,
@@ -58,7 +60,7 @@ const MoviePage = () => {
   const [credits, setCredits] = useState(null);
   const [rateDefaultValue, setRateDefaultValue] = useState(0);
   const mainPlayerRef = useRef(null);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);
@@ -67,6 +69,7 @@ const MoviePage = () => {
   const [isRented, setIsRented] = useState(false);
   const token = useSelector((state) => state.token);
   const theme = useTheme();
+  
   //function for popover
   const [popoverOpen, setPopoverOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -80,6 +83,7 @@ const MoviePage = () => {
     setPopoverOpen(false);
   };
 
+  //open and close dialogue
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -89,6 +93,17 @@ const MoviePage = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  //snackbar open and close
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const redirectAccount = () => {
+    navigate("/profile/" + user._id);
+};
 
   const favourite = async (userID, movieID) => {
     const requestData = {
@@ -522,7 +537,30 @@ const MoviePage = () => {
               onClick={handleOpen}
               disabled={isRented}
               padding="4px"
+              
             >
+              {/*
+              {!user._verified ? (
+                redirectAccount()
+                setSnackbarOpen(true),
+                <Snackbar
+                  open={snackbarOpen}
+                  autoHideDuration={3000}
+                  onClose={handleSnackbarClose}
+                  message="Email is not verified"
+                />
+                ) :(
+                  setSnackbarOpen(true),
+                  <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={3000}
+                    onClose={handleSnackbarClose}
+                    message="Email is verified"
+      />
+                )
+              }
+            */}
+
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
               ) : (
@@ -534,6 +572,7 @@ const MoviePage = () => {
               ) : (
                 <strong>Already Rented</strong>
               )}
+
             </Button>
 
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
