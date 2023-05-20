@@ -40,6 +40,8 @@ import Stack from "@mui/material/Stack";
 import Popover from "@mui/material/Popover";
 import StarIcon from "@mui/icons-material/Star";
 import ImageTest from "../../assets/images/background.png";
+import HdOutlinedIcon from '@mui/icons-material/HdOutlined';
+import ClosedCaptionOffIcon from '@mui/icons-material/ClosedCaptionOff';
 
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from "../navbar";
@@ -450,7 +452,8 @@ const ShowPage = () => {
             <Typography sx={{ fontSize: 40, fontWeight: "medium" }}>
               {show.original_name}
             </Typography>
-
+            <HdOutlinedIcon sx={{ fontSize: "35px" }}></HdOutlinedIcon>
+            <ClosedCaptionOffIcon sx={{ fontSize: "35px" }}></ClosedCaptionOffIcon>
             <Stack direction="row" spacing={3} padding="4px">
               <Box>
                 <FormControl>
@@ -589,14 +592,14 @@ const ShowPage = () => {
                     <Box mb={3}>
                       <Container maxWidth="lg">
                         <Typography variant="h3" component="span">
-                          <h2>Pricing Plan</h2>
+                        <h2>Pricing Plan</h2>
                         </Typography>
                       </Container>
                     </Box>
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Day Plan"></CardHeader>
+                          <CardHeader title={<Typography variant="h4" >1-Day Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -604,17 +607,8 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                <strong>100 SD</strong>
-
+                                19.99 SmashDong
                               </Typography>
-                              
-                              <Typography variant="subtitle1" component="p">
-                                1080p Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Limited movies & TV shows
-                              </Typography>
-                              
                             </Box>
                             <Button
                               variant="contained"
@@ -629,7 +623,7 @@ const ShowPage = () => {
 
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Week Plan"></CardHeader>
+                        <CardHeader title={<Typography variant="h4" >1-Week Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -637,17 +631,7 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                <strong>1.000 SD</strong>
-
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                4k Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Limited movies & TV shows
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Cancle anytime
+                                129.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
@@ -663,7 +647,7 @@ const ShowPage = () => {
 
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Month Plan"></CardHeader>
+                        <CardHeader title={<Typography variant="h4" >1-Month Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -671,19 +655,7 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                <strong>10.000 SD</strong>
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                4k+ Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Unlimited movies & TV shows
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Cancle anytime
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Ad-free webstite 
+                                499.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
