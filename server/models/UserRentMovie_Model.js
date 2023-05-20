@@ -4,7 +4,7 @@ import axios from "axios"
 const GET_rental = async (req) => {
     try {
         const { userID, movieID, media_type, season } = req.query;
-        const Rent = await UserMovieRental.findOne({ userID: userID, movieID: movieID, media_type: media_type })
+        const Rent = await UserMovieRental.findOne({ userID: userID, movieID: movieID, media_type: media_type, season: season })
         
         return {Rented: Rent !== null,
                     Rental_information: Rent};
@@ -20,25 +20,42 @@ const GET_rental = async (req) => {
 
 const POST_rental = async (req) => {
     try {
-        let { userID, movieID, media_type, Duration, season } = req.body
-        Duration = Number(Duration)
-        let BeginDate = new Date();
-        let ExpireDate = new Date();
-        ExpireDate.setDate(ExpireDate.getDate() + Duration);
-        const newRent = new UserMovieRental({
+        let { userID, movieID, media_type, Duration, season } = req.body;
+        Duration = Number(Duration);
+        let rentalBeginDate = new Date();
+        let rentalExpireDate = new Date();
+        rentalExpireDate.setDate(rentalExpireDate.getDate() + Duration);
+
+        UserMovieRental.findOne({
             userID: userID,
             movieID: movieID,
-            rentalBeginDate: BeginDate,
-            rentalExpireDate: ExpireDate,
             media_type: media_type,
             season: season
-        });
-        newRent.save()
-            .then(async () => {
+        })
+            .then((existingRecord) => {
+                if (existingRecord) {
+                    existingRecord.rentalBeginDate = rentalBeginDate;
+                    existingRecord.rentalExpireDate = rentalExpireDate;
+                    return existingRecord.save();
+                } else {
+                    const newRent = new UserMovieRental({
+                        userID: userID,
+                        movieID: movieID,
+                        rentalBeginDate: rentalBeginDate,
+                        rentalExpireDate: rentalExpireDate,
+                        media_type: media_type,
+                        season: season
+                    });
+                    return newRent.save();
+                }
+            })
+            .then(() => {
+                // Successfully saved or updated the record
+                // Perform any additional actions if needed
             })
             .catch((error) => {
-                console.log("ERROR --- rental.js --- can't SAVE to DB")
-            })
+                console.log("ERROR --- rental.js --- can't SAVE to DB", error);
+            });
 
     } catch (err) {
         return {

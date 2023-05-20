@@ -21,17 +21,25 @@ import {
   DialogContent,
   DialogActions,
   Rating,
-  Menu
+  Menu,
+  CardHeader,
+  CardContent,
+  Card,
+  Divider,
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import VideocamIcon from "@mui/icons-material/Videocam";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import Popover from "@mui/material/Popover";
+import StarIcon from "@mui/icons-material/Star";
+
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from "../navbar";
 import {
@@ -46,47 +54,63 @@ const ShowPage = () => {
   const [trailerVideoId, setTrailerVideoId] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [credits, setCredits] = useState(null);
-  const [rateDefaultValue, setRateDefaultValue] = useState(0);
-
   const mainPlayerRef = useRef(null);
 
   const { showID } = useParams();
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
+
   const [isRated, setIsRated] = useState(false);
+  const [rateDefaultValue, setRateDefaultValue] = useState(0);
 
   const token = useSelector((state) => state.token);
   const theme = useTheme();
 
-  const [selectedSeason, setSelectedSeason] = useState(1);
-  const [selectedSeasonData, setSelectedSeasonData] = useState(null);
+  //function for popover
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const anchorRef = useRef(null);
 
-  const [seasonOptions , setSeasonOptions ] = useState(null);
+  //open and close popover
+  const handlePopoverOpen = () => {
+    setPopoverOpen(true);
+  };
+
+  const handlePopoverClose = () => {
+    setPopoverOpen(false);
+  };
 
   const handleSeasonChange = (event) => {
     const selectedSeasonValue = event.target.value;
     setSelectedSeason(selectedSeasonValue);
   };
-console.log(selectedSeason)
-  
+  const [selectedSeason, setSelectedSeason] = useState(1);
+  const [seasonOptions, setSeasonOptions] = useState(null);
 
- 
+  //open and close form
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-  const favourite = async (userID, movieID) => {
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const favourite = async (userID, showID) => {
     const requestData = {
       userID: userID,
-      movieID: movieID,
+      movieID: showID,
       media_type: "tv",
-      season: selectedSeason
+      season: selectedSeason,
     };
-  
+
     const url = isFavourited
       ? "http://localhost:5000/api/favourite/delete" // DELETE endpoint
       : "http://localhost:5000/api/favourite/insert"; // POST endpoint
-  
+
     const method = isFavourited ? "DELETE" : "POST";
-  
+
     const addFavouriteResponse = await fetch(url, {
       method: method,
       headers: {
@@ -97,13 +121,13 @@ console.log(selectedSeason)
     });
   };
 
-  const rate = async (userID, movieID, rating) =>{
+  const rate = async (userID, showID, rating) => {
     const requestData = {
       userID: userID,
-      movieID: movieID,
+      movieID: showID,
       rating: rating,
       media_type: "tv",
-      season: selectedSeason
+      season: selectedSeason,
     };
 
     const method = isRated ? "PUT" : "POST";
@@ -118,79 +142,78 @@ console.log(selectedSeason)
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
-     } 
-    )
-  }
-
-  const unrate = async (userID, movieID) => {
-    const requestData = {
-      userID: userID,
-      movieID: movieID,
-      media_type: "tv",
-      season: selectedSeason
-    };
-    
-    const removeRatingResponse = await fetch(
-      "http://localhost:5000/api/rate/delete",{
-       method: "DELETE",
-       headers: {
-         Authorization: `Bearer ${token}`,
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify(requestData),
-      } 
-     )
-  }
-
-  const rent = async (userID, showID) => {
-    const rentalBeginDate = new Date();
-    const rentalExpireDate = new Date(rentalBeginDate);
-    rentalExpireDate.setDate(rentalExpireDate.getDate() + 7);
-
-    const requestData = {
-      userID: userID,
-      movieID: showID,
-      rentalBeginDate: rentalBeginDate,
-      rentalExpireDate: rentalExpireDate,
-      season: selectedSeason
-    };
-
-    const addRentResponse = await fetch("http://localhost:5000/movie/rent", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
     });
   };
 
-  const checkFavorite = async (userID, movieID) => {
+  const unrate = async (userID, showID) => {
     const requestData = {
       userID: userID,
-      movieID: movieID,
+      movieID: showID,
       media_type: "tv",
-      season: selectedSeason
+      season: selectedSeason,
     };
-  
+
+    const removeRatingResponse = await fetch(
+      "http://localhost:5000/api/rate/delete",
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      }
+    );
+  };
+
+  const rent = async (userID, showID, duration) => {
+    const requestData = {
+      userID: userID,
+      movieID: showID,
+      media_type: "tv",
+      Duration: duration,
+      season: selectedSeason,
+    };
+
+    const addRentResponse = await fetch(
+      "http://localhost:5000/api/rent/insert",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      }
+    );
+  };
+
+  const checkFavorite = async (userID, showID) => {
+    const requestData = {
+      userID: userID,
+      movieID: showID,
+      media_type: "tv",
+      season: selectedSeason,
+    };
+
     const url = new URL("http://localhost:5000/api/favourite/check");
     url.search = new URLSearchParams(requestData).toString();
-  
+
     const checkFavoriteResponse = await fetch(url, {
       method: "GET",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
-  
+
     const result = await checkFavoriteResponse.json();
     return result.Favourite_return.favorited;
   };
 
-    const checkRated = async (userID, movieID) => {
+  const checkRated = async (userID, showID) => {
     const requestData = {
       userID: userID,
-      movieID: movieID,
+      movieID: showID,
       media_type: "tv",
-      season: selectedSeason
+      season: selectedSeason,
     };
 
     const url = new URL("http://localhost:5000/api/rate/check");
@@ -198,29 +221,29 @@ console.log(selectedSeason)
 
     const checkRatedResponse = await fetch(url, {
       method: "GET",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
 
     const result = await checkRatedResponse.json();
     return result;
-  }
+  };
 
   const checkRented = async (userID, showID) => {
     const requestData = {
       userID: userID,
       movieID: showID,
-      season: selectedSeason
+      media_type: "tv",
+      season: selectedSeason,
     };
-    const checkRentedResponse = await fetch(
-      "http://localhost:5000/movie/rent/check",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData),
-      }
-    );
+    const url = new URL("http://localhost:5000/api/rent/check");
+    url.search = new URLSearchParams(requestData).toString();
+
+    const checkRentedResponse = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
     const result = await checkRentedResponse.json();
-    return result.rented;
+    return result;
   };
 
   useEffect(() => {
@@ -234,7 +257,12 @@ console.log(selectedSeason)
         if (data.seasons.length === 1) {
           setSeasonOptions([1]);
         } else {
-        setSeasonOptions(Array.from({ length: data.seasons.length-1 }, (_, index) => index + 1));
+          setSeasonOptions(
+            Array.from(
+              { length: data.seasons.length - 1 },
+              (_, index) => index + 1
+            )
+          );
         }
       } catch (err) {
         console.error(err);
@@ -243,8 +271,6 @@ console.log(selectedSeason)
     };
     fetchShowDetails();
   }, [showID]);
-  console.log(seasonOptions)
-  
 
   useEffect(() => {
     const fetchCredits = async () => {
@@ -273,7 +299,7 @@ console.log(selectedSeason)
         );
         const data = await response.json();
         setTrailerVideoId(data.results);
-        setSelectedVideo(data.results[0].key)
+        setSelectedVideo(data.results[0].key);
       } catch (error) {
         console.error(error);
       }
@@ -304,9 +330,12 @@ console.log(selectedSeason)
     const checkFavouriteResponse = await checkFavorite(user._id, showID);
     setIsFavourited(checkFavouriteResponse);
 
-    const checkRatedResponse = await checkRated(user._id, showID);      
+    const checkRatedResponse = await checkRated(user._id, showID);
     setIsRated(checkRatedResponse.Rating_return.Rated);
     setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
+
+    const checkRentedResponse = await checkRented(user._id, showID);
+    setIsRented(checkRentedResponse.Rental_return.Rented);
   };
 
   useEffect(() => {
@@ -328,25 +357,25 @@ console.log(selectedSeason)
       unrate(user._id, showID);
       setIsRated(false);
       setRateDefaultValue(0);
-    }
-    else {
+      handlePopoverClose();
+    } else {
       rate(user._id, showID, rateValue);
       setIsRated(true);
       setRateDefaultValue(rateValue);
+      handlePopoverClose();
     }
-
-  }
-
-  const handleRentClick = () => {
-    // Call the favourite function with the necessary values here
-    rent(user._id, showID);
-    setIsRented(!isRented);
   };
 
-  if (!show) {
+  const handleRentClick = (event) => {
+    const buttonValue = event.target.value;
+    rent(user._id, showID, buttonValue);
+    setIsRented(!isRented);
+    handleClose();
+  };
+
+  if (!show && trailerVideoId === null) {
     return <Loading />;
   }
-console.log(show.seasons)
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
 
@@ -354,55 +383,45 @@ console.log(show.seasons)
     <div>
       <Navbar></Navbar>
       <Container maxWidth="lg">
-        <Breadcrumbs aria-label="breadcrumb" sx={{ my: 2 }}>
+        <Breadcrumbs
+          aria-label="breadcrumb"
+          sx={{ margin: "4px", padding: "4px" }}
+        >
           <Link
-            underline="hover"
-            color="inherit"
+            style={{ color: "white", textDecoration: "none" }}
             onClick={() => {
               window.location.href = "/home";
             }}
           >
-            Home
+            <Typography>
+              <h3>Home</h3>
+            </Typography>
           </Link>
 
-          <Link underline="hover" color="inherit">
-            Movies
+          <Link style={{ color: "white", textDecoration: "none" }}>
+            <h3>Movies</h3>
           </Link>
-          <Typography color="text.primary">{show.original_name}</Typography>
+          <Typography fontWeight="lighter">
+            <h3>{show.original_name}</h3>
+          </Typography>
         </Breadcrumbs>
 
         {trailerVideoId !== null && trailerVideoId.length > 0 ? (
           <>
             <div ref={mainPlayerRef}>
-              <YouTubePlayer videoId={selectedVideo} width={800} height={600} thumbnail={false}/>
+              <YouTubePlayer
+                videoId={selectedVideo}
+                width={800}
+                height={600}
+                thumbnail={false}
+              />
             </div>
-            <Box>
-              <Typography>
-                Other Trailer
-              </Typography>
-            </Box>
-            <Box sx={{ overflowX: "auto" }}>
-              {trailerVideoId && (
-                <Box>
-                  <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
-                    {trailerVideoId.map((video) => (
-                      <Grid item key={video.key} onClick={() => {
-                        setSelectedVideo(video.key)
-                        mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
-                      }}>
-                        <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
-                      </Grid>
-                    ))}
-                  </Box>
-                </Box>
-              )}
-            </Box>
           </>
         ) : (
           <></>
         )}
 
-        <Grid container spacing={3} sx={{ my: 2 }}>
+        <Grid container spacing={3} sx={{ padding: "20px" }}>
           <Grid item xs={12} sm={6} md={3} lg={3}>
             <Box sx={{ position: "relative", display: "inline-flex" }}>
               <Box
@@ -417,24 +436,6 @@ console.log(show.seasons)
                   alt={`${show.original_name} poster`}
                 />
               </Box>
-              <IconButton
-                onClick={handleFavouriteClick}
-                variant="contained"
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 0,
-                  transform: "translate(50%, 50%)",
-                }}
-              >
-                {!isFavourited ? (
-                  <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
-                ) : (
-                  <FavoriteOutlinedIcon
-                    sx={{ fontSize: "40px", color: theme.palette.primary.main }}
-                  />
-                )}
-              </IconButton>
             </Box>
           </Grid>
 
@@ -443,64 +444,106 @@ console.log(show.seasons)
               {show.original_name}
             </Typography>
 
-            <Button variant="contained" sx={{ mx: 0.5 }}>
-              <strong>IMDB:</strong> {show.vote_average}
-            </Button>
-            
-            <Box >
-              <FormControl >
-                <InputLabel >Season</InputLabel>
-                <Select
-                  label="Season"
-                  value={selectedSeason}
-                  onChange={handleSeasonChange}
-                >
-                  {seasonOptions.map((optionValue) => (
-                  <MenuItem key={optionValue} value={optionValue}>
-                    Season {optionValue}
-                  </MenuItem>
-                ))} 
-                </Select>
-              </FormControl>
-            </Box>
-              <Typography variant="body1" sx={{ my: 0.5 }}>
-                {seasonOptions[0] === 1 ? (                
-                <div><strong>Overview: </strong> {show.overview}</div>
+            <Stack direction="row" spacing={3} padding="4px">
+              <Box>
+                <FormControl>
+                  <InputLabel>Season</InputLabel>
+                  <Select
+                    label="Season"
+                    value={selectedSeason}
+                    onChange={handleSeasonChange}
+                  >
+                    {seasonOptions.map((optionValue) => (
+                      <MenuItem key={optionValue} value={optionValue}>
+                        Season {optionValue}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+              <Avatar onClick={handleFavouriteClick}>
+                {!isFavourited ? (
+                  <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                 ) : (
-                  <div><strong>Overview: </strong>{show.seasons[selectedSeason].overview}</div>
+                  <FavoriteOutlinedIcon
+                    sx={{ fontSize: "23px", color: theme.palette.primary.main }}
+                  />
                 )}
-              </Typography>
+              </Avatar>
 
-            
+              <Avatar ref={anchorRef} onClick={handlePopoverOpen}>
+                {!isRated ? (
+                  <StarIcon sx={{ fontSize: "23px" }} />
+                ) : (
+                  <StarIcon sx={{ fontSize: "23px", color: "yellow" }} />
+                )}
+              </Avatar>
+            </Stack>
+
+            <Popover
+              open={popoverOpen}
+              anchorEl={anchorRef.current}
+              onClose={handlePopoverClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+            >
+              <Rating
+                name="half-rating"
+                precision={0.5}
+                value={rateDefaultValue}
+                onChange={(event, rateValue) => handleRateClick(rateValue)}
+                sx={{ fontSize: "30px" }}
+              ></Rating>
+            </Popover>
+
+            <Typography padding="4px">
+              {seasonOptions[0] === 1 ? (
+                <div>
+                  <strong>Overview: </strong> {show.overview}
+                </div>
+              ) : (
+                <div>
+                  <strong>Overview: </strong>
+                  {show.seasons[selectedSeason].overview}
+                </div>
+              )}
+            </Typography>
+
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding="4px">
                   <strong>Release Date:</strong> {show.first_air_date}
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding="4px">
                   <strong>Directors:</strong>{" "}
                   {show.created_by.map((g) => g.name).join(", ")}
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding="4px">
                   <strong>Production:</strong>{" "}
                   {show.production_companies.map((g) => g.name).join(", ")}
                 </Typography>
-
               </Grid>
 
-
-
               <Grid item xs={12} md={6}>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
-                  <strong>Duration:</strong> {show.episode_run_time} min
+                <Typography padding="4px">
+                  <strong>Air:</strong> {show.episode_run_time} min
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding="4px">
                   <strong>Genre:</strong>{" "}
                   {show.genres.map((g) => g.name).join(", ")}
                 </Typography>
-                <Typography variant="body1" sx={{ my: 0.5 }}>
+                <Typography padding="4px">
                   <strong>Cast:</strong>{" "}
-                  {credits?.slice(0, 5)?.map((g) => g.name)?.join(", ")}
+                  {credits
+                    ?.slice(0, 5)
+                    ?.map((g) => g.name)
+                    ?.join(", ")}
                 </Typography>
               </Grid>
             </Grid>
@@ -515,8 +558,9 @@ console.log(show.seasons)
 
             <Button
               variant="contained"
-              onClick={handleRentClick}
+              onClick={handleOpen}
               disabled={isRented}
+              padding="4px"
             >
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
@@ -530,20 +574,183 @@ console.log(show.seasons)
                 <strong>Already Rented</strong>
               )}
             </Button>
-            <Rating 
-              name="half-rating" 
-              precision={0.5}
-              value={rateDefaultValue}
-              onChange={(event, rateValue) => handleRateClick(rateValue)}
-              sx={{fontSize:"30px"}}
-            ></Rating>          
-            </Grid>
+            <Dialog open={open} onClose={handleClose}>
+              <DialogTitle>Pricing Plan</DialogTitle>
+              <DialogContent>
+                <Container maxWidth="lg">
+                  <Box py={8} textAlign="center">
+                    <Box mb={3}>
+                      <Container maxWidth="lg">
+                        <Typography variant="h3" component="span">
+                          Pricing Plan
+                        </Typography>
+                      </Container>
+                    </Box>
+                    <Grid container spacing={3}>
+                      <Grid item xs={12} md={4}>
+                        <Card variant="outlined">
+                          <CardHeader title="1-Day Plan"></CardHeader>
+                          <CardContent>
+                            <Box px={1}>
+                              <Typography
+                                variant="h3"
+                                component="h2"
+                                gutterBottom={true}
+                              >
+                                100 SD
+                                <Typography variant="h6" component="span">
+                                  /week
+                                </Typography>
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                1080p Quality
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                Limited movies & TV shows
+                              </Typography>
+                            </Box>
+                            <Button
+                              variant="contained"
+                              onClick={handleRentClick}
+                              value={1}
+                            >
+                              Smash
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+
+                      <Grid item xs={12} md={4}>
+                        <Card variant="outlined">
+                          <CardHeader title="1-Week Plan"></CardHeader>
+                          <CardContent>
+                            <Box px={1}>
+                              <Typography
+                                variant="h3"
+                                component="h2"
+                                gutterBottom={true}
+                              >
+                                1000 SD
+                                <Typography variant="h6" component="span">
+                                  /month
+                                </Typography>
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                4k Quality
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                Limited movies & TV shows
+                              </Typography>
+                            </Box>
+                            <Button
+                              variant="contained"
+                              onClick={handleRentClick}
+                              value={7}
+                            >
+                              Smash
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+
+                      <Grid item xs={12} md={4}>
+                        <Card variant="outlined">
+                          <CardHeader title="1-Month Plan"></CardHeader>
+                          <CardContent>
+                            <Box px={1}>
+                              <Typography
+                                variant="h3"
+                                component="h2"
+                                gutterBottom={true}
+                              >
+                                10000 SD
+                                <Typography variant="h6" component="span">
+                                  /year
+                                </Typography>
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                4k+ Quality
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                Unlimited movies & TV shows
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                Cancle anytime
+                              </Typography>
+                            </Box>
+                            <Button
+                              variant="contained"
+                              onClick={handleRentClick}
+                              value={30}
+                            >
+                              Smash
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Container>
+              </DialogContent>
+              <DialogActions>
+                <Button variant="contained" onClick={handleClose}>
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </Grid>
         </Grid>
-        <Box sx={{}}>
+
+        {trailerVideoId !== null && trailerVideoId.length > 0 ? (
+          <div>
+            <Box>
+              <Typography>
+                <h3>Other Trailer:</h3>
+              </Typography>
+            </Box>
+            <Box sx={{ overflowX: "auto" }}>
+              {trailerVideoId && (
+                <Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      overflowY: "hidden",
+                    }}
+                  >
+                    {trailerVideoId.map((video) => (
+                      <Grid
+                        item
+                        key={video.key}
+                        onClick={() => {
+                          setSelectedVideo(video.key);
+                          mainPlayerRef.current.scrollIntoView({
+                            behavior: "smooth",
+                          });
+                        }}
+                      >
+                        <img
+                          src={`https://img.youtube.com/vi/${video.key}/0.jpg`}
+                          alt="Thumbnail"
+                          width={356}
+                          height={220}
+                        />
+                      </Grid>
+                    ))}
+                  </Box>
+                </Box>
+              )}
+            </Box>
+          </div>
+        ) : (
+          <></>
+        )}
+
+        <Box sx={{ paddingTop: "20px" }}>
           {recommendations && (
             <Box>
-              <Typography variant="h5" sx={{ pb: 1 }}>
-                <strong>You may also like:</strong>
+              <Typography sx={{ pb: 1 }}>
+                <h2>You may also like:</h2>
               </Typography>
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (
@@ -585,5 +792,25 @@ console.log(show.seasons)
 export default ShowPage;
 
 /**
- * []
+ * <Box>
+              <Typography>
+                Other Trailer
+              </Typography>
+            </Box>
+            <Box sx={{ overflowX: "auto" }}>
+              {trailerVideoId && (
+                <Box>
+                  <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
+                    {trailerVideoId.map((video) => (
+                      <Grid item key={video.key} onClick={() => {
+                        setSelectedVideo(video.key)
+                        mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
+                      }}>
+                        <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
+                      </Grid>
+                    ))}
+                  </Box>
+                </Box>
+              )}
+            </Box>
  */
