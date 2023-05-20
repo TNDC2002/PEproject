@@ -604,9 +604,9 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                100 SD
+                                100
                                 <Typography variant="h6" component="span">
-                                  /week
+                                SD/Day
                                 </Typography>
                               </Typography>
                               <Typography variant="subtitle1" component="p">
@@ -637,9 +637,9 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                1000 SD
+                                1.000
                                 <Typography variant="h6" component="span">
-                                  /month
+                                SD/Week
                                 </Typography>
                               </Typography>
                               <Typography variant="subtitle1" component="p">
@@ -670,9 +670,9 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                10000 SD
+                                10.000
                                 <Typography variant="h6" component="span">
-                                  /year
+                                SD/Month
                                 </Typography>
                               </Typography>
                               <Typography variant="subtitle1" component="p">
