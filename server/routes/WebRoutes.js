@@ -5,7 +5,7 @@ import express from "express";
 import * as uploader from "../middleware/FileUploader.js";
 //uploader setup
 var upload = uploader.default();
-import User from "../models/User.js";
+import User from "../models/User_Schema.js";
 import passport from "passport";
 import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
 import { Strategy as FacebookStrategy } from "passport-facebook";

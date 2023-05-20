@@ -1,5 +1,5 @@
 
-import User from "../models/User.js";
+import User from "./User_Schema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 const expiresIn = (60 * 60)*7; 

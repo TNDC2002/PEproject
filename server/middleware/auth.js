@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import User from "../models/User.js"
+import User from "../models/User_Schema.js"
 import bcrypt from "bcrypt";
 export const verifyToken = async (req, res, next) => {
     try {

@@ -1,5 +1,5 @@
 
-import oAuth2 from '../models/oAuth2_model.js'
+import oAuth2 from '../models/oAuth2_Model.js'
 import * as dotenv from 'dotenv';
 dotenv.config()
 const cookieOptions = {
