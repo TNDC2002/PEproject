@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Navigate, useParams, Link } from "react-router-dom";
+import { Navigate , useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,6 +59,10 @@ const MoviePage = () => {
   const [rateDefaultValue, setRateDefaultValue] = useState(0);
   const mainPlayerRef = useRef(null);
 
+  //hovered black name poster
+  const [hoveredRecommendationId, setHoveredRecommendationId] = useState(null);
+  const navigate = useNavigate();
+  
   const dispatch = useDispatch();
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);
@@ -375,16 +379,19 @@ const MoviePage = () => {
           <Link
             style={{ color: "white", textDecoration: "none" }}
             onClick={() => {
-              window.location.href = "/home";
+              window.location.href = "/Home";
             }}
           >
-            <Typography>
-              <h3>Home</h3>
-            </Typography>
+            <Typography sx={{ "&:hover": {textDecoration: 'underline'}}}><h3>Home</h3></Typography>
           </Link>
 
-          <Link style={{ color: "white", textDecoration: "none" }}>
-            <h3>Movies</h3>
+          <Link 
+            style={{ color: "white", textDecoration: "none" }}
+            onClick={() => {
+              window.location.href = "/Feature Movies";
+            }}  
+          >
+            <Typography sx={{ "&:hover": {textDecoration: 'underline'}}}><h3>Movies</h3></Typography>
           </Link>
           <Typography fontWeight="lighter">
             <h3>{movie.title}</h3>
@@ -431,7 +438,7 @@ const MoviePage = () => {
             <HdOutlinedIcon sx={{ fontSize: "35px" }}></HdOutlinedIcon>
             <ClosedCaptionOffIcon sx={{ fontSize: "35px" }}></ClosedCaptionOffIcon>
             <Stack direction="row" spacing={3} padding="4px">
-              <Avatar onClick={handleFavouriteClick}>
+              <Avatar sx={{ "&:hover": {cursor: 'pointer'}}} onClick={handleFavouriteClick}>
                 {!isFavourited ? (
                   <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -441,7 +448,7 @@ const MoviePage = () => {
                 )}
               </Avatar>
 
-              <Avatar ref={anchorRef} onClick={handlePopoverOpen}>
+              <Avatar sx={{ "&:hover": {cursor: 'pointer'}}} ref={anchorRef} onClick={handlePopoverOpen}>
                 {!isRated ? (
                   <StarIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -700,11 +707,17 @@ const MoviePage = () => {
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (
                   <Grid item key={recommendation.id}>
-                    <Link to={`/movie/${recommendation.id}`}>
                       <Box
-                        onClick={() => {
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        }}
+                      onMouseEnter={() => {setHoveredRecommendationId(recommendation.id)}}
+                      onMouseLeave={() => {setHoveredRecommendationId(null)}}
+                      sx={{
+                        position: 'relative',
+                        display: 'flex',
+                        "&:hover":{
+                            cursor: 'pointer',
+                            boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+                        }
+                      }}
                       >
                         <Image
                           width="175px"
@@ -716,8 +729,39 @@ const MoviePage = () => {
                           }
                           alt={`${recommendation.title} poster`}
                         />
+                        {hoveredRecommendationId === recommendation.id && (
+                          <Box 
+                          onClick={() => {
+                            navigate(`/movie/${recommendation.id}`);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                          }}
+                          className="hover" sx={{
+                              display:'flex',
+                              position: 'absolute',
+                              width: '100%',
+                              height: '100%',
+                              opacity: 0.8,
+                              backgroundColor: 'black',
+                          }}>
+                              <Box
+                              className="infoContainer" sx={{
+                                  width: '100%',
+                                  height: '100%',
+                                  display:'grid',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
+
+                              }}>
+                                  <Typography sx={{
+                                      fontSize: '1.25rem',
+                                      fontWeight: 'bold',
+                                      
+                                  }}>{recommendation.title}</Typography>
+                              </Box>
+                              
+                          </Box>
+                      )}
                       </Box>
-                    </Link>
                   </Grid>
                 ))}
               </Grid>

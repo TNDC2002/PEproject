@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import { Navigate, useParams, Link } from "react-router-dom";
+import { Navigate, useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
 import { useSelector } from "react-redux";
 import FlexBetween from "../../components/FlexBetween";
 import Loading from "../../components/Loading";
+import ReactPlayer from 'react-player/youtube';
 import {
   Box,
   Grid,
@@ -58,6 +59,10 @@ const ShowPage = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [credits, setCredits] = useState(null);
   const mainPlayerRef = useRef(null);
+
+  //hover black name poster
+  const navigate = useNavigate();
+  const [hoveredRecommendationId, setHoveredRecommendationId] = useState(null);
 
   const { showID } = useParams();
   const user = useSelector((state) => state.user);
@@ -327,6 +332,7 @@ const ShowPage = () => {
         );
         const data = await response.json();
         setRecommendations(data.results);
+        console.log(recommendations);
       } catch (error) {
         console.error(error);
       }
@@ -398,16 +404,24 @@ const ShowPage = () => {
           <Link
             style={{ color: "white", textDecoration: "none" }}
             onClick={() => {
-              window.location.href = "/home";
+              window.location.href = "/Home";
             }}
           >
-            <Typography>
+            <Typography sx={{ "&:hover": {textDecoration: 'underline'}}}>
               <h3>Home</h3>
             </Typography>
           </Link>
 
-          <Link style={{ color: "white", textDecoration: "none" }}>
-            <h3>Movies</h3>
+          <Link 
+            style={{ 
+              color: "white", 
+              textDecoration: "none",  
+              }}
+              onClick={() => {
+                window.location.href = "/TV Shows";
+              }}  
+            >
+            <Typography sx={{ "&:hover": {textDecoration: 'underline'} }}><h3>Shows</h3></Typography>
           </Link>
           <Typography fontWeight="lighter">
             <h3>{show.original_name}</h3>
@@ -470,7 +484,7 @@ const ShowPage = () => {
                   </Select>
                 </FormControl>
               </Box>
-              <Avatar onClick={handleFavouriteClick}>
+              <Avatar sx={{ "&:hover": {cursor: 'pointer'} }} onClick={handleFavouriteClick}>
                 {!isFavourited ? (
                   <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -480,7 +494,7 @@ const ShowPage = () => {
                 )}
               </Avatar>
 
-              <Avatar ref={anchorRef} onClick={handlePopoverOpen}>
+              <Avatar sx={{ "&:hover": {cursor: 'pointer'} }} ref={anchorRef} onClick={handlePopoverOpen}>
                 {!isRated ? (
                   <StarIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -745,11 +759,17 @@ const ShowPage = () => {
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (
                   <Grid item key={recommendation.id}>
-                    <Link to={`/TV Shows/${recommendation.id}`}>
                       <Box
-                        onClick={() => {
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        }}
+                      onMouseEnter={() => {setHoveredRecommendationId(recommendation.id)}}
+                      onMouseLeave={() => {setHoveredRecommendationId(null)}}
+                      sx={{
+                        position: 'relative',
+                        display: 'flex',
+                        "&:hover":{
+                            cursor: 'pointer',
+                            boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+                        }
+                      }}
                       >
                         <Image
                           width="175px"
@@ -759,10 +779,40 @@ const ShowPage = () => {
                               ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}`
                               : "https://via.placeholder.com/150x250.png?text=No+Image"
                           }
-                          alt={`${recommendation.original_name} poster`}
+                          alt={`${recommendation.title} poster`}
                         />
+                        {hoveredRecommendationId === recommendation.id && (
+                          <Box 
+                          onClick={() => {
+                            navigate(`/TV Shows/${recommendation.id}`);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                            }}
+                            className="hover" sx={{
+                              display:'flex',
+                              position: 'absolute',
+                              width: '100%',
+                              height: '100%',
+                              opacity: 0.8,
+                              backgroundColor: 'black',
+                          }}>
+                              <Box
+                              className="infoContainer" sx={{
+                                  width: '100%',
+                                  height: '100%',
+                                  display:'grid',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
+
+                              }}>
+                                  <Typography sx={{
+                                      fontSize: '1.25rem',
+                                      fontWeight: 'bold',
+                                      
+                                  }}>{recommendation.name}</Typography>
+                              </Box>       
+                          </Box>
+                      )}
                       </Box>
-                    </Link>
                   </Grid>
                 ))}
               </Grid>
@@ -770,11 +820,15 @@ const ShowPage = () => {
           )}
         </Box>
       </Container>
-      <Box
-        sx={{
-          height: 70,
-        }}
-      ></Box>
+      <ReactPlayer
+        url={`https://www.youtube.com/watch?v=uTuuz__8gUM`}
+        controls={true}
+        playing={true}
+        loop={true}
+        volume={0.1}
+        width='0'
+        height='0'
+      />
     </div>
   );
 };
