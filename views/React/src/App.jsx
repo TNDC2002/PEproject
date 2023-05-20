@@ -28,7 +28,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
- 
+
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
@@ -51,13 +51,13 @@ function App() {
             credentials: "include",
           });
           const data = await response.json();
-          if (data.user) {  
-          dispatch(
-            setLogin({
-              user: data.user
-            })
-          );
-        }
+          if (data.user) {
+            dispatch(
+              setLogin({
+                user: data.user
+              })
+            );
+          }
           window.location.href = "/home";
           return;
         } else if (currentPath === "/auth/github") {
@@ -69,7 +69,7 @@ function App() {
             credentials: "include",
           });
           const data = await response.json();
-          if (data.user) {  
+          if (data.user) {
             dispatch(
               setLogin({
                 user: data.user
@@ -87,7 +87,7 @@ function App() {
             credentials: "include",
           });
           const data = await response.json();
-          if (data.user) {  
+          if (data.user) {
             dispatch(
               setLogin({
                 user: data.user
@@ -96,7 +96,19 @@ function App() {
           }
           window.location.href = "/home";
           return;
+        } else if (currentPath === "/admin") {
+          const response = await fetch("http://localhost:5000/auth/admin", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          });
+          const data = await response.json();
+          console.log("isAD:", data.isAdmin); // Log the authentication data
+          setAuthenticated(data.isAdmin);
+          setLoading(false);
+          return;
         }
+
 
         const response = await fetch("http://localhost:5000/auth/info", {
           method: "GET",
@@ -138,7 +150,7 @@ function App() {
                 )
               }
             />
-            <Route 
+            <Route
               path="/Feature Movies"
               element={authenticated ? <FeaturePage /> : <Navigate to="/" />}
             />

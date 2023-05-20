@@ -19,7 +19,7 @@ const Admin_checker = async (req, res) => {
             console.log("___res true")
             return {
                 status: 200,
-                isAdmin: isAdmin
+                isAdmin: user.isAdmin
             }
         } else {
             return {
