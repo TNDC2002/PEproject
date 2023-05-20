@@ -104,7 +104,6 @@ function App() {
           credentials: "include",
         });
         const data = await response.json();
-        console.log("isAUTH:", data.authenticated); // Log the authentication data
         setAuthenticated(data.authenticated);
         setLoading(false);
       } catch (error) {
