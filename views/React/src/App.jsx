@@ -19,7 +19,8 @@ function App() {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const dispatch = useDispatch();
+ 
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
@@ -35,18 +36,20 @@ function App() {
         if (currentPath === "/auth/google") {
           setLoading(false);
           setAuthenticated(true);
+          console.log("Now calling route /login/google")
           const response = await fetch("http://localhost:5000/login/google", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
           });
           const data = await response.json();
-          console.log("data: ", data)
-          useDispatch(
+          if (data.user) {  
+          dispatch(
             setLogin({
-              user: data.user,
+              user: data.user
             })
           );
+        }
           window.location.href = "/home";
           return;
         } else if (currentPath === "/auth/github") {
@@ -58,11 +61,13 @@ function App() {
             credentials: "include",
           });
           const data = await response.json();
-           useDispatch(
-            setLogin({
-              user: data.user,
-            })
-          );
+          if (data.user) {  
+            dispatch(
+              setLogin({
+                user: data.user
+              })
+            );
+          }
           window.location.href = "/home";
           return;
         } else if (currentPath === "/auth/facebook") {
@@ -74,11 +79,13 @@ function App() {
             credentials: "include",
           });
           const data = await response.json();
-           useDispatch(
-            setLogin({
-              user: data.user,
-            })
-          );
+          if (data.user) {  
+            dispatch(
+              setLogin({
+                user: data.user
+              })
+            );
+          }
           window.location.href = "/home";
           return;
         }
