@@ -249,6 +249,7 @@ import * as Rental from "../controller/UserRentMovie_Controller.js";
 import * as Favourite from "../controller/UserFavouriteMovie_Controller.js";
 import * as History from "../controller/UserSearchHistory_Controller.js";
 import * as oAuth2 from "../controller/oAuth2_Controller.js";
+import * as Admin from "../controller/Admin_controller.js"
 
 let router = express.Router();
 
@@ -265,7 +266,7 @@ let initWebRoutes = (app) => {
       router.get('<route>',<controller_name>.default.<function>) */
       router.get("/auth/logout", auth.default.logout);
       router.get("/auth/info", auth.default.GetAUTH);
-      router.get("/auth/admin", auth.default.GetAUTH);
+      router.get("/auth/admin", Admin.default.Admin_checker);
       router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
       router.get("/auth/google/callback", passport.authenticate("google", {
           successRedirect: "http://localhost:5173/auth/google",
