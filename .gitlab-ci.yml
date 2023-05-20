@@ -45,8 +45,8 @@ build-server-image:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
   script:
     - docker build -t $IMAGE_SERVER_NAME:$IMAGE_SERVER_TAG .
-    - docker tag $IMAGE_SERVER_NAME:$IMAGE_SERVER_TAG $REGISTRY_USER:$IMAGE_SERVER_TAG
-    - docker push $REGISTRY_USER:$IMAGE_SERVER_TAG
+    - docker tag $IMAGE_SERVER_NAME:$IMAGE_SERVER_TAG $REGISTRY_NAME:$IMAGE_SERVER_TAG
+    - docker push $REGISTRY_NAME:$IMAGE_SERVER_TAG
 
 build-client-image:
   image: docker
