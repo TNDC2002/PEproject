@@ -238,7 +238,8 @@ const MyListPage = () => {
                                 <Box
                                 onMouseEnter={async () => {setHoveredFavouriteMovieId(movie.id);
                                                     await fetchHoveredMediaUser(user._id, movie.id, "movie", 0)}}
-                                onMouseLeave={() => setHoveredFavouriteMovieId(null)}
+                                onMouseLeave={() => {setHoveredFavouriteMovieId(null);
+                                                    setHoveredMediaData(null)}}
                                 sx={{
                                     position: 'relative',
                                     display: 'flex',
@@ -290,9 +291,11 @@ const MyListPage = () => {
                                                     
                                                 </Avatar>
                                                 <Rating name="read-only" 
-                                                    value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0} precision="0.5" readOnly>
+                                                    value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0} 
+                                                    precision="0.5" 
+                                                    readOnly
+                                                    sx={{fontSize: "25px"}}>
                                                 </Rating> 
-                                                <Typography>IMDB: {movie.vote_average} / 10</Typography>
                                                 
                                                 {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
                                                 {/* <Typography></Typography> */}      
@@ -323,7 +326,8 @@ const MyListPage = () => {
                                 <Box
                                 onMouseEnter={async () => {setHoveredFavouriteShowId(show.id);
                                                         await fetchHoveredMediaUser(user._id, show.id, "tv", show.intendedSeason)}}
-                                onMouseLeave={() => setHoveredFavouriteShowId(null)}
+                                onMouseLeave={() => {setHoveredFavouriteShowId(null);
+                                                    setHoveredMediaData(null)}}
                                 sx={{
                                     position: 'relative',
                                     display: 'flex',
@@ -375,9 +379,11 @@ const MyListPage = () => {
                                                 </Avatar>
                                                 <Rating name="read-only" 
                                                     value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0}
-                                                    precision="0.5" readOnly></Rating> 
-                                                <Typography>IMDB: {show.vote_average} / 10</Typography>
-                                                
+                                                    precision="0.5" 
+                                                    readOnly
+                                                    sx={{fontSize: "25px"}}
+                                                    >
+                                                </Rating>                                                 
                                                 {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
                                                 {/* <Typography></Typography> */}
                                             </Box>
@@ -406,7 +412,8 @@ const MyListPage = () => {
                                 <Box
                                 onMouseEnter={async () => {setHoveredRentedMovieId(movie.id);
                                                     await fetchHoveredMediaUser(user._id, movie.id, "movie", 0)}}
-                                onMouseLeave={() => setHoveredRentedMovieId(null)}
+                                onMouseLeave={() => {setHoveredRentedMovieId(null);
+                                                    setHoveredMediaData(null)}}
                                 sx={{
                                     position: 'relative',
                                     display: 'flex',
@@ -458,19 +465,23 @@ const MyListPage = () => {
                                             
                                         </Avatar>
                                         <Rating name="read-only" 
-                                            value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0} precision="0.5" readOnly>
+                                            value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0} 
+                                            precision="0.5"
+                                            readOnly
+                                            sx={{fontSize: "25px"}}
+                                            >
                                         </Rating>
                                         {hoveredMediaData ? (
                                             hoveredMediaData.Rental_return ? (
                                                 hoveredMediaData.Rental_return.Rented ? (
                                                     hoveredMediaData.Rental_return.Rental_information.rentalExpireDate > new Date().toISOString() ? (
                                                         <div>
-                                                        <EventAvailableOutlinedIcon sx={{ color: 'green' }}></EventAvailableOutlinedIcon>
-                                                        <Typography> Active till {hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)} </Typography>
+                                                        <EventAvailableOutlinedIcon sx={{ color: 'green', fontSize: '30px' }}></EventAvailableOutlinedIcon>
+                                                        <Typography> Active till <strong>{hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)}</strong> </Typography>
                                                         </div>
                                                         ) : (
                                                         <div>
-                                                        <EventBusyOutlinedIcon sx={{ color: 'red' }}></EventBusyOutlinedIcon>
+                                                        <EventBusyOutlinedIcon sx={{ color: 'red', fontSize: '30px' }}></EventBusyOutlinedIcon>
                                                         <Typography> Expired since <strong> {hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10) } </strong> </Typography>
                                                         </div>
                                                     )
@@ -483,9 +494,7 @@ const MyListPage = () => {
                                         ) : (
                                             <div>no info</div>
                                         )
-                                        }
-                                        <Typography>IMDB: {movie.vote_average} / 10</Typography>
-                                        
+                                        }                                        
                                         {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
                                         {/* <Typography></Typography> */}      
                                     </Box>
@@ -514,7 +523,8 @@ const MyListPage = () => {
                                 <Box
                                 onMouseEnter={async () => {setHoveredRentedShowId(show.id);
                                                     await fetchHoveredMediaUser(user._id, show.id, "tv", show.intendedSeason)}}
-                                onMouseLeave={() => setHoveredRentedShowId(null)}
+                                onMouseLeave={() => {setHoveredRentedShowId(null);
+                                                    setHoveredMediaData(null)}}
                                 sx={{
                                     position: 'relative',
                                     display: 'flex',
@@ -566,10 +576,36 @@ const MyListPage = () => {
                                                     
                                                 </Avatar>
                                                 <Rating name="read-only" 
-                                                    value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0} precision="0.5" readOnly>
-                                                </Rating> 
-                                                <Typography>IMDB: {show.vote_average} / 10</Typography>
-                                                
+                                                    value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0} 
+                                                    precision="0.5"
+                                                    readOnly
+                                                    sx={{fontSize: "25px"}}
+                                                    >
+                                                </Rating>
+                                                {hoveredMediaData ? (
+                                            hoveredMediaData.Rental_return ? (
+                                                hoveredMediaData.Rental_return.Rented ? (
+                                                    hoveredMediaData.Rental_return.Rental_information.rentalExpireDate > new Date().toISOString() ? (
+                                                        <div>
+                                                        <EventAvailableOutlinedIcon sx={{ color: 'green', fontSize: '30px' }}></EventAvailableOutlinedIcon>
+                                                        <Typography> Active till <strong>{hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)}</strong> </Typography>
+                                                        </div>
+                                                        ) : (
+                                                        <div>
+                                                        <EventBusyOutlinedIcon sx={{ color: 'red', fontSize: '30px' }}></EventBusyOutlinedIcon>
+                                                        <Typography> Expired since <strong> {hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10) } </strong> </Typography>
+                                                        </div>
+                                                    )
+                                                ) : (
+                                                    <div>no info</div>
+                                                )
+                                            ) : (
+                                                <div>no info</div>
+                                            )
+                                        ) : (
+                                            <div>no info</div>
+                                        )
+                                        }                                                
                                                 {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
                                                 {/* <Typography></Typography> */}      
                                             </Box>
