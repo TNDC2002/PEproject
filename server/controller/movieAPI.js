@@ -267,6 +267,34 @@ export const getShowDiscovery = async (req, res) => {
   }
 };
 
+export const getList = async (req, res) => {
+  try {
+    const { category } = req.query;
+    const { page } = req.query;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${category}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`
+    );
+    res.json(response.data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getShowList = async (req, res) => {
+  try {
+    const { category } = req.query;
+    const { page } = req.query;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/tv/${category}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`
+    );
+    res.json(response.data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 var output = {
   favourite,
   checkFavourite,
@@ -284,5 +312,7 @@ var output = {
   getShowDiscovery,
   fetchSearchResult,
   getImageCarousel,
+  getList,
+  getShowList,
 };
 export default output;

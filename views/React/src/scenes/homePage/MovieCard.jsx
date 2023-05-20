@@ -15,27 +15,19 @@ const MovieCard = ({ movie }) => {
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
 
-  const handleMouseEnter = () => {
-    const hoveredMovieId = movie.id;
-    setHoveredMovieId(hoveredMovieId);
-    window.hoveredMovieId = hoveredMovieId;
-    console.log(`Hovering at ${hoveredMovieId}`);
-  };
-  
-  const handleMouseLeave = () => {
-    setHoveredMovieId(null);
-    window.hoveredMovieId = null;
-  };
+  const[isHovered, setIsHovered] = useState(false)
 
   return (
     <Box 
       backgroundColor={neutralLight}
-      onClick={() => navigate(`/movie/${movie.id}`)}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       sx={{
+        display: 'flex',
+        position: 'relative',
         "&:hover":{
-          cursor: "pointer"
+          cursor: "pointer",
+          boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
         }
       }}
     >
@@ -45,6 +37,32 @@ const MovieCard = ({ movie }) => {
         height={300 / 1.5}
         alt={`${movie.title} poster`}
       />
+      {isHovered && (
+          <Box className="hover" sx={{
+            display: 'flex',
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            opacity: 0.8,
+          }}>
+            <Box className="infoContainer" 
+            onClick={() => navigate(`/movie/${movie.id}`)}
+            sx={{
+              backgroundColor: 'black',
+              opacity: 1,
+              width: '100%',
+              height: '100%',
+              display:'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <Typography sx={{
+                  fontSize: '1rem',
+                  fontWeight: 'bold'
+              }}>{movie.title}</Typography>
+            </Box>
+          </Box>
+        )}
     </Box>
   );
 };
