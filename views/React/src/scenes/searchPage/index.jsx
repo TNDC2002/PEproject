@@ -220,7 +220,15 @@ const SearchPage = () => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={9} lg={9} paddingLeft={0}>
-              <Box className="infoOverlay" sx={{
+              <Box className="infoOverlay" 
+              onClick={() => {
+                if (movie.media_type === "movie") {
+                  navigate(`/movie/${movie.id}`);
+                } else {
+                  navigate(`/TV Shows/${show.id}`);
+                }
+              }}
+              sx={{
                 width: '100%',
                 height: '100%',
                 paddingLeft: '20px',
