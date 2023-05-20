@@ -23,15 +23,11 @@ const editSchema = yup.object().shape({
     .string()
     .email("invalid email")
     .required("required"),
+  password: yup.string().required("required"),
 });
 import {
   Box,
-  Button,
-  TextField,
   Stack,
-  Paper,
-  Grid,
-  IconButton,
   Typography,
   Hidden,
   Card,
@@ -66,6 +62,7 @@ const MainProfile = styled(Box)({
 const ProfileContainer = styled(Box)({
   height: "100vh",
   width: "90%",
+
 
   marginLeft: "5%",
   marginRight: "5%",
@@ -296,14 +293,9 @@ const EditButton = ({ onClick }) => {
   );
 };
 
-const SaveButton = ({ onClick }) => {
-  const handleSaveButtonClick = async () => {
-    if (onClick) {
-      await onClick(); // Wait for the click event to complete
-    }
-  };
+const SaveButton = () => {
   return (
-    <StyledEditButton as="button" onClick={handleSaveButtonClick} type="submit">
+    <StyledEditButton as="button" type="submit">
       <Typography
         style={{
           display: "flex",
@@ -621,9 +613,9 @@ const NewDesign = () => {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
+          password: data.password,
         };
         dispatch(updateUser({ user: updatedUser }));
-        setEditMode(false);
       })
       .catch((error) => console.error(error));
 
