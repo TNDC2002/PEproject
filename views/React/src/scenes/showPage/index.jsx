@@ -820,7 +820,7 @@ const ShowPage = () => {
           )}
         </Box>
       </Container>
-      <ReactPlayer
+      {/* <ReactPlayer
         url={`https://www.youtube.com/watch?v=uTuuz__8gUM`}
         controls={true}
         playing={true}
@@ -828,7 +828,7 @@ const ShowPage = () => {
         volume={0.1}
         width='0'
         height='0'
-      />
+      /> */}
     </div>
   );
 };
