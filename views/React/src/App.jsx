@@ -12,6 +12,7 @@ import { themeSettings } from "./theme";
 import MoviePage from "./scenes/moviePage";
 import ShowPage from "./scenes/showPage";
 import Loading from "./components/Loading";
+import { setMode, setLogin } from "./states/index.js";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -40,7 +41,8 @@ function App() {
             credentials: "include",
           });
           const data = await response.json();
-          console.log("isAUTH:", data.authenticated); // Log the authentication data
+          console.log("data: ",data)
+          setLogin({ user: data.user, })
           window.location.href = "/home";
           return;
         } else if (currentPath === "/auth/github") {
@@ -52,7 +54,7 @@ function App() {
             credentials: "include",
           });
           const data = await response.json();
-          console.log("isAUTH:", data.authenticated); // Log the authentication data
+          setLogin({ user: data.user, })
           window.location.href = "/home";
           return;
         }
