@@ -18,32 +18,49 @@ export const getUser = async (req, res) => {
     }
 }
 
-export const updateUserProfile = async (req, res) => {
-    const { userID } = req.params;
-    const user = await User.findOne({
-        _id: userID,
-    });
+export const updateBalance = async (req, res) => {
+    try {
+        const { userID } = req.params;
+        const user = await User.findOne({
+            _id: userID,
+        });
 
-    console.log(req.body);
-
-    if (user) {
-        user.firstName = req.body.firstName || user.firstName;
-        user.lastName = req.body.lastName || user.lastName;
-        user.email = req.body.email || user.email;
-
-        if (req.body.password) {
-            user.password = req.body.password;
+        if (user) {
+            user.balance = (user.balance + req.body.balance) || user.balance;
+            const updatedUser = await user.save();
+            res.json({ balance: updatedUser.balance })
         }
-
-        const updatedUser = await user.save();
-
-        res.json({
-            firstName: updatedUser.firstName,
-            lastName: updatedUser.lastName,
-            email: updatedUser.email,
-        })
     }
-    else {
+    catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
+export const updateUserProfile = async (req, res) => {
+    try {
+        const { userID } = req.params;
+        const user = await User.findOne({
+            _id: userID,
+        });
+
+        if (user) {
+            user.firstName = req.body.firstName || user.firstName;
+            user.lastName = req.body.lastName || user.lastName;
+            user.email = req.body.email || user.email;
+            // const salt = await bcrypt.genSalt();
+            // const passwordHash = await bcrypt.hash(req.body.password, salt);
+            // user.password = passwordHash || user.password;
+            const updatedUser = await user.save();
+
+            res.json({
+                firstName: updatedUser.firstName,
+                lastName: updatedUser.lastName,
+                email: updatedUser.email,
+                // password: updatedUser.password,
+            })
+        }
+    }
+    catch (err) {
         res.status(404).json({ message: err.message });
     }
 }
@@ -53,14 +70,14 @@ export const fetchFavourites = async (req, res) => {
     try {
         const userID = req.params.userID;
         const userFavoriteMovies = await UserFavouriteMovie.find({ userID });
-        
+
         // Extract only the movieIDs from the user's favorite movies
         const movieDataList = userFavoriteMovies.map(movie => ({
         movieID: movie.movieID,
         media_type: movie.media_type,
         season: movie.season
         }));
-    
+
         // Fetch movie details from TMDB for each movieID and media_type
         const moviePromises = movieDataList.map(async movieData => {
         const { movieID, media_type, season } = movieData;
@@ -76,7 +93,7 @@ export const fetchFavourites = async (req, res) => {
 
         // Wait for all the requests to complete
         const movieResponses = await Promise.all(moviePromises);
-        
+
         // Send the movie objects as the response
         res.json(movieResponses);
 
@@ -88,6 +105,7 @@ export const fetchFavourites = async (req, res) => {
 var output = {
     getUser,
     updateUserProfile,
-    fetchFavourites
+    fetchFavourites,
+    updateBalance,
 };
 export default output;

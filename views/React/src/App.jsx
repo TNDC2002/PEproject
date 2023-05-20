@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./scenes/homePage";
 import LoginPage from "./scenes/loginPage";
-import NavPage from "./scenes/profilePage";
-import Original from "./scenes/profilePage/Original";
-import NewDesign from "./scenes/profilePage/NewDesign";
 
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
@@ -17,7 +14,7 @@ import SearchPage from "./scenes/searchPage";
 import MyListPage from "./scenes/mylistPage";
 import FeaturePage from "./scenes/featurePage";
 import TvPage from "./scenes/tvPage";
-import ProfilePage from "./scenes/profilePage";
+import ProfilePage from "./scenes/profilePage/NewDesign";
 
 import Loading from "./components/Loading";
 import { setMode, setLogin } from "./states/index.js";
@@ -137,26 +134,13 @@ function App() {
                 )
               }
             />
-            <Route 
+            <Route
               path="/Feature Movies"
               element={authenticated ? <FeaturePage /> : <Navigate to="/" />}
             />
             <Route
               path="/home/search"
               element={authenticated ? <SearchPage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/profile/:userID"
-              element={authenticated ? <NavPage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/profile/:userID/Original"
-              element={authenticated ? <Original /> : <Navigate to="/" />}
-            />
-
-            <Route
-              path="/profile/:userID/NewDesign"
-              element={authenticated ? <NewDesign /> : <Navigate to="/" />}
             />
             <Route
               path="/movie/:movieID"
