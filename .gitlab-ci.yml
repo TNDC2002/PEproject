@@ -3,34 +3,34 @@ variables:
   IMAGE_SERVER_TAG: node-app-server-image
   IMAGE_CLIENT_NAME: node-app-client-image
   IMAGE_CLIENT_TAG: node-app-client-image
-  REGISTRY_USER: khanglun20000/pe_vgugroup5
+  REGISTRY_NAME: khanglun20000/pe_vgugroup5
 
 stages:
-  # - test
+  - test
   - build
 
-# run-frontend-tests:
-#   image: node:15
-#   stage: test
-#   before_script:
-#     - cd views/React
-#     - rm -rf node_modules
-#     - rm -rf package-lock.json
-#     - npm install
-#   script:
-#     - npm test
+run-frontend-tests:
+  image: node:15
+  stage: test
+  before_script:
+    - cd views/React
+    - rm -rf node_modules
+    - rm -rf package-lock.json
+    - npm install
+  script:
+    - npm test
 
-# run-backend-tests:
-#   image: node:15
-#   stage: test
-#   before_script:
-#     - cd server
-#     - cp "$TESTING_ENV_FILE" .env
-#     - rm -rf node_modules
-#     - rm -rf package-lock.json
-#     - npm install
-#   script:
-#     - npm test
+run-backend-tests:
+  image: node:15
+  stage: test
+  before_script:
+    - cd server
+    - cp "$TESTING_ENV_FILE" .env
+    - rm -rf node_modules
+    - rm -rf package-lock.json
+    - npm install
+  script:
+    - npm test
 
 build-server-image:
   image: docker
@@ -45,8 +45,8 @@ build-server-image:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
   script:
     - docker build -t $IMAGE_SERVER_NAME:$IMAGE_SERVER_TAG .
-    - docker tag $IMAGE_SERVER_NAME:$IMAGE_SERVER_TAG $REGISTRY_USER:$IMAGE_SERVER_TAG
-    - docker push $REGISTRY_USER:$IMAGE_SERVER_TAG
+    - docker tag $IMAGE_SERVER_NAME:$IMAGE_SERVER_TAG $REGISTRY_NAME:$IMAGE_SERVER_TAG
+    - docker push $REGISTRY_NAME:$IMAGE_SERVER_TAG
 
 build-client-image:
   image: docker
@@ -61,5 +61,5 @@ build-client-image:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
   script:
     - docker build -t $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG .
-    - docker tag $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG $REGISTRY_USER:$IMAGE_CLIENT_TAG
-    - docker push $REGISTRY_USER:$IMAGE_CLIENT_TAG
+    - docker tag $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG $REGISTRY_NAME:$IMAGE_CLIENT_TAG
+    - docker push $REGISTRY_NAME:$IMAGE_CLIENT_TAG
