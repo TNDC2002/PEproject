@@ -184,6 +184,7 @@ const ShowPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
+        credentials: 'include'
       }
     );
   };
@@ -250,7 +251,10 @@ const ShowPage = () => {
     const fetchShowDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/tvDetail/${showID}`
+          `http://localhost:5000/movie/tvDetail/${showID}`,{
+            
+            credentials: 'include'
+          }
         );
         const data = await response.json();
         setShow(data);
@@ -295,6 +299,7 @@ const ShowPage = () => {
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            credentials: 'include'
           }
         );
         const data = await response.json();
@@ -315,6 +320,7 @@ const ShowPage = () => {
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            credentials: 'include'
           }
         );
         const data = await response.json();

@@ -41,6 +41,7 @@ const ProfileSection = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(values),
+            credentials: 'include'
         })
             .then(response => response.json())
             .then(data => {

@@ -87,7 +87,6 @@ const Navbar = ({ }) => {
     const firstName = `${user.firstName}`;
     const email = `${user.email}`;
     const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
-
     return (
         <AppBar sx={{
             top: "0",
