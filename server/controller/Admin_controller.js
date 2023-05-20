@@ -1,29 +1,20 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import User from "../models/User_Schema.js";
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
 dotenv.config()
+import AdminChecker from '../models/AdminChecker_model.js'
 const Admin_checker = async (req, res) => {
     try {
-        let token = req.signedCookies.token;
-        if (!token) {
-            return res.status(200).json({ authenticated: false });
+        let AdminChecker_return = await AdminChecker.isAdmin(req)
+        if (AdminChecker_return.err) {
+            return res.status(AdminChecker_return.status).json({ error: AdminChecker_return.err });
+        } else if (AdminChecker_return.isAdmin) {
+            return res.status(AdminChecker_return.status).json({ isAdmin: AdminChecker_return.isAdmin });
         }
-        const UUID = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findOne({ _id: UUID.id });
-        const isMatch = await bcrypt.compare(token, user.token);
-        if (isMatch && user.isAdmin == true) {
-            console.log("___res true")
-            return res.status(200).json({ isAdmin: true });
-        } else {
-            return res.status(200).json({ isAdmin: false });
-        }
-
     } catch (err) {
-        console.log(err.message)
-        res.status(200).json({ error: err.message, authenticated: false });
+        console.log("/auth/admin --- error:", err.message)
     }
+
 }
+
 const output = {
     Admin_checker
 }

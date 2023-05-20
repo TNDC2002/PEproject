@@ -8,8 +8,8 @@ const Admin_checker = async (req, res) => {
         let token = req.signedCookies.token;
         if (!token) {
             return {
-                status: 200,
-                authenticated: false
+                status: 403,
+                err: "access denied!"
             }
         }
         const UUID = jwt.verify(token, process.env.JWT_SECRET);
@@ -37,6 +37,6 @@ const Admin_checker = async (req, res) => {
     }
 }
 const output = {
-    Admin_checker
+    isAdmin: Admin_checker
 }
 export default output;
