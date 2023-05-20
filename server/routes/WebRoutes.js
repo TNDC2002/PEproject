@@ -141,7 +141,7 @@ passport.use(
         .catch((error) => {
           console.error("Error fetching user emails from GitHub:", error);
         });
-      const GgId = profile.id;
+      const GhId = profile.id;
       const firstName = profile.username;
       const lastName = '_';
       const picturePath = profile.photos[0].value;
@@ -151,7 +151,7 @@ passport.use(
           lastName,
           email,
           picturePath,
-          GgId,
+          GhId,
         };
         let user = null;
         user = await User.findOne({ email });
@@ -160,20 +160,20 @@ passport.use(
             firstName,
             lastName,
             picturePath,
-            GgId,
+            GhId,
           })
             .then((update) => { })
             .catch((error) => {
               console.log("ERROR --- Webroutes.js --- can't UPDATE GhId DB");
               console.log(error.message);
             });
-          done(null, { id: GgId });
+          done(null, { id: GhId });
         } else {
           console.log("_____________________________________________________");
           console.log(data);
           const newUser = new User(data);
           const savedUser = await newUser.save();
-          done(null, { id: GgId });
+          done(null, { id: GhId });
         }
       } catch (error) {
         console.log("___________________________________________________");
