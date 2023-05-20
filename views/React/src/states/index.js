@@ -34,8 +34,6 @@ export const authSlice = createSlice({
         setLogout: (state) => {
             state.user = null;
             deleteCookie('token');
-            const history = useHistory();
-            history.push("/");
         },
 
         updateUser: (state, action) => {

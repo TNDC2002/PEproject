@@ -76,16 +76,19 @@ const Navbar = ({ }) => {
     const redirectHelp = () => {
         navigate("/help");
     };
-
+    const handleLogout = () => {
+        dispatch(setLogout());
+        navigate("/")
+      };
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
     const primaryPink = theme.palette.primary.main;
     const lightPink = theme.palette.primary.light;
     const background = theme.palette.primary.dark;
 
-    const fullName = `${user.firstName} ${user.lastName}`;
-    const firstName = `${user.firstName}`;
-    const email = `${user.email}`;
+    const fullName = user ? `${user.firstName} ${user.lastName}` : "undefined";
+    const firstName =  user ?`${user.firstName}` : "undefined";
+    const email =  user ? `${user.email}` : "undefined";
     const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
     return (
         <AppBar sx={{
@@ -281,7 +284,7 @@ const Navbar = ({ }) => {
                                     <Typography padding="0.25rem 1rem">Help</Typography>
                                 </MenuItem>
                                 <Divider />
-                                <MenuItem onClick={() => dispatch(setLogout())}>
+                                <MenuItem onClick={handleLogout}>
                                     <Logout />
                                     <Typography padding="0.25rem 1rem">Logout</Typography>
                                 </MenuItem>
