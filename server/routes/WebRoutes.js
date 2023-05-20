@@ -294,13 +294,15 @@ let initWebRoutes = (app) => {
     })
   );
   router.get("/login/google", oAuth2.default.GG_oAuth2);
-  router.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile", "user_photos"] }));
+  router.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
   router.get(
     "/auth/facebook/callback",
+
     passport.authenticate("facebook", {
       successRedirect: "http://localhost:5173/auth/facebook",
       failureRedirect: "http://localhost:5173/",
     })
+
   );
   router.get("/login/facebook", oAuth2.default.FB_oAuth2);
   router.get("/auth/github", passport.authenticate("github"));

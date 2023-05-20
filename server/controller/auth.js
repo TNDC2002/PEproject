@@ -178,9 +178,7 @@ const logout = async (req, res) => {
 }
 const GetAUTH = async (req, res) => {
     try {
-        console.log("___GetAUTH___")
         let token = req.signedCookies.token;
-        console.log("cookie:", req.signedCookies)
         if (!token) {
             return res.status(200).json({ authenticated: false });
         }
