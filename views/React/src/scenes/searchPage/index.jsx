@@ -125,7 +125,7 @@ const SearchPage = () => {
             <Typography>M</Typography>
             <Typography>O</Typography>
             <Typography>R</Typography>
-            <Typography>E</Typography>
+            <Typography sx={{ padding: '0 4.5rem 0 0'}}>E</Typography>
             <Typography>R</Typography>
             <Typography>E</Typography>
             <Typography>S</Typography>
