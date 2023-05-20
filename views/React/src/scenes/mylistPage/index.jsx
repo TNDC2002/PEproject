@@ -228,10 +228,10 @@ const MyListPage = () => {
                                             width: '100%',
                                             height: '100%',
                                             opacity: 0.8,
+                                            backgroundColor: 'black',
                                         }}>
                                             <Box
                                             className="infoContainer" sx={{
-                                                backgroundColor: 'black',
                                                 opacity: 1,
                                                 width: '100%',
                                                 height: '100%',
@@ -349,6 +349,15 @@ const MyListPage = () => {
                     </Box>
                 }
             </Box>
+            {/* <ReactPlayer
+                url={`https://www.youtube.com/watch?v=QZTDZFtbrec`}
+                controls={true}
+                playing={true}
+                loop={true}
+                volume={0.1}
+                width='0'
+                height='0'
+            /> */}
         </Box>
     )
 }

@@ -16,6 +16,7 @@ import Image from "mui-image";
 import FlexBetween from "../../components/FlexBetween.jsx";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import Spinner from "../../components/ScreenSpinner"
+import ReactPlayer from 'react-player/youtube';
 
 const SearchPage = () => {
   const [result, setResult] = useState(null);
@@ -219,7 +220,15 @@ const SearchPage = () => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={9} lg={9} paddingLeft={0}>
-              <Box className="infoOverlay" sx={{
+              <Box className="infoOverlay" 
+              onClick={() => {
+                if (movie.media_type === "movie") {
+                  navigate(`/movie/${movie.id}`);
+                } else {
+                  navigate(`/TV Shows/${show.id}`);
+                }
+              }}
+              sx={{
                 width: '100%',
                 height: '100%',
                 paddingLeft: '20px',
@@ -314,6 +323,15 @@ const SearchPage = () => {
           ></ArrowForwardIos>
         </IconButton>
       </FlexBetween>
+      <ReactPlayer
+        url={`https://www.youtube.com/watch?v=yOElNzJxtgw`}
+        controls={true}
+        playing={true}
+        loop={true}
+        volume={0.1}
+        width='0'
+        height='0'
+      />
     </div>
   );
 };
