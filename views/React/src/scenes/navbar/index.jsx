@@ -16,6 +16,7 @@ import {
     Toolbar,
 } from "@mui/material";
 import {
+    Accessible,
     AccountCircle,
     FormatListBulleted,
     Help,
@@ -76,10 +77,18 @@ const Navbar = ({ }) => {
     const redirectHelp = () => {
         navigate("/help");
     };
+<<<<<<< Updated upstream
     const handleLogout = () => {
         dispatch(setLogout());
         navigate("/")
       };
+=======
+
+    const redirectAdmin = () => {
+        navigate("/admin")
+    };
+
+>>>>>>> Stashed changes
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
     const primaryPink = theme.palette.primary.main;
@@ -279,10 +288,12 @@ const Navbar = ({ }) => {
                                     </Badge>
                                     <Typography padding="0.25rem 1rem">Notifications</Typography>
                                 </MenuItem>
-                                <MenuItem onClick={redirectHelp}>
-                                    <Help />
-                                    <Typography padding="0.25rem 1rem">Help</Typography>
+                                {user.isAdmin && (
+                                <MenuItem onClick={redirectAdmin}>
+                                    <Accessible />
+                                    <Typography padding="0.25rem 1rem">Admin</Typography>
                                 </MenuItem>
+                                )}    
                                 <Divider />
                                 <MenuItem onClick={handleLogout}>
                                     <Logout />
