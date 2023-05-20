@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from '@mui/material/CssBaseline';
+
 import {
   Box,
   Button,
@@ -10,7 +12,6 @@ import {
   Container,
   Checkbox,
   Stack,
-  CssBaseline,
   Paper,
   Grid,
   IconButton,
