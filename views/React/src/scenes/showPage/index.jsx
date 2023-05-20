@@ -25,21 +25,20 @@ import {
   CardHeader,
   CardContent,
   Card,
-  Divider
+  Divider,
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
-import Popover from '@mui/material/Popover';
-import StarIcon from '@mui/icons-material/Star';
-
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import Popover from "@mui/material/Popover";
+import StarIcon from "@mui/icons-material/Star";
 
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from "../navbar";
@@ -68,12 +67,10 @@ const ShowPage = () => {
   const token = useSelector((state) => state.token);
   const theme = useTheme();
 
-  
-
   //function for popover
   const [popoverOpen, setPopoverOpen] = useState(false);
   const anchorRef = useRef(null);
-  
+
   //open and close popover
   const handlePopoverOpen = () => {
     setPopoverOpen(true);
@@ -88,7 +85,7 @@ const ShowPage = () => {
     setSelectedSeason(selectedSeasonValue);
   };
   const [selectedSeason, setSelectedSeason] = useState(1);
-  const [seasonOptions , setSeasonOptions ] = useState(null);
+  const [seasonOptions, setSeasonOptions] = useState(null);
 
   //open and close form
   const [open, setOpen] = useState(false);
@@ -99,22 +96,21 @@ const ShowPage = () => {
   const handleClose = () => {
     setOpen(false);
   };
- 
 
   const favourite = async (userID, showID) => {
     const requestData = {
       userID: userID,
       movieID: showID,
       media_type: "tv",
-      season: selectedSeason
+      season: selectedSeason,
     };
-  
+
     const url = isFavourited
       ? "http://localhost:5000/api/favourite/delete" // DELETE endpoint
       : "http://localhost:5000/api/favourite/insert"; // POST endpoint
-  
+
     const method = isFavourited ? "DELETE" : "POST";
-  
+
     const addFavouriteResponse = await fetch(url, {
       method: method,
       headers: {
@@ -125,13 +121,13 @@ const ShowPage = () => {
     });
   };
 
-  const rate = async (userID, showID, rating) =>{
+  const rate = async (userID, showID, rating) => {
     const requestData = {
       userID: userID,
       movieID: showID,
       rating: rating,
       media_type: "tv",
-      season: selectedSeason
+      season: selectedSeason,
     };
 
     const method = isRated ? "PUT" : "POST";
@@ -146,29 +142,29 @@ const ShowPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
-     } 
-    )
-  }
+    });
+  };
 
   const unrate = async (userID, showID) => {
     const requestData = {
       userID: userID,
       movieID: showID,
       media_type: "tv",
-      season: selectedSeason
+      season: selectedSeason,
     };
-    
+
     const removeRatingResponse = await fetch(
-      "http://localhost:5000/api/rate/delete",{
-       method: "DELETE",
-       headers: {
-         Authorization: `Bearer ${token}`,
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify(requestData),
-      } 
-     )
-  }
+      "http://localhost:5000/api/rate/delete",
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      }
+    );
+  };
 
   const rent = async (userID, showID, duration) => {
     const requestData = {
@@ -176,17 +172,20 @@ const ShowPage = () => {
       movieID: showID,
       media_type: "tv",
       Duration: duration,
-      season: selectedSeason
+      season: selectedSeason,
     };
 
-    const addRentResponse = await fetch("http://localhost:5000/api/rent/insert", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    });
+    const addRentResponse = await fetch(
+      "http://localhost:5000/api/rent/insert",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      }
+    );
   };
 
   const checkFavorite = async (userID, showID) => {
@@ -194,27 +193,27 @@ const ShowPage = () => {
       userID: userID,
       movieID: showID,
       media_type: "tv",
-      season: selectedSeason
+      season: selectedSeason,
     };
-  
+
     const url = new URL("http://localhost:5000/api/favourite/check");
     url.search = new URLSearchParams(requestData).toString();
-  
+
     const checkFavoriteResponse = await fetch(url, {
       method: "GET",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
-  
+
     const result = await checkFavoriteResponse.json();
     return result.Favourite_return.favorited;
   };
 
-    const checkRated = async (userID, showID) => {
+  const checkRated = async (userID, showID) => {
     const requestData = {
       userID: userID,
       movieID: showID,
       media_type: "tv",
-      season: selectedSeason
+      season: selectedSeason,
     };
 
     const url = new URL("http://localhost:5000/api/rate/check");
@@ -222,29 +221,27 @@ const ShowPage = () => {
 
     const checkRatedResponse = await fetch(url, {
       method: "GET",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
 
     const result = await checkRatedResponse.json();
     return result;
-  }
+  };
 
   const checkRented = async (userID, showID) => {
     const requestData = {
       userID: userID,
       movieID: showID,
       media_type: "tv",
-      season: selectedSeason
+      season: selectedSeason,
     };
     const url = new URL("http://localhost:5000/api/rent/check");
     url.search = new URLSearchParams(requestData).toString();
 
-    const checkRentedResponse = await fetch(url,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const checkRentedResponse = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
     const result = await checkRentedResponse.json();
     return result;
   };
@@ -260,7 +257,12 @@ const ShowPage = () => {
         if (data.seasons.length === 1) {
           setSeasonOptions([1]);
         } else {
-        setSeasonOptions(Array.from({ length: data.seasons.length-1 }, (_, index) => index + 1));
+          setSeasonOptions(
+            Array.from(
+              { length: data.seasons.length - 1 },
+              (_, index) => index + 1
+            )
+          );
         }
       } catch (err) {
         console.error(err);
@@ -269,7 +271,6 @@ const ShowPage = () => {
     };
     fetchShowDetails();
   }, [showID]);
-  
 
   useEffect(() => {
     const fetchCredits = async () => {
@@ -298,7 +299,7 @@ const ShowPage = () => {
         );
         const data = await response.json();
         setTrailerVideoId(data.results);
-        setSelectedVideo(data.results[0].key)
+        setSelectedVideo(data.results[0].key);
       } catch (error) {
         console.error(error);
       }
@@ -329,7 +330,7 @@ const ShowPage = () => {
     const checkFavouriteResponse = await checkFavorite(user._id, showID);
     setIsFavourited(checkFavouriteResponse);
 
-    const checkRatedResponse = await checkRated(user._id, showID);      
+    const checkRatedResponse = await checkRated(user._id, showID);
     setIsRated(checkRatedResponse.Rating_return.Rated);
     setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
 
@@ -357,15 +358,13 @@ const ShowPage = () => {
       setIsRated(false);
       setRateDefaultValue(0);
       handlePopoverClose();
-    }
-    else {
+    } else {
       rate(user._id, showID, rateValue);
       setIsRated(true);
       setRateDefaultValue(rateValue);
       handlePopoverClose();
     }
-
-  }
+  };
 
   const handleRentClick = (event) => {
     const buttonValue = event.target.value;
@@ -374,7 +373,7 @@ const ShowPage = () => {
     handleClose();
   };
 
-  if (!show) {
+  if (!show && trailerVideoId === null) {
     return <Loading />;
   }
 
@@ -384,36 +383,45 @@ const ShowPage = () => {
     <div>
       <Navbar></Navbar>
       <Container maxWidth="lg">
-        <Breadcrumbs aria-label="breadcrumb" sx={{margin: '4px', padding: '4px'}} >
+        <Breadcrumbs
+          aria-label="breadcrumb"
+          sx={{ margin: "4px", padding: "4px" }}
+        >
           <Link
-            style={{ color: 'white', textDecoration:'none'}}
-            
+            style={{ color: "white", textDecoration: "none" }}
             onClick={() => {
               window.location.href = "/home";
             }}
           >
-            <Typography><h3>Home</h3></Typography>
+            <Typography>
+              <h3>Home</h3>
+            </Typography>
           </Link>
 
-          <Link style={{ color: 'white', textDecoration:'none' }} >
+          <Link style={{ color: "white", textDecoration: "none" }}>
             <h3>Movies</h3>
           </Link>
-          <Typography  fontWeight="lighter"><h3>{show.original_name}</h3></Typography>
+          <Typography fontWeight="lighter">
+            <h3>{show.original_name}</h3>
+          </Typography>
         </Breadcrumbs>
 
         {trailerVideoId !== null && trailerVideoId.length > 0 ? (
           <>
             <div ref={mainPlayerRef}>
-              <YouTubePlayer videoId={selectedVideo} width={800} height={600} thumbnail={false}/>
+              <YouTubePlayer
+                videoId={selectedVideo}
+                width={800}
+                height={600}
+                thumbnail={false}
+              />
             </div>
-            
           </>
         ) : (
           <></>
         )}
 
-        
-        <Grid container spacing={3} sx={{padding: '20px'}}>
+        <Grid container spacing={3} sx={{ padding: "20px" }}>
           <Grid item xs={12} sm={6} md={3} lg={3}>
             <Box sx={{ position: "relative", display: "inline-flex" }}>
               <Box
@@ -428,7 +436,6 @@ const ShowPage = () => {
                   alt={`${show.original_name} poster`}
                 />
               </Box>
-              
             </Box>
           </Grid>
 
@@ -437,26 +444,24 @@ const ShowPage = () => {
               {show.original_name}
             </Typography>
 
-            <Stack direction="row" spacing={3} padding='4px'> 
-              <Box >
-                <FormControl >
-                  <InputLabel >Season</InputLabel>
+            <Stack direction="row" spacing={3} padding="4px">
+              <Box>
+                <FormControl>
+                  <InputLabel>Season</InputLabel>
                   <Select
                     label="Season"
                     value={selectedSeason}
                     onChange={handleSeasonChange}
                   >
                     {seasonOptions.map((optionValue) => (
-                    <MenuItem key={optionValue} value={optionValue}>
-                      Season {optionValue}
-                    </MenuItem>
-                  ))} 
+                      <MenuItem key={optionValue} value={optionValue}>
+                        Season {optionValue}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
-              <Avatar 
-                onClick={handleFavouriteClick}
-              >
+              <Avatar onClick={handleFavouriteClick}>
                 {!isFavourited ? (
                   <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -466,16 +471,11 @@ const ShowPage = () => {
                 )}
               </Avatar>
 
-              <Avatar
-                ref={anchorRef}
-                onClick={handlePopoverOpen}
-              >
+              <Avatar ref={anchorRef} onClick={handlePopoverOpen}>
                 {!isRated ? (
                   <StarIcon sx={{ fontSize: "23px" }} />
                 ) : (
-                  <StarIcon
-                    sx={{ fontSize: "23px", color: 'yellow' }}
-                  />
+                  <StarIcon sx={{ fontSize: "23px", color: "yellow" }} />
                 )}
               </Avatar>
             </Stack>
@@ -485,63 +485,65 @@ const ShowPage = () => {
               anchorEl={anchorRef.current}
               onClose={handlePopoverClose}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
+                vertical: "bottom",
+                horizontal: "center",
               }}
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
+                vertical: "top",
+                horizontal: "center",
               }}
             >
-              <Rating 
-              name="half-rating" 
-              precision={0.5}
-              value={rateDefaultValue}
-              onChange={(event, rateValue) => handleRateClick(rateValue)}
-              sx={{fontSize:"30px"}}
-            ></Rating>
+              <Rating
+                name="half-rating"
+                precision={0.5}
+                value={rateDefaultValue}
+                onChange={(event, rateValue) => handleRateClick(rateValue)}
+                sx={{ fontSize: "30px" }}
+              ></Rating>
             </Popover>
-            
 
-            
-              <Typography padding='4px'>
-                {seasonOptions[0] === 1 ? (                
-                <div><strong>Overview: </strong> {show.overview}</div>
-                ) : (
-                  <div><strong>Overview: </strong>{show.seasons[selectedSeason].overview}</div>
-                )}
-              </Typography>
+            <Typography padding="4px">
+              {seasonOptions[0] === 1 ? (
+                <div>
+                  <strong>Overview: </strong> {show.overview}
+                </div>
+              ) : (
+                <div>
+                  <strong>Overview: </strong>
+                  {show.seasons[selectedSeason].overview}
+                </div>
+              )}
+            </Typography>
 
-            
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
-                <Typography padding='4px'>
+                <Typography padding="4px">
                   <strong>Release Date:</strong> {show.first_air_date}
                 </Typography>
-                <Typography padding='4px'>
+                <Typography padding="4px">
                   <strong>Directors:</strong>{" "}
                   {show.created_by.map((g) => g.name).join(", ")}
                 </Typography>
-                <Typography padding='4px'>
+                <Typography padding="4px">
                   <strong>Production:</strong>{" "}
                   {show.production_companies.map((g) => g.name).join(", ")}
                 </Typography>
-
               </Grid>
 
-
-
               <Grid item xs={12} md={6}>
-                <Typography padding='4px'>
+                <Typography padding="4px">
                   <strong>Air:</strong> {show.episode_run_time} min
                 </Typography>
-                <Typography padding='4px'>
+                <Typography padding="4px">
                   <strong>Genre:</strong>{" "}
                   {show.genres.map((g) => g.name).join(", ")}
                 </Typography>
-                <Typography padding='4px'>
+                <Typography padding="4px">
                   <strong>Cast:</strong>{" "}
-                  {credits?.slice(0, 5)?.map((g) => g.name)?.join(", ")}
+                  {credits
+                    ?.slice(0, 5)
+                    ?.map((g) => g.name)
+                    ?.join(", ")}
                 </Typography>
               </Grid>
             </Grid>
@@ -558,7 +560,7 @@ const ShowPage = () => {
               variant="contained"
               onClick={handleOpen}
               disabled={isRented}
-              padding='4px'
+              padding="4px"
             >
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
@@ -573,95 +575,135 @@ const ShowPage = () => {
               )}
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                  <DialogTitle>Pricing Plan</DialogTitle>
-                  <DialogContent>
-                    <Container maxWidth="lg">
-                      <Box py={8} textAlign="center">
-                        <Box mb={3}>
-                          <Container maxWidth="lg">
-                            <Typography variant="h3" component="span">Pricing Plan</Typography>
-                          </Container>
-                        </Box>
-                        <Grid container spacing={3}>
-                          <Grid item xs={12} md={4}>
-                            <Card variant="outlined">
-                              <CardHeader title="1-Day Plan" ></CardHeader>
-                              <CardContent>
-                                <Box px={1}>
-                                  <Typography variant="h3" component="h2" gutterBottom={true}>
-                                    100 SD
-                                    <Typography variant="h6"  component="span">/week</Typography>
-                                  </Typography>
-                                  <Typography variant="subtitle1" component="p">1080p Quality</Typography>
-                                  <Typography variant="subtitle1" component="p">Limited movies & TV shows</Typography>
-                                </Box>
-                                <Button 
-                                variant="contained" 
-                                onClick={handleRentClick}
-                                value={1}
-                                >Smash</Button>
-                              </CardContent>
-                            </Card>
-                          </Grid>
+              <DialogTitle>Pricing Plan</DialogTitle>
+              <DialogContent>
+                <Container maxWidth="lg">
+                  <Box py={8} textAlign="center">
+                    <Box mb={3}>
+                      <Container maxWidth="lg">
+                        <Typography variant="h3" component="span">
+                          Pricing Plan
+                        </Typography>
+                      </Container>
+                    </Box>
+                    <Grid container spacing={3}>
+                      <Grid item xs={12} md={4}>
+                        <Card variant="outlined">
+                          <CardHeader title="1-Day Plan"></CardHeader>
+                          <CardContent>
+                            <Box px={1}>
+                              <Typography
+                                variant="h3"
+                                component="h2"
+                                gutterBottom={true}
+                              >
+                                100 SD
+                                <Typography variant="h6" component="span">
+                                  /week
+                                </Typography>
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                1080p Quality
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                Limited movies & TV shows
+                              </Typography>
+                            </Box>
+                            <Button
+                              variant="contained"
+                              onClick={handleRentClick}
+                              value={1}
+                            >
+                              Smash
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      </Grid>
 
-                          <Grid item xs={12} md={4}>
-                          <Card variant="outlined">
-                              <CardHeader title="1-Week Plan"></CardHeader>
-                              <CardContent>
-                                <Box px={1}>
-                                  <Typography variant="h3" component="h2" gutterBottom={true}>
-                                    1000 SD
-                                    <Typography variant="h6"  component="span">/month</Typography>
-                                  </Typography>
-                                  <Typography variant="subtitle1" component="p">4k Quality</Typography>
-                                  <Typography variant="subtitle1" component="p">Limited movies & TV shows</Typography>
+                      <Grid item xs={12} md={4}>
+                        <Card variant="outlined">
+                          <CardHeader title="1-Week Plan"></CardHeader>
+                          <CardContent>
+                            <Box px={1}>
+                              <Typography
+                                variant="h3"
+                                component="h2"
+                                gutterBottom={true}
+                              >
+                                1000 SD
+                                <Typography variant="h6" component="span">
+                                  /month
+                                </Typography>
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                4k Quality
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                Limited movies & TV shows
+                              </Typography>
+                            </Box>
+                            <Button
+                              variant="contained"
+                              onClick={handleRentClick}
+                              value={7}
+                            >
+                              Smash
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      </Grid>
 
-                                </Box>
-                                <Button 
-                                  variant="contained" 
-                                  onClick={handleRentClick}
-                                  value={7}
-                                  >Smash</Button>
-                              </CardContent>
-                            </Card>
-                          </Grid>
-
-                          <Grid item xs={12} md={4}>
-                          <Card variant="outlined">
-                              <CardHeader title="1-Month Plan"></CardHeader>
-                              <CardContent>
-                                <Box px={1}>
-                                  <Typography variant="h3" component="h2" gutterBottom={true}>
-                                    10000 SD
-                                    <Typography variant="h6"  component="span">/year</Typography>
-                                  </Typography>
-                                  <Typography variant="subtitle1" component="p">4k+ Quality</Typography>
-                                  <Typography variant="subtitle1" component="p">Unlimited movies & TV shows</Typography>
-                                  <Typography variant="subtitle1" component="p">Cancle anytime</Typography>
-
-                                </Box>
-                                <Button 
-                                  variant="contained" 
-                                  onClick={handleRentClick}
-                                  value={30}
-                                  >Smash</Button>
-                              </CardContent>
-                            </Card>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    </Container>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button variant="contained" onClick={handleClose}>Close</Button>
-                  </DialogActions>
-                </Dialog>
-            
-                      
-            </Grid>
+                      <Grid item xs={12} md={4}>
+                        <Card variant="outlined">
+                          <CardHeader title="1-Month Plan"></CardHeader>
+                          <CardContent>
+                            <Box px={1}>
+                              <Typography
+                                variant="h3"
+                                component="h2"
+                                gutterBottom={true}
+                              >
+                                10000 SD
+                                <Typography variant="h6" component="span">
+                                  /year
+                                </Typography>
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                4k+ Quality
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                Unlimited movies & TV shows
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                Cancle anytime
+                              </Typography>
+                            </Box>
+                            <Button
+                              variant="contained"
+                              onClick={handleRentClick}
+                              value={30}
+                            >
+                              Smash
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Container>
+              </DialogContent>
+              <DialogActions>
+                <Button variant="contained" onClick={handleClose}>
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </Grid>
         </Grid>
 
-        <Box>
+        {trailerVideoId !== null && trailerVideoId.length > 0 ? (
+          <div>
+            <Box>
               <Typography>
                 <h3>Other Trailer:</h3>
               </Typography>
@@ -669,23 +711,42 @@ const ShowPage = () => {
             <Box sx={{ overflowX: "auto" }}>
               {trailerVideoId && (
                 <Box>
-                  <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      overflowY: "hidden",
+                    }}
+                  >
                     {trailerVideoId.map((video) => (
-                      <Grid item key={video.key} onClick={() => {
-                        setSelectedVideo(video.key)
-                        mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
-                      }}>
-                        <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
+                      <Grid
+                        item
+                        key={video.key}
+                        onClick={() => {
+                          setSelectedVideo(video.key);
+                          mainPlayerRef.current.scrollIntoView({
+                            behavior: "smooth",
+                          });
+                        }}
+                      >
+                        <img
+                          src={`https://img.youtube.com/vi/${video.key}/0.jpg`}
+                          alt="Thumbnail"
+                          width={356}
+                          height={220}
+                        />
                       </Grid>
                     ))}
                   </Box>
                 </Box>
               )}
             </Box>
+          </div>
+        ) : (
+          <></>
+        )}
 
-          
-                  
-        <Box sx={{paddingTop: '20px'}}>
+        <Box sx={{ paddingTop: "20px" }}>
           {recommendations && (
             <Box>
               <Typography sx={{ pb: 1 }}>
