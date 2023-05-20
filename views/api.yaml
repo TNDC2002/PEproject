@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Your API Title
-  description: Description of your API
+  title: Online Movie Renting Website
+  description: Welcome to the comprehensive documentation of our website's API, where we proudly present a plethora of endpoints designed to provide an immersive and informative experience for retrieving movies and TV show data. Our API offers an extensive range of features, encompassing essential details such as titles, names, trailer videos, and even recommendations for an enhanced user experience.
   version: 1.0.0
 servers:
   - url: http://localhost:5000
