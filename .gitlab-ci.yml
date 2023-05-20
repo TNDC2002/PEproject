@@ -3,7 +3,7 @@ variables:
   IMAGE_SERVER_TAG: node-app-server-image
   IMAGE_CLIENT_NAME: node-app-client-image
   IMAGE_CLIENT_TAG: node-app-client-image
-  REGISTRY_USER: khanglun20000/pe_vgugroup5
+  REGISTRY_NAME: khanglun20000/pe_vgugroup5
 
 stages:
   # - test
@@ -61,5 +61,5 @@ build-client-image:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
   script:
     - docker build -t $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG .
-    - docker tag $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG $REGISTRY_USER:$IMAGE_CLIENT_TAG
-    - docker push $REGISTRY_USER:$IMAGE_CLIENT_TAG
+    - docker tag $IMAGE_CLIENT_NAME:$IMAGE_CLIENT_TAG $REGISTRY_NAME:$IMAGE_CLIENT_TAG
+    - docker push $REGISTRY_NAME:$IMAGE_CLIENT_TAG
