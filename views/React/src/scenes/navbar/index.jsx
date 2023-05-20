@@ -90,7 +90,7 @@ const Navbar = ({ }) => {
     const fullName = user ? `${user.firstName} ${user.lastName}` : "undefined";
     const firstName =  user ?`${user.firstName}` : "undefined";
     const email =  user ? `${user.email}` : "undefined";
-    const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
+    const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List', 'Admin'];
     return (
         <AppBar sx={{
             top: "0",
