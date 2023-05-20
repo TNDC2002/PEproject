@@ -265,6 +265,7 @@ let initWebRoutes = (app) => {
       router.get('<route>',<controller_name>.default.<function>) */
       router.get("/auth/logout", auth.default.logout);
       router.get("/auth/info", auth.default.GetAUTH);
+      router.get("/auth/admin", auth.default.GetAUTH);
       router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
       router.get("/auth/google/callback", passport.authenticate("google", {
           successRedirect: "http://localhost:5173/auth/google",
