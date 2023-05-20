@@ -38,11 +38,9 @@ passport.use(
         let user = null;
         user = await User.findOne({ email });
         if (user) {
-          let update = await User.findOneAndUpdate(email, {
-            firstName,
-            lastName,
-            picturePath,
-            GgId,
+          let update = await User.findOneAndUpdate({ email: email },{
+            picturePath:picturePath,
+            GgId:GgId,
           })
             .then((update) => { })
             .catch((error) => {
@@ -74,41 +72,43 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log("______________________facebook_______________________")
-      console.log(profile)
-      const GgId = profile.id;
-      const firstName = profile.name.givenName;
-      const lastName = profile.name.familyName;
-      const email = profile.emails[0].value;
-      const picturePath = profile.photos[0].value;
+      const FbId = profile.id;
+      const firstName = profile.displayName;
+      const lastName = "_";
+      let email = '';
+      let picturePath = '';
+      const response = await axios.get(`https://graph.facebook.com/v13.0/me?fields=email,picture&access_token=${accessToken}`);
+      email = response.data.email;
+      picturePath = response.data.picture.data.url;
       try {
         let data = {
           firstName,
           lastName,
           email,
           picturePath,
-          GgId,
+          FbId,
         };
+        console.log(data)
         let user = null;
         user = await User.findOne({ email });
+        console.log("before update:", user)
         if (user) {
-          let update = await User.findOneAndUpdate(email, {
-            firstName,
-            lastName,
-            picturePath,
-            GgId,
+          let update = await User.findOneAndUpdate({ email: email },{
+            picturePath: picturePath,
+            FbId:FbId,
           })
-            .then((update) => { })
+            .then((update) => { console.log("after update:", update) })
             .catch((error) => {
               console.log("ERROR --- Webroutes.js --- can't UPDATE FbId DB");
               console.log(error.message);
             });
-          done(null, { id: GgId });
+          done(null, { id: FbId });
         } else {
           console.log("_____________________________________________________");
           console.log(data);
           const newUser = new User(data);
           const savedUser = await newUser.save();
-          done(null, { id: GgId });
+          done(null, { id: FbId });
         }
       } catch (error) {
         console.log("___________________________________________________");
@@ -156,11 +156,9 @@ passport.use(
         let user = null;
         user = await User.findOne({ email });
         if (user) {
-          let update = await User.findOneAndUpdate(email, {
-            firstName,
-            lastName,
-            picturePath,
-            GhId,
+          let update = await User.findOneAndUpdate({ email: email },{
+            picturePath:picturePath,
+            GhId:GhId,
           })
             .then((update) => { })
             .catch((error) => {
@@ -208,9 +206,7 @@ passport.use(
         let user = null;
         user = await User.findOne({ email });
         if (user) {
-          let update = await User.findOneAndUpdate(email, {
-            firstName,
-            lastName,
+          let update = await User.findOneAndUpdate({ email: email },{
             picturePath,
             GgId,
           })

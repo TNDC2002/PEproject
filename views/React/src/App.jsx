@@ -13,7 +13,7 @@ import MoviePage from "./scenes/moviePage";
 import ShowPage from "./scenes/showPage";
 import Loading from "./components/Loading";
 import { setMode, setLogin } from "./states/index.js";
-
+import { useDispatch } from "react-redux";
 function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -41,8 +41,12 @@ function App() {
             credentials: "include",
           });
           const data = await response.json();
-          console.log("data: ",data)
-          setLogin({ user: data.user, })
+          console.log("data: ", data)
+          useDispatch(
+            setLogin({
+              user: data.user,
+            })
+          );
           window.location.href = "/home";
           return;
         } else if (currentPath === "/auth/github") {
@@ -54,7 +58,27 @@ function App() {
             credentials: "include",
           });
           const data = await response.json();
-          setLogin({ user: data.user, })
+           useDispatch(
+            setLogin({
+              user: data.user,
+            })
+          );
+          window.location.href = "/home";
+          return;
+        } else if (currentPath === "/auth/facebook") {
+          setLoading(false);
+          setAuthenticated(true);
+          const response = await fetch("http://localhost:5000/login/facebook", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          });
+          const data = await response.json();
+           useDispatch(
+            setLogin({
+              user: data.user,
+            })
+          );
           window.location.href = "/home";
           return;
         }
