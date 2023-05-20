@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 dotenv.config()
-import AdminChecker from '../models/AdminChecker_model.js'
+import AdminChecker from '../models/AdminChecker_Model.js'
 const Admin_checker = async (req, res) => {
     try {
         let AdminChecker_return = await AdminChecker.isAdmin(req)

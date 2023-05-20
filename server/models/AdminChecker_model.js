@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../models/User_Schema.js";
+import User from "./User_Schema.js";
 import * as dotenv from 'dotenv'
 dotenv.config()
 const Admin_checker = async (req, res) => {
