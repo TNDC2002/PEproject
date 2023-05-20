@@ -13,7 +13,6 @@ const CarouselVideo = ({ discovery }) => {
           );
           const data = await response.json();
           const video = data.results.find((v) => v.type === "Trailer" && v.site === "YouTube");
-          console.log(video)
           if (video) {
             setVideoKey(video.key);
           }
