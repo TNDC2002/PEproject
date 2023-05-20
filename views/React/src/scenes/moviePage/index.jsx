@@ -63,7 +63,6 @@ const MoviePage = () => {
   //hovered black name poster
   const [hoveredRecommendationId, setHoveredRecommendationId] = useState(null);
   const navigate = useNavigate();
-    const navigate = useNavigate();
   const dispatch = useDispatch();
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);
