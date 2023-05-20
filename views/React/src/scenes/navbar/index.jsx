@@ -74,21 +74,13 @@ const Navbar = ({ }) => {
     const redirectNotification = () => {
         navigate("/notification");
     };
-    const redirectHelp = () => {
-        navigate("/help");
+    const redirectAdmin = () => {
+        navigate("/admin");
     };
-<<<<<<< Updated upstream
     const handleLogout = () => {
         dispatch(setLogout());
         navigate("/")
       };
-=======
-
-    const redirectAdmin = () => {
-        navigate("/admin")
-    };
-
->>>>>>> Stashed changes
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
     const primaryPink = theme.palette.primary.main;
@@ -288,12 +280,12 @@ const Navbar = ({ }) => {
                                     </Badge>
                                     <Typography padding="0.25rem 1rem">Notifications</Typography>
                                 </MenuItem>
-                                {user.isAdmin && (
+                                {/* {user.isAdmin && ( */}
                                 <MenuItem onClick={redirectAdmin}>
                                     <Accessible />
                                     <Typography padding="0.25rem 1rem">Admin</Typography>
                                 </MenuItem>
-                                )}    
+                             
                                 <Divider />
                                 <MenuItem onClick={handleLogout}>
                                     <Logout />
