@@ -5,13 +5,10 @@ import NewDesign from "./NewDesign";
 
 
 const ProfilePage = () => {
-
-
-
-
   return (
-<NewDesign></NewDesign>
-  )}
+    <NewDesign></NewDesign>
+  )
+}
 
 
 export default ProfilePage;

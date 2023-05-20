@@ -10,7 +10,6 @@ var upload = uploader.default()
 
 /* Import your controller here by syntax:
 import * as <your controller name> from "../controller/<ControllerFile>.js" */
-import { getUser, updateUserProfile } from "../controller/user.js";
 import { verifyToken } from "../middleware/auth.js";
 import * as SampleController from "../controller/SampleController.js";
 import * as middleware from "../middleware/auth.js";
@@ -74,9 +73,8 @@ let initWebRoutes = (app) => {
   /* MONGOL API ROUTE */
   router.put("/api/history/update", History.default.PUT_handler);
   router.put("/api/rate/update", Rate.default.PUT_handler);
-  router.get("/:userID", verifyToken, getUser);
-  router.put("/profile/:userID", verifyToken, updateUserProfile);
-
+  router.put("/profile/:userID", verifyToken, user.updateUserProfile);
+  router.put("/profile/:userID/purchase", user.updateBalance);
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
 

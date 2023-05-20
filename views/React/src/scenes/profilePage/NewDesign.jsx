@@ -31,8 +31,8 @@ import {
   Typography,
   Hidden,
   Card,
-  useMediaQuery,
   Container,
+  Button,
   createTheme,
   ThemeProvider,
   Input,
@@ -62,8 +62,6 @@ const MainProfile = styled(Box)({
 const ProfileContainer = styled(Box)({
   height: "100vh",
   width: "90%",
-
-
   marginLeft: "5%",
   marginRight: "5%",
 });
@@ -283,7 +281,7 @@ const EditButton = ({ onClick }) => {
         <EditIcon sx={{ fontSize: 15 }} />
       </Typography>
       <StyledContainer id="container-stars">
-        <StyledStars></StyledStars>
+        {/* <StyledStars></StyledStars> */}
       </StyledContainer>
       <StyledGlowBox id="glow">
         <StyledCircleBox id="circle" />
@@ -312,7 +310,7 @@ const SaveButton = () => {
         <EditIcon sx={{ fontSize: 15 }} />
       </Typography>
       <StyledContainer id="container-stars">
-        <StyledStars></StyledStars>
+        {/* <StyledStars></StyledStars> */}
       </StyledContainer>
       <StyledGlowBox id="glow">
         <StyledCircleBox id="circle" />
@@ -342,11 +340,10 @@ const PasswordButton = ({ setPageType }) => {
     transition: "all 0.3s",
     id: "Icon",
   });
+
   const handleClick = () => {
     setIsClicked(true);
     setPageType("password");
-
-    // Add any other logic you want to perform on button click
   };
   return (
     <Button
@@ -538,13 +535,11 @@ const StyledForm = styled(Box)({
   height: "10px",
   position: "relative",
   marginTop: "-3px",
-
   overflow: "visible",
 });
 
 const StyledInput = styled(Input)({
   color: "grey",
-  
   fontSize: "15px",
   backgroundColor: "transparent",
   width: "300px",
@@ -593,11 +588,15 @@ const NewDesign = () => {
     setEditMode(true);
   };
 
-  const handlePasswordClick = () => {
-    setPageType("password");
-  };
+  const handleSavePasswordClick = async (values, onSubmitProps) => {
+    console.log("SAVE");
+    if (values.newPassword === values.newPasswordAgain) {
+      setEditMode(false);
+      console.log("SAME");
+    }
+  }
 
-  const handleSaveClick = async (values, onSubmitProps) => {
+  const handleSaveProfileClick = async (values, onSubmitProps) => {
     fetch(`http://localhost:5000/profile/${user._id}`, {
       method: "PUT",
       headers: {
@@ -613,7 +612,6 @@ const NewDesign = () => {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
-          password: data.password,
         };
         dispatch(updateUser({ user: updatedUser }));
       })
@@ -624,7 +622,7 @@ const NewDesign = () => {
 
   return (
     <Formik
-      onSubmit={handleSaveClick}
+      onSubmit={handleSaveProfileClick}
       validationSchema={editSchema}
       initialValues={user}
     >
@@ -633,7 +631,7 @@ const NewDesign = () => {
           <ThemeProvider theme={theme}>
             <MainProfile>
               <ProfileContainer>
-                <StarAnimation></StarAnimation>
+                {/* <StarAnimation></StarAnimation> */}
                 <Box
                   sx={{
                     backgroundImage: `url(${BotBackgroundImage})`,
@@ -645,7 +643,6 @@ const NewDesign = () => {
                   <TopPortion>
                     <Background
                       sx={{
-                        background: "rgb(6,0,71)",
                         background:
                           "linear-gradient(0deg, rgba(6,0,71,1) 0%, rgba(179,0,94,1) 100%)",
                       }}
@@ -654,17 +651,15 @@ const NewDesign = () => {
                     <Box
                       sx={{
                         position: "absolute",
-
                         marginLeft: "50px",
-
                         bottom: "5rem",
                       }}
                     >
-                        <Link to="/home" style={{ color: "transparent" }}>
-                      <HomeButton
-                        sx={{ position: "absolute", right: "42.75%" }}
-                        onClick={handleEditIconClick}
-                      ></HomeButton>
+                      <Link to="/home" style={{ color: "transparent" }}>
+                        <HomeButton
+                          sx={{ position: "absolute", right: "42.75%" }}
+                          onClick={handleEditIconClick}
+                        ></HomeButton>
                       </Link>
                     </Box>
 
@@ -672,9 +667,7 @@ const NewDesign = () => {
                       direction="row"
                       sx={{
                         position: "absolute",
-
                         marginLeft: "85%",
-
                         bottom: "1.5rem",
                       }}
                     >
@@ -685,11 +678,10 @@ const NewDesign = () => {
                         justifyContent="center"
                         alignItems="center"
                       >
-                        <h1> 300</h1>
+                        <h1> {user.balance}</h1>
                         <Box
                           sx={{
                             backgroundImage: `url(${SmashDong})`,
-
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                             width: 150,
@@ -707,9 +699,7 @@ const NewDesign = () => {
                         justifyContent: "center",
                         width: "220px",
                         borderRadius: "50%",
-
                         right: "42.75%",
-
                         backgroundColor: "#251b5b",
                         bottom: "-3rem",
                         border: "10px #251b5b",
@@ -731,7 +721,7 @@ const NewDesign = () => {
                       justifyContent: "center",
                     }}
                   >
-                    <Typography
+                    {/* <Typography
                       style={{
                         color: "whitesmoke",
                         position: "absolute",
@@ -741,7 +731,7 @@ const NewDesign = () => {
                       fontSize={30}
                     >
                       Nguyen Khac Hoang
-                    </Typography>
+                    </Typography> */}
                   </Stack>
                   <Box display="flex" justifyContent="center">
                     {isPassword ? (
@@ -980,7 +970,7 @@ const NewDesign = () => {
                                   >
                                     First name:
                                   </Typography>
-                                  
+
                                   {!editMode ? (
                                     <Typography
                                       marginLeft={1}
@@ -1004,12 +994,11 @@ const NewDesign = () => {
                                         onChange={handleChange}
                                         name="firstName"
                                         inputProps={{
-                                          "data-testid":
-                                            "user-fisrt-name-input",
+                                          "data-testid": "user-fisrt-name-input",
                                         }}
-                                        sx = {{width: "200px"}}
+                                        sx={{ width: "200px" }}
                                       />
-                                     
+
                                     </StyledForm>
                                   )}
                                 </Stack>
@@ -1037,7 +1026,7 @@ const NewDesign = () => {
                                       style={{
                                         color: "#B3005E",
                                       }}
-                                      
+
                                     >
                                       {user.lastName}
                                     </Typography>
@@ -1055,7 +1044,7 @@ const NewDesign = () => {
                                         inputProps={{
                                           "data-testid": "user-lastname-input",
                                         }}
-                                        sx = {{width: "209px"}}
+                                        sx={{ width: "209px" }}
                                       />
                                       <span className="input-border" />
                                     </StyledForm>
@@ -1102,7 +1091,7 @@ const NewDesign = () => {
                                         inputProps={{
                                           "data-testid": "user-email-input",
                                         }}
-                                        sx = {{width: "236px"}}
+                                        sx={{ width: "236px" }}
                                       />
                                       <span className="input-border" />
                                     </StyledForm>
@@ -1122,7 +1111,7 @@ const NewDesign = () => {
                                   {editMode ? (
                                     <SaveButton
                                       onClick={() =>
-                                        handleSaveClick(values, onSubmitProps)
+                                        handleSaveProfileClick(values, onSubmitProps)
                                       }
                                     />
                                   ) : (
@@ -1208,25 +1197,20 @@ const NewDesign = () => {
                                       style={{
                                         color: "#B3005E",
                                       }}
-                                      
                                     >
-                                      ***********:
+
                                     </Typography>
                                   ) : (
                                     <StyledForm>
                                       <StyledInput
-                                        placeholder="Type your text"
+                                        placeholder="Enter your current password"
                                         required
                                         type="text"
-                                        defaultValue={user.firstName}
+                                        defaultValue={""}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        name="firstName"
-                                        inputProps={{
-                                          "data-testid":
-                                            "user-fisrt-name-input",
-                                        }}
-                                        sx = {{width: "460px"}}
+                                        name="password"
+                                        sx={{ width: "460px" }}
                                       />
                                       <span className="input-border" />
                                     </StyledForm>
@@ -1252,28 +1236,24 @@ const NewDesign = () => {
                                       marginLeft={1}
                                       fontSize={15}
                                       fontWeight="bold"
-                                      data-testid="user-last-name"
                                       style={{
                                         color: "#B3005E",
                                       }}
                                     >
-                                      {user.lastName}
+
                                     </Typography>
                                   ) : (
                                     <StyledForm>
                                       <StyledInput
                                         marginLeft={1}
-                                        placeholder="Type your text"
+                                        placeholder="Enter new password"
                                         required
                                         type="text"
-                                        defaultValue={user.lastName}
+                                        defaultValue={""}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        name="lastName"
-                                        inputProps={{
-                                          "data-testid": "user-lastname-input",
-                                        }}
-                                        sx = {{width: "472px"}}
+                                        name="newPassword"
+                                        sx={{ width: "472px" }}
                                       />
                                       <span className="input-border" />
                                     </StyledForm>
@@ -1300,28 +1280,23 @@ const NewDesign = () => {
                                       marginLeft={1}
                                       fontSize={15}
                                       fontWeight="bold"
-                                      data-testid="user-email"
                                       style={{
                                         color: "#B3005E",
                                       }}
-                                      
                                     >
-                                      {user.email}
+
                                     </Typography>
                                   ) : (
                                     <StyledForm>
                                       <StyledInput
-                                        placeholder="Type your text"
+                                        placeholder="Enter new password again"
                                         required
                                         type="text"
-                                        defaultValue={user.email}
+                                        defaultValue={""}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        name="email"
-                                        inputProps={{
-                                          "data-testid": "user-email-input",
-                                        }}
-                                        sx = {{width: "424px"}}
+                                        name="newPasswordAgain"
+                                        sx={{ width: "424px" }}
                                       />
                                       <span className="input-border" />
                                     </StyledForm>
@@ -1330,18 +1305,16 @@ const NewDesign = () => {
                                 <Stack
                                   direction={"row"}
                                   style={{
-                                    marginLeft: "50px",
                                     opacity: 1,
                                     overflow: "visible", // Allow content to overflow
                                     position: "relative",
                                     marginTop: 50,
-                                    marginLeft: 410,
                                   }}
                                 >
                                   {editMode ? (
                                     <SaveButton
                                       onClick={() =>
-                                        handleSaveClick(values, onSubmitProps)
+                                        handleSavePasswordClick(values, onSubmitProps)
                                       }
                                     />
                                   ) : (
@@ -1372,7 +1345,7 @@ const NewDesign = () => {
                         <PasswordButton setPageType={setPageType} />
                       )}
                       <Box sx={{ marginTop: "30px" }}>
-                        <PaymentDialogs/>
+                        <PaymentDialogs />
                       </Box>
                     </Stack>
                   </Box>

@@ -125,11 +125,6 @@ describe('Test routes responses', () => {
         expect(response.status).toBe(200);
     });
 
-    // test('24 GET /user/:userID/favourite responds with 200 status', async () => {
-    //     const response = await request(app).get('/user/6421d03a7dea84e1fd144ae9/favourite');
-    //     expect(response.status).toBe(200);
-    // });
-
     test('24 GET /movie/featureImage responds with 200 status', async () => {
         const response = await request(app).get('/movie/featureImage');
         expect(response.status).toBe(200);

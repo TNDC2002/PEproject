@@ -3,7 +3,6 @@ import UserFavouriteMovie from "../models/UserFavouriteMovie_Schema.js";
 import UserMovieRental from "../models/UserRentMovie_Schema.js";
 import axios from "axios";
 import User from "../models/User_Schema.js";
-import bcrypt from "bcrypt";
 
 /* READ */
 export const getUser = async (req, res) => {
@@ -19,29 +18,50 @@ export const getUser = async (req, res) => {
     }
 }
 
-export const updateUserProfile = async (req, res) => {
-    const { userID } = req.params;
-    const user = await User.findOne({
-        _id: userID,
-    });
+export const updateBalance = async (req, res) => {
+    try {
+        const { userID } = req.params;
+        const user = await User.findOne({
+            _id: userID,
+        });
 
-    if (user) {
-        user.firstName = req.body.firstName || user.firstName;
-        user.lastName = req.body.lastName || user.lastName;
-        user.email = req.body.email || user.email;
-        const salt = await bcrypt.genSalt();
-        const passwordHash = await bcrypt.hash(req.body.password, salt);
-        user.password = passwordHash || user.password;
-        const updatedUser = await user.save();
-
-        res.json({
-            firstName: updatedUser.firstName,
-            lastName: updatedUser.lastName,
-            email: updatedUser.email,
-            password: updatedUser.password,
-        })
+        if (user) {
+            user.balance = (user.balance + req.body.balance) || user.balance;
+            const updatedUser = await user.save();
+            console.log(updatedUser);
+            res.json({ balance: updatedUser.balance })
+        }
     }
-    else {
+    catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
+export const updateUserProfile = async (req, res) => {
+    try {
+        const { userID } = req.params;
+        const user = await User.findOne({
+            _id: userID,
+        });
+
+        if (user) {
+            user.firstName = req.body.firstName || user.firstName;
+            user.lastName = req.body.lastName || user.lastName;
+            user.email = req.body.email || user.email;
+            // const salt = await bcrypt.genSalt();
+            // const passwordHash = await bcrypt.hash(req.body.password, salt);
+            // user.password = passwordHash || user.password;
+            const updatedUser = await user.save();
+
+            res.json({
+                firstName: updatedUser.firstName,
+                lastName: updatedUser.lastName,
+                email: updatedUser.email,
+                // password: updatedUser.password,
+            })
+        }
+    }
+    catch (err) {
         res.status(404).json({ message: err.message });
     }
 }
@@ -84,6 +104,7 @@ export const fetchFavourites = async (req, res) => {
 var output = {
     getUser,
     updateUserProfile,
-    fetchFavourites
+    fetchFavourites,
+    updateBalance,
 };
 export default output;

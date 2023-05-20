@@ -7,11 +7,13 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import SmashDong300 from '../../../assets/image/SmashDong1500.png';
 import Buy300 from '../../../assets/image/Buy1500.png';
+import { updateUser } from "../../../states";
+import { useSelector, useDispatch } from "react-redux";
 const StyledCard = styled(Card)({
   width: '200px',
   height: '80px',
-  backgroundImage: `url(${SmashDong300})`,backgroundSize: "cover",
-          backgroundPosition: "center",
+  backgroundImage: `url(${SmashDong300})`, backgroundSize: "cover",
+  backgroundPosition: "center",
   transition: 'all 0.4s',
   borderRadius: '30px',
   boxShadow: '0px 0px 10px 5px rgba(0, 0, 0, 0.705)',
@@ -27,8 +29,8 @@ const StyledCard = styled(Card)({
     cursor: 'pointer',
     transform: 'scale(1.2)',
     boxShadow: '0px 0px 10px 5px rgba(0, 0, 0, 0.705)',
-    backgroundImage: `url(${Buy300})`,backgroundSize: "cover",
-          backgroundPosition: "center",
+    backgroundImage: `url(${Buy300})`, backgroundSize: "cover",
+    backgroundPosition: "center",
     '& .first-content': {
       height: '0px',
       opacity: 0,
@@ -37,7 +39,7 @@ const StyledCard = styled(Card)({
       opacity: 1,
       height: '100%',
       borderRadius: '40px',
-      
+
     },
   },
 });
@@ -49,8 +51,29 @@ const StyledDialogContent = styled(DialogContent)({
 });
 
 export default function PurchaseCard4() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
+
   const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
+  const handleClickOpen = (amount) => {
+    fetch(`http://localhost:5000/profile/${user._id}/purchase`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ balance: amount }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const updatedUser = {
+          ...user,
+          balance: data.balance,
+        };
+        dispatch(updateUser({ user: updatedUser }));
+      })
+      .catch((error) => console.error(error));
     setOpen(true);
   };
   const handleClose = () => {
@@ -59,14 +82,14 @@ export default function PurchaseCard4() {
 
   return (
     <div>
-      <StyledCard onClick={handleClickOpen}>
+      <StyledCard onClick={() => handleClickOpen(2300)}>
         <CardContent className="first-content">
-        
+
         </CardContent>
         <CardContent className="second-content">
-           
-         
-          
+
+
+
         </CardContent>
       </StyledCard>
       <Dialog open={open} onClose={handleClose}>
