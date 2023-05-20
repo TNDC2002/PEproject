@@ -41,6 +41,8 @@ import Stack from "@mui/material/Stack";
 import Popover from "@mui/material/Popover";
 import Navbar from "../navbar";
 import ImageTest from "../../assets/images/background.png";
+import HdOutlinedIcon from '@mui/icons-material/HdOutlined';
+import ClosedCaptionOffIcon from '@mui/icons-material/ClosedCaptionOff';
 import {
   Favorite,
   FavoriteBorderRounded,
@@ -428,7 +430,8 @@ const MoviePage = () => {
             <Typography sx={{ fontSize: 40, fontWeight: "medium" }}>
               {movie.title}
             </Typography>
-
+            <HdOutlinedIcon sx={{ fontSize: "35px" }}></HdOutlinedIcon>
+            <ClosedCaptionOffIcon sx={{ fontSize: "35px" }}></ClosedCaptionOffIcon>
             <Stack direction="row" spacing={3} padding="4px">
               <Avatar onClick={handleFavouriteClick}>
                 {!isFavourited ? (
@@ -550,7 +553,7 @@ const MoviePage = () => {
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Day Plan"></CardHeader>
+                          <CardHeader title={<Typography variant="h4" >1-Day Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -558,16 +561,7 @@ const MoviePage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                100 SD
-                                <Typography variant="h6" component="span">
-                                  /week
-                                </Typography>
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                1080p Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Limited movies & TV shows
+                                19.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
@@ -583,7 +577,7 @@ const MoviePage = () => {
 
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Week Plan"></CardHeader>
+                        <CardHeader title={<Typography variant="h4" >1-Week Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -591,16 +585,7 @@ const MoviePage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                1000 SD
-                                <Typography variant="h6" component="span">
-                                  /month
-                                </Typography>
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                4k Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Limited movies & TV shows
+                                129.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
@@ -616,7 +601,7 @@ const MoviePage = () => {
 
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Month Plan"></CardHeader>
+                        <CardHeader title={<Typography variant="h4" >1-Month Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -624,19 +609,7 @@ const MoviePage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                10000 SD
-                                <Typography variant="h6" component="span">
-                                  /year
-                                </Typography>
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                4k+ Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Unlimited movies & TV shows
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Cancle anytime
+                                499.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
