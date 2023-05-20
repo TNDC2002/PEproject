@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 
 const Spinner = styled("Box")({
-    height: "70vh",
+    height: "85vh",
     width: "100vw",
     fontSize: "18px",
     fontWeight: 600,
@@ -41,7 +41,6 @@ const Spinner = styled("Box")({
         },
         "&:nth-child(6)": {
           animationDelay: "1.25s",
-          padding:"0 5rem 0 0"
         },
         "&:nth-child(7)": {
           animationDelay: "1.5s",

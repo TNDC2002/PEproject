@@ -20,7 +20,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Rating
+  Rating,
+  Menu
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
@@ -58,11 +59,26 @@ const ShowPage = () => {
   const token = useSelector((state) => state.token);
   const theme = useTheme();
 
+  const [selectedSeason, setSelectedSeason] = useState(1);
+  const [selectedSeasonData, setSelectedSeasonData] = useState(null);
+
+  const [seasonOptions , setSeasonOptions ] = useState(null);
+
+  const handleSeasonChange = (event) => {
+    const selectedSeasonValue = event.target.value;
+    setSelectedSeason(selectedSeasonValue);
+  };
+console.log(selectedSeason)
+  
+
+ 
+
   const favourite = async (userID, movieID) => {
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "tv"
+      media_type: "tv",
+      season: selectedSeason
     };
   
     const url = isFavourited
@@ -86,7 +102,8 @@ const ShowPage = () => {
       userID: userID,
       movieID: movieID,
       rating: rating,
-      media_type: "tv"
+      media_type: "tv",
+      season: selectedSeason
     };
 
     const method = isRated ? "PUT" : "POST";
@@ -109,7 +126,8 @@ const ShowPage = () => {
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "tv"
+      media_type: "tv",
+      season: selectedSeason
     };
     
     const removeRatingResponse = await fetch(
@@ -134,6 +152,7 @@ const ShowPage = () => {
       movieID: showID,
       rentalBeginDate: rentalBeginDate,
       rentalExpireDate: rentalExpireDate,
+      season: selectedSeason
     };
 
     const addRentResponse = await fetch("http://localhost:5000/movie/rent", {
@@ -150,7 +169,8 @@ const ShowPage = () => {
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "tv"
+      media_type: "tv",
+      season: selectedSeason
     };
   
     const url = new URL("http://localhost:5000/api/favourite/check");
@@ -169,7 +189,8 @@ const ShowPage = () => {
     const requestData = {
       userID: userID,
       movieID: movieID,
-      media_type: "tv"
+      media_type: "tv",
+      season: selectedSeason
     };
 
     const url = new URL("http://localhost:5000/api/rate/check");
@@ -188,6 +209,7 @@ const ShowPage = () => {
     const requestData = {
       userID: userID,
       movieID: showID,
+      season: selectedSeason
     };
     const checkRentedResponse = await fetch(
       "http://localhost:5000/movie/rent/check",
@@ -209,13 +231,20 @@ const ShowPage = () => {
         );
         const data = await response.json();
         setShow(data);
+        if (data.seasons.length === 1) {
+          setSeasonOptions([1]);
+        } else {
+        setSeasonOptions(Array.from({ length: data.seasons.length-1 }, (_, index) => index + 1));
+        }
       } catch (err) {
-        console.log(showID);
         console.error(err);
       }
+      setSelectedSeason(1);
     };
     fetchShowDetails();
   }, [showID]);
+  console.log(seasonOptions)
+  
 
   useEffect(() => {
     const fetchCredits = async () => {
@@ -271,17 +300,22 @@ const ShowPage = () => {
     fetchRecommendations();
   }, [showID]);
 
-  useEffect(() => {
-    const fetchInformation = async () => {
-      const checkFavouriteResponse = await checkFavorite(user._id, showID);
-      setIsFavourited(checkFavouriteResponse);
+  const fetchInformation = async () => {
+    const checkFavouriteResponse = await checkFavorite(user._id, showID);
+    setIsFavourited(checkFavouriteResponse);
 
-      const checkRatedResponse = await checkRated(user._id, showID);      
-      setIsRated(checkRatedResponse.Rating_return.Rated);
-      setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
-    };
+    const checkRatedResponse = await checkRated(user._id, showID);      
+    setIsRated(checkRatedResponse.Rating_return.Rated);
+    setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
+  };
+
+  useEffect(() => {
     fetchInformation();
   }, [showID, user._id]);
+
+  useEffect(() => {
+    fetchInformation();
+  }, [selectedSeason]);
 
   const handleFavouriteClick = () => {
     // Call the favourite function with the necessary values here
@@ -312,7 +346,7 @@ const ShowPage = () => {
   if (!show) {
     return <Loading />;
   }
-
+console.log(show.seasons)
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
 
@@ -415,22 +449,29 @@ const ShowPage = () => {
             
             <Box >
               <FormControl >
-                <InputLabel id="demo-simple-select-label">Season</InputLabel>
+                <InputLabel >Season</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
                   label="Season"
+                  value={selectedSeason}
+                  onChange={handleSeasonChange}
                 >
-                  <MenuItem value={10}>Season 1</MenuItem>
-                  <MenuItem value={20}>Season 2</MenuItem>
-                  <MenuItem value={30}>Season 3</MenuItem>
+                  {seasonOptions.map((optionValue) => (
+                  <MenuItem key={optionValue} value={optionValue}>
+                    Season {optionValue}
+                  </MenuItem>
+                ))} 
                 </Select>
               </FormControl>
             </Box>
-            <Typography variant="body1" sx={{ my: 0.5 }}>
-              <strong>Overview:</strong> {show.overview}
-            </Typography>
+              <Typography variant="body1" sx={{ my: 0.5 }}>
+                {seasonOptions[0] === 1 ? (                
+                <div><strong>Overview: </strong> {show.overview}</div>
+                ) : (
+                  <div><strong>Overview: </strong>{show.seasons[selectedSeason].overview}</div>
+                )}
+              </Typography>
 
+            
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" sx={{ my: 0.5 }}>

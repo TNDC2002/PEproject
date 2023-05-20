@@ -20,6 +20,11 @@ const UserMovieRentalSchema = new mongoose.Schema({
    media_type: {
     type: String,
     required: true
+   },
+   season: {
+    type: Number,
+    required: true,
+    default: 0
    }
 }, 
     { timestamps: true }
