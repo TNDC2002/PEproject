@@ -582,19 +582,27 @@ const MoviePage = () => {
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
               {!user.verified ? (
                 <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
-                  <Container sx={{height: '100%'}} maxWidth="lg">
-                  <Box py={6} textAlign="center" display="flex">
-                    <Box mb={3}>
-                      <Container maxWidth="lg" >
-                        <Typography variant="h3" component="span" sx={{}}>
-                          <h2>Your email is not verified</h2>
-                        </Typography>
-                      </Container>
+                  <Box sx={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}} maxWidth="lg">
+                    <Box py={6}>
+                      <Box mb={3}>
+                        <Box maxWidth="lg" >
+                          <Typography variant="h3" component="span" sx={{}}>
+                            <h2>Your email is not verified</h2>
+                          </Typography>
+                        </Box>
+                      </Box>
                     </Box>
-                    <Grid container spacing={3}>
-                    </Grid>
                   </Box>
-                  </Container>
+                  <Box sx={{ width: '100%' }}>
+                    <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                      <Grid display="flex" justifyContent="right" item xs={6}>
+                        <Button onClick={() => navigate(`/profile/` + user._id)} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": {backgroundColor: '#63004a'}}}>Verify</Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button onClick={handleClose} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": {backgroundColor: '#63004a'}}}>Close</Button>
+                      </Grid>
+                    </Grid>
+                  </Box>  
                 </DialogContent>
 
                 ) : (
@@ -684,11 +692,12 @@ const MoviePage = () => {
                   </Box>
                 </Container>
               </DialogContent>
+              
               )}
               <DialogActions>
-                <Button variant="contained" onClick={handleClose}>
-                  Close
-                </Button>
+                  <Button variant="contained" onClick={handleClose}>
+                    Close
+                  </Button>
               </DialogActions>
             </Dialog>
           </Grid>
