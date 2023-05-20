@@ -2,6 +2,7 @@ import TvCard from "./tvCard";
 import FlexBetween from "../../components/FlexBetween";
 import { Grid, IconButton, Box, Typography } from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import ReactPlayer from 'react-player/youtube';
 
 const TvList = ({ shows, category, page, setPage }) => {
   const handlePrevPage = () => {
@@ -65,6 +66,15 @@ const TvList = ({ shows, category, page, setPage }) => {
           <ArrowForwardIos sx={{ color: "white" }}></ArrowForwardIos>
         </IconButton>
       </FlexBetween>
+      {/* <ReactPlayer
+        url={`https://www.youtube.com/watch?v=G4TUmkg4ojg`}
+        controls={true}
+        playing={true}
+        loop={true}
+        volume={0.1}
+        width='0'
+        height='0'
+      /> */}
     </Box>
   );
 };

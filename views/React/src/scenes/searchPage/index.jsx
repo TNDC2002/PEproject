@@ -16,6 +16,7 @@ import Image from "mui-image";
 import FlexBetween from "../../components/FlexBetween.jsx";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import Spinner from "../../components/ScreenSpinner"
+import ReactPlayer from 'react-player/youtube';
 
 const SearchPage = () => {
   const [result, setResult] = useState(null);
@@ -314,6 +315,15 @@ const SearchPage = () => {
           ></ArrowForwardIos>
         </IconButton>
       </FlexBetween>
+      <ReactPlayer
+        url={`https://www.youtube.com/watch?v=yOElNzJxtgw`}
+        controls={true}
+        playing={true}
+        loop={true}
+        volume={0.1}
+        width='0'
+        height='0'
+      />
     </div>
   );
 };
