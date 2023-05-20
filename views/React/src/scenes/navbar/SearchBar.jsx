@@ -25,7 +25,7 @@ const SearchBar = () => {
   const fetchSearchResult = async (value) => {
     try {
       const fetchSearchResultResponse = await fetch(
-        `http://localhost:5000/search/?query=${value}`,
+        `http://localhost:5000/search/?query=${value}&page=1`,
         {
           method: "GET",
           headers: {

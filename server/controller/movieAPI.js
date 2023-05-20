@@ -11,7 +11,7 @@ export const favourite = async (req, res) => {
   const favouriteMovie = await UserFavouriteMovie.findOne({
     userID: userID,
     movieID: movieID,
-    media_type: media_type
+    media_type: media_type,
   });
   if (favouriteMovie) {
     try {
@@ -25,7 +25,7 @@ export const favourite = async (req, res) => {
       const newFavourite = new UserFavouriteMovie({
         userID: userID,
         movieID: movieID,
-        media_type: media_type
+        media_type: media_type,
       });
       const savedFavourite = await newFavourite.save();
 
@@ -42,23 +42,26 @@ export const checkFavourite = async (req, res) => {
     const favoriteMovie = await UserFavouriteMovie.findOne({
       userID: userID,
       movieID: movieID,
-      media_type: media_type
+      media_type: media_type,
     });
     res.json({ favorited: favoriteMovie !== null });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
-  
+
 export const fetchSearchResult = async (req, res) => {
   try {
+    const page = req.query.page;
     const searchedString = req.query.query;
-    const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.TMDB_API_KEY}&query=${searchedString}&page=1`);
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/search/multi?api_key=${process.env.TMDB_API_KEY}&query=${searchedString}&page=${page}`
+    );
     res.json(response.data);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+};
 
 /* RATING MOVIE */
 export const rate = async (req, res) => {
@@ -220,9 +223,11 @@ API FOR DISCOVERY
 
 export const getMovieDiscovery = async (req, res) => {
   try {
-    const {page} = req.params;
-    const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`);
-    if(response.data !== null){
+    const { page } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
+    );
+    if (response.data !== null) {
       res.json(response.data.results);
     }
   } catch (err) {
@@ -232,12 +237,14 @@ export const getMovieDiscovery = async (req, res) => {
 
 export const getImageCarousel = async (req, res) => {
   try {
-    const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`);
-    if(response.data !== null){
-      const updatedResult = response.data.results.map(movies => ({
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`
+    );
+    if (response.data !== null) {
+      const updatedResult = response.data.results.map((movies) => ({
         movieID: movies.id,
         backdrop_path: movies.backdrop_path,
-        poster_path: movies.poster_path
+        poster_path: movies.poster_path,
       }));
       res.json(updatedResult);
     }
@@ -248,9 +255,11 @@ export const getImageCarousel = async (req, res) => {
 
 export const getShowDiscovery = async (req, res) => {
   try {
-    const {page} = req.params;
-    const response = await axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&page=${page}&timezone=America%2FNew_York&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`);
-    if(response.data !== null){
+    const { page } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&page=${page}&timezone=America%2FNew_York&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`
+    );
+    if (response.data !== null) {
       res.json(response.data.results);
     }
   } catch (err) {
@@ -274,6 +283,6 @@ var output = {
   getMovieDiscovery,
   getShowDiscovery,
   fetchSearchResult,
-  getImageCarousel
+  getImageCarousel,
 };
 export default output;
