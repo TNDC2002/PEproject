@@ -9,7 +9,7 @@ import NewDesign from "./scenes/profilePage/NewDesign";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from "@mui/material";
 import { themeSettings } from "./theme";
 import MoviePage from "./scenes/moviePage";
 import ShowPage from "./scenes/showPage";
@@ -140,24 +140,24 @@ function App() {
             />
             <Route 
               path="/Feature Movies"
-              element={isAuth ? <FeaturePage /> : <Navigate to="/" />}
+              element={authenticated ? <FeaturePage /> : <Navigate to="/" />}
             />
             <Route
               path="/home/search"
-              element={isAuth ? <SearchPage /> : <Navigate to="/" />}
+              element={authenticated ? <SearchPage /> : <Navigate to="/" />}
             />
             <Route
               path="/profile/:userID"
-              element={isAuth ? <NavPage /> : <Navigate to="/" />}
+              element={authenticated ? <NavPage /> : <Navigate to="/" />}
             />
             <Route
               path="/profile/:userID/Original"
-              element={isAuth ? <Original /> : <Navigate to="/" />}
+              element={authenticated ? <Original /> : <Navigate to="/" />}
             />
 
             <Route
               path="/profile/:userID/NewDesign"
-              element={isAuth ? <NewDesign /> : <Navigate to="/" />}
+              element={authenticated ? <NewDesign /> : <Navigate to="/" />}
             />
             <Route
               path="/movie/:movieID"
@@ -213,7 +213,7 @@ function App() {
             />
             <Route
               path="/my list"
-              element={isAuth ? <MyListPage /> : <Navigate to="/" />}
+              element={authenticated ? <MyListPage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>
