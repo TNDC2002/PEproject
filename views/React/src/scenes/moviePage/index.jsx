@@ -40,6 +40,7 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Popover from "@mui/material/Popover";
 import Navbar from "../navbar";
+import ImageTest from "../../assets/images/background.png";
 import {
   Favorite,
   FavoriteBorderRounded,
@@ -528,15 +529,15 @@ const MoviePage = () => {
               )}
             </Button>
 
-            <Dialog open={open} onClose={handleClose}>
-              <DialogTitle>Pricing Plan</DialogTitle>
-              <DialogContent>
-                <Container maxWidth="lg">
-                  <Box py={8} textAlign="center">
+            <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
+              
+              <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
+                <Container sx={{height: '100%'}} maxWidth="lg">
+                  <Box py={6} textAlign="center" display="flex">
                     <Box mb={3}>
                       <Container maxWidth="lg">
-                        <Typography variant="h3" component="span">
-                          Pricing Plan
+                        <Typography variant="h3" component="span" sx={{}}>
+                          <h2>Pricing Plan</h2>
                         </Typography>
                       </Container>
                     </Box>
