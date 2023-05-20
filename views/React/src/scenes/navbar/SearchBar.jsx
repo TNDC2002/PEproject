@@ -70,7 +70,6 @@ const SearchBar = () => {
           history: true
         };
       }));
-      console.log("Just fetched new searches");
     } catch (error) {
       console.error(error);
     };
