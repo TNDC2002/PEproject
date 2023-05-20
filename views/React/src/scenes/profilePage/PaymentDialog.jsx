@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
-import Box from "@mui/material/Box";
+import { Box } from '@mui/material';
 import { Stack } from "@mui/material";
 import PurchaseCard from "./PurchaseCard/PurchaseCard";
 import PurchaseCard2 from "./PurchaseCard/PurchaseCard2";
