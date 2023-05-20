@@ -604,17 +604,17 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                100
-                                <Typography variant="h6" component="span">
-                                SD/Day
-                                </Typography>
+                                <strong>100 SD</strong>
+
                               </Typography>
+                              
                               <Typography variant="subtitle1" component="p">
                                 1080p Quality
                               </Typography>
                               <Typography variant="subtitle1" component="p">
                                 Limited movies & TV shows
                               </Typography>
+                              
                             </Box>
                             <Button
                               variant="contained"
@@ -637,16 +637,17 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                1.000
-                                <Typography variant="h6" component="span">
-                                SD/Week
-                                </Typography>
+                                <strong>1.000 SD</strong>
+
                               </Typography>
                               <Typography variant="subtitle1" component="p">
                                 4k Quality
                               </Typography>
                               <Typography variant="subtitle1" component="p">
                                 Limited movies & TV shows
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                Cancle anytime
                               </Typography>
                             </Box>
                             <Button
@@ -670,10 +671,7 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                10.000
-                                <Typography variant="h6" component="span">
-                                SD/Month
-                                </Typography>
+                                <strong>10.000 SD</strong>
                               </Typography>
                               <Typography variant="subtitle1" component="p">
                                 4k+ Quality
@@ -683,6 +681,9 @@ const ShowPage = () => {
                               </Typography>
                               <Typography variant="subtitle1" component="p">
                                 Cancle anytime
+                              </Typography>
+                              <Typography variant="subtitle1" component="p">
+                                Ad-free webstite 
                               </Typography>
                             </Box>
                             <Button
@@ -698,12 +699,23 @@ const ShowPage = () => {
                     </Grid>
                   </Box>
                 </Container>
-              </DialogContent>
-              <DialogActions>
-                <Button variant="contained" onClick={handleClose}>
+                <Box 
+                   m={1}
+                   //margin
+                  display="flex"
+                  justifyContent="flex-end"
+                  alignItems="flex-end"
+                >
+                <Button 
+                  variant="contained" 
+                  onClick={handleClose}
+                  sx={{position: 'absoulute', }} 
+                >
                   Close
                 </Button>
-              </DialogActions>
+                </Box>
+                
+              </DialogContent>
             </Dialog>
           </Grid>
         </Grid>
