@@ -652,4 +652,4 @@ const LoginPage = () => {
     </form>
   );
 };
-export default NewDesign;
+export default LoginPage;
