@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SearchBar2 from "./Searchbar2";
-import NavbarCover from "../../assets/image/navbarCover2.png";
+import NavbarCover from "../../assets/image/navbarCover5.png";
 import {
     AppBar,
     Box,

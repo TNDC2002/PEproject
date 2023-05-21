@@ -1,12 +1,60 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useTheme, Typography, Box, Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Image from 'mui-image';
+
+import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
+import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+
+const Group = styled('div')({
+  display: 'flex',
+  lineHeight: '28px',
+  alignItems: 'center',
+  position: 'relative',
+  maxWidth: '190px',
+});
+
+const Input = styled(TextField)({
+  height: '40px',
+  lineHeight: '28px',
+  padding: '0 1rem',
+  width: '100%',
+  paddingLeft: '2.5rem',
+  border: '2px solid transparent',
+  borderRadius: '8px',
+  outline: 'none',
+  backgroundColor: '#D9E8D8',
+  color: '#0d0c22',
+  boxShadow: '0 0 5px #C1D9BF, 0 0 0 10px #f5f5f5eb',
+  transition: '.3s ease',
+
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'transparent',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'transparent',
+    },
+  },
+
+  '& input::placeholder': {
+    color: '#777',
+  },
+});
+
+const Icon = styled('div')({
+  position: 'absolute',
+  left: '1rem',
+  fill: '#777',
+  width: '1rem',
+  height: '1rem',
+});
 
 const SearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -21,6 +69,7 @@ const SearchBar = () => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const navigate = useNavigate();
+
 
   const fetchSearchResult = async (value) => {
     try {
@@ -148,7 +197,10 @@ const SearchBar = () => {
       }
     }
   };
-
+  const handleClearInput = () => {
+    setInputValue('');
+    setIsEmpty(true);
+  };
   return (
     <Autocomplete
       freeSolo
@@ -164,16 +216,48 @@ const SearchBar = () => {
       renderInput={(params) => (
         <TextField
           {...params}
-          label={
-            <Typography color={theme.palette.neutral.dark}>
-              Search
-            </Typography>
+          placeholder={
+            "Search"
           }
-          variant="standard"
-          size='small'
+          sx = {{
+            height: "40px",
+            lineHeight: "28px",
+            padding: "0 1rem",
+            width: "100%",
+            paddingLeft: "2.5rem",
+            border: "2px solid transparent",
+            borderRadius: "8px",
+            outline: "none",
+            backgroundColor: "#D9E8D8",
+            color: "#0d0c22",
+            boxShadow: "0 0 5px #C1D9BF, 0 0 0 10px #f5f5f5eb",
+            transition: "3s ease",
+            '& input::placeholder': {
+              color: 'red',
+              '&::placeholder': {
+                // Make the border transparent
+                borderColor: 'transparent',
+              },}
+          }}
           onClick={handleFocus}
           onBlur={handleBlur}
+          InputProps={{
+            ...params.InputProps,
+            startAdornment: (
+              <>
+                <SearchIcon className="icon" />
+                {inputValue && (
+                  <ClearIcon
+                    className="icon"
+                    onClick={() => setInputValue('')}
+                    sx={{ cursor: 'pointer' }}
+                  />
+                )}
+              </>
+            ),
+          }}
         />
+
       )}
       renderOption={(props, option, { selected }) =>
         !option.poster_path & !option.media_type ? (
