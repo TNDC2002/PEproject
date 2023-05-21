@@ -1,7 +1,6 @@
 
 import User from "../models/User_Schema.js";
 import EmailVerification from "../models/EmailVerification_Schema.js"
-import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
 dotenv.config()
 
@@ -13,22 +12,25 @@ const verify = async (req, res) => {
             .then((result) => {
                 if (!result) {
                     let message = "Link has expired, account does not exist or have registered already! Please try again";
-                    res.redirect(`/user/verified/error=true&message=${message}`);
-
+                    res.status(500).json({err: message});
                 } else {
                     //valid user exists
                     //compare
                     const savedVerifyPIN = result[0].verificationString;
                     if (savedVerifyPIN == verifyPIN) {
                         User.updateOne({ email: email }, { verified: true })
+                            .then(()=>{
+                                res.status(200);
+                            })
                             .catch((error) => {
                                 console.log(error);
                                 let message = "An error occured while updating records";
-                                res.redirect(`/user/verified/error=true&message=${message}`);
+                                res.status(500).json({err: message});
                             })
+                            res.status(200);
                     } else {
                         let message = "invalid code, please try again!";
-                        res.redirect(`/user/verified/error=true&message=${message}`);
+                        res.status(500).json({err: message});
                     }
                 }
             })
