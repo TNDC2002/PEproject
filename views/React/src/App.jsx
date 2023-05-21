@@ -60,7 +60,7 @@ function App() {
         } else if (currentPath === "/auth/github") {
           setLoading(false);
           setAuthenticated(true);
-          const response = await fetch("http://localhost:5000/login/github", {
+          const response = await fetch(`${VITE_BASE_URL}/login/github`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -78,7 +78,7 @@ function App() {
         } else if (currentPath === "/auth/facebook") {
           setLoading(false);
           setAuthenticated(true);
-          const response = await fetch("http://localhost:5000/login/facebook", {
+          const response = await fetch(`${VITE_BASE_URL}/login/facebook`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
