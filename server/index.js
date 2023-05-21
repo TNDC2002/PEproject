@@ -25,7 +25,7 @@ const swaggerJsDoc = YAML.load(fs.readFileSync("../views/api.yaml", "utf8"));
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://vgu-tinyprojects-pe2023-vgupe2023-team5-w71a.vercel.app/'
+  'https://vgu-tinyprojects-pe2023-vgupe2023-team5-w71a.vercel.app'
 ];
 
 app.use(
