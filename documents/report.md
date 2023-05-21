@@ -290,6 +290,17 @@ The movie rental application follows a client-server architecture. On the client
 #### 5.2.2. Admin Interface:
 
 #### 5.2.3. Authentication Interface:
+The authenciation interface and features of SmashBruh are as follows:
+- **_Email Verification System:_**
+  - SmashBruh implements a comprehensive email verification system to avoid account spaming and reduce wasted database storage.
+  - The system employs an automatic email sender every time a user register.
+  - The email contains a 6 digits PIN code that is randomly generated, as well as the remaining time before the code becomes invalid.
+  - The verification system aims to provide adaquate security measure while maintaining a streamlined user experience.
+- **_Oauth2 and cookie based authentication:_**
+  - In order to streamline the registration process even further, SmashBruh has also implements the Open Authorization 2.0 protocol(Oauth2).
+  - SmashBruh Oauth2 implements support registering using other well known platform such as Google, GitHUb and Facebook, providing a near instant registering experience.
+  - To further increase security, SmashBruh also implements a variant cookies based authentication.
+  - The token is hashed and saved to the database to prevent cookie forging, the token is hashed and set using the bcrpyt and jwt library.
 
 ### 5.3. Structure and Relationships
 
