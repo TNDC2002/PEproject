@@ -165,14 +165,32 @@ const SearchBar = () => {
         <TextField
           {...params}
           label={
-            <Typography color={theme.palette.neutral.dark}>
+            <Typography color={"white"} fontSize = {"20px"} marginLeft={"20px"} top={"10px"}>
               Search
             </Typography>
           }
+          backgroundColor = "white"
           variant="standard"
           size='small'
           onClick={handleFocus}
           onBlur={handleBlur}
+
+        sx ={
+        { border: "2px solid transparent",
+          borderRadius: "20px",
+          outline: "none",
+          backgroundColor: "#060047",
+          color: "#060047",
+          boxShadow: "0 0 5px #FF5F9E, 0 0 0 10px #E90064",
+          transition: ".3s ease",
+          '& input::placeholder': {
+            color: 'red',
+            '&::placeholder': {
+              // Make the border transparent
+              borderColor: 'transparent',
+            },}
+
+        }}
         />
       )}
       renderOption={(props, option, { selected }) =>

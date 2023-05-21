@@ -201,7 +201,7 @@ const NewDesign = () => {
               backgroundPosition: "center",
             }}
           >
-            <Container>
+             <Container>
               <Box
                 display="flex"
                 justifyContent="center"
@@ -250,6 +250,7 @@ const NewDesign = () => {
                         alignItems: "center",
                       }}
                     >
+                      
                       <Stack
                         direction="row"
                         spacing={0}
