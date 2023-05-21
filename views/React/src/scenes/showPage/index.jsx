@@ -2,9 +2,10 @@ import { useEffect, useState, useRef } from "react";
 import { Navigate, useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import FlexBetween from "../../components/FlexBetween";
 import Loading from "../../components/Loading";
+import { updateUser } from "../../states";
 import ReactPlayer from 'react-player/youtube';
 import {
   Box,
@@ -30,6 +31,8 @@ import {
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
+import ProductionQuantityLimitsOutlinedIcon from '@mui/icons-material/ProductionQuantityLimitsOutlined';
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import InputLabel from "@mui/material/InputLabel";
@@ -62,6 +65,7 @@ const ShowPage = () => {
 
   //hover black name poster
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [hoveredRecommendationId, setHoveredRecommendationId] = useState(null);
 
   const { showID } = useParams();
@@ -70,6 +74,8 @@ const ShowPage = () => {
   const [isRented, setIsRented] = useState(false);
   const [isRated, setIsRated] = useState(false);
   const [rateDefaultValue, setRateDefaultValue] = useState(0);
+  const [rentalInformation, setRentalInformation] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const token = useSelector((state) => state.token);
   const theme = useTheme();
@@ -102,6 +108,14 @@ const ShowPage = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleMouseEnterRentButton = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeaveRentButton = () => {
+    setIsHovered(false);
   };
 
   const favourite = async (userID, showID) => {
@@ -350,6 +364,7 @@ const ShowPage = () => {
 
     const checkRentedResponse = await checkRented(user._id, showID);
     setIsRented(checkRentedResponse.Rental_return.Rented);
+    setRentalInformation(checkRentedResponse.Rental_return.Rental_information);
   };
 
   useEffect(() => {
@@ -366,6 +381,33 @@ const ShowPage = () => {
     setIsFavourited(!isFavourited);
   };
 
+  const handleTransaction = async (value) => {
+    try {
+      const requestData = {
+        balance: value
+      }
+      const transactionResponse = await fetch(
+        `http://localhost:5000/profile/${user._id}/purchase`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestData),
+          credentials: 'include'
+        })
+        .then((response) => response.json())
+        .then((data) => {
+        const updatedUser = {
+          ...user,
+          balance: data.balance,
+        };
+        dispatch(updateUser({ user: updatedUser }));
+      })
+      .catch((error) => console.error(error));
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const handleRateClick = (rateValue) => {
     if (rateValue === null) {
       unrate(user._id, showID);
@@ -381,9 +423,10 @@ const ShowPage = () => {
   };
 
   const handleRentClick = (event) => {
-    const buttonValue = event.target.value;
-    rent(user._id, showID, buttonValue);
+    rent(user._id, showID, event.duration);
     setIsRented(!isRented);
+    handleTransaction(event.price);
+    fetchInformation();
     handleClose();
   };
 
@@ -582,19 +625,54 @@ const ShowPage = () => {
             <Button
               variant="contained"
               onClick={handleOpen}
-              disabled={isRented}
-              padding="4px"
+              padding="4px"       
+              onMouseEnter={handleMouseEnterRentButton}
+              onMouseLeave={handleMouseLeaveRentButton}
+              sx={{width:"275px"}}  
             >
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
-              ) : (
-                <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
+                ) : (
+                rentalInformation ? (
+                    rentalInformation.rentalExpireDate > new Date().toISOString() ? (
+                      !isHovered ? (
+                        <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
+                        ) : (
+                        <ShoppingCartCheckoutOutlinedIcon></ShoppingCartCheckoutOutlinedIcon>
+                      )
+                      ) : (
+                        !isHovered ? (
+                          <ProductionQuantityLimitsOutlinedIcon></ProductionQuantityLimitsOutlinedIcon>
+                          ) : (
+                          <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
+                          )
+                      )
+                ) : (
+                  <div></div>
+                )
               )}
 
               {!isRented ? (
-                <strong>Rent</strong>
+                <strong>First-Time Rent</strong>
               ) : (
-                <strong>Already Rented</strong>
+                rentalInformation ? (
+                    rentalInformation.rentalExpireDate > new Date().toISOString() ? (
+                      !isHovered ? (
+                        <strong>Already Rented till {rentalInformation.rentalExpireDate.substring(0, 10)}</strong>
+                      ) : (
+                        <strong>Extend Rental</strong>
+
+                      )
+                      ) : (
+                        !isHovered ? (
+                          <strong>Rental Expired since {rentalInformation.rentalExpireDate.substring(0, 10)}</strong>
+                        ) : (
+                          <strong>Rent Again</strong>
+                        )
+                      )
+                ) : (
+                  <div>No information</div>
+                )
               )}
             </Button>
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
@@ -625,8 +703,8 @@ const ShowPage = () => {
                             </Box>
                             <Button
                               variant="contained"
-                              onClick={handleRentClick}
-                              value={1}
+                              onClick={() => handleRentClick({duration: 1, price: -19.99})}
+                              disabled={!user.balance > 19.99}
                             >
                               Smash
                             </Button>
@@ -649,8 +727,8 @@ const ShowPage = () => {
                             </Box>
                             <Button
                               variant="contained"
-                              onClick={handleRentClick}
-                              value={7}
+                              onClick={() => handleRentClick({duration: 7, price: -129.99})}
+                              disabled={!user.balance > 129.99}
                             >
                               Smash
                             </Button>
@@ -673,8 +751,8 @@ const ShowPage = () => {
                             </Box>
                             <Button
                               variant="contained"
-                              onClick={handleRentClick}
-                              value={30}
+                              onClick={() => handleRentClick({duration: 30, price: -499.99})}
+                              disabled={!user.balance > 499.99}
                             >
                               Smash
                             </Button>

@@ -237,8 +237,10 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
+
 /* Import your controller here by syntax:
-    import * as <your controller name> from "../controller/<ControllerFile>.js" */
+import * as <your controller name> from "../controller/<ControllerFile>.js" */
+import { verifyToken } from "../middleware/auth.js";
 import * as SampleController from "../controller/SampleController.js";
 import * as middleware from "../middleware/auth.js";
 import * as auth from "../controller/auth.js";
@@ -315,6 +317,7 @@ let initWebRoutes = (app) => {
       router.get("/movie/showDiscovery/:page", movieAPI.default.getShowDiscovery);
       router.get("/search", movieAPI.default.fetchSearchResult);
       router.get("/user/:userID/favourite", user.default.fetchFavourites);
+      router.get("/user/:userID/rent", user.default.fetchRentals);
       router.get("/movie/featureImage", movieAPI.default.getImageCarousel);
       router.get("/movie/list", movieAPI.default.getList);
       router.get("/movie/showList", movieAPI.default.getShowList);
@@ -340,6 +343,8 @@ let initWebRoutes = (app) => {
       router.put('<route>',<controller_name>.default.<function>) */
 
     /* MONGOL API ROUTE */
+      router.put("/profile/:userID", verifyToken, user.updateUserProfile);
+      router.put("/profile/:userID/purchase", user.updateBalance);
       router.put("/api/history/update", History.default.PUT_handler);
       router.put("/api/rate/update", Rate.default.PUT_handler);
 

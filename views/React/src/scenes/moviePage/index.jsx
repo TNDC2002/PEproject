@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { Navigate , useParams, Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Image from "mui-image";
 import { useDispatch, useSelector } from "react-redux";
-import FlexBetween from "../../components/FlexBetween";
 import Loading from "../../components/Loading";
+import { updateUser } from "../../states";
+
 import {
   Box,
   Grid,
@@ -29,6 +29,9 @@ import {
   CardContent,
   Card,
 } from "@mui/material";
+import ClosedCaptionOffIcon from '@mui/icons-material/ClosedCaptionOff';
+import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
+import ProductionQuantityLimitsOutlinedIcon from '@mui/icons-material/ProductionQuantityLimitsOutlined';
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
@@ -42,7 +45,8 @@ import Popover from "@mui/material/Popover";
 import Navbar from "../navbar";
 import ImageTest from "../../assets/images/background.png";
 import HdOutlinedIcon from '@mui/icons-material/HdOutlined';
-import ClosedCaptionOffIcon from '@mui/icons-material/ClosedCaptionOff';
+
+import Snackbar from '@mui/material/Snackbar';
 import {
   Favorite,
   FavoriteBorderRounded,
@@ -62,15 +66,18 @@ const MoviePage = () => {
   //hovered black name poster
   const [hoveredRecommendationId, setHoveredRecommendationId] = useState(null);
   const navigate = useNavigate();
-  
   const dispatch = useDispatch();
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRated, setIsRated] = useState(false);
   const [isRented, setIsRented] = useState(false);
+  const [rentalInformation, setRentalInformation] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
+  
   const token = useSelector((state) => state.token);
   const theme = useTheme();
+  console.log(user.balance);
   //function for popover
   const [popoverOpen, setPopoverOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -84,6 +91,7 @@ const MoviePage = () => {
     setPopoverOpen(false);
   };
 
+  //open and close dialogue
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -93,6 +101,25 @@ const MoviePage = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleMouseEnterRentButton = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeaveRentButton = () => {
+    setIsHovered(false);
+  };
+
+  //snackbar open and close
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const redirectAccount = () => {
+    navigate("/profile/" + user._id);
+};
 
   const favourite = async (userID, movieID) => {
     const requestData = {
@@ -182,7 +209,7 @@ const MoviePage = () => {
         body: JSON.stringify(requestData),
         credentials: 'include'
       }
-    );
+    ); 
   };
 
   const checkFavorite = async (userID, movieID) => {
@@ -321,26 +348,56 @@ const MoviePage = () => {
     fetchCredits();
   }, [movieID]);
 
+  const fetchInformation = async () => {
+    console.log("now fetching user data")
+    const checkFavouriteResponse = await checkFavorite(user._id, movieID);
+    setIsFavourited(checkFavouriteResponse);
+
+    const checkRatedResponse = await checkRated(user._id, movieID);
+    setIsRated(checkRatedResponse.Rating_return.Rated);
+    setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
+
+    const checkRentedResponse = await checkRented(user._id, movieID);
+    setIsRented(checkRentedResponse.Rental_return.Rented);
+    setRentalInformation(checkRentedResponse.Rental_return.Rental_information);
+  };
+
   useEffect(() => {
-    const fetchInformation = async () => {
-      const checkFavouriteResponse = await checkFavorite(user._id, movieID);
-      setIsFavourited(checkFavouriteResponse);
-
-      const checkRatedResponse = await checkRated(user._id, movieID);
-      setIsRated(checkRatedResponse.Rating_return.Rated);
-      setRateDefaultValue(checkRatedResponse.Rating_return.RateValue);
-
-      const checkRentedResponse = await checkRented(user._id, movieID);
-      setIsRented(checkRentedResponse.Rental_return.Rented);
-    };
     fetchInformation();
-  }, [user._id, movieID]);
+  }, [movieID, user._id]);
 
   const handleFavouriteClick = () => {
     // Call the favourite function with the necessary values here
     favourite(user._id, movieID);
     setIsFavourited(!isFavourited);
   };
+  const handleTransaction = async (value) => {
+    try {
+      const requestData = {
+        balance: value
+      }
+      const transactionResponse = await fetch(
+        `http://localhost:5000/profile/${user._id}/purchase`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestData),
+          credentials: 'include'
+        })
+        .then((response) => response.json())
+        .then((data) => {
+        const updatedUser = {
+          ...user,
+          balance: data.balance,
+        };
+        dispatch(updateUser({ user: updatedUser }));
+      })
+      .catch((error) => console.error(error));
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const handleRateClick = (rateValue) => {
     if (rateValue === null) {
@@ -356,17 +413,17 @@ const MoviePage = () => {
     }
   };
 
-  const handleRentClick = (event) => {
-    const buttonValue = event.target.value;
-    rent(user._id, movieID, buttonValue);
+  const handleRentClick = async (event) => {
+    rent(user._id, movieID, event.duration);
     setIsRented(!isRented);
+    handleTransaction(event.price);
+    fetchInformation();
     handleClose();
   };
 
   if (!movie || youtubeIDs === null) {
     return <Loading />;
   }
-
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   return (
     <div>
@@ -527,38 +584,81 @@ const MoviePage = () => {
             <Button
               variant="contained"
               onClick={handleOpen}
-              disabled={isRented}
-              padding="4px"
+              padding="4px"       
+              onMouseEnter={handleMouseEnterRentButton}
+              onMouseLeave={handleMouseLeaveRentButton}
+              sx={{width:"275px"}}       
             >
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
-              ) : (
-                <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
+                ) : (
+                rentalInformation ? (
+                    rentalInformation.rentalExpireDate > new Date().toISOString() ? (
+                      !isHovered ? (
+                        <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
+                        ) : (
+                        <ShoppingCartCheckoutOutlinedIcon></ShoppingCartCheckoutOutlinedIcon>
+                      )
+                      ) : (
+                        !isHovered ? (
+                          <ProductionQuantityLimitsOutlinedIcon></ProductionQuantityLimitsOutlinedIcon>
+                          ) : (
+                          <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
+                          )
+                      )
+                ) : (
+                  <div></div>
+                )
               )}
 
               {!isRented ? (
-                <strong>Rent</strong>
+                <strong>First-Time Rent</strong>
               ) : (
-                <strong>Already Rented</strong>
+                rentalInformation ? (
+                    rentalInformation.rentalExpireDate > new Date().toISOString() ? (
+                      !isHovered ? (
+                        <strong>Already Rented till {rentalInformation.rentalExpireDate.substring(0, 10)}</strong>
+                      ) : (
+                        <strong>Extend Rental</strong>
+
+                      )
+                      ) : (
+                        !isHovered ? (
+                          <strong>Rental Expired since {rentalInformation.rentalExpireDate.substring(0, 10)}</strong>
+                        ) : (
+                          <strong>Rent Again</strong>
+                        )
+                      )
+                ) : (
+                  <div>No information</div>
+                )
               )}
             </Button>
 
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
-              {!user._verified ? (
+              {!user.verified ? (
                 <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
-                  <Container sx={{height: '100%'}} maxWidth="lg">
-                  <Box py={6} textAlign="center" display="flex">
-                    <Box mb={3}>
-                      <Container maxWidth="lg" >
-                        <Typography variant="h3" component="span" sx={{}}>
-                          <h2>Your email is not verified</h2>
-                        </Typography>
-                      </Container>
+                  <Box sx={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}} maxWidth="lg">
+                    <Box py={6}>
+                      <Box mb={3}>
+                        <Box maxWidth="lg" >
+                          <Typography variant="h3" component="span" sx={{}}>
+                            <h2>Your email is not verified</h2>
+                          </Typography>
+                        </Box>
+                      </Box>
                     </Box>
-                    <Grid container spacing={3}>
-                    </Grid>
                   </Box>
-                  </Container>
+                  <Box sx={{ width: '100%' }}>
+                    <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                      <Grid display="flex" justifyContent="right" item xs={6}>
+                        <Button onClick={() => navigate(`/profile/` + user._id)} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": {backgroundColor: '#63004a'}}}>Verify</Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button onClick={handleClose} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": {backgroundColor: '#63004a'}}}>Close</Button>
+                      </Grid>
+                    </Grid>
+                  </Box>  
                 </DialogContent>
 
                 ) : (
@@ -588,8 +688,8 @@ const MoviePage = () => {
                             </Box>
                             <Button
                               variant="contained"
-                              onClick={handleRentClick}
-                              value={1}
+                              onClick={() => handleRentClick({duration: 1, price: -19.99})}
+                              disabled={user.balance < 19.99}
                             >
                               Smash
                             </Button>
@@ -612,8 +712,8 @@ const MoviePage = () => {
                             </Box>
                             <Button
                               variant="contained"
-                              onClick={handleRentClick}
-                              value={7}
+                              onClick={() => handleRentClick({duration: 7, price: -129.99})}
+                              disabled={user.balance < 129.99}
                             >
                               Smash
                             </Button>
@@ -636,8 +736,8 @@ const MoviePage = () => {
                             </Box>
                             <Button
                               variant="contained"
-                              onClick={handleRentClick}
-                              value={30}
+                              onClick={() => handleRentClick({duration: 30, price: -499.99})}
+                              disabled={user.balance < 499.99}
                             >
                               Smash
                             </Button>
@@ -648,11 +748,12 @@ const MoviePage = () => {
                   </Box>
                 </Container>
               </DialogContent>
+              
               )}
               <DialogActions>
-                <Button variant="contained" onClick={handleClose}>
-                  Close
-                </Button>
+                  <Button variant="contained" onClick={handleClose}>
+                    Close
+                  </Button>
               </DialogActions>
             </Dialog>
           </Grid>

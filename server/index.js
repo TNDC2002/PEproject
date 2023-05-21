@@ -23,7 +23,24 @@ dotenv.config();
 const app = express();
 const swaggerJsDoc = YAML.load(fs.readFileSync("../views/api.yaml", "utf8"));
 
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://vgu-tinyprojects-pe2023-vgupe2023-team5-w71a.vercel.app'
+];
+
+app.use(
+  cors({
+    credentials: true,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    }
+  })
+);
+
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -41,7 +58,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use("/assets", express.static(path.join(__dirname,'public/assets')));
+app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
 app.use(cookieParser(process.env.Cookie_secret));
 app.use(session({
   secret: process.env.Session_secret,
@@ -90,13 +107,13 @@ mongoose
       );
       console.log(
         "\x1b[35m|\x1b[0m                          " +
-          notification +
-          "                              \x1b[35m|\x1b[0m"
+        notification +
+        "                              \x1b[35m|\x1b[0m"
       );
       console.log(
         "\x1b[35m|\x1b[0m                     " +
-          _6969 +
-          "                 \x1b[35m|\x1b[0m"
+        _6969 +
+        "                 \x1b[35m|\x1b[0m"
       );
       console.log(
         "\x1b[35m|\x1b[0m                                                                                             \x1b[35m|\x1b[0m"

@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography, Grid, Rating } from "@mui/material";
+import { Box, Typography, Grid, Rating, useTheme } from "@mui/material";
 import Image from "mui-image";
 import Navbar from "../navbar";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import ReactPlayer from 'react-player/youtube';
 import Spinner from "../../components/ScreenSpinner"
-
+import Avatar from "@mui/material/Avatar";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
+import EventBusyOutlinedIcon from '@mui/icons-material/EventBusyOutlined';
 
 const MyListPage = () => {
     const [favouriteMovie, setFavouriteMovie ] = useState([]);
@@ -16,9 +20,13 @@ const MyListPage = () => {
     const [rentedShow, setRentedShow ] = useState([]);
     const user = useSelector((state) => state.user);
     const navigate = useNavigate();
+    const theme = useTheme();
 
-    const [hoveredMovieId, setHoveredMovieId] = useState(null);
-    const [hoveredShowId, setHoveredShowId] = useState(null);
+    const [hoveredFavouriteMovieId, setHoveredFavouriteMovieId] = useState(null);
+    const [hoveredFavouriteShowId, setHoveredFavouriteShowId] = useState(null);
+    const [hoveredRentedMovieId, setHoveredRentedMovieId] = useState(null);
+    const [hoveredRentedShowId, setHoveredRentedShowId] = useState(null);
+
     const [hoveredMediaData, setHoveredMediaData] = useState(null);
 
     const[isHovered, setIsHovered] = useState(false)
@@ -35,13 +43,34 @@ const MyListPage = () => {
             
         const result = await fetchUserFavouriteResponse.json();
         // Filter the response based on media_type and update the state variables accordingly
-        const favouriteMovies = result.filter(item => item.media_type === "movie");
-        const favouriteShows = result.filter(item => item.media_type === "tv");
+        const favouriteMoviesResult = result.filter(item => item.media_type === "movie");
+        const favouriteShowsResult = result.filter(item => item.media_type === "tv");
         
-        setFavouriteMovie(favouriteMovies);
-        setFavouriteShow(favouriteShows);
+        setFavouriteMovie(favouriteMoviesResult);
+        setFavouriteShow(favouriteShowsResult);
         }
         fetchUserFavouriteMovieShow(user._id);
+    }, [])  
+
+    useEffect(() => {
+        const fetchUserRentedMovieShow = async (userID) => {
+            const fetchUserRentResponse = await fetch(
+                `http://localhost:5000/user/${userID}/rent`,
+                {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                }
+            )
+            
+        const result = await fetchUserRentResponse.json();
+        // Filter the response based on media_type and update the state variables accordingly
+        const rentedMoviesResult = result.filter(item => item.media_type === "movie");
+        const rentedShowsResult = result.filter(item => item.media_type === "tv");
+        
+        setRentedMovie(rentedMoviesResult);
+        setRentedShow(rentedShowsResult);
+        }
+        fetchUserRentedMovieShow(user._id);
     }, [])  
 
     const fetchHoveredMediaUser = async (userID, mediaID, media_type, season) => {
@@ -79,8 +108,9 @@ const MyListPage = () => {
         });
         const checkRentResult = await checkRentResponse.json();
 
-        const hoveredMovieInfo = {...checkFavouriteResult, ...checkRateResult, ...checkRentResult}
-        setHoveredMediaData(hoveredMovieInfo);
+        const hoveredMediaInfo = {...checkFavouriteResult, ...checkRateResult, ...checkRentResult}
+        setHoveredMediaData(hoveredMediaInfo);
+        console.log(hoveredMediaInfo);
     }
 
     const Spinner = styled("Box")({
@@ -206,9 +236,10 @@ const MyListPage = () => {
                             {favouriteMovie.map((movie) => (
                             <Grid title={movie.title} key={movie.id} item xs={12} sm={6} md={4} lg={3}>
                                 <Box
-                                onMouseEnter={() => {setHoveredMovieId(movie.id);
-                                                    fetchHoveredMediaUser(user._id, movie.id, "movie", 0)}}
-                                onMouseLeave={() => setHoveredMovieId(null)}
+                                onMouseEnter={async () => {setHoveredFavouriteMovieId(movie.id);
+                                                    await fetchHoveredMediaUser(user._id, movie.id, "movie", 0)}}
+                                onMouseLeave={() => {setHoveredFavouriteMovieId(null);
+                                                    setHoveredMediaData(null)}}
                                 sx={{
                                     position: 'relative',
                                     display: 'flex',
@@ -219,7 +250,7 @@ const MyListPage = () => {
                                 }}>
                                     <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}/>
                                     {/* <Typography>{movie.title}</Typography> */}
-                                    {hoveredMovieId === movie.id && (
+                                    {hoveredFavouriteMovieId === movie.id && (
                                         <Box 
                                         onClick={() => navigate(`/movie/${movie.id}`)}
                                         className="hover" sx={{
@@ -245,8 +276,26 @@ const MyListPage = () => {
                                                     fontWeight: 'bold',
                                                     
                                                 }}>{movie.title}</Typography>
-                                                <Rating name="read-only" value={movie.vote_average /2} precision="0.5" readOnly></Rating> 
-                                                <Typography>IMDB: {movie.vote_average} / 10</Typography>
+                                                <Avatar>
+                                                    {hoveredMediaData ? 
+                                                (hoveredMediaData.Favourite_return.favourited ? (
+                                                    <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
+                                                    ) : (
+                                                    <FavoriteOutlinedIcon
+                                                        sx={{ fontSize: "23px", color: theme.palette.primary.main }}
+                                                    />
+                                                    )) : (
+                                                        <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
+                                                    )
+                                                }
+                                                    
+                                                </Avatar>
+                                                <Rating name="read-only" 
+                                                    value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0} 
+                                                    precision="0.5" 
+                                                    readOnly
+                                                    sx={{fontSize: "25px"}}>
+                                                </Rating> 
                                                 
                                                 {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
                                                 {/* <Typography></Typography> */}      
@@ -275,9 +324,10 @@ const MyListPage = () => {
                             {favouriteShow.map((show) => (
                             <Grid title={show.name} key={show.id} item xs={12} sm={6} md={4} lg={3}>
                                 <Box
-                                onMouseEnter={() => {setHoveredShowId(show.id);
-                                                    fetchHoveredMediaUser(user._id, show.id, "tv", show.intendedSeason)}}
-                                onMouseLeave={() => setHoveredShowId(null)}
+                                onMouseEnter={async () => {setHoveredFavouriteShowId(show.id);
+                                                        await fetchHoveredMediaUser(user._id, show.id, "tv", show.intendedSeason)}}
+                                onMouseLeave={() => {setHoveredFavouriteShowId(null);
+                                                    setHoveredMediaData(null)}}
                                 sx={{
                                     position: 'relative',
                                     display: 'flex',
@@ -286,9 +336,9 @@ const MyListPage = () => {
                                         boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
                                     }
                                 }}>
-                                    <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons[show.intendedSeason].poster_path}`}/>
+                                    <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons.length > 1 ? show.seasons[show.intendedSeason].poster_path: show.poster_path}`}/>
                                     {/* <Typography>{movie.title}</Typography> */}
-                                    {hoveredShowId === show.id && (
+                                    {hoveredFavouriteShowId === show.id && (
                                         <Box 
                                         onClick={() => navigate(`/TV Shows/${show.id}`)}
                                         className="hover" sx={{
@@ -313,12 +363,253 @@ const MyListPage = () => {
                                                     fontWeight: 'bold',
                                                     
                                                 }}>{show.name}</Typography>
-                                                <Rating name="read-only" value={show.vote_average /2} precision="0.5" readOnly></Rating> 
-                                                <Typography>IMDB: {show.vote_average} / 10</Typography>
-                                                
+                                                <Avatar>
+                                                    {hoveredMediaData ? 
+                                                (hoveredMediaData.Favourite_return.favourited ? (
+                                                    <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
+                                                    ) : (
+                                                    <FavoriteOutlinedIcon
+                                                        sx={{ fontSize: "23px", color: theme.palette.primary.main }}
+                                                    />
+                                                    )) : (
+                                                        <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
+                                                    )
+                                                }
+                                                    
+                                                </Avatar>
+                                                <Rating name="read-only" 
+                                                    value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0}
+                                                    precision="0.5" 
+                                                    readOnly
+                                                    sx={{fontSize: "25px"}}
+                                                    >
+                                                </Rating>                                                 
                                                 {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
                                                 {/* <Typography></Typography> */}
                                             </Box>
+                                        </Box>
+                                    )}
+                                </Box>
+                            </Grid>
+                            ))}
+                        </Box>
+                        <Typography sx={{
+                            fontSize:'1.5rem',
+                            fontWeight:'bold',
+                            borderBottom: '2px solid white',
+                            paddingBottom: '0.5rem'
+                        }}>Your rented movies</Typography>
+                        <Box 
+                        className="moviePoster" 
+                        sx={{ 
+                            padding:'1rem 0', 
+                            display: 'flex', 
+                            flexWrap: 'wrap', 
+                            gap: '1rem'
+                        }}>
+                            {rentedMovie.map((movie) => (
+                            <Grid title={movie.title} key={movie.id} item xs={12} sm={6} md={4} lg={3}>
+                                <Box
+                                onMouseEnter={async () => {setHoveredRentedMovieId(movie.id);
+                                                    await fetchHoveredMediaUser(user._id, movie.id, "movie", 0)}}
+                                onMouseLeave={() => {setHoveredRentedMovieId(null);
+                                                    setHoveredMediaData(null)}}
+                                sx={{
+                                    position: 'relative',
+                                    display: 'flex',
+                                    "&:hover":{
+                                        cursor: 'pointer',
+                                        boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+                                    }
+                        }}>
+                            <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}/>
+                            {/* <Typography>{movie.title}</Typography> */}
+                            {hoveredRentedMovieId === movie.id && (
+                                <Box 
+                                onClick={() => navigate(`/movie/${movie.id}`)}
+                                className="hover" sx={{
+                                    display:'flex',
+                                    position: 'absolute',
+                                    width: '100%',
+                                    height: '100%',
+                                    opacity: 0.8,
+                                    backgroundColor: 'black',
+                                }}>
+                                    <Box
+                                    className="infoContainer" sx={{
+                                        opacity: 1,
+                                        width: '100%',
+                                        height: '100%',
+                                        display:'grid',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+
+                                    }}>
+                                        <Typography sx={{
+                                            fontSize: '1.25rem',
+                                            fontWeight: 'bold',
+                                            
+                                        }}>{movie.title}</Typography>
+                                        <Avatar>
+                                            {hoveredMediaData ? 
+                                        (hoveredMediaData.Favourite_return.favourited ? (
+                                            <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
+                                            ) : (
+                                            <FavoriteOutlinedIcon
+                                                sx={{ fontSize: "23px", color: theme.palette.primary.main }}
+                                            />
+                                            )) : (
+                                                <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
+                                            )
+                                        }
+                                            
+                                        </Avatar>
+                                        <Rating name="read-only" 
+                                            value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0} 
+                                            precision="0.5"
+                                            readOnly
+                                            sx={{fontSize: "25px"}}
+                                            >
+                                        </Rating>
+                                        {hoveredMediaData ? (
+                                            hoveredMediaData.Rental_return ? (
+                                                hoveredMediaData.Rental_return.Rented ? (
+                                                    hoveredMediaData.Rental_return.Rental_information.rentalExpireDate > new Date().toISOString() ? (
+                                                        <div>
+                                                        <EventAvailableOutlinedIcon sx={{ color: 'green', fontSize: '30px' }}></EventAvailableOutlinedIcon>
+                                                        <Typography> Active till <strong>{hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)}</strong> </Typography>
+                                                        </div>
+                                                        ) : (
+                                                        <div>
+                                                        <EventBusyOutlinedIcon sx={{ color: 'red', fontSize: '30px' }}></EventBusyOutlinedIcon>
+                                                        <Typography> Expired since <strong> {hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10) } </strong> </Typography>
+                                                        </div>
+                                                    )
+                                                ) : (
+                                                    <div>no info</div>
+                                                )
+                                            ) : (
+                                                <div>no info</div>
+                                            )
+                                        ) : (
+                                            <div>no info</div>
+                                        )
+                                        }                                        
+                                        {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
+                                        {/* <Typography></Typography> */}      
+                                    </Box>
+                                    </Box>
+                                    )}
+                                </Box>
+                            </Grid>
+                            ))}
+                        </Box>
+                        <Typography sx={{
+                            fontSize:'1.5rem',
+                            fontWeight:'bold',
+                            borderBottom: '2px solid white',
+                            paddingBottom: '0.5rem'
+                        }}>Your rented shows</Typography>
+                        <Box 
+                        className="moviePoster" 
+                        sx={{ 
+                            padding:'1rem 0', 
+                            display: 'flex', 
+                            flexWrap: 'wrap', 
+                            gap: '1rem'
+                        }}>
+                            {rentedShow.map((show) => (
+                            <Grid title={show.name} key={show.id} item xs={12} sm={6} md={4} lg={3}>
+                                <Box
+                                onMouseEnter={async () => {setHoveredRentedShowId(show.id);
+                                                    await fetchHoveredMediaUser(user._id, show.id, "tv", show.intendedSeason)}}
+                                onMouseLeave={() => {setHoveredRentedShowId(null);
+                                                    setHoveredMediaData(null)}}
+                                sx={{
+                                    position: 'relative',
+                                    display: 'flex',
+                                    "&:hover":{
+                                        cursor: 'pointer',
+                                        boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+                                    }
+                                }}>
+                                    <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons.length > 1 ? show.seasons[show.intendedSeason].poster_path: show.poster_path}`}/>
+                                    {/* <Typography>{movie.title}</Typography> */}
+                                    {hoveredRentedShowId === show.id && (
+                                        <Box 
+                                        onClick={() => navigate(`/TV Shows/${show.id}`)}
+                                        className="hover" sx={{
+                                            display:'flex',
+                                            position: 'absolute',
+                                            width: '100%',
+                                            height: '100%',
+                                            opacity: 0.8,
+                                            backgroundColor: 'black',
+                                        }}>
+                                            <Box
+                                            className="infoContainer" sx={{
+                                                opacity: 1,
+                                                width: '100%',
+                                                height: '100%',
+                                                display:'grid',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+
+                                            }}>
+                                                <Typography sx={{
+                                                    fontSize: '1.25rem',
+                                                    fontWeight: 'bold',
+                                                    
+                                                }}>{show.name}</Typography>
+                                                <Avatar>
+                                                    {hoveredMediaData ? 
+                                                (hoveredMediaData.Favourite_return.favourited ? (
+                                                    <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
+                                                    ) : (
+                                                    <FavoriteOutlinedIcon
+                                                        sx={{ fontSize: "23px", color: theme.palette.primary.main }}
+                                                    />
+                                                    )) : (
+                                                        <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
+                                                    )
+                                                }
+                                                    
+                                                </Avatar>
+                                                <Rating name="read-only" 
+                                                    value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0} 
+                                                    precision="0.5"
+                                                    readOnly
+                                                    sx={{fontSize: "25px"}}
+                                                    >
+                                                </Rating>
+                                                {hoveredMediaData ? (
+                                            hoveredMediaData.Rental_return ? (
+                                                hoveredMediaData.Rental_return.Rented ? (
+                                                    hoveredMediaData.Rental_return.Rental_information.rentalExpireDate > new Date().toISOString() ? (
+                                                        <div>
+                                                        <EventAvailableOutlinedIcon sx={{ color: 'green', fontSize: '30px' }}></EventAvailableOutlinedIcon>
+                                                        <Typography> Active till <strong>{hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)}</strong> </Typography>
+                                                        </div>
+                                                        ) : (
+                                                        <div>
+                                                        <EventBusyOutlinedIcon sx={{ color: 'red', fontSize: '30px' }}></EventBusyOutlinedIcon>
+                                                        <Typography> Expired since <strong> {hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10) } </strong> </Typography>
+                                                        </div>
+                                                    )
+                                                ) : (
+                                                    <div>no info</div>
+                                                )
+                                            ) : (
+                                                <div>no info</div>
+                                            )
+                                        ) : (
+                                            <div>no info</div>
+                                        )
+                                        }                                                
+                                                {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
+                                                {/* <Typography></Typography> */}      
+                                            </Box>
+                                            
                                         </Box>
                                     )}
                                 </Box>
@@ -347,6 +638,7 @@ const MyListPage = () => {
                             ))}
                         </Box> */}
                     </Box>
+                    
                 }
             </Box>
             {/* <ReactPlayer
