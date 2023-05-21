@@ -10,7 +10,7 @@
 | Phạm Hoàng Việt      |   18334    |                                                                                             User Interface                                                                                             |
 | Nguyễn Xuân Khang    |   18973    |                                                                                           Profile Interface                                                                                            |
 | Nguyễn Khắc Hoàng    |   18230    |                                                                                             User Interface                                                                                             |
-| Lê Duy               |   17434    |                                                                                               Sercurity                                                                                                |
+| Lê Duy               |   17434    |                                                                                                Security                                                                                                |
 | Trần Ngọc Duy Chương |   17197    |                                                                                                Backend                                                                                                 |
 
 ### **1.2. About our project**
@@ -276,7 +276,7 @@ The authentication interface and features of _SmashBruh_ are as follows:
   - In order to streamline the registration process even further, _SmashBruh_ has also implements the Open Authorization 2.0 protocol(Oauth2).
   - _SmashBruh_ Oauth2 implements support registering using other well known platform such as Google, GitHUb and Facebook, providing a near instant registering experience.
   - To further increase security, _SmashBruh_ also implements a variant cookies based authentication.
-  - The token is hashed and saved to the database to prevent cookie forging, the token is hashed and set using the bcrpyt and jwt library.
+  - The token is hashed and saved to the database to prevent cookie forging, the token is hashed and set using the bcrypt and jwt library.
 
 ### **5.3. Structure and Relationships**
 
