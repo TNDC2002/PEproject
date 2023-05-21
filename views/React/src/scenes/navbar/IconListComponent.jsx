@@ -110,7 +110,7 @@ const IconListComponent = ({ currentPage }) => {
     return 100 * activeTabIndex;
   };
 
-  const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
+  const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List','Admin'];
   const icons = [
     <CottageSharpIcon sx = {{marginRight:"10px"}}/>,
     <AutoAwesomeSharpIcon sx = {{marginRight:"10px"}}/>,
