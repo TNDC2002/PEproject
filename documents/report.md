@@ -59,7 +59,7 @@ In summary, _SmashBruh_ is not just a movie rental website; it's a gateway to a 
 
 ### **3.1. Project Overview**
 
-_SmashBruh_ is an innovative movie rental website that aims to transform the way people discover and enjoy movies. Our project seeks to provide a seamless and captivating movie-watching experience for cine-philes and casual viewers alike. With a vast selection of films, a user-friendly interface, detailed movie information, and personalized recommendations, _SmashBruh_ strives to be the ultimate destination for movie enthusiasts.
+_SmashBruh_ is an movie rental website that aims to transform the way people discover and rent movies. Our project aims to provide options for users to view the information related to movies and shows. They also have the choice to choose which movie or show to rent and have their rented information saved for later use.
 
 ### **3.2. Objective**
 
@@ -69,17 +69,9 @@ _SmashBruh_ is an innovative movie rental website that aims to transform the way
 
 - **_Detailed Movie Information:_** Provide comprehensive and accurate movie information to assist users in making informed decisions. Include detailed descriptions, plot summaries, cast and crew details, user ratings, and reviews to give users valuable insights into each film.
 
-- **_Personalized Recommendations:_** Implement a sophisticated recommendation system that analyzes user preferences, viewing history, and feedback. Generate personalized movie suggestions that align with users' tastes, helping them discover new films and broaden their cinematic horizons.
-
-- **_Seamless Streaming Experience:_** Utilize advanced streaming technology to ensure smooth and high-quality movie playback across various devices. Enable users to enjoy their favorite films anytime, anywhere, without the limitations of physical media.
+- **_Personalized Recommendations:_** Implement a sophisticated recommendation system that analyzes user preferences on the movies and shows currently accessed. Generate personalized movie suggestions that align with users' tastes, helping them discover new films and broaden their cinematic horizons.
 
 - **_Easy Rental Process:_** Streamline the movie rental process to make it convenient and hassle-free for users. Implement a straightforward rental system where users can choose their desired movies, rental duration, and complete secure online payments.
-
-- **_Customer Support:_** Provide responsive customer support to address any queries, issues, or feedback from users. Offer prompt assistance and maintain a positive user experience throughout their interaction with the website.
-
-### **3.3. Goals**
-
-The _SmashBruh_ Movie Rental Website project aims to revolutionize the way people rent and enjoy movies. By offering a vast movie library, user-friendly interface, detailed movie information, personalized recommendations, seamless streaming, and convenient rental process, _SmashBruh_ seeks to provide an unparalleled movie-watching experience. Our goal is to create a platform where users can immerse themselves in the magic of cinema and discover new films that resonate with their interests and preferences. Join us on this exciting journey as we redefine the world of movie rentals with _SmashBruh_.
 
 ## **4. System Analysis**
 
@@ -87,35 +79,26 @@ The _SmashBruh_ Movie Rental Website project aims to revolutionize the way peopl
 
 The business requirements of _SmashBruh_ are as follows:
 
-- **_Content Licensing and Acquisition:_** _SmashBruh_ requires the acquisition and licensing of a diverse range of movies and TV shows from production studios, distributors, and content creators. This ensures a comprehensive and up-to-date library of content for users to choose from.
-- **_Secure Payment Processing:_** _SmashBruh_ needs a reliable and secure payment processing system to handle transactions from users. This involves partnering with trusted payment gateways and implementing robust security measures to protect users' personal and financial information.
-- **_User Account Management:_** _SmashBruh_ requires a user account management system to allow users to create profiles, save preferences, manage their watch lists, and track their viewing history. This feature provides a personalized experience and enables users to easily access and organize their preferred content.
-- **_Search and Recommendation Engine:_** The platform needs an efficient search and recommendation engine that enables users to quickly find movies and TV shows based on various criteria such as genre, cast, director, and release year. The recommendation system should be capable of analyzing user preferences and viewing patterns to suggest relevant titles.
-- **_User Reviews and Ratings:_** _SmashBruh_ requires a user review and rating system that allows users to provide feedback on movies and TV shows they have watched. This feature encourages user engagement, helps others make informed decisions, and fosters a sense of community within the platform.
-- **_Customer Support:_** The platform needs a dedicated customer support system to address user inquiries, technical issues, and provide prompt assistance. This includes multiple channels of communication such as live chat, email, and phone support to ensure user satisfaction and timely resolution of any concerns.
+- **_Broad Selection of Content:_** Users expect a wide variety of movies and TV shows across different genres, including popular releases, classics, and niche titles. They want access to a diverse library that caters to their individual preferences and interests.
+- **_User Account Management:_** _SmashBruh_ requires a user account management system to allow users to create profiles, save preferences, manage their watch lists, and track their searching history. This feature provides a personalized experience and enables users to easily access and organize their preferred content.
 - **_Cross-Platform Accessibility:_** _SmashBruh_ should be accessible across different devices and platforms, including web browsers, mobile devices, and smart TVs. This ensures that users can enjoy their favorite content conveniently, regardless of the device they are using.
 - **_Analytics and Reporting:_** The platform requires robust analytics and reporting capabilities to track user behavior, content popularity, and performance metrics. These insights help in making data-driven decisions, improving the user experience, and optimizing the content library.
-- **_Integration with Content Delivery Networks (CDNs):_** _SmashBruh_ needs to integrate with CDNs to ensure smooth and reliable streaming of movies and TV shows. This involves delivering content efficiently to users across different regions, minimizing buffering and latency issues.
-- **_Compliance with Legal and Copyright Regulations:_** _SmashBruh_ must adhere to legal and copyright regulations when acquiring and distributing content. This includes securing necessary licenses, respecting intellectual property rights, and implementing appropriate content protection measures.
 
-By fulfilling these business requirements, _SmashBruh_ can create a robust and user-friendly movie rental platform that offers a wide selection of content, personalized recommendations, secure transactions, and excellent customer support, ultimately delivering a superior entertainment experience for its users.
+By fulfilling these business requirements, _SmashBruh_ can create a user-friendly interface, up-to-date information and a stable searching and recommendation system inside the rental movie system to maintain the flow of the website.
 
 ### **4.2. User Requirements**
 
 The user requirements of _SmashBruh_ are as follows:
 
-- **_Broad Selection of Content:_** Users expect a wide variety of movies and TV shows across different genres, including popular releases, classics, and niche titles. They want access to a diverse library that caters to their individual preferences and interests.
-- **_User-Friendly Interface:_** Users desire an intuitive and easy-to-navigate platform that allows them to quickly find and rent movies and TV shows. They expect a clean and visually appealing interface that enhances their browsing and selection experience.
+- **_Firt Time User Experience:_** _SmashBruh_ provides visitors latest movie that the system have to offer and other information of available movies and shows ath the moment so that the system keeps up with user's interest.
 - **_Efficient Search and Filtering:_** Users require an efficient search functionality that allows them to search for specific titles, genres, actors, directors, or keywords. They also expect advanced filtering options to refine their search results based on criteria such as release year, ratings, and language.
-- **_Personalized Recommendations:_** Users appreciate personalized recommendations based on their viewing history, ratings, and preferences. They expect the platform to suggest relevant movies and TV shows that align with their interests, helping them discover new content.
-- **_Ratings and Reviews:_** Users value the ability to read and contribute to ratings and reviews for movies and TV shows. They want a platform that encourages user feedback, enabling them to make informed decisions and engage in discussions with other movie enthusiasts.
-- **_Flexible Rental Options:_** Users prefer flexible rental options, including both streaming content online and renting physical DVDs for delivery. They want the freedom to choose the rental method that suits their preferences and viewing habits.
-- **_Reliable Streaming Quality:_** Users expect a reliable streaming experience with high-quality video and audio playback. They want minimal buffering, smooth playback, and support for various screen sizes and resolutions.
+- **_Movie Information Based Recommendations:_** Users appreciate personalized recommendations based on their current accessed movies and shows. It could be based on names, genres, cast.
+- **_Ratings:_** Users value the ability to read and contribute to ratings. They want a platform that encourages user feedback, enabling them to make informed decisions and engage in discussions with other movie enthusiasts.
+- **_Flexible Rental Options:_** Users prefer flexible rental options, including various pricing plans with understandable cost to spend. They want the freedom to choose the rental plan that suits their preferences and viewing habits.
 - **_Cross-Platform Compatibility:_** Users want the flexibility to access _SmashBruh_ on multiple devices, including web browsers, smartphones, tablets, and smart TVs. They expect a seamless experience that allows them to pick up where they left off across different devices.
-- **_Secure Payment Processing:_** Users require a secure and trustworthy payment processing system. They want assurance that their payment information is protected, and they expect a variety of payment options to choose from, including credit cards, debit cards, and trusted third-party processors.
-- **_Responsive Customer Support:_** Users appreciate responsive and helpful customer support. They expect prompt assistance in case of technical issues, billing inquiries, or any other concerns they may have. Multiple support channels, such as live chat, email, and phone support, are valued.
+- **Simple Payment Processing:\_** Users don't have to worry about payment system because we uses simple calculation (addtion, subtraction, multiplication and division) based on what users have chosen to be their pricing plan mentioned in the previous part.
 
-By addressing these user requirements, _SmashBruh_ can provide a user-centric experience that meets the expectations of movie enthusiasts, offering them a vast selection of content, seamless navigation, personalized recommendations, reliable streaming, and excellent customer support.
+By addressing these user requirements, _SmashBruh_ can provide a user-centric experience that meets the expectations of movie enthusiasts, offering them a vast selection of content, seamless navigation and personalized recommendations.
 
 ### **4.3. Functional Requirements**
 
@@ -126,37 +109,25 @@ The functional requirements of _SmashBruh_ are as follows:
   - Users should be able to log in securely and manage their account settings.
 - **_Content Catalog and Search:_**
   - The platform should maintain a comprehensive catalog of movies and TV shows.
-  - Users should be able to search for content by title, genre, cast, director, and other relevant criteria.
+  - Users should be able to search for content by title.
   - Advanced filtering options should be available to refine search results.
 - **_Movie and TV Show Details:_**
   - Users should be able to view detailed information about each movie or TV show, including synopsis, cast, director, ratings, and reviews.
   - The platform should display relevant recommendations and similar content.
-- **_Rental and Streaming Options:_**
-  - Users should be able to select rental options, such as streaming online or renting physical DVDs.
+- **_Rental Options:_**
+  - Users should be able to select rental pricing plans.
   - The platform should provide pricing details, rental durations, and availability information.
 - **_Payment Processing:_**
-  - The platform should securely process payments using various payment methods, including credit cards, debit cards, and third-party processors.
-  - Users should receive confirmation and receipts for their rental transactions.
-- **_Watch list and Personalization:_**
+  - The platform should securely process payments using simple calculations.
+  - Users should receive a decreasing amount of money in their net balance
+- **My list and Favourites:\_**
   - Users should be able to create and manage a watch list of movies and TV shows.
-  - The platform should provide personalized recommendations based on user preferences, viewing history, and ratings.
-- **_Ratings and Reviews:_**
-  - Users should be able to rate movies and TV shows and leave written reviews.
+  - The platform should provide personalized recommendations based on user preferences and ratings.
+- **_Ratings:_**
+  - Users should be able to rate stars score for movies and TV shows.
   - The platform should display average ratings and aggregate reviews for each title.
-- **_User Interactions and Community Features:_**
-  - Users should be able to interact with other users through comments, likes, and sharing features.
-  - The platform should facilitate discussions and engagement among users, fostering a community of movie enthusiasts.
-- **_Cross-Platform Accessibility:_**
-  - The platform should be accessible across devices and platforms, including web browsers, mobile devices, and smart TVs.
-  - Users should be able to seamlessly switch between devices and continue watching from where they left off.
-- **_Customer Support:_**
-  - The platform should provide customer support through multiple channels, such as live chat, email, and phone.
-  - Users should be able to receive prompt assistance with inquiries, technical issues, or other concerns.
 - **_Analytics and Reporting:_**
   - The platform should collect and analyze data to generate insights on user behavior, content popularity, and platform performance.
-  - Administrators should have access to reporting tools for monitoring and improving the platform's performance.
-
-By fulfilling these functional requirements, _SmashBruh_ can deliver a robust and feature-rich movie rental platform that provides seamless content discovery, rental options, payment processing, personalization, user interactions, and support, ultimately enhancing the overall user experience.
 
 ### **4.4. Non-Functional Requirements**
 
@@ -165,35 +136,28 @@ The non-functional requirements of _SmashBruh_ are as follows:
 - **_Performance:_**
   - The platform should have fast loading times and responsive navigation to provide a seamless user experience.
   - Streaming of movies and TV shows should be smooth and uninterrupted, with minimal buffering.
-- **_Scalability:_**
+- **_Scalability and Availability:_**
   - The platform should be designed to handle a growing user base and increasing traffic without compromising performance.
   - It should be scalable to accommodate a large number of concurrent users and a growing content library.
+  - The platform should have a high level of availability, minimizing downtime and ensuring users can access the service whenever they need it.
+  - Measures such as redundancy, load balancing, and backup systems should be in place to maintain availability.
 - **_Security:_**
   - The platform should implement robust security measures to protect users' personal information, payment details, and viewing history.
   - Secure encryption protocols should be used to ensure the confidentiality and integrity of data.
-- **_Availability:_**
-  - The platform should have a high level of availability, minimizing downtime and ensuring users can access the service whenever they need it.
-  - Measures such as redundancy, load balancing, and backup systems should be in place to maintain availability.
 - **_Compatibility:_**
   - The platform should be compatible with various operating systems, web browsers, and devices to accommodate a wide range of user preferences.
   - It should adapt to different screen sizes and resolutions, providing a consistent and optimized experience across devices.
 - **_Usability:_**
   - The platform should have a user-friendly and intuitive interface, making it easy for users to navigate, search for content, and manage their account.
   - Clear and concise instructions and tooltips should be provided to guide users through different features and functionalities.
-- **_Accessibility:_**
-  - The platform should adhere to accessibility standards, ensuring that users with disabilities can access and use the service.
-  - Support for assistive technologies, such as screen readers and keyboard navigation, should be provided.
 - **_Data Privacy:_**
   - The platform should comply with data protection regulations and ensure the privacy of user data.
   - Clear privacy policies and consent mechanisms should be in place, informing users about data collection, storage, and usage practices.
 - **_Performance Monitoring and Optimization:_**
   - The platform should have monitoring mechanisms in place to track performance metrics, identify bottlenecks, and optimize system performance.
   - Regular performance testing and optimization should be conducted to ensure optimal user experience.
-- **_Multilingual and Internationalization Support:_**
-  - The platform should support multiple languages to cater to users from different regions.
-  - Localization features, such as localized content, currency, and date formats, should be implemented to enhance the user experience for international users.
-
-By meeting these non-functional requirements, _SmashBruh_ can provide a reliable, secure, and user-friendly movie rental platform that offers excellent performance, availability, compatibility, and accessibility to enhance user satisfaction and engagement.
+- **_Cross-Platform Accessibility:_**
+  - The platform should be accessible across devices and platforms, including web browsers, mobile devices, and smart TVs.
 
 ### **4.5. Deployment Plan**
 
@@ -257,13 +221,7 @@ By adopting the _MVC architecture_, the movie rental app achieves modularity, co
   - Login/Register Pages
   - Search Page
 
-#### **5.2.2. Admin Interface:**
-
-- **_Admin are able to access:_**
-  - Same pages as Users
-  - Specialty: Admin Page (only available if the user is an admin)
-
-#### **5.2.3. Authentication Interface:**
+#### **5.2.2. Authentication Interface:**
 
 The authentication interface and features of _SmashBruh_ are as follows:
 
@@ -293,21 +251,27 @@ The authentication interface and features of _SmashBruh_ are as follows:
 ### **5.4. Data Model**
 
 - **_User:_**
+
   Attributes: firstName, lastName, password, picturePath, verified, balance, token, isAdmin, FbId, GgId, TwId, GhId
 
 - **UserFavouriteMovie:**
+
   Attributes: userID, movieID, media_type, season
 
 - **UserRateMovie:**
+
   Attributes: userID, movieID, rating, media_type, season
 
 - **_UserRentMovie:_**
+
   Attributes: userID, movieID, rentalBeginDate, rentalExpireDate, media_type, season
 
 - **UserRateMovie:**
+
   Attributes: userID, movieID, rating, media_type, season
 
 - **UserSearchHistory:**
+
   Attributes: userID, searchedString, raticreatedAt
 
 ### **5.5. GUI**
@@ -465,7 +429,7 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
 
 ### **8.1. Summary of Project**
 
-In summary, our movie rental application brings the magic of cinema directly to you. With a vast selection of films spanning all genres, we offer a personalized and convenient way to discover and enjoy your favorite movies. Say goodbye to long queues and hello to instant streaming or doorstep delivery. Our user-friendly interface and intuitive features make the entire experience seamless and enjoyable. Get ready to embark on a cinematic adventure like never before with our movie rental application. Elevate your movie nights and create unforgettable memories with us.
+In conclusion, our project is a small
 
 ### **8.2. Future Work**
 
