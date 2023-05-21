@@ -88,7 +88,7 @@ const TvPage = () => {
       <Navbar currentPage='TV Shows' />
       <TvList
         shows={topRatedShows}
-        category="topRated"
+        category="critically acclaimed"
         page={topRatedPage}
         setPage={setTopRatedPage}
       />
@@ -100,13 +100,13 @@ const TvPage = () => {
       />
       <TvList
         shows={airingTodayShows}
-        category="airingToday"
+        category="newl airing"
         page={airingTodayPage}
         setPage={setAiringTodayPage}
       />
       <TvList
         shows={onTheAirShows}
-        category="onTheAir"
+        category="On the air"
         page={onTheAirPage}
         setPage={setOnTheAirPage}
       />
