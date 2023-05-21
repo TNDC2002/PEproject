@@ -402,28 +402,26 @@ By establishing a comprehensive development environment encompassing these compo
 Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Website:
 
 1. **_Create an Account:_**
-   To access all the features and benefits of _SmashBruh_, start by creating your account. Click on the "Sign Up" button on the homepage and provide the required information, including your name, email address, and a secure password. Once you've filled in the details, click "Create Account" to proceed.
+   To access all the features and benefits of _SmashBruh_, start by creating your account. Click on the "Sign Up" button on the homepage and provide the required information, including your name, email address, and a secure password. Once you've filled in the details, click "Finish" to proceed.
 
 2. **_Explore Movie Catalog:_**
-   After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Movies" section to discover a wide range of genres, from action-packed blockbusters to heartwarming dramas and everything in between. Browse through the curated collections, popular releases, or use the search bar to find specific movies.
+   After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Movies" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
 
 3. **_Select and Rent Movies:_**
-   When you find a movie you want to watch, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. If you're ready to watch the movie, select the rental option that suits you best. _SmashBruh_ offers flexible rental durations, including 24 hours, 48 hours, or even a weekend pass. Click on "Rent Now" to proceed to the checkout.
+   When you find a movie you want to rent, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. Click on "Rent" to proceed to the checkout.
 
 4. **_Make Payment:_**
-   At the checkout, review your selected movie and rental duration. _SmashBruh_ provides secure payment options to ensure a seamless transaction experience. Choose your preferred payment method, enter the required details, and click "Confirm Payment" to finalize your rental.
+   At the checkout, review your selected movie and rental duration. _SmashBruh_ provides secure payment options. Choose your preferred payment method, enter the required details, and click "Smash" to finalize your rental.
 
 5. **_Enjoy Your Movie:_**
-   Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented. Click on the movie you want to watch, and sit back, relax, and enjoy the cinematic experience right from the comfort of your own home.
+   Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented.
 
 6. **_Manage Your Account:_**
-   _SmashBruh_ provides a user-friendly account management interface to help you keep track of your rentals, update your personal information, and manage your payment methods. Access the "My Account" section to view and modify your profile, change your password, or update your payment details.
+   _SmashBruh_ provides a user-friendly account management interface to help you keep track of your rentals, update your personal information, and manage your payment methods. Access the "My Profile" section to view and modify your profile, change your password, or update your payment details.
 
 7. **_Explore Additional Features:_**
-   While movie rentals are at the core of _SmashBruh_, we offer additional features to enhance your movie-watching experience. Explore our curated playlists, personalized recommendations, or engage in discussions with fellow movie enthusiasts through our vibrant community forums.
+   While movie rentals are at the core of _SmashBruh_, we offer additional features to your movie-watching experience. Explore our curated playlists, personalized recommendations.
 
-8. **_Provide Feedback:_**
-   Your feedback is invaluable to us as we continuously strive to improve our services. If you have any suggestions, concerns, or inquiries, don't hesitate to reach out to our customer support team. We're here to assist you and ensure you have the best possible experience on _SmashBruh_.
 
 ## **8. Conclusion**
 
@@ -432,6 +430,11 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
 In conclusion, our project is a small
 
 ### **8.2. Future Work**
+- Due to the time constrain and limited experience working in a big project with a team, we find ourselves struggle to meet deadlines and fulfill our initial ideas and objectives. With that being said, we have come a long way and learned so much about web development and team working. And with those expierence, there are still objectives that we can do to further polish and perfect the app in the future. 
+
+- **Admin's Interface**
+
+  - Eventhough, we did implement an admin checking function and provide a work enviroment in the database for the admin, there are no Admin's interfaces for them to operate and moderate through. The interface may provides an overview of the users information and rental information. The admin may ban or unban a user, disable a certain movie for renting or viewing. There are endless of ways for the admins to operate and conduct their work.
 
 - **Interactive Movie Discussion**
 
@@ -444,6 +447,9 @@ In conclusion, our project is a small
 - **Augmented Reality (AR) Movie Posters**
   - Users can scan movie posters using their smartphones or tablets and access interactive content such as trailers, behind-the-scenes footage, or exclusive interviews with the cast and crew.
 
+- **Recommendation System**
+
+  - With the rise of AI in recent years, it is crucial to implement some sort of machine learning/AI algorithm to our app, not only for the sake of modernity but also the suffiency at providing our users the services. A recommendation system can learn from a user's favourite movies/shows collection and compute a certain metrics to determine what sort of movies/shows fit the user the best. Those metrics can be the genres, actors/actress, director or even the countries where they were produced.
 ### **8.3. References**
 
 - Color Palette: https://colorhunt.co/palette/060047b3005ee90064ff5f9e
