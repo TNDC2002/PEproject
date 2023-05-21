@@ -13,6 +13,7 @@ import { initWebRoutes } from "./routes/WebRoutes.js";
 import swaggerUI from "swagger-ui-express";
 import fs from "fs";
 import YAML from "js-yaml";
+dotenv.config();
 
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
@@ -25,7 +26,7 @@ const swaggerJsDoc = YAML.load(fs.readFileSync("../views/api.yaml", "utf8"));
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://vgu-tinyprojects-pe2023-vgupe2023-team5-w71a.vercel.app'
+  `${process.env.FRONTEND_URL}`,
 ];
 
 app.use(
