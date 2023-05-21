@@ -39,7 +39,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PaymentDialogs from "./PaymentDialog";
-
+import EmailVerifyDialog from "./EmailVerifyDialog";
 const Avatar = ({ image, size = "100%" }) => {
   return (
     <img
@@ -281,7 +281,7 @@ const EditButton = ({ onClick }) => {
         <EditIcon sx={{ fontSize: 15 }} />
       </Typography>
       <StyledContainer id="container-stars">
-        {/* <StyledStars></StyledStars> */}
+        <StyledStars></StyledStars> 
       </StyledContainer>
       <StyledGlowBox id="glow">
         <StyledCircleBox id="circle" />
@@ -310,7 +310,7 @@ const SaveButton = () => {
         <EditIcon sx={{ fontSize: 15 }} />
       </Typography>
       <StyledContainer id="container-stars">
-        {/* <StyledStars></StyledStars> */}
+         <StyledStars></StyledStars>
       </StyledContainer>
       <StyledGlowBox id="glow">
         <StyledCircleBox id="circle" />
@@ -631,7 +631,7 @@ const NewDesign = () => {
           <ThemeProvider theme={theme}>
             <MainProfile>
               <ProfileContainer>
-                {/* <StarAnimation></StarAnimation> */}
+                 <StarAnimation></StarAnimation> 
                 <Box
                   sx={{
                     backgroundImage: `url(${BotBackgroundImage})`,
@@ -667,7 +667,7 @@ const NewDesign = () => {
                       direction="row"
                       sx={{
                         position: "absolute",
-                        marginLeft: "85%",
+                        marginLeft: "80%",
                         bottom: "1.5rem",
                       }}
                     >
@@ -1346,6 +1346,9 @@ const NewDesign = () => {
                       )}
                       <Box sx={{ marginTop: "30px" }}>
                         <PaymentDialogs />
+                      </Box>
+                      <Box sx={{ marginTop: "30px" }}>
+                        <EmailVerifyDialog />
                       </Box>
                     </Stack>
                   </Box>
