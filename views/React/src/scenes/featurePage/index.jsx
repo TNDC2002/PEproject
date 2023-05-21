@@ -94,13 +94,13 @@ const FeaturePage = () => {
       />
       <FeatureList
         movies={nowPlayingMovies}
-        category="nowPlaying"
+        category="Now Playing"
         page={nowPlayingPage}
         setPage={setNowPlayingPage}
       />
       <FeatureList
         movies={topRatedMovies}
-        category="topRated"
+        category="critically acclaimed"
         page={topRatedPage}
         setPage={setTopRatedPage}
       />

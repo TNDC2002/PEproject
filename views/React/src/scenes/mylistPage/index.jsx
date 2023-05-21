@@ -326,10 +326,10 @@ const MyListPage = () => {
                                 gap: '1rem'
                             }}>
                             {favouriteShow.map((show) => (
-                                <Grid title={show.name} key={show.id} item xs={12} sm={6} md={4} lg={3}>
+                                <Grid title={show.name} key={`${show.id}-${show.intendedSeason}`} item xs={12} sm={6} md={4} lg={3}>
                                     <Box
                                         onMouseEnter={async () => {
-                                            setHoveredFavouriteShowId(show.id);
+                                            setHoveredFavouriteShowId(`${show.id}-${show.intendedSeason}`);
                                             await fetchHoveredMediaUser(user._id, show.id, "tv", show.intendedSeason)
                                         }}
                                         onMouseLeave={() => {
@@ -346,7 +346,7 @@ const MyListPage = () => {
                                         }}>
                                         <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons.length > 1 ? show.seasons[show.intendedSeason].poster_path : show.poster_path}`} />
                                         {/* <Typography>{movie.title}</Typography> */}
-                                        {hoveredFavouriteShowId === show.id && (
+                                        {hoveredFavouriteShowId === `${show.id}-${show.intendedSeason}` && (
                                             <Box
                                                 onClick={() => navigate(`/TV Shows/${show.id}`)}
                                                 className="hover" sx={{
@@ -531,10 +531,10 @@ const MyListPage = () => {
                                 gap: '1rem'
                             }}>
                             {rentedShow.map((show) => (
-                                <Grid title={show.name} key={show.id} item xs={12} sm={6} md={4} lg={3}>
+                                <Grid title={show.name} key={`${show.id}-${show.intendedSeason}`} item xs={12} sm={6} md={4} lg={3}>
                                     <Box
                                         onMouseEnter={async () => {
-                                            setHoveredRentedShowId(show.id);
+                                            setHoveredRentedShowId(`${show.id}-${show.intendedSeason}`);
                                             await fetchHoveredMediaUser(user._id, show.id, "tv", show.intendedSeason)
                                         }}
                                         onMouseLeave={() => {
@@ -551,7 +551,7 @@ const MyListPage = () => {
                                         }}>
                                         <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons.length > 1 ? show.seasons[show.intendedSeason].poster_path : show.poster_path}`} />
                                         {/* <Typography>{movie.title}</Typography> */}
-                                        {hoveredRentedShowId === show.id && (
+                                        {hoveredRentedShowId === `${show.id}-${show.intendedSeason}` && (
                                             <Box
                                                 onClick={() => navigate(`/TV Shows/${show.id}`)}
                                                 className="hover" sx={{
