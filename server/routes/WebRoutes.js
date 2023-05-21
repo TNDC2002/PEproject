@@ -251,6 +251,7 @@ import * as Rental from "../controller/UserRentMovie_Controller.js";
 import * as Favourite from "../controller/UserFavouriteMovie_Controller.js";
 import * as History from "../controller/UserSearchHistory_Controller.js";
 import * as oAuth2 from "../controller/oAuth2_Controller.js";
+import * as Verify from "../controller/Verification_controller.js"
 
 let router = express.Router();
 
@@ -302,8 +303,6 @@ let initWebRoutes = (app) => {
         })
       );
       router.get("/login/twitter", oAuth2.default.TW_oAuth2);
-      router.get("/auth/verified", auth.default.verified);
-      router.get("/auth/verify/:userId/:uniqueString", auth.default.verify);
       router.get("/movie/detail/:movieID", movieAPI.default.getDetail);
       router.get("/movie/trailer/:movieID", movieAPI.default.getTrailerID);
       router.get("/movie/recommendations/:movieID", movieAPI.default.getRecommendations);
@@ -329,7 +328,7 @@ let initWebRoutes = (app) => {
 
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
-      app.post("/auth/register", upload.single("picture"), auth.default.register);
+      router.post("/auth/register", upload.single("picture"), auth.default.register);
       router.post("/auth/login", auth.default.login);
       
       /* MONGOL API ROUTE */
@@ -347,7 +346,7 @@ let initWebRoutes = (app) => {
       router.put("/profile/:userID/purchase", user.updateBalance);
       router.put("/api/history/update", History.default.PUT_handler);
       router.put("/api/rate/update", Rate.default.PUT_handler);
-
+      router.put("/auth/verify", Verify.default.verify);
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
 

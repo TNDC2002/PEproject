@@ -59,60 +59,6 @@ const sendVerificationEmail = ({ email }, res) => {
         })
 };
 
-const verify = async (req, res) => {
-    try {
-        let { userId, verifyPIN } = req.params;
-
-        EmailVerification.find(userId)
-            .then((result) => {
-                if (!result) {
-                    let message = "Link has expired, account does not exist or have registered already! Please try again";
-                    res.redirect(`/user/verified/error=true&message=${message}`);
-
-                } else {
-                    //valid user exists
-                    //compare
-                    const savedVerifyPIN = result[0].verificationString;
-                    if (savedVerifyPIN == verifyPIN) {
-                        User.updateOne({ _id: userId }, { verified: true })
-                            .catch((error) => {
-                                console.log(error);
-                                let message = "An error occured while updating records";
-                                res.redirect(`/user/verified/error=true&message=${message}`);
-                            })
-                    } else {
-                        let message = "invalid code, please try again!";
-                        res.redirect(`/user/verified/error=true&message=${message}`);
-                    }
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                let message = "An error occured when checking for existing user verification record";
-                res.redirect(`/user/verified/error=true&message=${message}`);
-            })
-    } catch (error) {
-        console.log(error);
-    }
-}
-/* CHECKING EMAIL */
-const checkEmail = async (req, res) => {
-    try {
-        const { email } = req.params;
-
-        const existingUser = await User.findOne({ email });
-
-        res.json({ emailExists: !!existingUser });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
-const verified = async (req, res) => {
-    try {
-        res.sendfile.join(__dirname, "./../views/verified.html");
-    } catch (err) { }
-}
 
 /* REGISTER USER */
 const register = async (req, res) => {
@@ -144,6 +90,18 @@ const register = async (req, res) => {
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ error: err.message });
+    }
+};
+/* CHECKING EMAIL */
+const checkEmail = async (req, res) => {
+    try {
+        const { email } = req.params;
+
+        const existingUser = await User.findOne({ email });
+
+        res.json({ emailExists: !!existingUser });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -211,8 +169,6 @@ const GetAUTH = async (req, res) => {
 }
 
 var output = {
-    verify,
-    verified,
     login,
     logout,
     register,
