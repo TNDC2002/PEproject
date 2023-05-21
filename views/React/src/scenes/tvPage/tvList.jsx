@@ -45,10 +45,9 @@ const TvList = ({ shows, category, page, setPage }) => {
         </IconButton>
         <Typography
           sx={{
-            color: "black",
+            color: "white",
             fontWeight: "bold",
-            fontSize: "1rem",
-            backgroundColor: "white",
+            fontSize: "1.5rem",
             padding: "0.5rem",
             margin: "1rem 0.5rem",
             border: "hidden",
