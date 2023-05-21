@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      "/api": "http://localhost:5000/"
+      "/api": "https://vgu-tinyprojects-pe2023-vgupe2023-team5-w71a.vercel.app/"
     }
   },
   plugins: [react()],
