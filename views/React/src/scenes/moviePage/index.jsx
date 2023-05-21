@@ -77,7 +77,7 @@ const MoviePage = () => {
   
   const token = useSelector((state) => state.token);
   const theme = useTheme();
-  
+  console.log(user.balance);
   //function for popover
   const [popoverOpen, setPopoverOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -689,7 +689,7 @@ const MoviePage = () => {
                             <Button
                               variant="contained"
                               onClick={() => handleRentClick({duration: 1, price: -19.99})}
-                              disabled={!user.balance > 19.99}
+                              disabled={user.balance < 19.99}
                             >
                               Smash
                             </Button>
@@ -713,7 +713,7 @@ const MoviePage = () => {
                             <Button
                               variant="contained"
                               onClick={() => handleRentClick({duration: 7, price: -129.99})}
-                              disabled={!user.balance > 129.99}
+                              disabled={user.balance < 129.99}
                             >
                               Smash
                             </Button>
@@ -737,7 +737,7 @@ const MoviePage = () => {
                             <Button
                               variant="contained"
                               onClick={() => handleRentClick({duration: 30, price: -499.99})}
-                              disabled={!user.balance > 499.99}
+                              disabled={user.balance < 499.99}
                             >
                               Smash
                             </Button>

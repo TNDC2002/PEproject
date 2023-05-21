@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Navigate, useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import FlexBetween from "../../components/FlexBetween";
 import Loading from "../../components/Loading";
 import { updateUser } from "../../states";
@@ -65,6 +65,7 @@ const ShowPage = () => {
 
   //hover black name poster
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [hoveredRecommendationId, setHoveredRecommendationId] = useState(null);
 
   const { showID } = useParams();
