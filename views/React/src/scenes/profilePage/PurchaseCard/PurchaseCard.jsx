@@ -9,6 +9,9 @@ import SmashDong300 from '../../../assets/image/SmashDong300.png';
 import Buy300 from '../../../assets/image/Buy300.png';
 import { updateUser } from "../../../states";
 import { useSelector, useDispatch } from "react-redux";
+import dotenv from "dotenv";
+
+
 const StyledCard = styled(Card)({
   width: '200px',
   height: '80px',
@@ -57,7 +60,7 @@ export default function PurchaseCard() {
 
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = (amount) => {
-    fetch(`http://localhost:5000/profile/${user._id}/purchase`, {
+    fetch(`${VITE_BASE_URL}/profile/${user._id}/purchase`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

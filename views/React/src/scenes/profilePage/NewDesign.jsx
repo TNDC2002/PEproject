@@ -396,7 +396,6 @@ const PasswordButton = ({ setPageType }) => {
 
 const ProfileButton = ({ setPageType }) => {
   const [isClicked, setIsClicked] = useState(false);
-
   const Icon = styled(Box)({
     background: "white",
     marginLeft: "1em",
