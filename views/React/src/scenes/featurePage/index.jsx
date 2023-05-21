@@ -85,7 +85,7 @@ const FeaturePage = () => {
 
   return (
     <Box>
-      <Navbar />
+      <Navbar currentPage='Feature Movies' />
       <FeatureList
         movies={popularMovies}
         category="popular"

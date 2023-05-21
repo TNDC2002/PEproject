@@ -157,7 +157,7 @@ const MyListPage = () => {
     
     return (
         <Box>
-            <Navbar></Navbar>
+            <Navbar currentPage="My List" ></Navbar>
             <Box>
                 { favouriteMovie.length === 0 && favouriteShow.length === 0 ? 
                     <Spinner>

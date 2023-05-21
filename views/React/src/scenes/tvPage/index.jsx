@@ -85,7 +85,7 @@ const TvPage = () => {
 
   return (
     <Box>
-      <Navbar />
+      <Navbar currentPage='TV Shows'/>
       <TvList
         shows={topRatedShows}
         category="topRated"
