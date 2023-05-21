@@ -15,11 +15,7 @@
 
 ### 1.2. About our project
 
-Welcome to SmashBruh, the ultimate movie rental destination that redefines the way you experience films. Our project aims to provide a seamless and captivating movie-watching journey for cinephiles and casual viewers alike.
-
-At SmashBruh, we understand the frustration that often accompanies the search for the perfect movie. Endless scrolling, limited availability, and the absence of detailed information can dampen the excitement of discovering new films. That's why we've created a platform that addresses these challenges and puts the power of choice in your hands.
-
-SmashBruh goes beyond traditional movie rentals by offering convenience and flexibility. Our platform allows you to enjoy your favorite films anytime, anywhere, and on any device. Say goodbye to the limitations of physical media or the frustration of waiting for a DVD to arrive. With our seamless streaming technology, you can instantly access the movies you love, whether you're at home, on the go, or traveling abroad.
+Welcome to SmashBruh, the ultimate movie rental destination that redefines the way you experience films. Our project aims to provide a seamless and captivating movie-watching journey for cinephiles and casual viewers alike. At SmashBruh, we understand the frustration that often accompanies the search for the perfect movie. Endless scrolling, limited availability, and the absence of detailed information can dampen the excitement of discovering new films. That's why we've created a platform that addresses these challenges and puts the power of choice in your hands. SmashBruh goes beyond traditional movie rentals by offering convenience and flexibility. Our platform allows you to enjoy your favorite films anytime, anywhere, and on any device. Say goodbye to the limitations of physical media or the frustration of waiting for a DVD to arrive. With our seamless streaming technology, you can instantly access the movies you love, whether you're at home, on the go, or traveling abroad.
 
 In summary, SmashBruh is not just a movie rental website; it's a gateway to a world of cinematic wonders.
 
@@ -42,8 +38,6 @@ In summary, SmashBruh is not just a movie rental website; it's a gateway to a wo
 - [5. System Design](#5-system-design)
   - [5.1. System Architecture](#51-system-architecture)
     - [5.1.1. MVC Models for Web Development](#511-mvc-models-for-web-development)
-    - [5.1.2. Interfaces](#512-interfaces)
-    - [5.1.3. Microservices Architecture](#513-microservices-architecture)
   - [5.2. Components Design](#52-components-design)
     - [5.2.1. Users Interface:](#521-users-interface)
     - [5.2.2. Admin Interface:](#522-admin-interface)
@@ -54,25 +48,12 @@ In summary, SmashBruh is not just a movie rental website; it's a gateway to a wo
   - [5.6. Functionality Design](#56-functionality-design)
 - [6. Implementation](#6-implementation)
   - [6.1. Development Environment and Technology Stack](#61-development-environment-and-technology-stack)
-  - [6.2. File Structures](#62-file-structures)
-  - [6.3. Testing Plan](#63-testing-plan)
-- [7. Deployment](#7-deployment)
-  - [7.1. Deployment Environment](#71-deployment-environment)
-  - [7.2. Installation Instructions](#72-installation-instructions)
-  - [7.3. Configuration Instructions](#73-configuration-instructions)
-  - [7.4. User Management and Access Control](#74-user-management-and-access-control)
-- [8. User Guide](#8-user-guide)
-  - [8.1. Getting Started](#81-getting-started)
-  - [8.2. Features and Functions](#82-features-and-functions)
-  - [8.3. User Interface](#83-user-interface)
-  - [8.4. Troubleshooting](#84-troubleshooting)
-- [9. Maintenance and Support](#9-maintenance-and-support)
-  - [9.1. Disaster Recovery Plan](#91-disaster-recovery-plan)
-- [10. Conclusion](#10-conclusion)
-  - [10.1. Summary of Project](#101-summary-of-project)
-  - [10.2. Future Work](#102-future-work)
-  - [10.3. Acknowledgements](#103-acknowledgements)
-  - [10.4. References](#104-references)
+- [7. User Guide](#7-user-guide)
+  - [7.1. Getting Started](#71-getting-started)
+- [8. Conclusion](#8-conclusion)
+  - [8.1. Summary of Project](#81-summary-of-project)
+  - [8.2. Future Work](#82-future-work)
+  - [8.3. References](#83-references)
 
 ## 3. Introduction
 
@@ -273,10 +254,6 @@ By meeting these non-functional requirements, SmashBruh can provide a reliable, 
   - Payment Gateway: simple net balance temporary account to store our creative currency (SmashDong) with simple calculation (addition, subtraction) with the rental system
   - Recommendation Engines: Integrates with recommendation engines to generate personalized movie recommendations based on user real-time accessed movies and shows.
 
-#### 5.1.2. Interfaces
-
-#### 5.1.3. Microservices Architecture
-
 ### 5.2. Components Design
 
 #### 5.2.1. Users Interface:
@@ -314,35 +291,35 @@ The authenciation interface and features of SmashBruh are as follows:
 
 ### 5.3. Structure and Relationships
 
-User: A user can have many rentals (one-to-many relationship)
+- User: A user can have many rentals (one-to-many relationship)
 
-Movie - Show: A movie can be associated with one rental (one-to-one relationship)
+- Movie - Show: A movie can be associated with one rental (one-to-one relationship)
 
-Rental: A rental belongs to a user (many-to-one relationship) and a movie (many-to-one relationship)
+- Rental: A rental belongs to a user (many-to-one relationship) and a movie (many-to-one relationship)
 
-Favourite: A movie can be favourited by many users (one-to-many relationship)
+- Favourite: A movie can be favourited by many users (one-to-many relationship)
 
-Rating: A movie can be rated by many users (one-to-many relationship)
+- Rating: A movie can be rated by many users (one-to-many relationship)
 
 ### 5.4. Data Model
 
-User:
-Attributes: firstName, lastName, password, picturePath, verified, balance, token, isAdmin, FbId, GgId, TwId, GhId
+- User:
+  Attributes: firstName, lastName, password, picturePath, verified, balance, token, isAdmin, FbId, GgId, TwId, GhId
 
-UserFavouriteMovie:
-Attributes: userID, movieID, media_type, season
+- UserFavouriteMovie:
+  Attributes: userID, movieID, media_type, season
 
-UserRateMovie:
-Attributes: userID, movieID, rating, media_type, season
+- UserRateMovie:
+  Attributes: userID, movieID, rating, media_type, season
 
-UserRentMovie:
-Attributes: userID, movieID, rentalBeginDate, rentalExpireDate, media_type, season
+- UserRentMovie:
+  Attributes: userID, movieID, rentalBeginDate, rentalExpireDate, media_type, season
 
-UserRateMovie:
-Attributes: userID, movieID, rating, media_type, season
+- UserRateMovie:
+  Attributes: userID, movieID, rating, media_type, season
 
-UserSearchHistory:
-Attributes: userID, searchedString, raticreatedAt
+- UserSearchHistory:
+  Attributes: userID, searchedString, raticreatedAt
 
 ### 5.5. GUI
 
@@ -421,23 +398,9 @@ The development of SmashBruh Movie Renting Website requires a robust and efficie
 
 By establishing a comprehensive development environment encompassing these components, SmashBruh can ensure efficient development processes, high-quality code, and a scalable platform that meets the needs and expectations of movie enthusiasts.
 
-### 6.2. File Structures
+## 7. User Guide
 
-### 6.3. Testing Plan
-
-## 7. Deployment
-
-### 7.1. Deployment Environment
-
-### 7.2. Installation Instructions
-
-### 7.3. Configuration Instructions
-
-### 7.4. User Management and Access Control
-
-## 8. User Guide
-
-### 8.1. Getting Started
+### 7.1. Getting Started
 
 Getting Started Guide for SmashBruh Movie Renting Website after launching Website:
 
@@ -465,13 +428,13 @@ Getting Started Guide for SmashBruh Movie Renting Website after launching Websit
 8. _Provide Feedback:_
    Your feedback is invaluable to us as we continuously strive to improve our services. If you have any suggestions, concerns, or inquiries, don't hesitate to reach out to our customer support team. We're here to assist you and ensure you have the best possible experience on SmashBruh.
 
-## 10. Conclusion
+## 8. Conclusion
 
-### 10.1. Summary of Project
+### 8.1. Summary of Project
 
 In summary, our movie rental application brings the magic of cinema directly to you. With a vast selection of films spanning all genres, we offer a personalized and convenient way to discover and enjoy your favorite movies. Say goodbye to long queues and hello to instant streaming or doorstep delivery. Our user-friendly interface and intuitive features make the entire experience seamless and enjoyable. Get ready to embark on a cinematic adventure like never before with our movie rental application. Elevate your movie nights and create unforgettable memories with us.
 
-### 10.2. Future Work
+### 8.2. Future Work
 
 - Interactive Movie Discussion
 
@@ -484,7 +447,7 @@ In summary, our movie rental application brings the magic of cinema directly to 
 - Augmented Reality (AR) Movie Posters
   - Users can scan movie posters using their smartphones or tablets and access interactive content such as trailers, behind-the-scenes footage, or exclusive interviews with the cast and crew.
 
-### 10.3. References
+### 8.3. References
 
 - Color Paletter: https://colorhunt.co/palette/060047b3005ee90064ff5f9e
 - GitLab: https://gitlab.com/galvdat/vgu_tinyprojects/pe2023/vgupe2023_team5
