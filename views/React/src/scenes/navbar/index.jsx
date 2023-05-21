@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SearchBar2 from "./Searchbar2";
-import NavbarCover from "../../assets/image/NavbarCover2.png";
+import NavbarCover from "../../assets/image/navbarCover2.png";
 import {
     AppBar,
     Box,
@@ -43,7 +43,7 @@ import IconListComponent from "./IconListComponent";
 
 
 
-const Navbar = ({ currentPage })  => {
+const Navbar = ({ currentPage }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.user);
@@ -84,7 +84,7 @@ const Navbar = ({ currentPage })  => {
     const handleLogout = () => {
         dispatch(setLogout());
         navigate("/")
-      };
+    };
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
     const primaryPink = theme.palette.primary.main;
@@ -92,8 +92,8 @@ const Navbar = ({ currentPage })  => {
     const background = theme.palette.primary.dark;
 
     const fullName = user ? `${user.firstName} ${user.lastName}` : "undefined";
-    const firstName =  user ?`${user.firstName}` : "undefined";
-    const email =  user ? `${user.email}` : "undefined";
+    const firstName = user ? `${user.firstName}` : "undefined";
+    const email = user ? `${user.email}` : "undefined";
     const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
     return (
         <AppBar sx={{
@@ -104,14 +104,14 @@ const Navbar = ({ currentPage })  => {
             height: "100px",
             width: "1536px",
             backgroundSize: "cover",
-          backgroundPosition: "center",
-            
+            backgroundPosition: "center",
+
         }} position="sticky">
-            <Container maxWidth="xl" sx = {{marginTop: "15px"}} >
+            <Container maxWidth="xl" sx={{ marginTop: "15px" }} >
                 <Toolbar disableGutters>
-                    
-                    <Box sx = {{marginLeft:"-10px",}}>
-                    <IconListComponent currentPage= {currentPage} />
+
+                    <Box sx={{ marginLeft: "-10px", }}>
+                        <IconListComponent currentPage={currentPage} />
                     </Box>
                     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton size="large" onClick={handleOpenNavMenu}>
@@ -136,7 +136,7 @@ const Navbar = ({ currentPage })  => {
                             }}
                         >
                             <Box sx={{ display: 'flex', padding: '0 1rem', margin: '0 0 0.5rem 0' }}>
-                                
+
                             </Box>
                             {pages.map((page) => (
                                 <MenuItem key={`link-${page}`} onClick={handleCloseNavMenu}>
@@ -182,7 +182,7 @@ const Navbar = ({ currentPage })  => {
                                         }}
                                         max={99}
                                     >
-                                        <AccountCircle style={{ color: '#FF5F9E', backgroundColor:'white' ,borderRadius:'50%',fontSize: '3.4rem' }} />
+                                        <AccountCircle style={{ color: '#FF5F9E', backgroundColor: 'white', borderRadius: '50%', fontSize: '3.4rem' }} />
                                     </Badge>
                                 </IconButton>
                             </Tooltip>
