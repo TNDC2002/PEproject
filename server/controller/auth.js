@@ -95,24 +95,6 @@ const verify = async (req, res) => {
         console.log(error);
     }
 }
-/* CHECKING EMAIL */
-const checkEmail = async (req, res) => {
-    try {
-        const { email } = req.params;
-
-        const existingUser = await User.findOne({ email });
-
-        res.json({ emailExists: !!existingUser });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
-const verified = async (req, res) => {
-    try {
-        res.sendfile.join(__dirname, "./../views/verified.html");
-    } catch (err) { }
-}
 
 /* REGISTER USER */
 const register = async (req, res) => {
@@ -144,6 +126,18 @@ const register = async (req, res) => {
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ error: err.message });
+    }
+};
+/* CHECKING EMAIL */
+const checkEmail = async (req, res) => {
+    try {
+        const { email } = req.params;
+
+        const existingUser = await User.findOne({ email });
+
+        res.json({ emailExists: !!existingUser });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 

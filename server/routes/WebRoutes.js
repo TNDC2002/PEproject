@@ -302,7 +302,6 @@ let initWebRoutes = (app) => {
         })
       );
       router.get("/login/twitter", oAuth2.default.TW_oAuth2);
-      router.get("/auth/verified", auth.default.verified);
       router.get("/auth/verify/:userId/:uniqueString", auth.default.verify);
       router.get("/movie/detail/:movieID", movieAPI.default.getDetail);
       router.get("/movie/trailer/:movieID", movieAPI.default.getTrailerID);
