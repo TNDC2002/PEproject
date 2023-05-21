@@ -218,11 +218,59 @@ By meeting these non-functional requirements, SmashBruh can provide a reliable, 
 
 ### 4.5. Deployment Plan
 
+- Infrastructure Setup: Determine the hosting environment for your application, whether it's a cloud-based solution like on-premises server. Set up the necessary infrastructure, including MongoDB servers, databases, and networking components, ensuring scalability, reliability, and security.
+
+- Code Packaging: Prepare your application for deployment by packaging the code, including all dependencies, libraries, and configurations, into a deployable package. This may involve bundling the frontend code (HTML, CSS, JavaScript, MUI Libray for CSS) and containerizing the backend code using technologies like Docker.
+
+- Configuration Management: Define and manage the application's configuration settings, such as database credentials, API keys, and other environment-specific variables. Ensure that these settings are securely stored and easily configurable for different deployment environments (e.g., development, staging, production).
+
+- Testing and Quality Assurance: Conduct thorough testing of the application to identify and fix any issues or bugs. Perform functional testing, integration testing, and load testing to ensure the application performs well under expected loads and behaves as intended.
+
+- Data Migration: If you are migrating from a previous version of the application or integrating with existing data sources, plan and execute a data migration strategy to ensure a smooth transition of data to the new deployment environment. This may involve transforming and importing data from legacy systems or integrating with external APIs.
+
+- Deployment Automation: Implement an automated deployment process using tools like GitLab CI/CD. This allows for consistent and efficient deployment of new code changes, reduces human error, and enables easy rollbacks if necessary.
+
+- Monitoring and Error Logging: Set up monitoring and logging systems to track the health, performance, and usage of your application. Implement error tracking and logging mechanisms to identify and resolve issues promptly, ensuring the application runs smoothly and providing valuable insights for future improvements.
+
+- Security Measures: Implement robust security measures to protect the application and user data. This includes implementing user authentication and authorization mechanisms, and applying security best practices to safeguard against common web vulnerabilities.
+
+- User Acceptance Testing: Conduct user acceptance testing with a select group of users to gather feedback, identify any usability issues, and validate that the application meets their expectations. Make necessary adjustments based on user feedback before the final release.
+
 ## 5. System Design
 
 ### 5.1. System Architecture
 
+The movie rental application follows a client-server architecture. On the client-side (frontend), the user interface provides an interactive platform where users can browse movies, search and filter based on various criteria, view movie details including trailers and reviews, manage their rental queue, and access personalized recommendations. User authentication ensures secure access to user-specific features and account management. On the server-side (backend), the application server hosts the core business logic, handling user requests, processing data, and generating responses. It utilizes a database management system to store movie data, user profiles, rental history, and other relevant information. APIs enable communication between the frontend and backend, facilitating operations such as retrieving movie data, managing user accounts, processing rental requests, and generating recommendations. Integration with a payment gateway ensures secure payment transactions for renting movies. Content delivery and streaming rely on a content delivery network (CDN) for efficient content distribution and a video streaming infrastructure to encode, store, and deliver movie content in different formats. Digital rights management (DRM) technologies protect copyrighted content and enforce access restrictions. External integrations include fetching movie metadata from providers like TMDB API, integrating with a payment gateway for secure transactions, and utilizing recommendation engines to generate personalized movie recommendations based on user preferences and viewing history.
+
 #### 5.1.1. MVC Models for Web Development
+
+- Client-side (Frontend):
+
+  - User Interface: The frontend layer includes the user interface components that users interact with, such as web pages or mobile applications.
+  - User Authentication: Handles user authentication and authorization processes, allowing users to log in, sign up, and manage their accounts.
+  - Movie Catalog: Displays the available movies, genres, ratings, and other relevant information.
+  - Search and Filtering: Enables users to search for movies based on various criteria like title, genre, actors, and ratings.
+  - Movie Details: Provides detailed information about selected movies, including trailers, synopsis, cast, and user reviews.
+  - User Dashboard: Allows users to manage their rental queue, view their rental history, and access personalized recommendations.
+
+- Server-side (Backend):
+
+  - Application Server: Handles the core business logic, processing user requests, and generating responses. It may utilize a web framework or microservices architecture.
+  - Database Management: Stores movie data, user profiles, rental history, and other relevant information. This typically involves a database called TMDB API and MongoDB
+  - APIs: Exposes a set of APIs to enable communication between the frontend and backend systems. APIs facilitate operations such as retrieving movie data, managing user accounts, processing rental requests, and generating recommendations from TMDB API.
+  - Payment Gateway Integration: Integrates with a payment gateway to handle secure payment transactions for renting movies, including processing payments, handling refunds, and managing user billing information.
+
+- Content Delivery and Streaming:
+
+  - Content Delivery Network (CDN): Utilizes a CDN to deliver movie content efficiently to users, ensuring fast and reliable streaming experiences by serving content from geographically distributed servers.
+  - Video Streaming Infrastructure: Implements a video streaming infrastructure that encodes, stores, and delivers movie content from Youtube API to support streaming on different devices and bandwidths.
+  - Digital Rights Management (DRM): Incorporates DRM technologies to protect copyrighted content and enforce access restrictions based on user permissions.
+
+- External Integrations:
+
+  - Movie Metadata Providers: By fetching data from TMDB API integrating with external movie metadata providers to retrieve detailed movie information, including titles, synopses, posters, and cast details.
+  - Payment Gateway: simple net balance temporary account to store our creative currency (SmashDong) with simple calculation (addition, subtraction) with the rental system
+  - Recommendation Engines: Integrates with recommendation engines to generate personalized movie recommendations based on user real-time accessed movies and shows.
 
 #### 5.1.2. Interfaces
 
@@ -230,9 +278,18 @@ By meeting these non-functional requirements, SmashBruh can provide a reliable, 
 
 ### 5.2. Components Design
 
-#### 5.2.1. Customer Interface:
+#### 5.2.1. Users Interface:
 
-#### 5.2.2. Employee & Admin Interface:
+- Users are able to access:
+  - Home Page
+  - Feature Movies Page
+  - Movie Pages
+  - TV Shows Page
+  - Show Pages
+  - Profile Pages
+  - Login/Register Pages
+
+#### 5.2.2. Admin Interface:
 
 #### 5.2.3. Authentication Interface:
 
