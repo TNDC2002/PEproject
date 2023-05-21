@@ -102,7 +102,7 @@ const Navbar = ({ currentPage }) => {
             backgroundColor: "#060047",
             backgroundImage: `url(${NavbarCover})`,
             height: "100px",
-            width: "1536px",
+            width: "100%",
             backgroundSize: "cover",
             backgroundPosition: "center",
 
