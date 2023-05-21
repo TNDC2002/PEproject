@@ -15,11 +15,9 @@
 
 ### **1.2. About our project**
 
-Welcome to _SmashBruh_, the ultimate movie rental destination that redefines the way you experience films. Our project aims to provide a seamless and captivating movie-watching journey for cine-philes and casual viewers alike. At _SmashBruh_, we understand the frustration that often accompanies the search for the perfect movie. Endless scrolling, limited availability, and the absence of detailed information can dampen the excitement of discovering new films. That's why we've created a platform that addresses these challenges and puts the power of choice in your hands. _SmashBruh_ goes beyond traditional movie rentals by offering convenience and flexibility. Our platform allows you to enjoy your favorite films anytime, anywhere, and on any device. Say goodbye to the limitations of physical media or the frustration of waiting for a DVD to arrive. With our seamless streaming technology, you can instantly access the movies you love, whether you're at home, on the go, or traveling abroad.
+In an era dominated by media streaming platforms and social media, the virtual realm has become the primary avenue for various activities. However, traditional methods of buying or renting media, such as movies and TV shows, often involve frustrating in-person transactions. Moreover, managing and tracking favorite content across multiple limited streaming services can be complicated and confusing.
 
-In summary, _SmashBruh_ is not just a movie rental website; it's a gateway to a world of cinematic wonders.
-
-With the rise of media streaming platform, it is apparent that
+Now with our media rental web application, you can now keep track of rented movies and TV show, as well as keeping track of your favourites and rate them accordingly, provided to you with one of the largest movie database - The Movie Database (TMDB) - a free and open movie database for developers, which also acts as our main API for working with movies/shows.
 ## **2. Table of content**
 
 - [**1. _SmashBruh_ Movie Renting Website - Documentation**](#1-smashbruh-movie-renting-website---documentation)
@@ -59,7 +57,7 @@ With the rise of media streaming platform, it is apparent that
 
 ### **3.1. Project Overview**
 
-_SmashBruh_ is an movie rental website that aims to transform the way people discover and rent movies. Our project aims to provide options for users to view the information related to movies and shows. They also have the choice to choose which movie or show to rent and have their rented information saved for later use.
+_SmashBruh_ is an movie rental web application that aims to simplify the way people discover and rent movies. Our project aims to provide options for users to view the information related to movies and shows. They also have the choice to choose which movies or shows to rent and have their rented information saved for later use. The web app also allows users to perform actions such as liking and rating, which can be viewed, easily accessed and managed.
 
 ### **3.2. Objective**
 
