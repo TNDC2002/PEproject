@@ -102,7 +102,7 @@ const Navbar = ({ currentPage }) => {
             backgroundColor: "#060047",
             backgroundImage: `url(${NavbarCover})`,
             height: "100px",
-            width: "1536px",
+            width: "100%",
             backgroundSize: "cover",
             backgroundPosition: "center",
 
@@ -167,7 +167,7 @@ const Navbar = ({ currentPage }) => {
                             }}
                         />
                     </Box>
-                    <SearchBar2></SearchBar2>
+                    <SearchBar></SearchBar>
                     <Box gap="1rem" sx={{ display: "flex", marginLeft: 'auto' }} >
                         <Box sx={{ flexGrow: 0, margin: "0.5rem" }}>
                             <Tooltip title={firstName}>
