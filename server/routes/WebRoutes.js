@@ -323,6 +323,7 @@ let initWebRoutes = (app) => {
   router.get("/movie/featureImage", movieAPI.default.getImageCarousel);
   router.get("/movie/list", movieAPI.default.getList);
   router.get("/movie/showList", movieAPI.default.getShowList);
+  router.get("/profile/:userID", user.getUserImage);
   /* MONGOL API ROUTE */
   router.get("/api/rate/check", Rate.default.GET_handler);
   router.get("/api/favourite/check", Favourite.default.GET_handler);

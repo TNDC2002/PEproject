@@ -5,7 +5,7 @@ import EmailVerification from "../models/EmailVerification_Schema.js"
 import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
 dotenv.config()
-const expiresIn = (60 * 60)*7; 
+const expiresIn = (60 * 60) * 7;
 
 //transporter stuff
 let transporter = nodemailer.createTransport({
@@ -105,6 +105,24 @@ const verified = async (req, res) => {
 /* REGISTER USER */
 const register = async (req, res) => {
     try {
+        var img = fs.readFileSync(req.file.path);
+        var encode_image = img.toString('base64');
+        // Define a JSONobject for the image attributes for saving to database
+
+        var finalImg = {
+            contentType: req.file.mimetype,
+            image: new Buffer(encode_image, 'base64')
+        };
+
+        db.collection('quotes').insertOne(finalImg, (err, result) => {
+            console.log(result)
+
+            if (err) return console.log(err)
+
+            console.log('saved to database')
+            res.redirect('/')
+        })
+
         const {
             firstName,
             lastName,
@@ -145,7 +163,7 @@ const login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." })
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn});
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn });
         const salt = await bcrypt.genSalt();
         const tokenHash = await bcrypt.hash(token, salt);
         //save token to DB
