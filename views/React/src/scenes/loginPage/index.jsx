@@ -96,7 +96,7 @@ const LoginPage = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "http://localhost:5000/auth/register",
+      `${VITE_BASE_URL}/auth/register`,
       {
         method: "POST",
         body: formData,
@@ -111,7 +111,7 @@ const LoginPage = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:5000/auth/login", {
+    const loggedInResponse = await fetch(`${VITE_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -130,15 +130,15 @@ const LoginPage = () => {
   };
 
   const google = () => {
-    window.open("http://localhost:5000/auth/google", "_self");
+    window.open(`${VITE_BASE_URL}/auth/google`, "_self");
   };
 
   const facebook = () => {
-    window.open("http://localhost:5000/auth/facebook", "_self");
+    window.open(`${VITE_BASE_URL}/auth/facebook`, "_self");
   };
 
   const github = () => {
-    window.open("http://localhost:5000/auth/github", "_self");
+    window.open(`${VITE_BASE_URL}/auth/github`, "_self");
   };
 
   const {

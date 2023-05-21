@@ -32,7 +32,7 @@ const SearchPage = () => {
     const fetchSearchResult = async (value) => {
       try {
         const fetchSearchResultResponse = await fetch(
-          `http://localhost:5000/search/?query=${value}&page=${page}`,
+          `${VITE_BASE_URL}/search/?query=${value}&page=${page}`,
           {
             method: "GET",
             headers: {
@@ -126,14 +126,14 @@ const SearchPage = () => {
             <Typography>M</Typography>
             <Typography>O</Typography>
             <Typography>R</Typography>
-            <Typography sx={{ padding: '0 4.5rem 0 0'}}>E</Typography>
+            <Typography sx={{ padding: '0 4.5rem 0 0' }}>E</Typography>
             <Typography>R</Typography>
             <Typography>E</Typography>
             <Typography>S</Typography>
             <Typography>U</Typography>
             <Typography>L</Typography>
             <Typography>T</Typography>
-            <iframe width="400" height="400" src="https://www.youtube.com/embed/6Cr_8tvvQ0k?autoplay=1&loop=1&controls=0&playlist=6Cr_8tvvQ0k" title="YouTube video player" frameborder="0" allow="accelerometer; loop; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>          
+            <iframe width="400" height="400" src="https://www.youtube.com/embed/6Cr_8tvvQ0k?autoplay=1&loop=1&controls=0&playlist=6Cr_8tvvQ0k" title="YouTube video player" frameborder="0" allow="accelerometer; loop; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </Spinner>
         </Box>
       </div>
@@ -190,17 +190,17 @@ const SearchPage = () => {
                   sx={{
                     backgroundColor: '#4B4B4B',
                     // borderRadius: "10px",
-                    display:'flex',
+                    display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    "&:hover":{
+                    "&:hover": {
                       cursor: 'pointer'
                     }
                   }}
                 >
                   <Image
-                  width="95%"
-                  height="95%"
+                    width="95%"
+                    height="95%"
                     src={
                       movie.poster_path
                         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -220,24 +220,7 @@ const SearchPage = () => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={9} lg={9} paddingLeft={0}>
-              <Box className="infoOverlay" 
-              onClick={() => {
-                if (movie.media_type === "movie") {
-                  navigate(`/movie/${movie.id}`);
-                } else {
-                  navigate(`/TV Shows/${show.id}`);
-                }
-              }}
-              sx={{
-                width: '100%',
-                height: '100%',
-                paddingLeft: '20px',
-                "&:hover": {
-                  cursor: 'pointer',
-                  backgroundColor: '#323232'
-                }
-              }}>
-                <Typography 
+              <Box className="infoOverlay"
                 onClick={() => {
                   if (movie.media_type === "movie") {
                     navigate(`/movie/${movie.id}`);
@@ -245,40 +228,57 @@ const SearchPage = () => {
                     navigate(`/TV Shows/${show.id}`);
                   }
                 }}
-                sx={{ 
-                  fontSize: 40, 
-                  fontWeight: "medium",
-                  "&:hover":{
-                    textDecoration: 'underline',
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  paddingLeft: '20px',
+                  "&:hover": {
+                    cursor: 'pointer',
+                    backgroundColor: '#323232'
                   }
                 }}>
+                <Typography
+                  onClick={() => {
+                    if (movie.media_type === "movie") {
+                      navigate(`/movie/${movie.id}`);
+                    } else {
+                      navigate(`/TV Shows/${show.id}`);
+                    }
+                  }}
+                  sx={{
+                    fontSize: 40,
+                    fontWeight: "medium",
+                    "&:hover": {
+                      textDecoration: 'underline',
+                    }
+                  }}>
                   {movie.title}
                 </Typography>
-                <Box 
-                onClick={() => {
-                  if (movie.media_type === "movie") {
-                    navigate(`/movie/${movie.id}`);
-                  } else {
-                    navigate(`/TV Shows/${show.id}`);
-                  }
-                }}>
-                  <Typography variant="h5" sx={{ my: 0.5, "&:hover":{ textDecoration: 'underline' }}}>
+                <Box
+                  onClick={() => {
+                    if (movie.media_type === "movie") {
+                      navigate(`/movie/${movie.id}`);
+                    } else {
+                      navigate(`/TV Shows/${show.id}`);
+                    }
+                  }}>
+                  <Typography variant="h5" sx={{ my: 0.5, "&:hover": { textDecoration: 'underline' } }}>
                     <strong>Overview:</strong> {movie.overview}
                   </Typography>
 
-                  <Typography variant="h5" sx={{ my: 0.5, "&:hover":{ textDecoration: 'underline' } }}>
+                  <Typography variant="h5" sx={{ my: 0.5, "&:hover": { textDecoration: 'underline' } }}>
                     <strong>Popularity:</strong> {movie.popularity}
                   </Typography>
 
-                  <Typography variant="h5" sx={{ my: 0.5, "&:hover":{ textDecoration: 'underline' } }}>
+                  <Typography variant="h5" sx={{ my: 0.5, "&:hover": { textDecoration: 'underline' } }}>
                     <strong>Release Date:</strong> {movie.release_date}
                   </Typography>
 
-                  <Typography variant="h5" sx={{ my: 0.5, "&:hover":{ textDecoration: 'underline' } }}>
+                  <Typography variant="h5" sx={{ my: 0.5, "&:hover": { textDecoration: 'underline' } }}>
                     <strong>Vote Average:</strong> {movie.vote_average}
                   </Typography>
 
-                  <Typography variant="h5" sx={{ my: 0.5, "&:hover":{ textDecoration: 'underline' } }}>
+                  <Typography variant="h5" sx={{ my: 0.5, "&:hover": { textDecoration: 'underline' } }}>
                     <strong>Vote Count:</strong> {movie.vote_count}
                   </Typography>
                 </Box>

@@ -10,7 +10,7 @@ const deleteCookie = async () => {
     const requestData = {
     };
     const addFavouriteResponse = await fetch(
-        "http://localhost:5000/auth/logout",
+        `${VITE_BASE_URL}/auth/logout`,
         {
             method: "GET",
             credentials: 'include'

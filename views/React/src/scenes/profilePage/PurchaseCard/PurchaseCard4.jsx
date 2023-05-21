@@ -57,7 +57,7 @@ export default function PurchaseCard4() {
 
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = (amount) => {
-    fetch(`http://localhost:5000/profile/${user._id}/purchase`, {
+    fetch(`${VITE_BASE_URL}/profile/${user._id}/purchase`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

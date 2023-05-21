@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Navigate , useParams, Link, useNavigate } from "react-router-dom";
+import { Navigate, useParams, Link, useNavigate } from "react-router-dom";
 import Image from "mui-image";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/Loading";
@@ -74,7 +74,7 @@ const MoviePage = () => {
   const [isRented, setIsRented] = useState(false);
   const [rentalInformation, setRentalInformation] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
-  
+
   const token = useSelector((state) => state.token);
   const theme = useTheme();
   console.log(user.balance);
@@ -119,7 +119,7 @@ const MoviePage = () => {
 
   const redirectAccount = () => {
     navigate("/profile/" + user._id);
-};
+  };
 
   const favourite = async (userID, movieID) => {
     const requestData = {
@@ -131,8 +131,8 @@ const MoviePage = () => {
 
     const method = isFavourited ? "DELETE" : "POST";
     const url = isFavourited
-      ? "http://localhost:5000/api/favourite/delete" // DELETE endpoint
-      : "http://localhost:5000/api/favourite/insert"; // POST endpoint
+      ? `${VITE_BASE_URL}/api/favourite/delete` // DELETE endpoint
+      : `${VITE_BASE_URL}/api/favourite/insert`; // POST endpoint
 
     const addFavouriteResponse = await fetch(url, {
       method: method,
@@ -155,8 +155,8 @@ const MoviePage = () => {
 
     const method = isRated ? "PUT" : "POST";
     const url = isRated
-      ? "http://localhost:5000/api/rate/update" // PUT endpoint
-      : "http://localhost:5000/api/rate/insert"; // POST endpoint
+      ? `${VITE_BASE_URL}/api/rate/update` // PUT endpoint
+      : `${VITE_BASE_URL}/api/rate/insert`; // POST endpoint
 
     const addRatingResponse = await fetch(url, {
       method: method,
@@ -177,7 +177,7 @@ const MoviePage = () => {
     };
 
     const removeRatingResponse = await fetch(
-      "http://localhost:5000/api/rate/delete",
+      `${VITE_BASE_URL}/api/rate/delete`,
       {
         method: "DELETE",
         headers: {
@@ -199,7 +199,7 @@ const MoviePage = () => {
     };
 
     const addRentResponse = await fetch(
-      "http://localhost:5000/api/rent/insert",
+      `${VITE_BASE_URL}/api/rent/insert`,
       {
         method: "POST",
         headers: {
@@ -209,7 +209,7 @@ const MoviePage = () => {
         body: JSON.stringify(requestData),
         credentials: 'include'
       }
-    ); 
+    );
   };
 
   const checkFavorite = async (userID, movieID) => {
@@ -220,7 +220,7 @@ const MoviePage = () => {
       season: 0,
     };
 
-    const url = new URL("http://localhost:5000/api/favourite/check");
+    const url = new URL(`${VITE_BASE_URL}/api/favourite/check`);
     url.search = new URLSearchParams(requestData).toString();
 
     const checkFavoriteResponse = await fetch(url, {
@@ -240,7 +240,7 @@ const MoviePage = () => {
       season: 0,
     };
 
-    const url = new URL("http://localhost:5000/api/rate/check");
+    const url = new URL(`${VITE_BASE_URL}/api/rate/check`);
     url.search = new URLSearchParams(requestData).toString();
 
     const checkRatedResponse = await fetch(url, {
@@ -260,7 +260,7 @@ const MoviePage = () => {
       season: 0,
     };
 
-    const url = new URL("http://localhost:5000/api/rent/check");
+    const url = new URL(`${VITE_BASE_URL}/api/rent/check`);
     url.search = new URLSearchParams(requestData).toString();
 
     const checkRentedResponse = await fetch(url, {
@@ -276,7 +276,7 @@ const MoviePage = () => {
     const fetchMovieDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/detail/${movieID}`, {
+          `${VITE_BASE_URL}/movie/detail/${movieID}`, {
 
           credentials: 'include'
         }
@@ -295,7 +295,7 @@ const MoviePage = () => {
     const fetchVideoIDs = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/trailer/${movieID}`,
+          `${VITE_BASE_URL}/movie/trailer/${movieID}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -317,7 +317,7 @@ const MoviePage = () => {
     const fetchRecommendations = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/recommendations/${movieID}`,
+          `${VITE_BASE_URL}/movie/recommendations/${movieID}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -337,7 +337,7 @@ const MoviePage = () => {
     const fetchCredits = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/credits/${movieID}`
+          `${VITE_BASE_URL}/movie/credits/${movieID}`
         );
         const data = await response.json();
         setCredits(data.cast);
@@ -377,7 +377,7 @@ const MoviePage = () => {
         balance: value
       }
       const transactionResponse = await fetch(
-        `http://localhost:5000/profile/${user._id}/purchase`,
+        `${VITE_BASE_URL}/profile/${user._id}/purchase`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -386,13 +386,13 @@ const MoviePage = () => {
         })
         .then((response) => response.json())
         .then((data) => {
-        const updatedUser = {
-          ...user,
-          balance: data.balance,
-        };
-        dispatch(updateUser({ user: updatedUser }));
-      })
-      .catch((error) => console.error(error));
+          const updatedUser = {
+            ...user,
+            balance: data.balance,
+          };
+          dispatch(updateUser({ user: updatedUser }));
+        })
+        .catch((error) => console.error(error));
 
     } catch (error) {
       console.error(error);
@@ -439,16 +439,16 @@ const MoviePage = () => {
               window.location.href = "/Home";
             }}
           >
-            <Typography sx={{ "&:hover": {textDecoration: 'underline'}}}><h3>Home</h3></Typography>
+            <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}><h3>Home</h3></Typography>
           </Link>
 
-          <Link 
+          <Link
             style={{ color: "white", textDecoration: "none" }}
             onClick={() => {
               window.location.href = "/Feature Movies";
-            }}  
+            }}
           >
-            <Typography sx={{ "&:hover": {textDecoration: 'underline'}}}><h3>Movies</h3></Typography>
+            <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}><h3>Movies</h3></Typography>
           </Link>
           <Typography fontWeight="lighter">
             <h3>{movie.title}</h3>
@@ -495,7 +495,7 @@ const MoviePage = () => {
             <HdOutlinedIcon sx={{ fontSize: "35px" }}></HdOutlinedIcon>
             <ClosedCaptionOffIcon sx={{ fontSize: "35px" }}></ClosedCaptionOffIcon>
             <Stack direction="row" spacing={3} padding="4px">
-              <Avatar sx={{ "&:hover": {cursor: 'pointer'}}} onClick={handleFavouriteClick}>
+              <Avatar sx={{ "&:hover": { cursor: 'pointer' } }} onClick={handleFavouriteClick}>
                 {!isFavourited ? (
                   <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -505,7 +505,7 @@ const MoviePage = () => {
                 )}
               </Avatar>
 
-              <Avatar sx={{ "&:hover": {cursor: 'pointer'}}} ref={anchorRef} onClick={handlePopoverOpen}>
+              <Avatar sx={{ "&:hover": { cursor: 'pointer' } }} ref={anchorRef} onClick={handlePopoverOpen}>
                 {!isRated ? (
                   <StarIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -584,28 +584,28 @@ const MoviePage = () => {
             <Button
               variant="contained"
               onClick={handleOpen}
-              padding="4px"       
+              padding="4px"
               onMouseEnter={handleMouseEnterRentButton}
               onMouseLeave={handleMouseLeaveRentButton}
-              sx={{width:"275px"}}       
+              sx={{ width: "275px" }}
             >
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
-                ) : (
+              ) : (
                 rentalInformation ? (
-                    rentalInformation.rentalExpireDate > new Date().toISOString() ? (
-                      !isHovered ? (
-                        <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
-                        ) : (
-                        <ShoppingCartCheckoutOutlinedIcon></ShoppingCartCheckoutOutlinedIcon>
-                      )
-                      ) : (
-                        !isHovered ? (
-                          <ProductionQuantityLimitsOutlinedIcon></ProductionQuantityLimitsOutlinedIcon>
-                          ) : (
-                          <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
-                          )
-                      )
+                  rentalInformation.rentalExpireDate > new Date().toISOString() ? (
+                    !isHovered ? (
+                      <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
+                    ) : (
+                      <ShoppingCartCheckoutOutlinedIcon></ShoppingCartCheckoutOutlinedIcon>
+                    )
+                  ) : (
+                    !isHovered ? (
+                      <ProductionQuantityLimitsOutlinedIcon></ProductionQuantityLimitsOutlinedIcon>
+                    ) : (
+                      <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
+                    )
+                  )
                 ) : (
                   <div></div>
                 )
@@ -615,20 +615,20 @@ const MoviePage = () => {
                 <strong>First-Time Rent</strong>
               ) : (
                 rentalInformation ? (
-                    rentalInformation.rentalExpireDate > new Date().toISOString() ? (
-                      !isHovered ? (
-                        <strong>Already Rented till {rentalInformation.rentalExpireDate.substring(0, 10)}</strong>
-                      ) : (
-                        <strong>Extend Rental</strong>
+                  rentalInformation.rentalExpireDate > new Date().toISOString() ? (
+                    !isHovered ? (
+                      <strong>Already Rented till {rentalInformation.rentalExpireDate.substring(0, 10)}</strong>
+                    ) : (
+                      <strong>Extend Rental</strong>
 
-                      )
-                      ) : (
-                        !isHovered ? (
-                          <strong>Rental Expired since {rentalInformation.rentalExpireDate.substring(0, 10)}</strong>
-                        ) : (
-                          <strong>Rent Again</strong>
-                        )
-                      )
+                    )
+                  ) : (
+                    !isHovered ? (
+                      <strong>Rental Expired since {rentalInformation.rentalExpireDate.substring(0, 10)}</strong>
+                    ) : (
+                      <strong>Rent Again</strong>
+                    )
+                  )
                 ) : (
                   <div>No information</div>
                 )
@@ -637,8 +637,8 @@ const MoviePage = () => {
 
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
               {!user.verified ? (
-                <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
-                  <Box sx={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}} maxWidth="lg">
+                <DialogContent sx={{ backgroundImage: `url(${ImageTest})`, backgroundSize: '100% 100%', backgroundPosition: 'center' }}>
+                  <Box sx={{ height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} maxWidth="lg">
                     <Box py={6}>
                       <Box mb={3}>
                         <Box maxWidth="lg" >
@@ -652,108 +652,108 @@ const MoviePage = () => {
                   <Box sx={{ width: '100%' }}>
                     <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                       <Grid display="flex" justifyContent="right" item xs={6}>
-                        <Button onClick={() => navigate(`/profile/` + user._id)} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": {backgroundColor: '#63004a'}}}>Verify</Button>
+                        <Button onClick={() => navigate(`/profile/` + user._id)} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": { backgroundColor: '#63004a' } }}>Verify</Button>
                       </Grid>
                       <Grid item xs={6}>
-                        <Button onClick={handleClose} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": {backgroundColor: '#63004a'}}}>Close</Button>
-                      </Grid>
-                    </Grid>
-                  </Box>  
-                </DialogContent>
-
-                ) : (
-                <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
-                <Container sx={{height: '100%'}} maxWidth="lg">
-                  <Box py={6} textAlign="center" display="flex">
-                    <Box mb={3}>
-                      <Container maxWidth="lg">
-                        <Typography variant="h3" component="span" sx={{}}>
-                          <h2>Pricing Plan</h2>
-                        </Typography>
-                      </Container>
-                    </Box>
-                    <Grid container spacing={3}>
-                      <Grid item xs={12} md={4}>
-                        <Card variant="outlined">
-                          <CardHeader title={<Typography variant="h4" >1-Day Plan</Typography>}></CardHeader>
-                          <CardContent>
-                            <Box px={1}>
-                              <Typography
-                                variant="h3"
-                                component="h2"
-                                gutterBottom={true}
-                              >
-                                19.99 SmashDong
-                              </Typography>
-                            </Box>
-                            <Button
-                              variant="contained"
-                              onClick={() => handleRentClick({duration: 1, price: -19.99})}
-                              disabled={user.balance < 19.99}
-                            >
-                              Smash
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      </Grid>
-
-                      <Grid item xs={12} md={4}>
-                        <Card variant="outlined">
-                        <CardHeader title={<Typography variant="h4" >1-Week Plan</Typography>}></CardHeader>
-                          <CardContent>
-                            <Box px={1}>
-                              <Typography
-                                variant="h3"
-                                component="h2"
-                                gutterBottom={true}
-                              >
-                                129.99 SmashDong
-                              </Typography>
-                            </Box>
-                            <Button
-                              variant="contained"
-                              onClick={() => handleRentClick({duration: 7, price: -129.99})}
-                              disabled={user.balance < 129.99}
-                            >
-                              Smash
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      </Grid>
-
-                      <Grid item xs={12} md={4}>
-                        <Card variant="outlined">
-                        <CardHeader title={<Typography variant="h4" >1-Month Plan</Typography>}></CardHeader>
-                          <CardContent>
-                            <Box px={1}>
-                              <Typography
-                                variant="h3"
-                                component="h2"
-                                gutterBottom={true}
-                              >
-                                499.99 SmashDong
-                              </Typography>
-                            </Box>
-                            <Button
-                              variant="contained"
-                              onClick={() => handleRentClick({duration: 30, price: -499.99})}
-                              disabled={user.balance < 499.99}
-                            >
-                              Smash
-                            </Button>
-                          </CardContent>
-                        </Card>
+                        <Button onClick={handleClose} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": { backgroundColor: '#63004a' } }}>Close</Button>
                       </Grid>
                     </Grid>
                   </Box>
-                </Container>
-              </DialogContent>
-              
+                </DialogContent>
+
+              ) : (
+                <DialogContent sx={{ backgroundImage: `url(${ImageTest})`, backgroundSize: '100% 100%', backgroundPosition: 'center' }}>
+                  <Container sx={{ height: '100%' }} maxWidth="lg">
+                    <Box py={6} textAlign="center" display="flex">
+                      <Box mb={3}>
+                        <Container maxWidth="lg">
+                          <Typography variant="h3" component="span" sx={{}}>
+                            <h2>Pricing Plan</h2>
+                          </Typography>
+                        </Container>
+                      </Box>
+                      <Grid container spacing={3}>
+                        <Grid item xs={12} md={4}>
+                          <Card variant="outlined">
+                            <CardHeader title={<Typography variant="h4" >1-Day Plan</Typography>}></CardHeader>
+                            <CardContent>
+                              <Box px={1}>
+                                <Typography
+                                  variant="h3"
+                                  component="h2"
+                                  gutterBottom={true}
+                                >
+                                  19.99 SmashDong
+                                </Typography>
+                              </Box>
+                              <Button
+                                variant="contained"
+                                onClick={() => handleRentClick({ duration: 1, price: -19.99 })}
+                                disabled={user.balance < 19.99}
+                              >
+                                Smash
+                              </Button>
+                            </CardContent>
+                          </Card>
+                        </Grid>
+
+                        <Grid item xs={12} md={4}>
+                          <Card variant="outlined">
+                            <CardHeader title={<Typography variant="h4" >1-Week Plan</Typography>}></CardHeader>
+                            <CardContent>
+                              <Box px={1}>
+                                <Typography
+                                  variant="h3"
+                                  component="h2"
+                                  gutterBottom={true}
+                                >
+                                  129.99 SmashDong
+                                </Typography>
+                              </Box>
+                              <Button
+                                variant="contained"
+                                onClick={() => handleRentClick({ duration: 7, price: -129.99 })}
+                                disabled={user.balance < 129.99}
+                              >
+                                Smash
+                              </Button>
+                            </CardContent>
+                          </Card>
+                        </Grid>
+
+                        <Grid item xs={12} md={4}>
+                          <Card variant="outlined">
+                            <CardHeader title={<Typography variant="h4" >1-Month Plan</Typography>}></CardHeader>
+                            <CardContent>
+                              <Box px={1}>
+                                <Typography
+                                  variant="h3"
+                                  component="h2"
+                                  gutterBottom={true}
+                                >
+                                  499.99 SmashDong
+                                </Typography>
+                              </Box>
+                              <Button
+                                variant="contained"
+                                onClick={() => handleRentClick({ duration: 30, price: -499.99 })}
+                                disabled={user.balance < 499.99}
+                              >
+                                Smash
+                              </Button>
+                            </CardContent>
+                          </Card>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </Container>
+                </DialogContent>
+
               )}
               <DialogActions>
-                  <Button variant="contained" onClick={handleClose}>
-                    Close
-                  </Button>
+                <Button variant="contained" onClick={handleClose}>
+                  Close
+                </Button>
               </DialogActions>
             </Dialog>
           </Grid>
@@ -808,61 +808,61 @@ const MoviePage = () => {
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (
                   <Grid item key={recommendation.id}>
-                      <Box
-                      onMouseEnter={() => {setHoveredRecommendationId(recommendation.id)}}
-                      onMouseLeave={() => {setHoveredRecommendationId(null)}}
+                    <Box
+                      onMouseEnter={() => { setHoveredRecommendationId(recommendation.id) }}
+                      onMouseLeave={() => { setHoveredRecommendationId(null) }}
                       sx={{
                         position: 'relative',
                         display: 'flex',
-                        "&:hover":{
-                            cursor: 'pointer',
-                            boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+                        "&:hover": {
+                          cursor: 'pointer',
+                          boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
                         }
                       }}
-                      >
-                        <Image
-                          width="175px"
-                          height="275px"
-                          src={
-                            recommendation.poster_path
-                              ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}`
-                              : "https://via.placeholder.com/150x250.png?text=No+Image"
-                          }
-                          alt={`${recommendation.title} poster`}
-                        />
-                        {hoveredRecommendationId === recommendation.id && (
-                          <Box 
+                    >
+                      <Image
+                        width="175px"
+                        height="275px"
+                        src={
+                          recommendation.poster_path
+                            ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}`
+                            : "https://via.placeholder.com/150x250.png?text=No+Image"
+                        }
+                        alt={`${recommendation.title} poster`}
+                      />
+                      {hoveredRecommendationId === recommendation.id && (
+                        <Box
                           onClick={() => {
                             navigate(`/movie/${recommendation.id}`);
                             window.scrollTo({ top: 0, behavior: "smooth" });
                           }}
                           className="hover" sx={{
-                              display:'flex',
-                              position: 'absolute',
+                            display: 'flex',
+                            position: 'absolute',
+                            width: '100%',
+                            height: '100%',
+                            opacity: 0.8,
+                            backgroundColor: 'black',
+                          }}>
+                          <Box
+                            className="infoContainer" sx={{
                               width: '100%',
                               height: '100%',
-                              opacity: 0.8,
-                              backgroundColor: 'black',
-                          }}>
-                              <Box
-                              className="infoContainer" sx={{
-                                  width: '100%',
-                                  height: '100%',
-                                  display:'grid',
-                                  alignItems: 'center',
-                                  justifyContent: 'center'
+                              display: 'grid',
+                              alignItems: 'center',
+                              justifyContent: 'center'
 
-                              }}>
-                                  <Typography sx={{
-                                      fontSize: '1.25rem',
-                                      fontWeight: 'bold',
-                                      
-                                  }}>{recommendation.title}</Typography>
-                              </Box>
-                              
+                            }}>
+                            <Typography sx={{
+                              fontSize: '1.25rem',
+                              fontWeight: 'bold',
+
+                            }}>{recommendation.title}</Typography>
                           </Box>
+
+                        </Box>
                       )}
-                      </Box>
+                    </Box>
                   </Grid>
                 ))}
               </Grid>

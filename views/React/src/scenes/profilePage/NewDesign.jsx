@@ -596,7 +596,7 @@ const NewDesign = () => {
   }
 
   const handleSaveProfileClick = async (values, onSubmitProps) => {
-    fetch(`http://localhost:5000/profile/${user._id}`, {
+    fetch(`${VITE_BASE_URL}/profile/${user._id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

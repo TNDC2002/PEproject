@@ -27,7 +27,7 @@ const TvPage = () => {
     const fetchPopularShows = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/showList?category=${CATEGORY_API_ENDPOINTS["popular"]}&page=${popularPage}`
+          `${VITE_BASE_URL}/movie/showList?category=${CATEGORY_API_ENDPOINTS["popular"]}&page=${popularPage}`
         );
         const data = await response.json();
         setPopularShows(data.results);
@@ -42,7 +42,7 @@ const TvPage = () => {
     const fetchTopRatedShows = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/showList?category=${CATEGORY_API_ENDPOINTS["topRated"]}&page=${topRatedPage}`
+          `${VITE_BASE_URL}/movie/showList?category=${CATEGORY_API_ENDPOINTS["topRated"]}&page=${topRatedPage}`
         );
         const data = await response.json();
         setTopRatedShows(data.results);
@@ -57,7 +57,7 @@ const TvPage = () => {
     const fetchAiringTodayShows = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/showList?category=${CATEGORY_API_ENDPOINTS["airingToday"]}&page=${airingTodayPage}`
+          `${VITE_BASE_URL}/movie/showList?category=${CATEGORY_API_ENDPOINTS["airingToday"]}&page=${airingTodayPage}`
         );
         const data = await response.json();
         setAiringTodayShows(data.results);
@@ -72,7 +72,7 @@ const TvPage = () => {
     const fetchOnTheAirShows = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/showList?category=${CATEGORY_API_ENDPOINTS["onTheAir"]}&page=${onTheAirPage}`
+          `${VITE_BASE_URL}/movie/showList?category=${CATEGORY_API_ENDPOINTS["onTheAir"]}&page=${onTheAirPage}`
         );
         const data = await response.json();
         setOnTheAirShows(data.results);
@@ -85,7 +85,7 @@ const TvPage = () => {
 
   return (
     <Box>
-      <Navbar currentPage='TV Shows'/>
+      <Navbar currentPage='TV Shows' />
       <TvList
         shows={topRatedShows}
         category="topRated"
