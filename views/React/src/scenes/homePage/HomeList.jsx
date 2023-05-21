@@ -18,7 +18,7 @@ const HomeList = () => {
     const fetchDiscovery = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/discovery/${page}`
+          `${VITE_BASE_URL}/movie/discovery/${page}`
         );
         const data = await response.json();
         setDiscovery(data);
@@ -41,7 +41,7 @@ const HomeList = () => {
     const fetchShowDiscovery = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/showDiscovery/${showPage}`
+          `${VITE_BASE_URL}/movie/showDiscovery/${showPage}`
         );
         const data = await response.json();
         setShowDiscovery(data);
@@ -60,11 +60,11 @@ const HomeList = () => {
     setShowPage((nextPage) => nextPage + 1);
   };
 
-  if(discovery === null){
-    return <Loading/>
+  if (discovery === null) {
+    return <Loading />
   }
-  
-  
+
+
 
   return (
     <div>

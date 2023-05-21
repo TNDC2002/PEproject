@@ -25,38 +25,47 @@ const POST_rental = async (req) => {
         let rentalBeginDate = new Date();
         let rentalExpireDate = new Date();
         rentalExpireDate.setDate(rentalExpireDate.getDate() + Duration);
-
-        UserMovieRental.findOne({
+        let existingRecord = await UserMovieRental.findOne({
             userID: userID,
             movieID: movieID,
             media_type: media_type,
             season: season
-        })
-            .then((existingRecord) => {
-                if (existingRecord) {
-                    existingRecord.rentalBeginDate = rentalBeginDate;
-                    existingRecord.rentalExpireDate = rentalExpireDate;
-                    return existingRecord.save();
-                } else {
-                    const newRent = new UserMovieRental({
-                        userID: userID,
-                        movieID: movieID,
-                        rentalBeginDate: rentalBeginDate,
-                        rentalExpireDate: rentalExpireDate,
-                        media_type: media_type,
-                        season: season
-                    });
-                    return newRent.save();
-                }
-            })
-            .then(() => {
-                // Successfully saved or updated the record
-                // Perform any additional actions if needed
-            })
-            .catch((error) => {
-                console.log("ERROR --- rental.js --- can't SAVE to DB", error);
+          });
+          if (existingRecord) {
+            if (existingRecord.rentalExpireDate.toISOString() > new Date().toISOString()) {
+              existingRecord.rentalExpireDate.setDate(existingRecord.rentalExpireDate.getDate() + Duration);
+              console.log(existingRecord.rentalExpireDate.toISOString());
+              await UserMovieRental.findOneAndUpdate({
+                userID: userID,
+                movieID: movieID,
+                media_type: media_type,
+                season: season
+            },{
+                rentalExpireDate: existingRecord.rentalExpireDate.toISOString()
+            }).exec();
+            } else if (existingRecord.rentalExpireDate.toISOString() < new Date().toISOString()) {
+              await UserMovieRental.findOneAndUpdate({
+                userID: userID,
+                movieID: movieID,
+                media_type: media_type,
+                season: season
+            },{
+                rentalBeginDate: rentalBeginDate,
+                rentalExpireDate: rentalExpireDate
+            }).exec();
+            }
+          } else {
+            const newRent = new UserMovieRental({
+              userID: userID,
+              movieID: movieID,
+              rentalBeginDate: rentalBeginDate,
+              rentalExpireDate: rentalExpireDate,
+              media_type: media_type,
+              season: season
             });
-
+            const savedRent = await newRent.save();
+            console.log("New object created is: " + savedRent);
+          }
     } catch (err) {
         return {
             status: 500,

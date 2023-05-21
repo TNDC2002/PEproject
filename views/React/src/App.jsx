@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./scenes/homePage";
 import LoginPage from "./scenes/loginPage";
-import NavPage from "./scenes/profilePage";
-import Original from "./scenes/profilePage/Original";
-import NewDesign from "./scenes/profilePage/NewDesign";
 
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
@@ -17,7 +14,7 @@ import SearchPage from "./scenes/searchPage";
 import MyListPage from "./scenes/mylistPage";
 import FeaturePage from "./scenes/featurePage";
 import TvPage from "./scenes/tvPage";
-import ProfilePage from "./scenes/profilePage";
+import ProfilePage from "./scenes/profilePage/NewDesign";
 
 import Loading from "./components/Loading";
 import { setMode, setLogin } from "./states/index.js";
@@ -45,7 +42,7 @@ function App() {
           setLoading(false);
           setAuthenticated(true);
           console.log("Now calling route /login/google")
-          const response = await fetch("http://localhost:5000/login/google", {
+          const response = await fetch(`${VITE_BASE_URL}/login/google`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -63,7 +60,7 @@ function App() {
         } else if (currentPath === "/auth/github") {
           setLoading(false);
           setAuthenticated(true);
-          const response = await fetch("http://localhost:5000/login/github", {
+          const response = await fetch(`${VITE_BASE_URL}/login/github`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -81,7 +78,7 @@ function App() {
         } else if (currentPath === "/auth/facebook") {
           setLoading(false);
           setAuthenticated(true);
-          const response = await fetch("http://localhost:5000/login/facebook", {
+          const response = await fetch(`${VITE_BASE_URL}/login/facebook`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -109,14 +106,12 @@ function App() {
           return;
         }
 
-
-        const response = await fetch("http://localhost:5000/auth/info", {
+        const response = await fetch(`${VITE_BASE_URL}/auth/info`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
         });
         const data = await response.json();
-        console.log("isAUTH:", data.authenticated); // Log the authentication data
         setAuthenticated(data.authenticated);
         setLoading(false);
       } catch (error) {
@@ -157,19 +152,6 @@ function App() {
             <Route
               path="/home/search"
               element={authenticated ? <SearchPage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/profile/:userID"
-              element={authenticated ? <NavPage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/profile/:userID/Original"
-              element={authenticated ? <Original /> : <Navigate to="/" />}
-            />
-
-            <Route
-              path="/profile/:userID/NewDesign"
-              element={authenticated ? <NewDesign /> : <Navigate to="/" />}
             />
             <Route
               path="/movie/:movieID"

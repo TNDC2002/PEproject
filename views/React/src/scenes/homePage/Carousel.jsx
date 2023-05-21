@@ -4,11 +4,7 @@ import { useParams } from "react-router-dom";
 import Image from "mui-image";
 import { ArrowBackIos, ArrowForwardIos, KeyboardDoubleArrowDown, Campaign } from "@mui/icons-material";
 import { Link } from "react-scroll";
-import CarouselVideo from "../trailerPlayer/CarouselVideo"
-import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
-
-import { images } from "./CarouselData";
-import zIndex from "@mui/material/styles/zIndex";
+import CarouselVideo from "../trailerPlayer/carouselVideo"
 
 export default function Carousel({ movie }) {
   const [currImg, setCurrImg] = useState(0);
@@ -93,7 +89,7 @@ export default function Carousel({ movie }) {
           <Link to="scrollTo" spy={true} smooth={true} offset={-80} duration={500}>
             <Box
               sx={{
-                zIndex:'10',
+                zIndex: '10',
                 position: "absolute",
                 padding: "0.5rem",
                 margin: "3rem 1rem",
@@ -125,7 +121,7 @@ export default function Carousel({ movie }) {
               </Typography>
             </Box>
             <Image
-            style={{zIndex: '3'}}
+              style={{ zIndex: '3' }}
               position='absolute'
               display="block"
               fit="contain"
@@ -134,7 +130,7 @@ export default function Carousel({ movie }) {
             <Box
               className="discoverMore"
               sx={{
-                zIndex:'5',
+                zIndex: '5',
                 position: "absolute",
                 inset: 0,
                 padding: "2rem",
@@ -184,7 +180,6 @@ export default function Carousel({ movie }) {
               backgroundColor: 'black',
               display: "grid",
               placeItems: "center",
-              cursor: "pointer",
               opacity: 0.8,
             }}
           >
@@ -207,7 +202,7 @@ export default function Carousel({ movie }) {
             }}
           >
             {/* <Typography> {movie.id} </Typography> */}
-            <CarouselVideo discovery={movie}/>
+            <CarouselVideo discovery={movie} />
             {/* <img width='100%' src={images[currImg].img} /> */}
             {/* replace this with PICTURES ARRAY the most POPULAR film */}
           </Box>
@@ -222,7 +217,6 @@ export default function Carousel({ movie }) {
               backgroundColor: 'black',
               display: "grid",
               placeItems: "center",
-              cursor: "pointer",
               opacity: 0.8,
             }}
           >
@@ -230,9 +224,9 @@ export default function Carousel({ movie }) {
           </Box>
         </Box>
       </Box>
-      <Box 
-        id= "scrollTo"
-      sx={{ 
+      <Box
+        id="scrollTo"
+        sx={{
           position: 'relative',
           backgroundColor: 'black',
           width: '100vw',

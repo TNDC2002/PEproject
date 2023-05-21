@@ -12,6 +12,8 @@ import { Strategy as FacebookStrategy } from "passport-facebook";
 import { Strategy as GitHubStrategy } from "passport-github";
 import { Strategy as TwitterStrategy } from "passport-twitter";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 //uploader setup
 var upload = uploader.default();
 //Passport setup
@@ -40,9 +42,9 @@ passport.use(
         let user = null;
         user = await User.findOne({ email });
         if (user) {
-          let update = await User.findOneAndUpdate({ email: email },{
-            picturePath:picturePath,
-            GgId:GgId,
+          let update = await User.findOneAndUpdate({ email: email }, {
+            picturePath: picturePath,
+            GgId: GgId,
           })
             .then((update) => { })
             .catch((error) => {
@@ -95,9 +97,9 @@ passport.use(
         user = await User.findOne({ email });
         console.log("before update:", user)
         if (user) {
-          let update = await User.findOneAndUpdate({ email: email },{
+          let update = await User.findOneAndUpdate({ email: email }, {
             picturePath: picturePath,
-            FbId:FbId,
+            FbId: FbId,
           })
             .then((update) => { console.log("after update:", update) })
             .catch((error) => {
@@ -158,9 +160,9 @@ passport.use(
         let user = null;
         user = await User.findOne({ email });
         if (user) {
-          let update = await User.findOneAndUpdate({ email: email },{
-            picturePath:picturePath,
-            GhId:GhId,
+          let update = await User.findOneAndUpdate({ email: email }, {
+            picturePath: picturePath,
+            GhId: GhId,
           })
             .then((update) => { })
             .catch((error) => {
@@ -208,7 +210,7 @@ passport.use(
         let user = null;
         user = await User.findOne({ email });
         if (user) {
-          let update = await User.findOneAndUpdate({ email: email },{
+          let update = await User.findOneAndUpdate({ email: email }, {
             picturePath,
             GgId,
           })
@@ -237,8 +239,10 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
+
 /* Import your controller here by syntax:
-    import * as <your controller name> from "../controller/<ControllerFile>.js" */
+import * as <your controller name> from "../controller/<ControllerFile>.js" */
+import { verifyToken } from "../middleware/auth.js";
 import * as SampleController from "../controller/SampleController.js";
 import * as middleware from "../middleware/auth.js";
 import * as auth from "../controller/auth.js";
@@ -264,93 +268,95 @@ let initWebRoutes = (app) => {
   // Assign a URL route for it by:
   /* GET syntax:
       router.get('<route>',<controller_name>.default.<function>) */
-      router.get("/auth/logout", auth.default.logout);
-      router.get("/auth/info", auth.default.GetAUTH);
-      router.get("/auth/admin", Admin.default.Admin_checker);
-      router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-      router.get("/auth/google/callback", passport.authenticate("google", {
-          successRedirect: "http://localhost:5173/auth/google",
-          failureRedirect: "http://localhost:5173/",
-        }));
-      router.get("/login/google", oAuth2.default.GG_oAuth2);
-      router.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
-      router.get(
-        "/auth/facebook/callback",
-    
-      passport.authenticate("facebook", {
-          successRedirect: "http://localhost:5173/auth/facebook",
-          failureRedirect: "http://localhost:5173/",
-        })
-    
-      );
-      router.get("/login/facebook", oAuth2.default.FB_oAuth2);
-      router.get("/auth/github", passport.authenticate("github"));
-      router.get(
-        "/auth/github/callback",
-        passport.authenticate("github", {
-          successRedirect: "http://localhost:5173/auth/github",
-          failureRedirect: "http://localhost:5173/",
-        })
-      );
-      router.get("/login/github", oAuth2.default.GH_oAuth2);
-      router.get("/auth/twitter", passport.authenticate("twitter"));
-      router.get(
-        "/auth/twitter/callback",
-        passport.authenticate("twitter", {
-          successRedirect: "http:/0localhost:5173/auth/twitter",
-          failureRedirect: "http://localhost:5173/",
-        })
-      );
-      router.get("/login/twitter", oAuth2.default.TW_oAuth2);
-      router.get("/auth/verified", auth.default.verified);
-      router.get("/auth/verify/:userId/:uniqueString", auth.default.verify);
-      router.get("/movie/detail/:movieID", movieAPI.default.getDetail);
-      router.get("/movie/trailer/:movieID", movieAPI.default.getTrailerID);
-      router.get("/movie/recommendations/:movieID", movieAPI.default.getRecommendations);
-      router.get("/movie/tvDetail/:showID", movieAPI.default.getShowDetail);
-      router.get("/movie/credits/:movieID", movieAPI.default.getMovieCredits);
-      router.get("/movie/credits/:showID", movieAPI.default.getShowCredits);
-      router.get("/movie/tvRecommendations/:showID", movieAPI.default.getShowRecommendations);
-      router.get("/movie/tvTrailer/:showID", movieAPI.default.getShowTrailerID);
-      router.get("/movie/showTrailer/:showId", movieAPI.default.getShowTrailerID);
-      router.get("/movie/discovery/:page", movieAPI.default.getMovieDiscovery);
-      router.get("/movie/showDiscovery/:page", movieAPI.default.getShowDiscovery);
-      router.get("/search", movieAPI.default.fetchSearchResult);
-      router.get("/user/:userID/favourite", user.default.fetchFavourites);
-      router.get("/movie/featureImage", movieAPI.default.getImageCarousel);
-      router.get("/movie/list", movieAPI.default.getList);
-      router.get("/movie/showList", movieAPI.default.getShowList);
-    /* MONGOL API ROUTE */
-      router.get("/api/rate/check", Rate.default.GET_handler);
-      router.get("/api/favourite/check", Favourite.default.GET_handler);
-      router.get("/api/history/get", History.default.GET_handler);
-      router.get("/api/rent/check", Rental.default.GET_handler);
+  router.get("/auth/logout", auth.default.logout);
+  router.get("/auth/info", auth.default.GetAUTH);
+  router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+  router.get("/auth/google/callback", passport.authenticate("google", {
+    successRedirect: `${process.env.FRONTEND_URL}/auth/google`,
+    failureRedirect: `${process.env.FRONTEND_URL}`,
+  }));
+  router.get("/login/google", oAuth2.default.GG_oAuth2);
+  router.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
+  router.get(
+    "/auth/facebook/callback",
+
+    passport.authenticate("facebook", {
+      successRedirect: `${process.env.FRONTEND_URL}/auth/facebook`,
+      failureRedirect: `${process.env.FRONTEND_URL}`,
+    })
+
+  );
+  router.get("/login/facebook", oAuth2.default.FB_oAuth2);
+  router.get("/auth/github", passport.authenticate("github"));
+  router.get(
+    "/auth/github/callback",
+    passport.authenticate("github", {
+      successRedirect: `${process.env.FRONTEND_URL}/auth/github`,
+      failureRedirect: `${process.env.FRONTEND_URL}`,
+    })
+  );
+  router.get("/login/github", oAuth2.default.GH_oAuth2);
+  router.get("/auth/twitter", passport.authenticate("twitter"));
+  router.get(
+    "/auth/twitter/callback",
+    passport.authenticate("twitter", {
+      successRedirect: `${process.env.FRONTEND_URL}/auth/twitter`,
+      failureRedirect: `${process.env.FRONTEND_URL}`,
+    })
+  );
+  router.get("/login/twitter", oAuth2.default.TW_oAuth2);
+  router.get("/auth/verified", auth.default.verified);
+  router.get("/auth/verify/:userId/:uniqueString", auth.default.verify);
+  router.get("/movie/detail/:movieID", movieAPI.default.getDetail);
+  router.get("/movie/trailer/:movieID", movieAPI.default.getTrailerID);
+  router.get("/movie/recommendations/:movieID", movieAPI.default.getRecommendations);
+  router.get("/movie/tvDetail/:showID", movieAPI.default.getShowDetail);
+  router.get("/movie/credits/:movieID", movieAPI.default.getMovieCredits);
+  router.get("/movie/credits/:showID", movieAPI.default.getShowCredits);
+  router.get("/movie/tvRecommendations/:showID", movieAPI.default.getShowRecommendations);
+  router.get("/movie/tvTrailer/:showID", movieAPI.default.getShowTrailerID);
+  router.get("/movie/showTrailer/:showId", movieAPI.default.getShowTrailerID);
+  router.get("/movie/discovery/:page", movieAPI.default.getMovieDiscovery);
+  router.get("/movie/showDiscovery/:page", movieAPI.default.getShowDiscovery);
+  router.get("/search", movieAPI.default.fetchSearchResult);
+  router.get("/user/:userID/favourite", user.default.fetchFavourites);
+  router.get("/user/:userID/rent", user.default.fetchRentals);
+  router.get("/movie/featureImage", movieAPI.default.getImageCarousel);
+  router.get("/movie/list", movieAPI.default.getList);
+  router.get("/movie/showList", movieAPI.default.getShowList);
+  /* MONGOL API ROUTE */
+  router.get("/api/rate/check", Rate.default.GET_handler);
+  router.get("/api/favourite/check", Favourite.default.GET_handler);
+  router.get("/api/history/get", History.default.GET_handler);
+  router.get("/api/rent/check", Rental.default.GET_handler);
 
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
-      app.post("/auth/register", upload.single("picture"), auth.default.register);
-      router.post("/auth/login", auth.default.login);
-      
-      /* MONGOL API ROUTE */
-      router.post("/api/history/insert", History.default.POST_handler);
-      router.post("/api/rate/insert", Rate.default.POST_handler);
-      router.post("/api/favourite/insert", Favourite.default.POST_handler);
-      router.post("/api/rent/insert", Rental.default.POST_handler);
-  
-  
+  app.post("/auth/register", upload.single("picture"), auth.default.register);
+  router.post("/auth/login", auth.default.login);
+
+  /* MONGOL API ROUTE */
+  router.post("/api/history/insert", History.default.POST_handler);
+  router.post("/api/rate/insert", Rate.default.POST_handler);
+  router.post("/api/favourite/insert", Favourite.default.POST_handler);
+  router.post("/api/rent/insert", Rental.default.POST_handler);
+
+
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
 
-    /* MONGOL API ROUTE */
-      router.put("/api/history/update", History.default.PUT_handler);
-      router.put("/api/rate/update", Rate.default.PUT_handler);
+  /* MONGOL API ROUTE */
+  router.put("/profile/:userID", verifyToken, user.updateUserProfile);
+  router.put("/profile/:userID/purchase", user.updateBalance);
+  router.put("/api/history/update", History.default.PUT_handler);
+  router.put("/api/rate/update", Rate.default.PUT_handler);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
 
-    /* MONGOL API ROUTE */
-    router.delete("/api/rate/delete", Rate.default.DELETE_handler);
-    router.delete("/api/favourite/delete", Favourite.default.DELETE_handler);
+  /* MONGOL API ROUTE */
+  router.delete("/api/rate/delete", Rate.default.DELETE_handler);
+  router.delete("/api/favourite/delete", Favourite.default.DELETE_handler);
 
   // Don't touch anything else
   app.use("/", router);

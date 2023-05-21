@@ -240,10 +240,39 @@ paths:
               schema:
                 $ref: "#/components/schemas/Discovery"
         "404":
-          description: Access Denied or TV ID Not Found
+          description: Access Denied
         "500":
           description: Internal Server Error
-
+  /search/?query={query}&page={page}:
+    get:
+      tags:
+        - search
+      summary: Get the user's search
+      description: Get all the movie or tv show that relating to the the user's search
+      parameters:
+        - in: path
+          name: query
+          required: true
+          schema:
+            type: string
+          description: Search for E.g 'Vĩnh'
+        - in: path
+          name: page
+          required: true
+          schema:
+            type: string
+          description: Eg. 1
+      responses:
+        "200":
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Search"
+        "404":
+          description: Access Denied
+        "500":
+          description: Internal Server Error
 # Add other paths and endpoints here
 
 components:
@@ -559,6 +588,14 @@ components:
         origin_country:
           type: string
 
+    Dates:
+      type: object
+      properties:
+        maximum:
+          type: date-time
+        minimum:
+          type: date-time
+
     Season:
       type: object
       properties:
@@ -666,6 +703,11 @@ components:
           type: integer
 
     Discovery:
+      type: array
+      items:
+        $ref: "#/components/schemas/Recommendations"
+
+    Search:
       type: array
       items:
         $ref: "#/components/schemas/Recommendations"
