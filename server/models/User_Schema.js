@@ -21,7 +21,6 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
         min: 5
     }
     ,
@@ -36,6 +35,34 @@ const UserSchema = new mongoose.Schema({
     balance: {
         type: Number,
         default: 0
+    },
+    token: {
+        type: String,
+        required: false
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    FbId:{
+        type: String,
+        required: false,
+        unique: true
+    },
+    GgId:{
+        type: String,
+        required: false,
+        unique: true
+    },
+    TwId:{
+        type: String,
+        required: false,
+        unique: true
+    },
+    GhId:{
+        type: String,
+        required: false,
+        unique: true
     }
 }, 
     { timestamps: true }

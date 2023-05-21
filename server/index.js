@@ -14,6 +14,8 @@ import swaggerUI from "swagger-ui-express";
 import fs from "fs";
 import YAML from "js-yaml";
 
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 /* CONFIGURATIONS SETUP */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,7 +23,7 @@ dotenv.config();
 const app = express();
 const swaggerJsDoc = YAML.load(fs.readFileSync("../views/api.yaml", "utf8"));
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -39,7 +41,13 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+app.use("/assets", express.static(path.join(__dirname,'public/assets')));
+app.use(cookieParser(process.env.Cookie_secret));
+app.use(session({
+  secret: process.env.Session_secret,
+  resave: false,
+  saveUninitialized: false
+}));
 
 /* FILE STORAGE */
 const storage = multer.diskStorage({
@@ -50,9 +58,6 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-
-const upload = multer({ storage });
-/* ROUTES FILE */
 
 /* ROUTES */
 configViewEngine(app);

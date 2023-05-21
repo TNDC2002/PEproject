@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Navigate, useParams, Link } from "react-router-dom";
+import { Navigate , useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,6 +40,10 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Popover from "@mui/material/Popover";
 import Navbar from "../navbar";
+import ImageTest from "../../assets/images/background.png";
+import HdOutlinedIcon from '@mui/icons-material/HdOutlined';
+import ClosedCaptionOffIcon from '@mui/icons-material/ClosedCaptionOff';
+import Snackbar from '@mui/material/Snackbar';
 import {
   Favorite,
   FavoriteBorderRounded,
@@ -56,6 +60,9 @@ const MoviePage = () => {
   const [rateDefaultValue, setRateDefaultValue] = useState(0);
   const mainPlayerRef = useRef(null);
 
+  //hovered black name poster
+  const [hoveredRecommendationId, setHoveredRecommendationId] = useState(null);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { movieID } = useParams();
   const user = useSelector((state) => state.user);
@@ -64,7 +71,7 @@ const MoviePage = () => {
   const [isRented, setIsRented] = useState(false);
   const token = useSelector((state) => state.token);
   const theme = useTheme();
-
+  
   //function for popover
   const [popoverOpen, setPopoverOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -78,6 +85,7 @@ const MoviePage = () => {
     setPopoverOpen(false);
   };
 
+  //open and close dialogue
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -87,6 +95,17 @@ const MoviePage = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  //snackbar open and close
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const redirectAccount = () => {
+    navigate("/profile/" + user._id);
+};
 
   const favourite = async (userID, movieID) => {
     const requestData = {
@@ -174,6 +193,7 @@ const MoviePage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
+        credentials: 'include'
       }
     );
   };
@@ -242,7 +262,10 @@ const MoviePage = () => {
     const fetchMovieDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/detail/${movieID}`
+          `http://localhost:5000/movie/detail/${movieID}`, {
+
+          credentials: 'include'
+        }
         );
         const data = await response.json();
         setMovie(data);
@@ -262,6 +285,7 @@ const MoviePage = () => {
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            credentials: 'include'
           }
         );
         const data = await response.json();
@@ -283,6 +307,7 @@ const MoviePage = () => {
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            credentials: 'include'
           }
         );
         const data = await response.json();
@@ -320,7 +345,6 @@ const MoviePage = () => {
 
       const checkRentedResponse = await checkRented(user._id, movieID);
       setIsRented(checkRentedResponse.Rental_return.Rented);
-      console.log(checkRentedResponse);
     };
     fetchInformation();
   }, [user._id, movieID]);
@@ -355,7 +379,6 @@ const MoviePage = () => {
   if (!movie || youtubeIDs === null) {
     return <Loading />;
   }
-
   const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   return (
     <div>
@@ -368,16 +391,19 @@ const MoviePage = () => {
           <Link
             style={{ color: "white", textDecoration: "none" }}
             onClick={() => {
-              window.location.href = "/home";
+              window.location.href = "/Home";
             }}
           >
-            <Typography>
-              <h3>Home</h3>
-            </Typography>
+            <Typography sx={{ "&:hover": {textDecoration: 'underline'}}}><h3>Home</h3></Typography>
           </Link>
 
-          <Link style={{ color: "white", textDecoration: "none" }}>
-            <h3>Movies</h3>
+          <Link 
+            style={{ color: "white", textDecoration: "none" }}
+            onClick={() => {
+              window.location.href = "/Feature Movies";
+            }}  
+          >
+            <Typography sx={{ "&:hover": {textDecoration: 'underline'}}}><h3>Movies</h3></Typography>
           </Link>
           <Typography fontWeight="lighter">
             <h3>{movie.title}</h3>
@@ -421,9 +447,10 @@ const MoviePage = () => {
             <Typography sx={{ fontSize: 40, fontWeight: "medium" }}>
               {movie.title}
             </Typography>
-
+            <HdOutlinedIcon sx={{ fontSize: "35px" }}></HdOutlinedIcon>
+            <ClosedCaptionOffIcon sx={{ fontSize: "35px" }}></ClosedCaptionOffIcon>
             <Stack direction="row" spacing={3} padding="4px">
-              <Avatar onClick={handleFavouriteClick}>
+              <Avatar sx={{ "&:hover": {cursor: 'pointer'}}} onClick={handleFavouriteClick}>
                 {!isFavourited ? (
                   <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -433,7 +460,7 @@ const MoviePage = () => {
                 )}
               </Avatar>
 
-              <Avatar ref={anchorRef} onClick={handlePopoverOpen}>
+              <Avatar sx={{ "&:hover": {cursor: 'pointer'}}} ref={anchorRef} onClick={handlePopoverOpen}>
                 {!isRated ? (
                   <StarIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -514,7 +541,30 @@ const MoviePage = () => {
               onClick={handleOpen}
               disabled={isRented}
               padding="4px"
+              
             >
+              {/*
+              {!user._verified ? (
+                redirectAccount()
+                setSnackbarOpen(true),
+                <Snackbar
+                  open={snackbarOpen}
+                  autoHideDuration={3000}
+                  onClose={handleSnackbarClose}
+                  message="Email is not verified"
+                />
+                ) :(
+                  setSnackbarOpen(true),
+                  <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={3000}
+                    onClose={handleSnackbarClose}
+                    message="Email is verified"
+      />
+                )
+              }
+            */}
+
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
               ) : (
@@ -526,24 +576,50 @@ const MoviePage = () => {
               ) : (
                 <strong>Already Rented</strong>
               )}
+
             </Button>
 
-            <Dialog open={open} onClose={handleClose}>
-              <DialogTitle>Pricing Plan</DialogTitle>
-              <DialogContent>
-                <Container maxWidth="lg">
-                  <Box py={8} textAlign="center">
+            <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
+              {!user.verified ? (
+                <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
+                  <Box sx={{height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center'}} maxWidth="lg">
+                    <Box py={6}>
+                      <Box mb={3}>
+                        <Box maxWidth="lg" >
+                          <Typography variant="h3" component="span" sx={{}}>
+                            <h2>Your email is not verified</h2>
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box sx={{ width: '100%' }}>
+                    <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                      <Grid display="flex" justifyContent="right" item xs={6}>
+                        <Button onClick={() => navigate(`/profile/` + user._id)} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": {backgroundColor: '#63004a'}}}>Verify</Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button onClick={handleClose} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": {backgroundColor: '#63004a'}}}>Close</Button>
+                      </Grid>
+                    </Grid>
+                  </Box>  
+                </DialogContent>
+
+                ) : (
+                <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
+                <Container sx={{height: '100%'}} maxWidth="lg">
+                  <Box py={6} textAlign="center" display="flex">
                     <Box mb={3}>
                       <Container maxWidth="lg">
-                        <Typography variant="h3" component="span">
-                          Pricing Plan
+                        <Typography variant="h3" component="span" sx={{}}>
+                          <h2>Pricing Plan</h2>
                         </Typography>
                       </Container>
                     </Box>
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Day Plan"></CardHeader>
+                          <CardHeader title={<Typography variant="h4" >1-Day Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -551,16 +627,7 @@ const MoviePage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                100 SD
-                                <Typography variant="h6" component="span">
-                                  /week
-                                </Typography>
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                1080p Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Limited movies & TV shows
+                                19.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
@@ -576,7 +643,7 @@ const MoviePage = () => {
 
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Week Plan"></CardHeader>
+                        <CardHeader title={<Typography variant="h4" >1-Week Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -584,16 +651,7 @@ const MoviePage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                1000 SD
-                                <Typography variant="h6" component="span">
-                                  /month
-                                </Typography>
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                4k Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Limited movies & TV shows
+                                129.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
@@ -609,7 +667,7 @@ const MoviePage = () => {
 
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Month Plan"></CardHeader>
+                        <CardHeader title={<Typography variant="h4" >1-Month Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -617,19 +675,7 @@ const MoviePage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                10000 SD
-                                <Typography variant="h6" component="span">
-                                  /year
-                                </Typography>
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                4k+ Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Unlimited movies & TV shows
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Cancle anytime
+                                499.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
@@ -646,10 +692,12 @@ const MoviePage = () => {
                   </Box>
                 </Container>
               </DialogContent>
+              
+              )}
               <DialogActions>
-                <Button variant="contained" onClick={handleClose}>
-                  Close
-                </Button>
+                  <Button variant="contained" onClick={handleClose}>
+                    Close
+                  </Button>
               </DialogActions>
             </Dialog>
           </Grid>
@@ -704,11 +752,17 @@ const MoviePage = () => {
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (
                   <Grid item key={recommendation.id}>
-                    <Link to={`/movie/${recommendation.id}`}>
                       <Box
-                        onClick={() => {
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        }}
+                      onMouseEnter={() => {setHoveredRecommendationId(recommendation.id)}}
+                      onMouseLeave={() => {setHoveredRecommendationId(null)}}
+                      sx={{
+                        position: 'relative',
+                        display: 'flex',
+                        "&:hover":{
+                            cursor: 'pointer',
+                            boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+                        }
+                      }}
                       >
                         <Image
                           width="175px"
@@ -720,8 +774,39 @@ const MoviePage = () => {
                           }
                           alt={`${recommendation.title} poster`}
                         />
+                        {hoveredRecommendationId === recommendation.id && (
+                          <Box 
+                          onClick={() => {
+                            navigate(`/movie/${recommendation.id}`);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                          }}
+                          className="hover" sx={{
+                              display:'flex',
+                              position: 'absolute',
+                              width: '100%',
+                              height: '100%',
+                              opacity: 0.8,
+                              backgroundColor: 'black',
+                          }}>
+                              <Box
+                              className="infoContainer" sx={{
+                                  width: '100%',
+                                  height: '100%',
+                                  display:'grid',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
+
+                              }}>
+                                  <Typography sx={{
+                                      fontSize: '1.25rem',
+                                      fontWeight: 'bold',
+                                      
+                                  }}>{recommendation.title}</Typography>
+                              </Box>
+                              
+                          </Box>
+                      )}
                       </Box>
-                    </Link>
                   </Grid>
                 ))}
               </Grid>

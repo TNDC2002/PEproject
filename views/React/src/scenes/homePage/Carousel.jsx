@@ -184,7 +184,6 @@ export default function Carousel({ movie }) {
               backgroundColor: 'black',
               display: "grid",
               placeItems: "center",
-              cursor: "pointer",
               opacity: 0.8,
             }}
           >
@@ -222,7 +221,6 @@ export default function Carousel({ movie }) {
               backgroundColor: 'black',
               display: "grid",
               placeItems: "center",
-              cursor: "pointer",
               opacity: 0.8,
             }}
           >

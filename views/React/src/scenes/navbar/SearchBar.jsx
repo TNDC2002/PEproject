@@ -70,7 +70,6 @@ const SearchBar = () => {
           history: true
         };
       }));
-      console.log("Just fetched new searches");
     } catch (error) {
       console.error(error);
     };
@@ -106,6 +105,7 @@ const SearchBar = () => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(requestData),
+        credentials: 'include'
       }
     );
   }

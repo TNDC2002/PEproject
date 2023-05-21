@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import { Navigate, useParams, Link } from "react-router-dom";
+import { Navigate, useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
 import { useSelector } from "react-redux";
 import FlexBetween from "../../components/FlexBetween";
 import Loading from "../../components/Loading";
+import ReactPlayer from 'react-player/youtube';
 import {
   Box,
   Grid,
@@ -39,6 +40,9 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Popover from "@mui/material/Popover";
 import StarIcon from "@mui/icons-material/Star";
+import ImageTest from "../../assets/images/background.png";
+import HdOutlinedIcon from '@mui/icons-material/HdOutlined';
+import ClosedCaptionOffIcon from '@mui/icons-material/ClosedCaptionOff';
 
 import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
 import Navbar from "../navbar";
@@ -56,11 +60,14 @@ const ShowPage = () => {
   const [credits, setCredits] = useState(null);
   const mainPlayerRef = useRef(null);
 
+  //hover black name poster
+  const navigate = useNavigate();
+  const [hoveredRecommendationId, setHoveredRecommendationId] = useState(null);
+
   const { showID } = useParams();
   const user = useSelector((state) => state.user);
   const [isFavourited, setIsFavourited] = useState(false);
   const [isRented, setIsRented] = useState(false);
-
   const [isRated, setIsRated] = useState(false);
   const [rateDefaultValue, setRateDefaultValue] = useState(0);
 
@@ -184,6 +191,7 @@ const ShowPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
+        credentials: 'include'
       }
     );
   };
@@ -250,7 +258,10 @@ const ShowPage = () => {
     const fetchShowDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/tvDetail/${showID}`
+          `http://localhost:5000/movie/tvDetail/${showID}`,{
+            
+            credentials: 'include'
+          }
         );
         const data = await response.json();
         setShow(data);
@@ -295,6 +306,7 @@ const ShowPage = () => {
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            credentials: 'include'
           }
         );
         const data = await response.json();
@@ -315,10 +327,12 @@ const ShowPage = () => {
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            credentials: 'include'
           }
         );
         const data = await response.json();
         setRecommendations(data.results);
+        console.log(recommendations);
       } catch (error) {
         console.error(error);
       }
@@ -390,16 +404,24 @@ const ShowPage = () => {
           <Link
             style={{ color: "white", textDecoration: "none" }}
             onClick={() => {
-              window.location.href = "/home";
+              window.location.href = "/Home";
             }}
           >
-            <Typography>
+            <Typography sx={{ "&:hover": {textDecoration: 'underline'}}}>
               <h3>Home</h3>
             </Typography>
           </Link>
 
-          <Link style={{ color: "white", textDecoration: "none" }}>
-            <h3>Movies</h3>
+          <Link 
+            style={{ 
+              color: "white", 
+              textDecoration: "none",  
+              }}
+              onClick={() => {
+                window.location.href = "/TV Shows";
+              }}  
+            >
+            <Typography sx={{ "&:hover": {textDecoration: 'underline'} }}><h3>Shows</h3></Typography>
           </Link>
           <Typography fontWeight="lighter">
             <h3>{show.original_name}</h3>
@@ -443,7 +465,8 @@ const ShowPage = () => {
             <Typography sx={{ fontSize: 40, fontWeight: "medium" }}>
               {show.original_name}
             </Typography>
-
+            <HdOutlinedIcon sx={{ fontSize: "35px" }}></HdOutlinedIcon>
+            <ClosedCaptionOffIcon sx={{ fontSize: "35px" }}></ClosedCaptionOffIcon>
             <Stack direction="row" spacing={3} padding="4px">
               <Box>
                 <FormControl>
@@ -461,7 +484,7 @@ const ShowPage = () => {
                   </Select>
                 </FormControl>
               </Box>
-              <Avatar onClick={handleFavouriteClick}>
+              <Avatar sx={{ "&:hover": {cursor: 'pointer'} }} onClick={handleFavouriteClick}>
                 {!isFavourited ? (
                   <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -471,7 +494,7 @@ const ShowPage = () => {
                 )}
               </Avatar>
 
-              <Avatar ref={anchorRef} onClick={handlePopoverOpen}>
+              <Avatar sx={{ "&:hover": {cursor: 'pointer'} }} ref={anchorRef} onClick={handlePopoverOpen}>
                 {!isRated ? (
                   <StarIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -574,22 +597,22 @@ const ShowPage = () => {
                 <strong>Already Rented</strong>
               )}
             </Button>
-            <Dialog open={open} onClose={handleClose}>
-              <DialogTitle>Pricing Plan</DialogTitle>
-              <DialogContent>
-                <Container maxWidth="lg">
-                  <Box py={8} textAlign="center">
+            <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
+              
+              <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
+                <Container sx={{height: '100%'}} maxWidth="lg">
+                  <Box py={6} textAlign="center" display="flex">
                     <Box mb={3}>
                       <Container maxWidth="lg">
                         <Typography variant="h3" component="span">
-                          Pricing Plan
+                        <h2>Pricing Plan</h2>
                         </Typography>
                       </Container>
                     </Box>
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Day Plan"></CardHeader>
+                          <CardHeader title={<Typography variant="h4" >1-Day Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -597,16 +620,7 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                100 SD
-                                <Typography variant="h6" component="span">
-                                  /week
-                                </Typography>
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                1080p Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Limited movies & TV shows
+                                19.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
@@ -622,7 +636,7 @@ const ShowPage = () => {
 
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Week Plan"></CardHeader>
+                        <CardHeader title={<Typography variant="h4" >1-Week Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -630,16 +644,7 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                1000 SD
-                                <Typography variant="h6" component="span">
-                                  /month
-                                </Typography>
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                4k Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Limited movies & TV shows
+                                129.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
@@ -655,7 +660,7 @@ const ShowPage = () => {
 
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                          <CardHeader title="1-Month Plan"></CardHeader>
+                        <CardHeader title={<Typography variant="h4" >1-Month Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -663,19 +668,7 @@ const ShowPage = () => {
                                 component="h2"
                                 gutterBottom={true}
                               >
-                                10000 SD
-                                <Typography variant="h6" component="span">
-                                  /year
-                                </Typography>
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                4k+ Quality
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Unlimited movies & TV shows
-                              </Typography>
-                              <Typography variant="subtitle1" component="p">
-                                Cancle anytime
+                                499.99 SmashDong
                               </Typography>
                             </Box>
                             <Button
@@ -691,12 +684,23 @@ const ShowPage = () => {
                     </Grid>
                   </Box>
                 </Container>
-              </DialogContent>
-              <DialogActions>
-                <Button variant="contained" onClick={handleClose}>
+                <Box 
+                   m={1}
+                   //margin
+                  display="flex"
+                  justifyContent="flex-end"
+                  alignItems="flex-end"
+                >
+                <Button 
+                  variant="contained" 
+                  onClick={handleClose}
+                  sx={{position: 'absoulute', }} 
+                >
                   Close
                 </Button>
-              </DialogActions>
+                </Box>
+                
+              </DialogContent>
             </Dialog>
           </Grid>
         </Grid>
@@ -755,11 +759,17 @@ const ShowPage = () => {
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (
                   <Grid item key={recommendation.id}>
-                    <Link to={`/TV Shows/${recommendation.id}`}>
                       <Box
-                        onClick={() => {
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        }}
+                      onMouseEnter={() => {setHoveredRecommendationId(recommendation.id)}}
+                      onMouseLeave={() => {setHoveredRecommendationId(null)}}
+                      sx={{
+                        position: 'relative',
+                        display: 'flex',
+                        "&:hover":{
+                            cursor: 'pointer',
+                            boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+                        }
+                      }}
                       >
                         <Image
                           width="175px"
@@ -769,10 +779,40 @@ const ShowPage = () => {
                               ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}`
                               : "https://via.placeholder.com/150x250.png?text=No+Image"
                           }
-                          alt={`${recommendation.original_name} poster`}
+                          alt={`${recommendation.title} poster`}
                         />
+                        {hoveredRecommendationId === recommendation.id && (
+                          <Box 
+                          onClick={() => {
+                            navigate(`/TV Shows/${recommendation.id}`);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                            }}
+                            className="hover" sx={{
+                              display:'flex',
+                              position: 'absolute',
+                              width: '100%',
+                              height: '100%',
+                              opacity: 0.8,
+                              backgroundColor: 'black',
+                          }}>
+                              <Box
+                              className="infoContainer" sx={{
+                                  width: '100%',
+                                  height: '100%',
+                                  display:'grid',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
+
+                              }}>
+                                  <Typography sx={{
+                                      fontSize: '1.25rem',
+                                      fontWeight: 'bold',
+                                      
+                                  }}>{recommendation.name}</Typography>
+                              </Box>       
+                          </Box>
+                      )}
                       </Box>
-                    </Link>
                   </Grid>
                 ))}
               </Grid>
@@ -780,11 +820,6 @@ const ShowPage = () => {
           )}
         </Box>
       </Container>
-      <Box
-        sx={{
-          height: 70,
-        }}
-      ></Box>
     </div>
   );
 };

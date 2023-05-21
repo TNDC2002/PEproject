@@ -1,15 +1,12 @@
-import React from "react";
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./scenes/homePage";
 import LoginPage from "./scenes/loginPage";
-import NavPage from "./scenes/profilePage";
-import Original from "./scenes/profilePage/Original";
-import NewDesign from "./scenes/profilePage/NewDesign";
 
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from "@mui/material";
 import { themeSettings } from "./theme";
 import MoviePage from "./scenes/moviePage";
 import ShowPage from "./scenes/showPage";
@@ -17,12 +14,108 @@ import SearchPage from "./scenes/searchPage";
 import MyListPage from "./scenes/mylistPage";
 import FeaturePage from "./scenes/featurePage";
 import TvPage from "./scenes/tvPage";
-import ProfilePage from "./scenes/profilePage";
+import ProfilePage from "./scenes/profilePage/NewDesign";
 
+import Loading from "./components/Loading";
+import { setMode, setLogin } from "./states/index.js";
+import { useDispatch } from "react-redux";
 function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-  const isAuth = Boolean(useSelector((state) => state.token));
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+ 
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      try {
+        // Get the current route path
+        const currentPath = window.location.pathname;
+
+        // Skip authentication check if the current route is "/"
+        if (currentPath === "/") {
+          setLoading(false);
+          setAuthenticated(true);
+          return;
+        }
+        if (currentPath === "/auth/google") {
+          setLoading(false);
+          setAuthenticated(true);
+          console.log("Now calling route /login/google")
+          const response = await fetch("http://localhost:5000/login/google", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          });
+          const data = await response.json();
+          if (data.user) {  
+          dispatch(
+            setLogin({
+              user: data.user
+            })
+          );
+        }
+          window.location.href = "/home";
+          return;
+        } else if (currentPath === "/auth/github") {
+          setLoading(false);
+          setAuthenticated(true);
+          const response = await fetch("http://localhost:5000/login/github", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          });
+          const data = await response.json();
+          if (data.user) {  
+            dispatch(
+              setLogin({
+                user: data.user
+              })
+            );
+          }
+          window.location.href = "/home";
+          return;
+        } else if (currentPath === "/auth/facebook") {
+          setLoading(false);
+          setAuthenticated(true);
+          const response = await fetch("http://localhost:5000/login/facebook", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          });
+          const data = await response.json();
+          if (data.user) {  
+            dispatch(
+              setLogin({
+                user: data.user
+              })
+            );
+          }
+          window.location.href = "/home";
+          return;
+        }
+
+        const response = await fetch("http://localhost:5000/auth/info", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        });
+        const data = await response.json();
+        setAuthenticated(data.authenticated);
+        setLoading(false);
+      } catch (error) {
+        console.log("Authentication check error:", error);
+        setLoading(false);
+      }
+    };
+
+    checkAuthentication();
+  }, []);
+
+  if (loading) {
+    // Show loading state while checking authentication
+    return <Loading />;
+  }
 
   return (
     <div className="app">
@@ -32,49 +125,78 @@ function App() {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route
-              path="/Home"
-              element={isAuth ? <HomePage /> : <Navigate to="/" />}
+              path="/home"
+              element={
+                authenticated ? (
+                  <HomePage />
+                ) : (
+                  <Navigate to="/" replace state={{ from: "/home" }} />
+                )
+              }
             />
-            <Route 
+            <Route
               path="/Feature Movies"
-              element={isAuth ? <FeaturePage /> : <Navigate to="/" />}
+              element={authenticated ? <FeaturePage /> : <Navigate to="/" />}
             />
             <Route
               path="/home/search"
-              element={isAuth ? <SearchPage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/profile/:userID"
-              element={isAuth ? <NavPage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/profile/:userID/Original"
-              element={isAuth ? <Original /> : <Navigate to="/" />}
-            />
-
-            <Route
-              path="/profile/:userID/NewDesign"
-              element={isAuth ? <NewDesign /> : <Navigate to="/" />}
+              element={authenticated ? <SearchPage /> : <Navigate to="/" />}
             />
             <Route
               path="/movie/:movieID"
-              element={isAuth ? <MoviePage /> : <Navigate to="/" />}
+              element={
+                authenticated ? (
+                  <MoviePage />
+                ) : (
+                  <Navigate
+                    to="/"
+                    replace
+                    state={{ from: "/movie/:movieID" }}
+                  />
+                )
+              }
             />
             <Route
               path="/TV Shows"
-              element={isAuth ? <TvPage /> : <Navigate to="/" />}
+              element={
+                authenticated ? (
+                  <TvPage />
+                ) : (
+                  <Navigate to="/" replace state={{ from: "/TV Shows" }} />
+                )
+              }
             />
             <Route
               path="/TV Shows/:showID"
-              element={isAuth ? <ShowPage /> : <Navigate to="/" />}
+              element={
+                authenticated ? (
+                  <ShowPage />
+                ) : (
+                  <Navigate
+                    to="/"
+                    replace
+                    state={{ from: "/TV Shows/:showID" }}
+                  />
+                )
+              }
             />
             <Route
               path="/profile/:userID"
-              element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+              element={
+                authenticated ? (
+                  <ProfilePage />
+                ) : (
+                  <Navigate
+                    to="/"
+                    replace
+                    state={{ from: "/profile/:userID" }}
+                  />
+                )
+              }
             />
             <Route
               path="/my list"
-              element={isAuth ? <MyListPage /> : <Navigate to="/" />}
+              element={authenticated ? <MyListPage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>

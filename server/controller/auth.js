@@ -5,6 +5,7 @@ import EmailVerification from "../models/EmailVerification_Schema.js"
 import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
 dotenv.config()
+const expiresIn = (60 * 60)*7; 
 
 //transporter stuff
 let transporter = nodemailer.createTransport({
@@ -14,48 +15,6 @@ let transporter = nodemailer.createTransport({
         pass: process.env.AUTH_PASS,
     }
 })
-
-// //test transporter
-// transporter.verify((error, success) => {
-//     if (error) {
-//         console.log(error);
-//     } else {
-//         console.log("Ready for messages");
-//         console.log(success);
-//     }
-// })
-
-/* REGISTER USER */
-export const register = async (req, res) => {
-    try {
-        const {
-            firstName,
-            lastName,
-            email,
-            password,
-            picturePath
-        } = req.body;
-        console.log(req.body);
-        const salt = await bcrypt.genSalt();
-        const passwordHash = await bcrypt.hash(password, salt);
-
-        const newUser = new User({
-            firstName,
-            lastName,
-            email,
-            password: passwordHash,
-            picturePath
-        })
-        const savedUser = await newUser.save();
-
-        sendVerificationEmail(savedUser);
-
-        res.status(201).json(savedUser);
-
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-};
 
 let generateRandomNumber = () => {
     // Generate a random number between 0 and 999999
@@ -100,7 +59,6 @@ const sendVerificationEmail = ({ email }, res) => {
         })
 };
 
-//export
 const verify = async (req, res) => {
     try {
         let { userId, verifyPIN } = req.params;
@@ -144,8 +102,41 @@ const verified = async (req, res) => {
     } catch (err) { }
 }
 
+/* REGISTER USER */
+const register = async (req, res) => {
+    try {
+        const {
+            firstName,
+            lastName,
+            email,
+            password,
+            picturePath
+        } = req.body;
+        console.log(req.body);
+        const salt = await bcrypt.genSalt();
+        const passwordHash = await bcrypt.hash(password, salt);
+
+        const newUser = new User({
+            firstName,
+            lastName,
+            email,
+            password: passwordHash,
+            picturePath
+        })
+        const savedUser = await newUser.save();
+
+        sendVerificationEmail(savedUser);
+
+        res.status(201).json(savedUser);
+
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({ error: err.message });
+    }
+};
+
 /* LOGGING IN */
-export const login = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email: email });
@@ -154,19 +145,66 @@ export const login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." })
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn});
+        const salt = await bcrypt.genSalt();
+        const tokenHash = await bcrypt.hash(token, salt);
+        //save token to DB
+        let update = await User.findOneAndUpdate({ _id: user._id }, {
+            token: tokenHash
+        })
+            .then((update) => { })
+            .catch((error) => {
+                console.log("ERROR --- Auth.js --- can't UPDATE token to DB")
+            })
+
         delete user.password;
-        res.status(200).json({ token, user });
+        const cookieOptions = {
+            maxAge: 36000000, // Cookie expiration time (in milliseconds)
+            httpOnly: true, // Restrict cookie access to HTTP requests only
+            signed: true, // Enable cookie signing
+            sameSite: 'Lax'
+        };
+        res.cookie('token', token, cookieOptions);
+        res.status(200).json({ user });
     } catch (err) {
+        console.log(err.message)
         res.status(500).json({ error: err.message });
     }
 };
+
+const logout = async (req, res) => {
+    res.clearCookie("token");
+    res.status(200).send("deleted");
+}
+const GetAUTH = async (req, res) => {
+    try {
+        let token = req.signedCookies.token;
+        if (!token) {
+            return res.status(200).json({ authenticated: false });
+        }
+        const UUID = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findOne({ _id: UUID.id });
+        const isMatch = await bcrypt.compare(token, user.token);
+        if (isMatch) {
+            console.log("___res true")
+            return res.status(200).json({ authenticated: true });
+        } else {
+            return res.status(200).json({ authenticated: false });
+        }
+
+    } catch (err) {
+        console.log(err.message)
+        res.status(200).json({ error: err.message, authenticated: false });
+    }
+}
 
 var output = {
     verify,
     verified,
     login,
-    register
+    logout,
+    register,
+    GetAUTH
 }
 
 export default output

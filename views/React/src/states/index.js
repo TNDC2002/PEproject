@@ -1,11 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { useNavigate } from 'react-router-dom';
 const initialState = {
     mode: "dark",
     user: null,
     token: null,
     movies: [],
 };
+const deleteCookie = async () => {
+    const requestData = {
+    };
+    const addFavouriteResponse = await fetch(
+        "http://localhost:5000/auth/logout",
+        {
+            method: "GET",
+            credentials: 'include'
+        }
+    );
+};
+
 
 export const authSlice = createSlice({
     name: "auth",
@@ -17,12 +29,11 @@ export const authSlice = createSlice({
 
         setLogin: (state, action) => {
             state.user = action.payload.user;
-            state.token = action.payload.token;
         },
 
         setLogout: (state) => {
             state.user = null;
-            state.token = null;
+            deleteCookie('token');
         },
 
         updateUser: (state, action) => {
