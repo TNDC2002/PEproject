@@ -73,16 +73,6 @@ app.use(session({
   saveUninitialized: false
 }));
 
-/* FILE STORAGE */
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/assets");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-
 /* ROUTES */
 configViewEngine(app);
 initWebRoutes(app);
