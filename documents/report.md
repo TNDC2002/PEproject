@@ -5,7 +5,7 @@
 | Full Name            | Student Id |                                                                                                 Tasks                                                                                                  |
 | -------------------- | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | Nguyễn Ngọc Vĩnh     |   18691    | _Movie and TV Shows details, trailers, and recommendations backend API; Movie Search and Filtering API; UI/UX of Homepage and MoviePage; Markdown and Swagger Documentation, Analytics and Reporting._ |
-| Hà Quách Phú Thành   |   18840    |                                                                                                Backend                                                                                                 |
+| Hà Quách Phú Thành   |   18840    |                                                                                                _Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                                                           |
 | Thái Quang Nam       |   18770    |                                          _Design Navbar, HomePage, FeatureMoviePage, TVShowsPage, MyListPage, SearchPage; Markdown Documentation, Reporting_                                           |
 | Phạm Hoàng Việt      |   18334    |                                                                                             User Interface                                                                                             |
 | Nguyễn Xuân Khang    |   18973    |                                                                                           Profile Interface                                                                                            |
@@ -19,6 +19,7 @@ Welcome to _SmashBruh_, the ultimate movie rental destination that redefines the
 
 In summary, _SmashBruh_ is not just a movie rental website; it's a gateway to a world of cinematic wonders.
 
+With the rise of media streaming platform, it is apparent that
 ## **2. Table of content**
 
 - [**1. _SmashBruh_ Movie Renting Website - Documentation**](#1-smashbruh-movie-renting-website---documentation)
@@ -402,28 +403,26 @@ By establishing a comprehensive development environment encompassing these compo
 Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Website:
 
 1. **_Create an Account:_**
-   To access all the features and benefits of _SmashBruh_, start by creating your account. Click on the "Sign Up" button on the homepage and provide the required information, including your name, email address, and a secure password. Once you've filled in the details, click "Create Account" to proceed.
+   To access all the features and benefits of _SmashBruh_, start by creating your account. Click on the "Sign Up" button on the homepage and provide the required information, including your name, email address, and a secure password. Once you've filled in the details, click "Finish" to proceed.
 
 2. **_Explore Movie Catalog:_**
-   After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Movies" section to discover a wide range of genres, from action-packed blockbusters to heartwarming dramas and everything in between. Browse through the curated collections, popular releases, or use the search bar to find specific movies.
+   After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Movies" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
 
 3. **_Select and Rent Movies:_**
-   When you find a movie you want to watch, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. If you're ready to watch the movie, select the rental option that suits you best. _SmashBruh_ offers flexible rental durations, including 24 hours, 48 hours, or even a weekend pass. Click on "Rent Now" to proceed to the checkout.
+   When you find a movie you want to rent, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. Click on "Rent" to proceed to the checkout. You can also "favourite" a movie and rate them with the corresponding icons.
 
 4. **_Make Payment:_**
-   At the checkout, review your selected movie and rental duration. _SmashBruh_ provides secure payment options to ensure a seamless transaction experience. Choose your preferred payment method, enter the required details, and click "Confirm Payment" to finalize your rental.
+   At the checkout, review your selected movie and rental duration. _SmashBruh_ provides secure payment options. Choose your preferred payment method, enter the required details, and click "Smash" to finalize your rental.
 
 5. **_Enjoy Your Movie:_**
-   Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented. Click on the movie you want to watch, and sit back, relax, and enjoy the cinematic experience right from the comfort of your own home.
+   Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented.
 
 6. **_Manage Your Account:_**
-   _SmashBruh_ provides a user-friendly account management interface to help you keep track of your rentals, update your personal information, and manage your payment methods. Access the "My Account" section to view and modify your profile, change your password, or update your payment details.
+   _SmashBruh_ provides a user-friendly account management interface to help you keep track of your rentals, update your personal information, and manage your payment methods. Access the "My Profile" section to view and modify your profile, change your password, or update your payment details.
 
 7. **_Explore Additional Features:_**
-   While movie rentals are at the core of _SmashBruh_, we offer additional features to enhance your movie-watching experience. Explore our curated playlists, personalized recommendations, or engage in discussions with fellow movie enthusiasts through our vibrant community forums.
+   While movie rentals are at the core of _SmashBruh_, we offer additional features to your movie-watching experience. Explore our curated playlists, personalized recommendations.
 
-8. **_Provide Feedback:_**
-   Your feedback is invaluable to us as we continuously strive to improve our services. If you have any suggestions, concerns, or inquiries, don't hesitate to reach out to our customer support team. We're here to assist you and ensure you have the best possible experience on _SmashBruh_.
 
 ## **8. Conclusion**
 
@@ -432,6 +431,11 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
 In conclusion, our project is a small
 
 ### **8.2. Future Work**
+- Despite facing time constraints and limited experience working on a large-scale team project, we encountered challenges in meeting deadlines and fully achieving our initial ideas and objectives. However, it is important to acknowledge the significant progress we have made and the invaluable lessons we have learned in the realms of web development and collaborative teamwork. Drawing from these experiences, we can identify future objectives aimed at refining and optimizing the app
+
+- **Admin's Interface**
+
+  - Despite implementing an admin checking function and establishing a conducive work environment within the database for administrators, we currently lack dedicated admin interfaces for them to efficiently operate and moderate the system. To address this limitation, it is crucial to develop a comprehensive admin interface that offers an extensive range of functionalities. The interface should provide an overview of user information and rental details, enabling administrators to gain insights and perform necessary actions. Examples of these actions include the ability to ban or unban users, disable specific movies from being rented or viewed, and execute other administrative tasks. By providing a robust and user-friendly admin interface, we empower administrators with the tools they need to effectively carry out their responsibilities and streamline their workflow.
 
 - **Interactive Movie Discussion**
 
@@ -444,6 +448,9 @@ In conclusion, our project is a small
 - **Augmented Reality (AR) Movie Posters**
   - Users can scan movie posters using their smartphones or tablets and access interactive content such as trailers, behind-the-scenes footage, or exclusive interviews with the cast and crew.
 
+- **Recommendation System**
+
+  - In today's rapidly evolving landscape, the integration of machine learning and AI algorithms has become increasingly vital for app development. By incorporating such technologies into our app, we not only embrace modernity but also enhance our ability to provide users with superior services. A prime example of this is a recommendation system that leverages a user's favorite movies/shows collection to compute relevant metrics, enabling personalized suggestions tailored to their preferences. These metrics can include factors such as genres, actors/actresses, directors, or even the countries of production.
 ### **8.3. References**
 
 - Color Palette: https://colorhunt.co/palette/060047b3005ee90064ff5f9e
