@@ -5,10 +5,6 @@ import Image from "mui-image";
 import { ArrowBackIos, ArrowForwardIos, KeyboardDoubleArrowDown, Campaign } from "@mui/icons-material";
 import { Link } from "react-scroll";
 import CarouselVideo from "../trailerPlayer/carouselVideo"
-import YouTubePlayer from "../trailerPlayer/YoutubeVideo";
-
-import { images } from "./CarouselData";
-import zIndex from "@mui/material/styles/zIndex";
 
 export default function Carousel({ movie }) {
   const [currImg, setCurrImg] = useState(0);
