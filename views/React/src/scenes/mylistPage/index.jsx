@@ -336,7 +336,7 @@ const MyListPage = () => {
                                         boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
                                     }
                                 }}>
-                                    <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons[show.intendedSeason].poster_path}`}/>
+                                    <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons.length > 1 ? show.seasons[show.intendedSeason].poster_path: show.poster_path}`}/>
                                     {/* <Typography>{movie.title}</Typography> */}
                                     {hoveredFavouriteShowId === show.id && (
                                         <Box 
@@ -533,7 +533,7 @@ const MyListPage = () => {
                                         boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
                                     }
                                 }}>
-                                    <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons[show.intendedSeason].poster_path}`}/>
+                                    <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons.length > 1 ? show.seasons[show.intendedSeason].poster_path: show.poster_path}`}/>
                                     {/* <Typography>{movie.title}</Typography> */}
                                     {hoveredRentedShowId === show.id && (
                                         <Box 
