@@ -61,7 +61,7 @@ const sendVerificationEmail = ({ email }, res) => {
 
 const verify = async (req, res) => {
     try {
-        let { userId, verifyPIN } = req.params;
+        let { userId, verifyPIN } = req.body;
 
         EmailVerification.find(userId)
             .then((result) => {
@@ -206,7 +206,6 @@ const GetAUTH = async (req, res) => {
 
 var output = {
     verify,
-    verified,
     login,
     logout,
     register,
