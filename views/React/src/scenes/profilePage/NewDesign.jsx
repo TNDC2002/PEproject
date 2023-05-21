@@ -1347,7 +1347,6 @@ const NewDesign = () => {
                         <PaymentDialogs />
                       </Box>
                       <Box sx={{ marginTop: "30px" }}>
-                        <EmailVerifyDialog />
                       </Box>
                     </Stack>
                   </Box>
