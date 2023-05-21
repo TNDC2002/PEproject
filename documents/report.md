@@ -5,7 +5,7 @@
 | Full Name            | Student Id |                                                                                                 Tasks                                                                                                  |
 | -------------------- | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | Nguyễn Ngọc Vĩnh     |   18691    | _Movie and TV Shows details, trailers, and recommendations backend API; Movie Search and Filtering API; UI/UX of Homepage and MoviePage; Markdown and Swagger Documentation, Analytics and Reporting._ |
-| Hà Quách Phú Thành   |   18840    |                                                                                                Backend                                                                                                 |
+| Hà Quách Phú Thành   |   18840    |                                                                                                _Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                                                           |
 | Thái Quang Nam       |   18770    |                                          _Design Navbar, HomePage, FeatureMoviePage, TVShowsPage, MyListPage, SearchPage; Markdown Documentation, Reporting_                                           |
 | Phạm Hoàng Việt      |   18334    |                                                                                             User Interface                                                                                             |
 | Nguyễn Xuân Khang    |   18973    |                                                                                           Profile Interface                                                                                            |
@@ -19,6 +19,7 @@ Welcome to _SmashBruh_, the ultimate movie rental destination that redefines the
 
 In summary, _SmashBruh_ is not just a movie rental website; it's a gateway to a world of cinematic wonders.
 
+With the rise of media streaming platform, it is apparent that
 ## **2. Table of content**
 
 - [**1. _SmashBruh_ Movie Renting Website - Documentation**](#1-smashbruh-movie-renting-website---documentation)
@@ -408,7 +409,7 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
    After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Movies" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
 
 3. **_Select and Rent Movies:_**
-   When you find a movie you want to rent, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. Click on "Rent" to proceed to the checkout.
+   When you find a movie you want to rent, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. Click on "Rent" to proceed to the checkout. You can also "favourite" a movie and rate them with the corresponding icons.
 
 4. **_Make Payment:_**
    At the checkout, review your selected movie and rental duration. _SmashBruh_ provides secure payment options. Choose your preferred payment method, enter the required details, and click "Smash" to finalize your rental.
@@ -430,11 +431,11 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
 In conclusion, our project is a small
 
 ### **8.2. Future Work**
-- Due to the time constrain and limited experience working in a big project with a team, we find ourselves struggle to meet deadlines and fulfill our initial ideas and objectives. With that being said, we have come a long way and learned so much about web development and team working. And with those expierence, there are still objectives that we can do to further polish and perfect the app in the future. 
+- Despite facing time constraints and limited experience working on a large-scale team project, we encountered challenges in meeting deadlines and fully achieving our initial ideas and objectives. However, it is important to acknowledge the significant progress we have made and the invaluable lessons we have learned in the realms of web development and collaborative teamwork. Drawing from these experiences, we can identify future objectives aimed at refining and optimizing the app
 
 - **Admin's Interface**
 
-  - Eventhough, we did implement an admin checking function and provide a work enviroment in the database for the admin, there are no Admin's interfaces for them to operate and moderate through. The interface may provides an overview of the users information and rental information. The admin may ban or unban a user, disable a certain movie for renting or viewing. There are endless of ways for the admins to operate and conduct their work.
+  - Despite implementing an admin checking function and establishing a conducive work environment within the database for administrators, we currently lack dedicated admin interfaces for them to efficiently operate and moderate the system. To address this limitation, it is crucial to develop a comprehensive admin interface that offers an extensive range of functionalities. The interface should provide an overview of user information and rental details, enabling administrators to gain insights and perform necessary actions. Examples of these actions include the ability to ban or unban users, disable specific movies from being rented or viewed, and execute other administrative tasks. By providing a robust and user-friendly admin interface, we empower administrators with the tools they need to effectively carry out their responsibilities and streamline their workflow.
 
 - **Interactive Movie Discussion**
 
@@ -449,7 +450,7 @@ In conclusion, our project is a small
 
 - **Recommendation System**
 
-  - With the rise of AI in recent years, it is crucial to implement some sort of machine learning/AI algorithm to our app, not only for the sake of modernity but also the suffiency at providing our users the services. A recommendation system can learn from a user's favourite movies/shows collection and compute a certain metrics to determine what sort of movies/shows fit the user the best. Those metrics can be the genres, actors/actress, director or even the countries where they were produced.
+  - In today's rapidly evolving landscape, the integration of machine learning and AI algorithms has become increasingly vital for app development. By incorporating such technologies into our app, we not only embrace modernity but also enhance our ability to provide users with superior services. A prime example of this is a recommendation system that leverages a user's favorite movies/shows collection to compute relevant metrics, enabling personalized suggestions tailored to their preferences. These metrics can include factors such as genres, actors/actresses, directors, or even the countries of production.
 ### **8.3. References**
 
 - Color Palette: https://colorhunt.co/palette/060047b3005ee90064ff5f9e
