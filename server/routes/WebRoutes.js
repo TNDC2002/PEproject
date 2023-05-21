@@ -251,6 +251,7 @@ import * as Rental from "../controller/UserRentMovie_Controller.js";
 import * as Favourite from "../controller/UserFavouriteMovie_Controller.js";
 import * as History from "../controller/UserSearchHistory_Controller.js";
 import * as oAuth2 from "../controller/oAuth2_Controller.js";
+import * as Verify from "../controller/Verification_controller.js"
 
 let router = express.Router();
 
@@ -302,7 +303,7 @@ let initWebRoutes = (app) => {
         })
       );
       router.get("/login/twitter", oAuth2.default.TW_oAuth2);
-      router.get("/auth/verify", auth.default.verify);
+      router.get("/auth/verify", Verify.default.verify);
       router.get("/movie/detail/:movieID", movieAPI.default.getDetail);
       router.get("/movie/trailer/:movieID", movieAPI.default.getTrailerID);
       router.get("/movie/recommendations/:movieID", movieAPI.default.getRecommendations);

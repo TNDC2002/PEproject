@@ -59,42 +59,6 @@ const sendVerificationEmail = ({ email }, res) => {
         })
 };
 
-const verify = async (req, res) => {
-    try {
-        let { userId, verifyPIN } = req.body;
-
-        EmailVerification.find(userId)
-            .then((result) => {
-                if (!result) {
-                    let message = "Link has expired, account does not exist or have registered already! Please try again";
-                    res.redirect(`/user/verified/error=true&message=${message}`);
-
-                } else {
-                    //valid user exists
-                    //compare
-                    const savedVerifyPIN = result[0].verificationString;
-                    if (savedVerifyPIN == verifyPIN) {
-                        User.updateOne({ _id: userId }, { verified: true })
-                            .catch((error) => {
-                                console.log(error);
-                                let message = "An error occured while updating records";
-                                res.redirect(`/user/verified/error=true&message=${message}`);
-                            })
-                    } else {
-                        let message = "invalid code, please try again!";
-                        res.redirect(`/user/verified/error=true&message=${message}`);
-                    }
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                let message = "An error occured when checking for existing user verification record";
-                res.redirect(`/user/verified/error=true&message=${message}`);
-            })
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 /* REGISTER USER */
 const register = async (req, res) => {
@@ -205,7 +169,6 @@ const GetAUTH = async (req, res) => {
 }
 
 var output = {
-    verify,
     login,
     logout,
     register,
