@@ -238,26 +238,29 @@ By meeting these non-functional requirements, SmashBruh can provide a reliable, 
 
 ### 5.1. System Architecture
 
-The movie rental application follows a client-server architecture. On the client-side (frontend), the user interface provides an interactive platform where users can browse movies, search and filter based on various criteria, view movie details including trailers and reviews, manage their rental queue, and access personalized recommendations. User authentication ensures secure access to user-specific features and account management. On the server-side (backend), the application server hosts the core business logic, handling user requests, processing data, and generating responses. It utilizes a database management system to store movie data, user profiles, rental history, and other relevant information. APIs enable communication between the frontend and backend, facilitating operations such as retrieving movie data, managing user accounts, processing rental requests, and generating recommendations. Integration with a payment gateway ensures secure payment transactions for renting movies. Content delivery and streaming rely on a content delivery network (CDN) for efficient content distribution and a video streaming infrastructure to encode, store, and deliver movie content in different formats. Digital rights management (DRM) technologies protect copyrighted content and enforce access restrictions. External integrations include fetching movie metadata from providers like TMDB API, integrating with a payment gateway for secure transactions, and utilizing recommendation engines to generate personalized movie recommendations based on user preferences and viewing history.
+- Model:
+
+  - The Model represents the data and the business logic of the application. It includes entities, data access layer, and the necessary operations and validations related to the movie rental domain. In the context of a movie rental app, the Model component would handle tasks such as managing movie data, user profiles, rental history, and integrating with external APIs for movie information.
+
+- View:
+
+  - The View is responsible for presenting the user interface to the users. It encompasses the visual elements, user interfaces, and user experience components of the application. In the movie rental app, the View component would include screens, forms, and other UI elements that allow users to browse movies, search for movies, view movie details, manage rental queues, and interact with the application.
+
+- Controller:
+
+  - The Controller acts as the intermediary between the Model and the View. It receives user input from the View, processes it, and interacts with the Model to fetch or update the data accordingly. In the context of a movie rental app, the Controller component would handle tasks such as processing user requests, managing user authentication and authorization, managing rental transactions, and coordinating the flow of data between the Model and the View.
 
 #### 5.1.1. MVC Models for Web Development
 
-- _Client-side (Frontend):_
+- The Model-View-Controller (MVC) architecture is a popular design pattern used in the development of software applications. In the context of a movie rental app, the MVC architecture provides a structured and organized approach to manage the different components of the application.
 
-  - User Interface: The frontend layer includes the user interface components that users interact with, such as web pages or mobile applications.
-  - User Authentication: Handles user authentication and authorization processes, allowing users to log in, sign up, and manage their accounts.
-  - Movie Catalog: Displays the available movies, genres, ratings, and other relevant information.
-  - Search and Filtering: Enables users to search for movies based on various criteria like title, genre, actors, and ratings.
-  - Movie Details: Provides detailed information about selected movies, including trailers, synopsis, cast, and user reviews.
-  - User Dashboard: Allows users to manage their rental queue, view their rental history, and access personalized recommendations.
+- The Model component of the movie rental app represents the data and the business logic. It encapsulates entities such as movies, users, rentals, and other related data. The Model component includes the data access layer, which interacts with the underlying database or data storage system to perform operations like retrieving, creating, updating, and deleting data. The Model also handles business logic operations, such as validating user inputs, managing rental transactions, integrating with external APIs for fetching movie information, and enforcing data integrity.
 
-- _Server-side (Backend):_
+- The View component in the movie rental app is responsible for presenting the user interface to the users. It encompasses all the visual elements and user experience components of the application. The View component includes screens, forms, buttons, and other user interface elements that allow users to browse movies, search for movies based on different criteria, view detailed movie information, manage their rental queue, and interact with the application. The View component is designed to be visually appealing, intuitive, and responsive to enhance the overall user experience.
 
-  - Application Server: Handles the core business logic, processing user requests, and generating responses. It may utilize a web framework or microservices architecture.
-  - Database Management: Stores movie data, user profiles, rental history, and other relevant information. This typically involves a database called TMDB API and MongoDB
-  - APIs: Exposes a set of APIs to enable communication between the frontend and backend systems. APIs facilitate operations such as retrieving movie data, managing user accounts, processing rental requests, and generating recommendations from TMDB API.
-  - Payment Gateway Integration: Integrates with a payment gateway to handle secure payment transactions for renting movies, including processing payments, handling refunds, and managing user billing information.
+- The Controller component acts as the intermediary between the Model and the View. It receives user input from the View, processes it, and interacts with the Model to fetch or update the data accordingly. The Controller component handles tasks such as processing user requests, managing user authentication and authorization, managing rental transactions, coordinating the flow of data between the Model and the View, and triggering appropriate actions based on user interactions. It ensures that the user input is validated and appropriately acted upon, orchestrating the overall functionality and behavior of the movie rental app.
 
+- By adopting the MVC architecture, the movie rental app achieves modularity, code reusability, and easier maintenance. The separation of concerns enables developers to work independently on different components, allowing for better collaboration and development efficiency. Changes in one component can be made without affecting the others, making it easier to test, debug, and enhance specific parts of the application. Moreover, the MVC architecture promotes scalability and extensibility, as new features or modifications can be incorporated without disrupting the existing functionality, facilitating the continuous evolution of the movie rental app to meet the changing needs of its users.
 - _Content Delivery and Streaming:_
 
   - Content Delivery Network (CDN): Utilizes a CDN to deliver movie content efficiently to users, ensuring fast and reliable streaming experiences by serving content from geographically distributed servers.
@@ -286,11 +289,18 @@ The movie rental application follows a client-server architecture. On the client
   - Show Pages
   - Profile Pages
   - Login/Register Pages
+  - Search Page
 
 #### 5.2.2. Admin Interface:
 
+- Admin are able to access:
+  - Same pages as Users
+  - Specialty: Admin Page (only available if the user is an admin)
+
 #### 5.2.3. Authentication Interface:
+
 The authenciation interface and features of SmashBruh are as follows:
+
 - **_Email Verification System:_**
   - SmashBruh implements a comprehensive email verification system to avoid account spaming and reduce wasted database storage.
   - The system employs an automatic email sender every time a user register.
@@ -304,11 +314,95 @@ The authenciation interface and features of SmashBruh are as follows:
 
 ### 5.3. Structure and Relationships
 
+User: A user can have many rentals (one-to-many relationship)
+
+Movie - Show: A movie can be associated with one rental (one-to-one relationship)
+
+Rental: A rental belongs to a user (many-to-one relationship) and a movie (many-to-one relationship)
+
+Favourite: A movie can be favourited by many users (one-to-many relationship)
+
+Rating: A movie can be rated by many users (one-to-many relationship)
+
 ### 5.4. Data Model
+
+User:
+Attributes: firstName, lastName, password, picturePath, verified, balance, token, isAdmin, FbId, GgId, TwId, GhId
+
+UserFavouriteMovie:
+Attributes: userID, movieID, media_type, season
+
+UserRateMovie:
+Attributes: userID, movieID, rating, media_type, season
+
+UserRentMovie:
+Attributes: userID, movieID, rentalBeginDate, rentalExpireDate, media_type, season
+
+UserRateMovie:
+Attributes: userID, movieID, rating, media_type, season
+
+UserSearchHistory:
+Attributes: userID, searchedString, raticreatedAt
 
 ### 5.5. GUI
 
+HOME PAGE
+
+<img src="Images/HomePage.png" alt="Home page" width="700">
+
+LOGIN PAGE
+
+<img src="Images/LoginPage.png" alt="Login page" width="700">
+
+FEATURE MOVIES PAGE
+
+<img src="Images/FeatureMoviePage.png" alt="Feature Movie page" width="700">
+
+MOVIE PAGES
+
+<img src="Images/MoviePage.png" alt="Movie page" width="700">
+
+TV SHOWS PAGE
+
+<img src="Images/TVShowsPage.png" alt="TV Shows page" width="700">
+
+SHOW PAGES
+
+<img src="Images/ShowPage.png" alt="Show page" width="700">
+
+PROFILE PAGES
+
+<img src="Images/ProfilePage.png" alt="Profile page" width="700">
+
+SEARCH PAGES
+
+<img src="Images/SearchPage.png" alt="Search page" width="700">
+
+MY LIST PAGE WHEN NO INFORMATION
+
+<img src="Images/NoInfoMyList.png" alt="No Info My List page" width="700">
+
+MY LIST PAGE WHEN HAVE INFORMATION
+
+<img src="Images/InfoMyList.png" alt="Info My List page" width="700">
+
+COLOR PALETTE
+
+<img src="Images/ColorPalette.png" alt="Color palette" width="700">
+
 ### 5.6. Functionality Design
+
+- Key features:
+
+  - View movies/shows: display information of available movies/shows on the internet at the moment.
+  - Favourite: press heart button and that movies/shows are stored inside collections of favourites of everything.
+  - Rent: rent a movie or show for a period of time then the movie or show automatically disappear after the expiration day of the movie or show is exceeded.
+  - Rate: rate a movie or show for a numebr of stars and it is stored on different database storage of individuals.
+
+- Other features:
+  - Search: find what users are interested in.
+  - Admin: special feature only available for admin when log into our web application.
+  - Recommendation: recommend based on the genres, cast, duration of movies or shows accessed at real-time by users.
 
 ## 6. Implementation
 
@@ -371,24 +465,31 @@ Getting Started Guide for SmashBruh Movie Renting Website after launching Websit
 8. _Provide Feedback:_
    Your feedback is invaluable to us as we continuously strive to improve our services. If you have any suggestions, concerns, or inquiries, don't hesitate to reach out to our customer support team. We're here to assist you and ensure you have the best possible experience on SmashBruh.
 
-### 8.2. Features and Functions
-
-### 8.3. User Interface
-
-### 8.4. Troubleshooting
-
-## 9. Maintenance and Support
-
-### 9.1. Disaster Recovery Plan
-
 ## 10. Conclusion
 
 ### 10.1. Summary of Project
 
+In summary, our movie rental application brings the magic of cinema directly to you. With a vast selection of films spanning all genres, we offer a personalized and convenient way to discover and enjoy your favorite movies. Say goodbye to long queues and hello to instant streaming or doorstep delivery. Our user-friendly interface and intuitive features make the entire experience seamless and enjoyable. Get ready to embark on a cinematic adventure like never before with our movie rental application. Elevate your movie nights and create unforgettable memories with us.
+
 ### 10.2. Future Work
 
-### 10.3. Acknowledgements
+- Interactive Movie Discussion
 
-### 10.4. References
+  - Introduce a feature where users can engage in discussions, comment on movies, and participate in forums or live chats with other movie enthusiasts.
+
+- Social Integration
+
+  - Integrate social media features that allow users to share their favorite movies, reviews, and recommendations with friends.
+
+- Augmented Reality (AR) Movie Posters
+  - Users can scan movie posters using their smartphones or tablets and access interactive content such as trailers, behind-the-scenes footage, or exclusive interviews with the cast and crew.
+
+### 10.3. References
+
+- Color Paletter: https://colorhunt.co/palette/060047b3005ee90064ff5f9e
+- GitLab: https://gitlab.com/galvdat/vgu_tinyprojects/pe2023/vgupe2023_team5
+- MongoDB: https://www.mongodb.com/
+- MUI Library: https://mui.com/material-ui/getting-started/overview/
+- OAuth2: https://oauth.net/2/
 
 <p style="text-align: right;">©️ Vinh Nguyen Ngoc</p>
