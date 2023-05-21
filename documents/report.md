@@ -325,47 +325,91 @@ The authenciation interface and features of SmashBruh are as follows:
 
 HOME PAGE
 
-<img src="Images/HomePage.png" alt="Home page" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/HomePage.png" alt="Home page" width="700">
 
 LOGIN PAGE
 
-<img src="Images/LoginPage.png" alt="Login page" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/LoginPage.png" alt="Login page" width="700">
 
 FEATURE MOVIES PAGE
 
-<img src="Images/FeatureMoviePage.png" alt="Feature Movie page" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/FeatureMoviePage.png" alt="Feature Movie page" width="700">
 
 MOVIE PAGES
 
-<img src="Images/MoviePage.png" alt="Movie page" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/MoviePage.png" alt="Movie page" width="700">
 
 TV SHOWS PAGE
 
-<img src="Images/TVShowsPage.png" alt="TV Shows page" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/TVShowsPage.png" alt="TV Shows page" width="700">
 
 SHOW PAGES
 
-<img src="Images/ShowPage.png" alt="Show page" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/ShowPage.png" alt="Show page" width="700">
 
 PROFILE PAGES
 
-<img src="Images/ProfilePage.png" alt="Profile page" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/ProfilePage.png" alt="Profile page" width="700">
 
 SEARCH PAGES
 
-<img src="Images/SearchPage.png" alt="Search page" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/SearchPage.png" alt="Search page" width="700">
 
 MY LIST PAGE WHEN NO INFORMATION
 
-<img src="Images/NoInfoMyList.png" alt="No Info My List page" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/NoInfoMyList.png" alt="No Info My List page" width="700">
 
 MY LIST PAGE WHEN HAVE INFORMATION
 
-<img src="Images/InfoMyList.png" alt="Info My List page" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/InfoMyList.png" alt="Info My List page" width="700">
 
 COLOR PALETTE
 
-<img src="Images/ColorPalette.png" alt="Color palette" width="700">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/ColorPalette.png" alt="Color palette" width="700">
 
 ### 5.6. Functionality Design
 
