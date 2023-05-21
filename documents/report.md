@@ -382,4 +382,4 @@ Getting Started Guide for SmashBruh Movie Renting Website after launching Websit
 
 ### **10.4. References**
 
-:copyright: Vinh Nguyen Ngoc
+<p style="text-align: right;">©️ Vinh Nguyen Ngoc</p>
