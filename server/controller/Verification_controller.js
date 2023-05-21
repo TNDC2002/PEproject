@@ -7,40 +7,36 @@ dotenv.config()
 const verify = async (req, res) => {
     try {
         let { email, verifyPIN } = req.body;
-
-        EmailVerification.find({email: email})
-            .then((result) => {
-                if (!result) {
-                    let message = "Link has expired, account does not exist or have registered already! Please try again";
-                    res.status(500).json({err: message});
-                } else {
-                    //valid user exists
-                    //compare
-                    const savedVerifyPIN = result[0].verificationString;
-                    if (savedVerifyPIN == verifyPIN) {
-                        User.updateOne({ email: email }, { verified: true })
-                            .then(()=>{
-                                res.status(200);
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                                let message = "An error occured while updating records";
-                                res.status(500).json({err: message});
-                            })
-                            res.status(200);
-                    } else {
-                        let message = "invalid code, please try again!";
-                        res.status(500).json({err: message});
-                    }
+        const Verification_data = await EmailVerification.findOne({ email });
+        
+        if (!Verification_data) {
+            let message = "Link has expired, account does not exist or have registered already! Please try again";
+            res.status(500).json({ err: message });
+        } else {
+            //valid user exists
+            //compare
+            const savedVerifyPIN = Verification_data.verificationString;
+            if (savedVerifyPIN == verifyPIN) {
+                try {
+                    let update = await User.findOneAndUpdate({ email: email }, {
+                        verified: true
+                    })
+                        .then ((update) => { console.log(update)})
+                        .catch((error) => {
+                            console.log(error);
+                        })
+                    res.status(200).json({verified: true});
+                } catch (error) {
+                    res.status(500).json({ err: error.message });
                 }
-            })
-            .catch((error) => {
-                console.log(error);
-                let message = "An error occured when checking for existing user verification record";
-                res.redirect(`/user/verified/error=true&message=${message}`);
-            })
+            } else {
+                let message = "invalid code, please try again!";
+                res.status(500).json({ err: message });
+            }
+        }
     } catch (error) {
         console.log(error);
+        res.status(500).json({ err: error.message });
     }
 }
 var output = {
