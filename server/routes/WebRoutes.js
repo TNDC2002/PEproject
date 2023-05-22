@@ -23,7 +23,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: `${process.env.BACKEND_URL}/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       const GgId = profile.id;
@@ -72,7 +72,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "/auth/facebook/callback",
+      callbackURL: `${process.env.BACKEND_URL}/auth/facebook/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log("______________________facebook_______________________")
@@ -127,7 +127,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "/auth/github/callback",
+      callbackURL: `${process.env.BACKEND_URL}/auth/github/callback`,
       scope: ["user:email"],
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -306,30 +306,30 @@ let initWebRoutes = (app) => {
   router.get("/login/twitter", oAuth2.default.TW_oAuth2);
   router.get("/auth/verified", auth.default.verified);
   router.get("/auth/verify/:userId/:uniqueString", auth.default.verify);
-  router.get("/movie/detail/:movieID", middleware.default.verifyToken , movieAPI.default.getDetail);
-  router.get("/movie/trailer/:movieID", middleware.default.verifyToken , movieAPI.default.getTrailerID);
-  router.get("/movie/recommendations/:movieID", middleware.default.verifyToken , movieAPI.default.getRecommendations);
-  router.get("/movie/tvDetail/:showID", middleware.default.verifyToken , movieAPI.default.getShowDetail);
-  router.get("/movie/credits/:movieID", middleware.default.verifyToken , movieAPI.default.getMovieCredits);
-  router.get("/movie/credits/:showID", middleware.default.verifyToken , movieAPI.default.getShowCredits);
-  router.get("/movie/tvRecommendations/:showID", middleware.default.verifyToken , movieAPI.default.getShowRecommendations);
-  router.get("/movie/tvTrailer/:showID", middleware.default.verifyToken , movieAPI.default.getShowTrailerID);
-  router.get("/movie/showTrailer/:showId", middleware.default.verifyToken , movieAPI.default.getShowTrailerID);
-  router.get("/movie/discovery/:page", middleware.default.verifyToken , movieAPI.default.getMovieDiscovery);
-  router.get("/movie/showDiscovery/:page", middleware.default.verifyToken , movieAPI.default.getShowDiscovery);
-  router.get("/movie/animeDiscovery/:page", middleware.default.verifyToken , movieAPI.default.getAnimeDiscovery);
-  router.get("/search", middleware.default.verifyToken , movieAPI.default.fetchSearchResult);
-  router.get("/user/:userID/favourite", middleware.default.verifyToken , user.default.fetchFavourites);
-  router.get("/user/:userID/rent", middleware.default.verifyToken , user.default.fetchRentals);
-  router.get("/movie/featureImage", middleware.default.verifyToken , movieAPI.default.getImageCarousel);
-  router.get("/movie/list", middleware.default.verifyToken , movieAPI.default.getList);
-  router.get("/movie/showList", middleware.default.verifyToken , movieAPI.default.getShowList);
-  router.get("/profile/:userID", middleware.default.verifyToken , user.getUserImage);
+  router.get("/movie/detail/:movieID", middleware.default.verifyToken, movieAPI.default.getDetail);
+  router.get("/movie/trailer/:movieID", middleware.default.verifyToken, movieAPI.default.getTrailerID);
+  router.get("/movie/recommendations/:movieID", middleware.default.verifyToken, movieAPI.default.getRecommendations);
+  router.get("/movie/tvDetail/:showID", middleware.default.verifyToken, movieAPI.default.getShowDetail);
+  router.get("/movie/credits/:movieID", middleware.default.verifyToken, movieAPI.default.getMovieCredits);
+  router.get("/movie/credits/:showID", middleware.default.verifyToken, movieAPI.default.getShowCredits);
+  router.get("/movie/tvRecommendations/:showID", middleware.default.verifyToken, movieAPI.default.getShowRecommendations);
+  router.get("/movie/tvTrailer/:showID", middleware.default.verifyToken, movieAPI.default.getShowTrailerID);
+  router.get("/movie/showTrailer/:showId", middleware.default.verifyToken, movieAPI.default.getShowTrailerID);
+  router.get("/movie/discovery/:page", middleware.default.verifyToken, movieAPI.default.getMovieDiscovery);
+  router.get("/movie/showDiscovery/:page", middleware.default.verifyToken, movieAPI.default.getShowDiscovery);
+  router.get("/movie/animeDiscovery/:page", middleware.default.verifyToken, movieAPI.default.getAnimeDiscovery);
+  router.get("/search", middleware.default.verifyToken, movieAPI.default.fetchSearchResult);
+  router.get("/user/:userID/favourite", middleware.default.verifyToken, user.default.fetchFavourites);
+  router.get("/user/:userID/rent", middleware.default.verifyToken, user.default.fetchRentals);
+  router.get("/movie/featureImage", middleware.default.verifyToken, movieAPI.default.getImageCarousel);
+  router.get("/movie/list", middleware.default.verifyToken, movieAPI.default.getList);
+  router.get("/movie/showList", middleware.default.verifyToken, movieAPI.default.getShowList);
+  router.get("/profile/:userID", middleware.default.verifyToken, user.getUserImage);
   /* MONGOL API ROUTE */
-  router.get("/api/rate/check", middleware.default.verifyToken , Rate.default.GET_handler);
-  router.get("/api/favourite/check", middleware.default.verifyToken , Favourite.default.GET_handler);
-  router.get("/api/history/get", middleware.default.verifyToken , History.default.GET_handler);
-  router.get("/api/rent/check", middleware.default.verifyToken , Rental.default.GET_handler);
+  router.get("/api/rate/check", middleware.default.verifyToken, Rate.default.GET_handler);
+  router.get("/api/favourite/check", middleware.default.verifyToken, Favourite.default.GET_handler);
+  router.get("/api/history/get", middleware.default.verifyToken, History.default.GET_handler);
+  router.get("/api/rent/check", middleware.default.verifyToken, Rental.default.GET_handler);
 
   /* POST syntax:
       router.post('<route>',<controller_name>.default.<function>) */
@@ -337,27 +337,27 @@ let initWebRoutes = (app) => {
   router.post("/auth/login", auth.default.login);
 
   /* MONGOL API ROUTE */
-  router.post("/api/history/insert", middleware.default.verifyToken , History.default.POST_handler);
-  router.post("/api/rate/insert", middleware.default.verifyToken , Rate.default.POST_handler);
-  router.post("/api/favourite/insert", middleware.default.verifyToken , Favourite.default.POST_handler);
-  router.post("/api/rent/insert", middleware.default.verifyToken , Rental.default.POST_handler);
+  router.post("/api/history/insert", middleware.default.verifyToken, History.default.POST_handler);
+  router.post("/api/rate/insert", middleware.default.verifyToken, Rate.default.POST_handler);
+  router.post("/api/favourite/insert", middleware.default.verifyToken, Favourite.default.POST_handler);
+  router.post("/api/rent/insert", middleware.default.verifyToken, Rental.default.POST_handler);
 
 
   /* PUT syntax:
       router.put('<route>',<controller_name>.default.<function>) */
 
   /* MONGOL API ROUTE */
-  router.put("/profile/:userID", middleware.default.verifyToken , user.updateUserProfile);
-  router.put("/profile/:userID/purchase", middleware.default.verifyToken , user.updateBalance);
-  router.put("/api/history/update", middleware.default.verifyToken , History.default.PUT_handler);
-  router.put("/api/rate/update", middleware.default.verifyToken , Rate.default.PUT_handler);
+  router.put("/profile/:userID", middleware.default.verifyToken, user.updateUserProfile);
+  router.put("/profile/:userID/purchase", middleware.default.verifyToken, user.updateBalance);
+  router.put("/api/history/update", middleware.default.verifyToken, History.default.PUT_handler);
+  router.put("/api/rate/update", middleware.default.verifyToken, Rate.default.PUT_handler);
 
   /* DELETE syntax:
       router.delete('<route>',<controller_name>.default.<function>) */
 
   /* MONGOL API ROUTE */
-  router.delete("/api/rate/delete", middleware.default.verifyToken , Rate.default.DELETE_handler);
-  router.delete("/api/favourite/delete", middleware.default.verifyToken , Favourite.default.DELETE_handler);
+  router.delete("/api/rate/delete", middleware.default.verifyToken, Rate.default.DELETE_handler);
+  router.delete("/api/favourite/delete", middleware.default.verifyToken, Favourite.default.DELETE_handler);
 
   // Don't touch anything else
   app.use("/", router);
