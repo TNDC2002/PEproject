@@ -6,6 +6,7 @@
 | -------------------- | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | Nguyễn Ngọc Vĩnh     |   18691    | _Movie and TV Shows details, trailers, and recommendations backend API; Movie Search and Filtering API; UI/UX of Homepage and MoviePage; Markdown and Swagger Documentation, Analytics and Reporting._ |
 | Hà Quách Phú Thành   |   18840    |                                 \_Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                  |
+| Hà Quách Phú Thành   |   18840    |                                 \_Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                  |
 | Thái Quang Nam       |   18770    |                                          _Design Navbar, HomePage, FeatureMoviePage, TVShowsPage, MyListPage, SearchPage; Markdown Documentation, Reporting_                                           |
 | Phạm Hoàng Việt      |   18334    |                                                                                             User Interface                                                                                             |
 | Nguyễn Xuân Khang    |   18973    |                                                                                           Profile Interface                                                                                            |
@@ -34,16 +35,19 @@ Now with our media rental web application, you can now keep track of rented movi
   - [**4.3. Functional Requirements**](#43-functional-requirements)
   - [**4.4. Non-Functional Requirements**](#44-non-functional-requirements)
   - [**4.5. Deployment Plan**](#45-deployment-plan)
+  - [**Deployment Environment**](#deployment-environment)
+  - [**Configuration Instructions**](#configuration-instructions)
 - [**5. System Design**](#5-system-design)
-  - [**5.1. System Architecture**](#51-system-architecture)
-    - [**5.1.1. MVC Models for Web Development**](#511-mvc-models-for-web-development)
-  - [**5.2. Components Design**](#52-components-design)
-    - [**5.2.1. Users Interface:**](#521-users-interface)
-    - [**5.2.2. Authentication Interface:**](#522-authentication-interface)
-  - [**5.3. Structure and Relationships**](#53-structure-and-relationships)
-  - [**5.4. Data Model**](#54-data-model)
-  - [**5.5. GUI**](#55-gui)
-  - [**5.6. Functionality Design**](#56-functionality-design)
+  - [**5.1. System Diagrams**](#51-system-diagrams)
+  - [**5.2. System Architecture**](#52-system-architecture)
+    - [**5.2.1. MVC Models for Web Development**](#521-mvc-models-for-web-development)
+  - [**5.3. Components Design**](#53-components-design)
+    - [**5.3.1. Users Interface:**](#531-users-interface)
+    - [**5.3.2. Authentication Interface:**](#532-authentication-interface)
+  - [**5.4. Structure and Relationships**](#54-structure-and-relationships)
+  - [**5.5. Data Model**](#55-data-model)
+  - [**5.6. GUI**](#56-gui)
+  - [**5.7. Functionality Design**](#57-functionality-design)
 - [**6. Implementation**](#6-implementation)
   - [**6.1. Development Environment and Technology Stack**](#61-development-environment-and-technology-stack)
 - [**7. User Guide**](#7-user-guide)
@@ -88,7 +92,7 @@ By fulfilling these business requirements, _SmashBruh_ can create a user-friendl
 
 The user requirements of _SmashBruh_ are as follows:
 
-- **_Firt Time User Experience:_** _SmashBruh_ provides visitors latest movie that the system have to offer and other information of available movies and shows ath the moment so that the system keeps up with user's interest.
+- **_First Time User Experience:_** _SmashBruh_ provides visitors latest movie that the system have to offer and other information of available movies and shows ath the moment so that the system keeps up with user's interest.
 - **_Efficient Search and Filtering:_** Users require an efficient search functionality that allows them to search for specific titles, genres, actors, directors, or keywords. They also expect advanced filtering options to refine their search results based on criteria such as release year, ratings, and language.
 - **_Movie Information Based Recommendations:_** Users appreciate personalized recommendations based on their current accessed movies and shows. It could be based on names, genres, cast.
 - **_Ratings:_** Users value the ability to read and contribute to ratings. They want a platform that encourages user feedback, enabling them to make informed decisions and engage in discussions with other movie enthusiasts.
@@ -133,7 +137,6 @@ The non-functional requirements of _SmashBruh_ are as follows:
 
 - **_Performance:_**
   - The platform should have fast loading times and responsive navigation to provide a seamless user experience.
-  - Streaming of movies and TV shows should be smooth and uninterrupted, with minimal buffering.
 - **_Scalability and Availability:_**
   - The platform should be designed to handle a growing user base and increasing traffic without compromising performance.
   - It should be scalable to accommodate a large number of concurrent users and a growing content library.
@@ -159,27 +162,51 @@ The non-functional requirements of _SmashBruh_ are as follows:
 
 ### **4.5. Deployment Plan**
 
-- **_Infrastructure Setup:_** Determine the hosting environment for your application, whether it's a cloud-based solution like on-premises server. Set up the necessary infrastructure, including MongoDB servers, databases, and networking components, ensuring scalability, reliability, and security.
+### **Deployment Environment**
 
-- **_Code Packaging:_** Prepare your application for deployment by packaging the code, including all dependencies, libraries, and configurations, into a deployable package. This may involve bundling the frontend code (HTML, CSS, JavaScript, MUI Library for CSS) and containerizing the backend code using technologies like Docker.
+--- vercel in gitlab
 
-- **_Configuration Management:_** Define and manage the application's configuration settings, such as database credentials, API keys, and other environment-specific variables. Ensure that these settings are securely stored and easily configurable for different deployment environments (e.g., development, staging, production).
+### **Configuration Instructions**
 
-- **_Testing and Quality Assurance:_** Conduct thorough testing of the application to identify and fix any issues or bugs. Perform functional testing, integration testing, and load testing to ensure the application performs well under expected loads and behaves as intended.
-
-- **_Data Migration:_** If you are migrating from a previous version of the application or integrating with existing data sources, plan and execute a data migration strategy to ensure a smooth transition of data to the new deployment environment. This may involve transforming and importing data from legacy systems or integrating with external APIs.
-
-- **_Deployment Automation:_** Implement an automated deployment process using tools like GitLab CI/CD. This allows for consistent and efficient deployment of new code changes, reduces human error, and enables easy rollbacks if necessary.
-
-- **_Monitoring and Error Logging:_** Set up monitoring and logging systems to track the health, performance, and usage of your application. Implement error tracking and logging mechanisms to identify and resolve issues promptly, ensuring the application runs smoothly and providing valuable insights for future improvements.
-
-- **_Security Measures:_** Implement robust security measures to protect the application and user data. This includes implementing user authentication and authorization mechanisms, and applying security best practices to safeguard against common web vulnerabilities.
-
-- **_User Acceptance Testing:_** Conduct user acceptance testing with a select group of users to gather feedback, identify any usability issues, and validate that the application meets their expectations. Make necessary adjustments based on user feedback before the final release.
+--- ci/cd pipeline
 
 ## **5. System Design**
 
-### **5.1. System Architecture**
+### **5.1. System Diagrams**
+
+**_Use Cases_**
+
+User Use Case Diagrams
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;" 
+      src="UseCases/User/UserUseCaseDiagrams.png" alt="User Use Case" width="700">
+
+**_Sequence_**
+
+- Admin Sequence
+  <img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;" 
+      src="Sequence/AdminSequenceDiagrams.png" alt="AdminSequenceDiagrams" width="700">
+
+- User Sequence
+  <img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;" 
+      src="Sequence/UserSequenceDiagrams.png" alt="UserSequenceDiagrams" width="700">
+
+**_Database_**
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;" 
+      src="DatabaseDiagram.png" alt="Database" width="700">
+
+### **5.2. System Architecture**
 
 - **_Model:_**
 
@@ -193,7 +220,7 @@ The non-functional requirements of _SmashBruh_ are as follows:
 
   - The Controller acts as the intermediary between the Model and the View. It receives user input from the View, processes it, and interacts with the Model to fetch or update the data accordingly. In the context of a movie rental app, the Controller component would handle tasks such as processing user requests, managing user authentication and authorization, managing rental transactions, and coordinating the flow of data between the Model and the View.
 
-#### **5.1.1. MVC Models for Web Development**
+#### **5.2.1. MVC Models for Web Development**
 
 **_The Model-View-Controller (MVC)_** architecture is a popular design pattern used in the development of software applications. In the context of a movie rental app, the MVC architecture provides a structured and organized approach to manage the different components of the application.
 
@@ -205,9 +232,9 @@ The non-functional requirements of _SmashBruh_ are as follows:
 
 By adopting the _MVC architecture_, the movie rental app achieves modularity, code reusability, and easier maintenance. The separation of concerns enables developers to work independently on different components, allowing for better collaboration and development efficiency. Changes in one component can be made without affecting the others, making it easier to test, debug, and enhance specific parts of the application. Moreover, the MVC architecture promotes scalability and extensibility, as new features or modifications can be incorporated without disrupting the existing functionality, facilitating the continuous evolution of the movie rental app to meet the changing needs of its users.
 
-### **5.2. Components Design**
+### **5.3. Components Design**
 
-#### **5.2.1. Users Interface:**
+#### **5.3.1. Users Interface:**
 
 - **_Users are able to access:_**
   - Home Page
@@ -219,7 +246,7 @@ By adopting the _MVC architecture_, the movie rental app achieves modularity, co
   - Login/Register Pages
   - Search Page
 
-#### **5.2.2. Authentication Interface:**
+#### **5.3.2. Authentication Interface:**
 
 The authentication interface and features of _SmashBruh_ are as follows:
 
@@ -229,7 +256,7 @@ The authentication interface and features of _SmashBruh_ are as follows:
   - To further increase security, _SmashBruh_ also implements a variant cookies based authentication.
   - The token is hashed and saved to the database to prevent cookie forging, the token is hashed and set using the bcrypt and jwt library.
 
-### **5.3. Structure and Relationships**
+### **5.4. Structure and Relationships**
 
 - **_User_**: A user can have many rentals (one-to-many relationship)
 
@@ -242,8 +269,9 @@ The authentication interface and features of _SmashBruh_ are as follows:
 - **_Rating_**: A movie can be rated by many users (one-to-many relationship)
 
 - **_History_**: A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship)
+- **_History_**: A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship)
 
-### **5.4. Data Model**
+### **5.5. Data Model**
 
 - **_User:_**
 
@@ -269,7 +297,7 @@ The authentication interface and features of _SmashBruh_ are as follows:
 
   Attributes: userID, searchedString, raticreatedAt
 
-### **5.5. GUI**
+### **5.6. GUI**
 
 HOME PAGE
 
@@ -359,7 +387,7 @@ COLOR PALETTE
            width: 100%;"
     src="Images/ColorPalette.png" alt="Color palette" width="700">
 
-### **5.6. Functionality Design**
+### **5.7. Functionality Design**
 
 - **Key features:**
 
@@ -506,6 +534,7 @@ Once the payment is processed successfully, you'll receive a confirmation messag
 
 ### **8.1. Summary of Project**
 
+In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a streaming platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like.
 In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a streaming platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like.
 
 ### **8.2. Future Work**
