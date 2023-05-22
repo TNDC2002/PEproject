@@ -5,7 +5,7 @@
 | Full Name            | Student Id |                                                                                                 Tasks                                                                                                  |
 | -------------------- | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | Nguyễn Ngọc Vĩnh     |   18691    | _Movie and TV Shows details, trailers, and recommendations backend API; Movie Search and Filtering API; UI/UX of Homepage and MoviePage; Markdown and Swagger Documentation, Analytics and Reporting._ |
-| Hà Quách Phú Thành   |   18840    |                                                                                                _Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                                                           |
+| Hà Quách Phú Thành   |   18840    |                                 \_Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                  |
 | Thái Quang Nam       |   18770    |                                          _Design Navbar, HomePage, FeatureMoviePage, TVShowsPage, MyListPage, SearchPage; Markdown Documentation, Reporting_                                           |
 | Phạm Hoàng Việt      |   18334    |                                                                                             User Interface                                                                                             |
 | Nguyễn Xuân Khang    |   18973    |                                                                                           Profile Interface                                                                                            |
@@ -18,6 +18,7 @@
 In an era dominated by media streaming platforms and social media, the virtual realm has become the primary avenue for various activities. However, traditional methods of buying or renting media, such as movies and TV shows, often involve frustrating in-person transactions. Moreover, managing and tracking favorite content across multiple limited streaming services can be complicated and confusing.
 
 Now with our media rental web application, you can now keep track of rented movies and TV show, as well as keeping track of your favourites and rate them accordingly, provided to you with one of the largest movie database - The Movie Database (TMDB) - a free and open movie database for developers, which also acts as our main API for working with movies/shows.
+
 ## **2. Table of content**
 
 - [**1. _SmashBruh_ Movie Renting Website - Documentation**](#1-smashbruh-movie-renting-website---documentation)
@@ -27,7 +28,6 @@ Now with our media rental web application, you can now keep track of rented movi
 - [**3. Introduction**](#3-introduction)
   - [**3.1. Project Overview**](#31-project-overview)
   - [**3.2. Objective**](#32-objective)
-  - [**3.3. Goals**](#33-goals)
 - [**4. System Analysis**](#4-system-analysis)
   - [**4.1. Business Requirements**](#41-business-requirements)
   - [**4.2. User Requirements**](#42-user-requirements)
@@ -39,16 +39,13 @@ Now with our media rental web application, you can now keep track of rented movi
     - [**5.1.1. MVC Models for Web Development**](#511-mvc-models-for-web-development)
   - [**5.2. Components Design**](#52-components-design)
     - [**5.2.1. Users Interface:**](#521-users-interface)
-    - [**5.2.2. Authentication Interface:**](#523-authentication-interface)
+    - [**5.2.2. Authentication Interface:**](#522-authentication-interface)
   - [**5.3. Structure and Relationships**](#53-structure-and-relationships)
   - [**5.4. Data Model**](#54-data-model)
   - [**5.5. GUI**](#55-gui)
   - [**5.6. Functionality Design**](#56-functionality-design)
 - [**6. Implementation**](#6-implementation)
   - [**6.1. Development Environment and Technology Stack**](#61-development-environment-and-technology-stack)
-  - [**6.2. CI/CD Testing and Docker**](#62-ci/cd-testing-and-docker)
-  - [**6.3. File Structure**](#63-file-structure)
-
 - [**7. User Guide**](#7-user-guide)
   - [**7.1. Getting Started**](#71-getting-started)
 - [**8. Conclusion**](#8-conclusion)
@@ -225,6 +222,7 @@ By adopting the _MVC architecture_, the movie rental app achieves modularity, co
 #### **5.2.2. Authentication Interface:**
 
 The authentication interface and features of _SmashBruh_ are as follows:
+
 - **_Oauth2 and cookie based authentication:_**
   - In order to streamline the registration process even further, _SmashBruh_ has also implements the Open Authorization 2.0 protocol(Oauth2).
   - _SmashBruh_ Oauth2 implements support registering using other well known platform such as Google, GitHUb and Facebook, providing a near instant registering experience.
@@ -243,7 +241,7 @@ The authentication interface and features of _SmashBruh_ are as follows:
 
 - **_Rating_**: A movie can be rated by many users (one-to-many relationship)
 
-- **_History_**: A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship) 
+- **_History_**: A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship)
 
 ### **5.4. Data Model**
 
@@ -365,15 +363,78 @@ COLOR PALETTE
 
 - **Key features:**
 
-  - View movies/shows: display information of available movies/shows on the internet at the moment.
-  - Favourite: press heart button and that movies/shows are stored inside collections of favourites of everything.
-  - Rent: rent a movie or show for a period of time then the movie or show automatically expires after the expiration day of the movie or show is exceeded.
-  - Rate: rate a movie or show for a number of stars and it is stored in the database storage of individuals.
+  - **_View movies/shows_**: display information of available movies/shows on the internet at the moment.
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/home_page_2.png" alt="Home Page" width="700">
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/home_page.png" alt="Home Page" width="700">
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/movie-page.png" alt="Movie Page" width="700">
+
+- **_Favourite_**: press heart button and that movies/shows are stored inside collections of favourites of everything.
+
+<img style="display: block; 
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;"
+        src="Images/heart_movie.png" alt="Heart" width="700">
+
+- Rent: rent a movie or show for a period of time then the movie or show automatically expires after the expiration day of the movie or show is exceeded.
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/rent_movie.png" alt="Rent" width="700">
+
+- **_Rate_**: rate a movie or show for a number of stars and it is stored in the database storage of individuals.
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/rate_movie.png" alt="Rate" width="700">
+
+- **_My list_**: where you can view your liked movies or tv shows
+
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;"
+    src="Images/my_list.png" alt="List 1" width="700">
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;"
+    src="Images/my_list_2.png" alt="List 2" width="700">
 
 - **Other features:**
-  - Search: find what users are interested in.
-  - History searches: your searches are archived and 5 most recent searches can be seen when you first click on the search bar.
-  - Recommendation: recommend based on the genres, cast of movies or shows accessed at real-time by users on any given movie and show page.
+  - **_Search and History searched_**: find what users are interested in and what you searched will remain in your history up to 5 most recent searches:
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/search_movie.png" alt="Searches" width="700">
+
+- **_Recommendation_**: recommend based on the genres, cast of movies or shows accessed at real-time by users on any given movie and show page.
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/movie-page-2.png" alt="Recommendations" width="700">
 
 ## **6. Implementation**
 
@@ -381,9 +442,9 @@ COLOR PALETTE
 
 The development of _SmashBruh_ Movie Renting Website requires a robust and efficient development environment to ensure the smooth creation and deployment of the platform. Here's an overview of the key components of the development environment:
 
-- **_Programming Languages:_** 
+- **_Programming Languages:_**
 - JavaScript takes center stage in the development process of the _SmashBruh_ movie renting website. As a dynamic and versatile programming language, JavaScript empowers the website with interactivity and functionality. It enables features like seamless search functionality, dynamic recommendations, interactive elements, and smooth navigation. JavaScript's integration with backend APIs ensures efficient data retrieval and real-time updates.
-- **_Frameworks and Libraries:_** 
+- **_Frameworks and Libraries:_**
 - We decided to use a combination of libaries and database to assist us in implementing the app. The combination or MERN stack, consists of Node.js - a premier JavaScript web server, Express.js - a Node.js web framework, React - a client-side JavaScript framework and MongoDB - a document database. The middle or application tier of our system is built using Express and Node. Express.js serves as the server-side web framework, while Node.js acts as the robust and widely adopted JavaScript server platform. Together, these technologies form a powerful foundation for developing and delivering web applications. Express provides a streamlined and efficient framework for handling web requests and managing routes, while Node enables the execution of server-side JavaScript code, allowing for scalable and high-performance server applications.
 - **_Database Management System:_** MongoDB, a popular NoSQL database management system, serves as the foundation for storing and managing data in the _SmashBruh_ movie renting website. MongoDB offers a flexible and scalable approach to data storage, making it ideal for handling movie information, user profiles, rental history, and other pertinent data.
 - **_Version Control System:_** With Git and GitLab, _SmashBruh_ benefits from features like branch management, version control, and the ability to roll back changes if needed. This combination ensures that the development team can work concurrently, seamlessly integrate new features, resolve conflicts, and track the evolution of the codebase.
@@ -403,17 +464,37 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
 1. **_Create an Account:_**
    To access all the features and benefits of _SmashBruh_, start by creating your account. Click on the "Sign Up" button on the homepage and provide the required information, including your name, email address, and a secure password. Once you've filled in the details, click "Finish" to proceed.
 
-2. **_Explore Movie Catalog:_**
-   After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Feature Movies" or "Shows" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/login.png" alt="Login" width="700"> 2. **_Explore Movie Catalog:_**
+After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Feature Movies" or "Shows" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/home_page.png" alt="Look up Movies" width="700">
 
 3. **_Select and Rent Movies:_**
    When you find a movie you want to rent, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. Click on "Rent" to proceed to the checkout. You can also "favourite" a movie and rate them with the corresponding icons.
 
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/movie-page.png" alt="" width="700">
+
 4. **_Make Payment:_**
    At the checkout, review your selected movie and rental duration. _SmashBruh_ provides secure payment options. Choose your preferred payment method, enter the required details, and click "Smash" to finalize your rental.
 
-5. **_Enjoy Your Movie:_**
-   Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented.
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/rent_movie.png" alt="" width="700"> 5. **_Enjoy Your Movie:_**
+Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented.
 
 6. **_Manage Your Account:_**
    _SmashBruh_ provides a user-friendly account management interface to help you keep track of your rentals, update your personal information, and manage your payment methods. Access the "My Profile" section to view and modify your profile, change your password, or update your payment details.
@@ -421,14 +502,14 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
 7. **_Explore Additional Features:_**
    While movie rentals are at the core of _SmashBruh_, we offer additional features to your movie-watching experience. Explore our curated playlists, personalized recommendations.
 
-
 ## **8. Conclusion**
 
 ### **8.1. Summary of Project**
 
-In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a streaming platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like. 
+In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a streaming platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like.
 
 ### **8.2. Future Work**
+
 - Despite facing time constraints and limited experience working on a large-scale team project, we encountered challenges in meeting deadlines and fully achieving our initial ideas and objectives. However, it is important to acknowledge the significant progress we have made and the invaluable lessons we have learned in the realms of web development and collaborative teamwork. Drawing from these experiences, we can identify future objectives aimed at refining and optimizing the app
 
 - **Parental Control System**
@@ -448,11 +529,13 @@ In conclusion, our project aims to assist people in renting movies/shows and kee
   - Integrate social media features that allow users to share their favorite movies, reviews, and recommendations with friends.
 
 - **Augmented Reality (AR) Movie Posters**
+
   - Users can scan movie posters using their smartphones or tablets and access interactive content such as trailers, behind-the-scenes footage, or exclusive interviews with the cast and crew.
 
 - **Recommendation System**
 
   - In today's rapidly evolving landscape, the integration of machine learning and AI algorithms has become increasingly vital for app development. By incorporating such technologies into our app, we not only embrace modernity but also enhance our ability to provide users with superior services. A prime example of this is a recommendation system that leverages a user's favorite movies/shows collection to compute relevant metrics, enabling personalized suggestions tailored to their preferences. These metrics can include factors such as genres, actors/actresses, directors, or even the countries of production.
+
 ### **8.3. References**
 
 - Color Palette: https://colorhunt.co/palette/060047b3005ee90064ff5f9e
