@@ -49,7 +49,10 @@ Now with our media rental web application, you can now keep track of rented movi
   - [5.2. Development Environment and Technology Stack](#52-development-environment-and-technology-stack)
   - [5.3. CI/CD Testing and Docker](#53-cicd-testing-and-docker)
   - [5.4. Deployment](#54-deployment)
-    - [5.4.1. Api Utilities](#541-api-utilities)
+  - [5.5. API Utilization](#55-api-utilization)
+    - [5.5.1. Movies](#551-movies)
+    - [5.5.2. TV Shows](#552-tv-shows)
+    - [5.5.3. Discovery](#553-discovery)
 - [6. User Guide](#6-user-guide)
   - [6.1. Getting Started](#61-getting-started)
 - [7. Conclusion](#7-conclusion)
@@ -717,7 +720,39 @@ By establishing a comprehensive development environment encompassing these compo
 
 ### 5.4. Deployment
 
-#### 5.4.1. Api Utilities
+### 5.5. API Utilization
+
+#### 5.5.1. Movies
+
+| API                | Purpose                                                                                           | Request Type | Parameter      |
+| ------------------ | ------------------------------------------------------------------------------------------------- | ------------ | -------------- |
+| getDetail          | allows you to retrieve detailed information about a movie based on its unique movieID.            | GET          | movieID        |
+| getTrailerID       | allows you to retrieve the trailer ID(s) of a movie based on its unique movieID.                  | GET          | movieID        |
+| getRecommendations | allows you to retrieve movie recommendations based on a specific movie identified by its movieID. | GET          | movieID        |
+| getMovieCredits    | allows you to retrieve the credits or cast information of a movie based on its unique movieID.    | GET          | movieID        |
+| getList            | allows you to retrieve a list of movies based on a specified category.                            | GET          | category, page |
+|                    |                                                                                                   |              |
+
+#### 5.5.2. TV Shows
+
+| API                    | Purpose                                                                                        | Request Type | Parameter      |
+| ---------------------- | ---------------------------------------------------------------------------------------------- | ------------ | -------------- |
+| getShowDetail          | allows you to retrieve detailed information about a tv show based on its unique showID.        | GET          | showID         |
+| getShowTrailerID       | API endpoint allows you to retrieve the trailer ID(s) of a show based on its unique showID.    | GET          | showID         |
+| getShowRecommendations | allows you to retrieve show recommendations based on a specific show identified by its showID. | GET          | showID         |
+| getShowCredits         | allows you to retrieve the credits or cast information of a show based on its unique showID.   | GET          | showID         |
+| getShowList            | allows you to retrieve a list of tv shows based on a specified category.                       | GET          | category, page |
+|                        |                                                                                                |              |
+
+#### 5.5.3. Discovery
+
+| API               | Purpose                                                                                                           | Request Type | Parameter |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- | ------------ | --------- |
+| getMovieDiscovery | allows you to retrieve a list of movies based on discovery parameters, enabling users to discover popular movies. | GET          | page      |
+| getShowDiscovery  | allows you to retrieve a list of tv shows based on discovery parameters, enabling users to discover top shows.    | GET          | page      |
+| getImageCarousel  | allows you to retrieve a list of movies suitable for displaying in an image carousel or slideshow                 | GET          | 🚫        |
+| getAnimeDiscovery | allows you to retrieve a list of anime based on discovery parameters, enabling users to discover popular anime.   | GET          | page      |
+|                   |                                                                                                                   |              |
 
 ## 6. User Guide
 
