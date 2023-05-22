@@ -25,7 +25,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
- 
+
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
@@ -42,31 +42,31 @@ function App() {
           setLoading(false);
           setAuthenticated(true);
           console.log("Now calling route /login/google")
-          const response = await fetch("http://localhost:5000/login/google", {
+          const response = await fetch(`${VITE_BASE_URL}/login/google`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
           });
           const data = await response.json();
-          if (data.user) {  
-          dispatch(
-            setLogin({
-              user: data.user
-            })
-          );
-        }
+          if (data.user) {
+            dispatch(
+              setLogin({
+                user: data.user
+              })
+            );
+          }
           window.location.href = "/home";
           return;
         } else if (currentPath === "/auth/github") {
           setLoading(false);
           setAuthenticated(true);
-          const response = await fetch("http://localhost:5000/login/github", {
+          const response = await fetch(`${VITE_BASE_URL}/login/github`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
           });
           const data = await response.json();
-          if (data.user) {  
+          if (data.user) {
             dispatch(
               setLogin({
                 user: data.user
@@ -78,13 +78,13 @@ function App() {
         } else if (currentPath === "/auth/facebook") {
           setLoading(false);
           setAuthenticated(true);
-          const response = await fetch("http://localhost:5000/login/facebook", {
+          const response = await fetch(`${VITE_BASE_URL}/login/facebook`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
           });
           const data = await response.json();
-          if (data.user) {  
+          if (data.user) {
             dispatch(
               setLogin({
                 user: data.user
@@ -95,7 +95,7 @@ function App() {
           return;
         }
 
-        const response = await fetch("http://localhost:5000/auth/info", {
+        const response = await fetch(`${VITE_BASE_URL}/auth/info`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

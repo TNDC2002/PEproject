@@ -5,7 +5,7 @@ import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
 import BotBackgroundImage from "../../assets/image/profileCoverBot6.png";
 import ProfileBehind from "../../assets/image/ProfileBehind.png";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StarAnimation from "./StarAnimation";
 import EditIcon from "@mui/icons-material/Edit";
 import { useSelector, useDispatch } from "react-redux";
@@ -39,7 +39,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PaymentDialogs from "./PaymentDialog";
-
+import EmailVerifyDialog from "./EmailVerifyDialog";
 const Avatar = ({ image, size = "100%" }) => {
   return (
     <img
@@ -281,7 +281,7 @@ const EditButton = ({ onClick }) => {
         <EditIcon sx={{ fontSize: 15 }} />
       </Typography>
       <StyledContainer id="container-stars">
-        {/* <StyledStars></StyledStars> */}
+        <StyledStars></StyledStars>
       </StyledContainer>
       <StyledGlowBox id="glow">
         <StyledCircleBox id="circle" />
@@ -310,7 +310,7 @@ const SaveButton = () => {
         <EditIcon sx={{ fontSize: 15 }} />
       </Typography>
       <StyledContainer id="container-stars">
-        {/* <StyledStars></StyledStars> */}
+        <StyledStars></StyledStars>
       </StyledContainer>
       <StyledGlowBox id="glow">
         <StyledCircleBox id="circle" />
@@ -396,7 +396,6 @@ const PasswordButton = ({ setPageType }) => {
 
 const ProfileButton = ({ setPageType }) => {
   const [isClicked, setIsClicked] = useState(false);
-
   const Icon = styled(Box)({
     background: "white",
     marginLeft: "1em",
@@ -579,6 +578,33 @@ const NewDesign = () => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
 
+  const [imageUrl, setImageUrl] = useState('');
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await fetch(`${VITE_BASE_URL}/profile/${user._id}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const blob = await response.blob();
+          const url = URL.createObjectURL(blob);
+          setImageUrl(url);
+        } else {
+          console.log('Error fetching image');
+        }
+      } catch (error) {
+        console.log('Error fetching image:', error);
+      }
+    };
+
+    fetchImage();
+  }, []);
+
   const [editMode, setEditMode] = useState(false);
   const [pageType, setPageType] = useState("password");
   const isProfile = pageType === "profile";
@@ -597,7 +623,7 @@ const NewDesign = () => {
   }
 
   const handleSaveProfileClick = async (values, onSubmitProps) => {
-    fetch(`http://localhost:5000/profile/${user._id}`, {
+    fetch(`${VITE_BASE_URL}/profile/${user._id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -631,7 +657,7 @@ const NewDesign = () => {
           <ThemeProvider theme={theme}>
             <MainProfile>
               <ProfileContainer>
-                {/* <StarAnimation></StarAnimation> */}
+                <StarAnimation></StarAnimation>
                 <Box
                   sx={{
                     backgroundImage: `url(${BotBackgroundImage})`,
@@ -667,7 +693,7 @@ const NewDesign = () => {
                       direction="row"
                       sx={{
                         position: "absolute",
-                        marginLeft: "85%",
+                        marginLeft: "80%",
                         bottom: "1.5rem",
                       }}
                     >
@@ -706,7 +732,7 @@ const NewDesign = () => {
                       }}
                     >
                       <UserImage>
-                        <Avatar image={Ava}></Avatar>
+                        <Avatar image={imageUrl}></Avatar>
                       </UserImage>
                     </Box>
                   </TopPortion>
@@ -1346,6 +1372,8 @@ const NewDesign = () => {
                       )}
                       <Box sx={{ marginTop: "30px" }}>
                         <PaymentDialogs />
+                      </Box>
+                      <Box sx={{ marginTop: "30px" }}>
                       </Box>
                     </Stack>
                   </Box>

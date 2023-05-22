@@ -27,7 +27,7 @@ const FeaturePage = () => {
     const fetchPopularMovies = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS["popular"]}&page=${popularPage}`
+          `${VITE_BASE_URL}/movie/list?category=${CATEGORY_API_ENDPOINTS["popular"]}&page=${popularPage}`
         );
         const data = await response.json();
         setPopularMovies(data.results);
@@ -42,7 +42,7 @@ const FeaturePage = () => {
     const fetchNowPlayingMovies = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS["nowPlaying"]}&page=${nowPlayingPage}`
+          `${VITE_BASE_URL}/movie/list?category=${CATEGORY_API_ENDPOINTS["nowPlaying"]}&page=${nowPlayingPage}`
         );
         const data = await response.json();
         setNowPlayingMovies(data.results);
@@ -57,7 +57,7 @@ const FeaturePage = () => {
     const fetchTopRatedMovies = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS["topRated"]}&page=${topRatedPage}`
+          `${VITE_BASE_URL}/movie/list?category=${CATEGORY_API_ENDPOINTS["topRated"]}&page=${topRatedPage}`
         );
         const data = await response.json();
         setTopRatedMovies(data.results);
@@ -72,7 +72,7 @@ const FeaturePage = () => {
     const fetchUpcomingMovies = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/list?category=${CATEGORY_API_ENDPOINTS["upcoming"]}&page=${upcomingPage}`
+          `${VITE_BASE_URL}/movie/list?category=${CATEGORY_API_ENDPOINTS["upcoming"]}&page=${upcomingPage}`
         );
         const data = await response.json();
         setUpcomingMovies(data.results);
@@ -85,7 +85,7 @@ const FeaturePage = () => {
 
   return (
     <Box>
-      <Navbar />
+      <Navbar currentPage='Feature Movies' />
       <FeatureList
         movies={popularMovies}
         category="popular"
@@ -94,13 +94,13 @@ const FeaturePage = () => {
       />
       <FeatureList
         movies={nowPlayingMovies}
-        category="nowPlaying"
+        category="Now Playing"
         page={nowPlayingPage}
         setPage={setNowPlayingPage}
       />
       <FeatureList
         movies={topRatedMovies}
-        category="topRated"
+        category="critically acclaimed"
         page={topRatedPage}
         setPage={setTopRatedPage}
       />

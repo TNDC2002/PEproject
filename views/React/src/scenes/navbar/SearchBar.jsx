@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -25,7 +25,7 @@ const SearchBar = () => {
   const fetchSearchResult = async (value) => {
     try {
       const fetchSearchResultResponse = await fetch(
-        `http://localhost:5000/search/?query=${value}&page=1`,
+        `${VITE_BASE_URL}/search/?query=${value}&page=1`,
         {
           method: "GET",
           headers: {
@@ -35,10 +35,10 @@ const SearchBar = () => {
       )
       const data = await fetchSearchResultResponse.json();
       const results = data.results.filter((movie) => movie.media_type === 'tv' || movie.media_type === 'movie').map((movie) => ({
-      label: movie.original_name ? movie.original_name : movie.original_title,
-      id: movie.id,
-      poster_path: movie.backdrop_path,
-      media_type: movie.media_type
+        label: movie.original_name ? movie.original_name : movie.original_title,
+        id: movie.id,
+        poster_path: movie.backdrop_path,
+        media_type: movie.media_type
       }));
       setSearchedMovies(results);
     } catch (err) {
@@ -49,14 +49,14 @@ const SearchBar = () => {
   const fetchUserSearch = async (userID, numberOfEntry) => {
     try {
       const fetchUserSearchResponse = await fetch(
-        `http://localhost:5000/api/history/get?userID=${userID}&limit=${numberOfEntry}`,
+        `${VITE_BASE_URL}/api/history/get?userID=${userID}&limit=${numberOfEntry}`,
         {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"
           }
-        } 
+        }
       );
       if (!fetchUserSearchResponse.ok) {
         throw new Error('Failed to fetch user search data');
@@ -97,10 +97,10 @@ const SearchBar = () => {
     };
 
     const insertUserSearchResponse = await fetch(
-      "http://localhost:5000/api/history/insert",
+      `${VITE_BASE_URL}/api/history/insert`,
       {
         method: "POST",
-        headers: { 
+        headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
         },
@@ -127,7 +127,7 @@ const SearchBar = () => {
       navigate(`/home/search/?query=${value}`);
     }
   };
-  
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       if (selectedOption) {
@@ -136,7 +136,7 @@ const SearchBar = () => {
       handleSearch(inputValue);
     }
   };
-  
+
   const handleInputChange = async (event, newInputValue) => {
     setInputValue(newInputValue);
     fetchSearchResult(newInputValue);
@@ -151,7 +151,7 @@ const SearchBar = () => {
 
   return (
     <Autocomplete
-    freeSolo
+      freeSolo
       options={options}
       inputValue={inputValue}
       getOptionLabel={(option) => option.label || ""}
@@ -178,39 +178,39 @@ const SearchBar = () => {
       renderOption={(props, option, { selected }) =>
         !option.poster_path & !option.media_type ? (
           <Button
-          variant="contained"
-          display="flex"
-          alignitems="center"
-          p={1}
-          sx={{ backgroundColor: selected ? theme.palette.primary.main : 'transparent' }}
-          onClick={() => handleSearch(option.label)}
+            variant="contained"
+            display="flex"
+            alignitems="center"
+            p={1}
+            sx={{ backgroundColor: selected ? theme.palette.primary.main : 'transparent' }}
+            onClick={() => handleSearch(option.label)}
           >
-          {option.history === true ? (
-            <HistoryOutlinedIcon></HistoryOutlinedIcon>
-          ) : (
-            <SearchOutlinedIcon></SearchOutlinedIcon>
-          )}
-          <strong>{option.label}</strong>
+            {option.history === true ? (
+              <HistoryOutlinedIcon></HistoryOutlinedIcon>
+            ) : (
+              <SearchOutlinedIcon></SearchOutlinedIcon>
+            )}
+            <strong>{option.label}</strong>
           </Button>
-          ) : (
-          <Button 
-          variant="contained"
-          display="flex"
-          alignitems="center"
-          p={1}
-          sx={{ backgroundColor: selected ? theme.palette.primary.main : 'transparent' }}
-          onClick={() => {
-            option.media_type === "movie" ? (
-              navigate(`../movie/${option.id}`)
+        ) : (
+          <Button
+            variant="contained"
+            display="flex"
+            alignitems="center"
+            p={1}
+            sx={{ backgroundColor: selected ? theme.palette.primary.main : 'transparent' }}
+            onClick={() => {
+              option.media_type === "movie" ? (
+                navigate(`../movie/${option.id}`)
               ) : (
-              navigate(`../TV Shows/${option.id}`)
+                navigate(`../TV Shows/${option.id}`)
               )
-          }}
+            }}
           >
             {option.poster_path ? (
-            <Image height='100px' width='200px' src={`https://image.tmdb.org/t/p/w500${option.poster_path}`}/>
+              <Image height='100px' width='200px' src={`https://image.tmdb.org/t/p/w500${option.poster_path}`} />
             ) : (
-            <Image height='100px' width='200px' src={`https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930`}/>
+              <Image height='100px' width='200px' src={`https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930`} />
             )}
             <strong>{option.label}</strong>
           </Button>
@@ -221,4 +221,3 @@ const SearchBar = () => {
 
 export default SearchBar;
 
-  

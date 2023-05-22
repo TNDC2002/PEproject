@@ -2,9 +2,10 @@ import { useEffect, useState, useRef } from "react";
 import { Navigate, useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Image from "mui-image";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import FlexBetween from "../../components/FlexBetween";
 import Loading from "../../components/Loading";
+import { updateUser } from "../../states";
 import ReactPlayer from 'react-player/youtube';
 import {
   Box,
@@ -30,6 +31,8 @@ import {
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
+import ProductionQuantityLimitsOutlinedIcon from '@mui/icons-material/ProductionQuantityLimitsOutlined';
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import InputLabel from "@mui/material/InputLabel";
@@ -62,6 +65,7 @@ const ShowPage = () => {
 
   //hover black name poster
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [hoveredRecommendationId, setHoveredRecommendationId] = useState(null);
 
   const { showID } = useParams();
@@ -70,6 +74,8 @@ const ShowPage = () => {
   const [isRented, setIsRented] = useState(false);
   const [isRated, setIsRated] = useState(false);
   const [rateDefaultValue, setRateDefaultValue] = useState(0);
+  const [rentalInformation, setRentalInformation] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const token = useSelector((state) => state.token);
   const theme = useTheme();
@@ -104,6 +110,14 @@ const ShowPage = () => {
     setOpen(false);
   };
 
+  const handleMouseEnterRentButton = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeaveRentButton = () => {
+    setIsHovered(false);
+  };
+
   const favourite = async (userID, showID) => {
     const requestData = {
       userID: userID,
@@ -113,8 +127,8 @@ const ShowPage = () => {
     };
 
     const url = isFavourited
-      ? "http://localhost:5000/api/favourite/delete" // DELETE endpoint
-      : "http://localhost:5000/api/favourite/insert"; // POST endpoint
+      ? `${VITE_BASE_URL}0/api/favourite/delete` // DELETE endpoint
+      : `${VITE_BASE_URL}/api/favourite/insert`; // POST endpoint
 
     const method = isFavourited ? "DELETE" : "POST";
 
@@ -139,8 +153,8 @@ const ShowPage = () => {
 
     const method = isRated ? "PUT" : "POST";
     const url = isRated
-      ? "http://localhost:5000/api/rate/update" // PUT endpoint
-      : "http://localhost:5000/api/rate/insert"; // POST endpoint
+      ? `${VITE_BASE_URL}/api/rate/update` // PUT endpoint
+      : `${VITE_BASE_URL}/api/rate/insert`; // POST endpoint
 
     const addRatingResponse = await fetch(url, {
       method: method,
@@ -161,7 +175,7 @@ const ShowPage = () => {
     };
 
     const removeRatingResponse = await fetch(
-      "http://localhost:5000/api/rate/delete",
+      `${VITE_BASE_URL}/api/rate/delete`,
       {
         method: "DELETE",
         headers: {
@@ -183,7 +197,7 @@ const ShowPage = () => {
     };
 
     const addRentResponse = await fetch(
-      "http://localhost:5000/api/rent/insert",
+      `${VITE_BASE_URL}/api/rent/insert`,
       {
         method: "POST",
         headers: {
@@ -204,7 +218,7 @@ const ShowPage = () => {
       season: selectedSeason,
     };
 
-    const url = new URL("http://localhost:5000/api/favourite/check");
+    const url = new URL(`${VITE_BASE_URL}/api/favourite/check`);
     url.search = new URLSearchParams(requestData).toString();
 
     const checkFavoriteResponse = await fetch(url, {
@@ -224,7 +238,7 @@ const ShowPage = () => {
       season: selectedSeason,
     };
 
-    const url = new URL("http://localhost:5000/api/rate/check");
+    const url = new URL(`${VITE_BASE_URL}/api/rate/check`);
     url.search = new URLSearchParams(requestData).toString();
 
     const checkRatedResponse = await fetch(url, {
@@ -243,7 +257,7 @@ const ShowPage = () => {
       media_type: "tv",
       season: selectedSeason,
     };
-    const url = new URL("http://localhost:5000/api/rent/check");
+    const url = new URL(`${VITE_BASE_URL}/api/rent/check`);
     url.search = new URLSearchParams(requestData).toString();
 
     const checkRentedResponse = await fetch(url, {
@@ -258,10 +272,10 @@ const ShowPage = () => {
     const fetchShowDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/tvDetail/${showID}`,{
-            
-            credentials: 'include'
-          }
+          `${VITE_BASE_URL}/movie/tvDetail/${showID}`, {
+
+          credentials: 'include'
+        }
         );
         const data = await response.json();
         setShow(data);
@@ -287,7 +301,7 @@ const ShowPage = () => {
     const fetchCredits = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/credits/${showID}`
+          `${VITE_BASE_URL}/movie/credits/${showID}`
         );
         const data = await response.json();
         setCredits(data.cast);
@@ -302,7 +316,7 @@ const ShowPage = () => {
     const fetchShowTrailerIDs = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/tvTrailer/${showID}`,
+          `${VITE_BASE_URL}/movie/tvTrailer/${showID}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -323,7 +337,7 @@ const ShowPage = () => {
     const fetchRecommendations = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/movie/tvRecommendations/${showID}`,
+          `${VITE_BASE_URL}/movie/tvRecommendations/${showID}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -350,6 +364,7 @@ const ShowPage = () => {
 
     const checkRentedResponse = await checkRented(user._id, showID);
     setIsRented(checkRentedResponse.Rental_return.Rented);
+    setRentalInformation(checkRentedResponse.Rental_return.Rental_information);
   };
 
   useEffect(() => {
@@ -366,6 +381,33 @@ const ShowPage = () => {
     setIsFavourited(!isFavourited);
   };
 
+  const handleTransaction = async (value) => {
+    try {
+      const requestData = {
+        balance: value
+      }
+      const transactionResponse = await fetch(
+        `${VITE_BASE_URL}/profile/${user._id}/purchase`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestData),
+          credentials: 'include'
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          const updatedUser = {
+            ...user,
+            balance: data.balance,
+          };
+          dispatch(updateUser({ user: updatedUser }));
+        })
+        .catch((error) => console.error(error));
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const handleRateClick = (rateValue) => {
     if (rateValue === null) {
       unrate(user._id, showID);
@@ -381,9 +423,10 @@ const ShowPage = () => {
   };
 
   const handleRentClick = (event) => {
-    const buttonValue = event.target.value;
-    rent(user._id, showID, buttonValue);
+    rent(user._id, showID, event.duration);
     setIsRented(!isRented);
+    handleTransaction(event.price);
+    fetchInformation();
     handleClose();
   };
 
@@ -407,21 +450,21 @@ const ShowPage = () => {
               window.location.href = "/Home";
             }}
           >
-            <Typography sx={{ "&:hover": {textDecoration: 'underline'}}}>
+            <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}>
               <h3>Home</h3>
             </Typography>
           </Link>
 
-          <Link 
-            style={{ 
-              color: "white", 
-              textDecoration: "none",  
-              }}
-              onClick={() => {
-                window.location.href = "/TV Shows";
-              }}  
-            >
-            <Typography sx={{ "&:hover": {textDecoration: 'underline'} }}><h3>Shows</h3></Typography>
+          <Link
+            style={{
+              color: "white",
+              textDecoration: "none",
+            }}
+            onClick={() => {
+              window.location.href = "/TV Shows";
+            }}
+          >
+            <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}><h3>Shows</h3></Typography>
           </Link>
           <Typography fontWeight="lighter">
             <h3>{show.original_name}</h3>
@@ -484,7 +527,7 @@ const ShowPage = () => {
                   </Select>
                 </FormControl>
               </Box>
-              <Avatar sx={{ "&:hover": {cursor: 'pointer'} }} onClick={handleFavouriteClick}>
+              <Avatar sx={{ "&:hover": { cursor: 'pointer' } }} onClick={handleFavouriteClick}>
                 {!isFavourited ? (
                   <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -494,7 +537,7 @@ const ShowPage = () => {
                 )}
               </Avatar>
 
-              <Avatar sx={{ "&:hover": {cursor: 'pointer'} }} ref={anchorRef} onClick={handlePopoverOpen}>
+              <Avatar sx={{ "&:hover": { cursor: 'pointer' } }} ref={anchorRef} onClick={handlePopoverOpen}>
                 {!isRated ? (
                   <StarIcon sx={{ fontSize: "23px" }} />
                 ) : (
@@ -582,30 +625,65 @@ const ShowPage = () => {
             <Button
               variant="contained"
               onClick={handleOpen}
-              disabled={isRented}
               padding="4px"
+              onMouseEnter={handleMouseEnterRentButton}
+              onMouseLeave={handleMouseLeaveRentButton}
+              sx={{ width: "275px" }}
             >
               {!isRented ? (
                 <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
               ) : (
-                <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
+                rentalInformation ? (
+                  rentalInformation.rentalExpireDate > new Date().toISOString() ? (
+                    !isHovered ? (
+                      <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
+                    ) : (
+                      <ShoppingCartCheckoutOutlinedIcon></ShoppingCartCheckoutOutlinedIcon>
+                    )
+                  ) : (
+                    !isHovered ? (
+                      <ProductionQuantityLimitsOutlinedIcon></ProductionQuantityLimitsOutlinedIcon>
+                    ) : (
+                      <AddShoppingCartOutlinedIcon></AddShoppingCartOutlinedIcon>
+                    )
+                  )
+                ) : (
+                  <div></div>
+                )
               )}
 
               {!isRented ? (
-                <strong>Rent</strong>
+                <strong>First-Time Rent</strong>
               ) : (
-                <strong>Already Rented</strong>
+                rentalInformation ? (
+                  rentalInformation.rentalExpireDate > new Date().toISOString() ? (
+                    !isHovered ? (
+                      <strong>Already Rented till {rentalInformation.rentalExpireDate.substring(0, 10)}</strong>
+                    ) : (
+                      <strong>Extend Rental</strong>
+
+                    )
+                  ) : (
+                    !isHovered ? (
+                      <strong>Rental Expired since {rentalInformation.rentalExpireDate.substring(0, 10)}</strong>
+                    ) : (
+                      <strong>Rent Again</strong>
+                    )
+                  )
+                ) : (
+                  <div>No information</div>
+                )
               )}
             </Button>
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
-              
-              <DialogContent sx={{backgroundImage:`url(${ImageTest})`,backgroundSize:'100% 100%', backgroundPosition: 'center' }}>
-                <Container sx={{height: '100%'}} maxWidth="lg">
+
+              <DialogContent sx={{ backgroundImage: `url(${ImageTest})`, backgroundSize: '100% 100%', backgroundPosition: 'center' }}>
+                <Container sx={{ height: '100%' }} maxWidth="lg">
                   <Box py={6} textAlign="center" display="flex">
                     <Box mb={3}>
                       <Container maxWidth="lg">
                         <Typography variant="h3" component="span">
-                        <h2>Pricing Plan</h2>
+                          <h2>Pricing Plan</h2>
                         </Typography>
                       </Container>
                     </Box>
@@ -625,8 +703,8 @@ const ShowPage = () => {
                             </Box>
                             <Button
                               variant="contained"
-                              onClick={handleRentClick}
-                              value={1}
+                              onClick={() => handleRentClick({ duration: 1, price: -19.99 })}
+                              disabled={!user.balance > 19.99}
                             >
                               Smash
                             </Button>
@@ -636,7 +714,7 @@ const ShowPage = () => {
 
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                        <CardHeader title={<Typography variant="h4" >1-Week Plan</Typography>}></CardHeader>
+                          <CardHeader title={<Typography variant="h4" >1-Week Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -649,8 +727,8 @@ const ShowPage = () => {
                             </Box>
                             <Button
                               variant="contained"
-                              onClick={handleRentClick}
-                              value={7}
+                              onClick={() => handleRentClick({ duration: 7, price: -129.99 })}
+                              disabled={!user.balance > 129.99}
                             >
                               Smash
                             </Button>
@@ -660,7 +738,7 @@ const ShowPage = () => {
 
                       <Grid item xs={12} md={4}>
                         <Card variant="outlined">
-                        <CardHeader title={<Typography variant="h4" >1-Month Plan</Typography>}></CardHeader>
+                          <CardHeader title={<Typography variant="h4" >1-Month Plan</Typography>}></CardHeader>
                           <CardContent>
                             <Box px={1}>
                               <Typography
@@ -673,8 +751,8 @@ const ShowPage = () => {
                             </Box>
                             <Button
                               variant="contained"
-                              onClick={handleRentClick}
-                              value={30}
+                              onClick={() => handleRentClick({ duration: 30, price: -499.99 })}
+                              disabled={!user.balance > 499.99}
                             >
                               Smash
                             </Button>
@@ -684,22 +762,22 @@ const ShowPage = () => {
                     </Grid>
                   </Box>
                 </Container>
-                <Box 
-                   m={1}
-                   //margin
+                <Box
+                  m={1}
+                  //margin
                   display="flex"
                   justifyContent="flex-end"
                   alignItems="flex-end"
                 >
-                <Button 
-                  variant="contained" 
-                  onClick={handleClose}
-                  sx={{position: 'absoulute', }} 
-                >
-                  Close
-                </Button>
+                  <Button
+                    variant="contained"
+                    onClick={handleClose}
+                    sx={{ position: 'absoulute', }}
+                  >
+                    Close
+                  </Button>
                 </Box>
-                
+
               </DialogContent>
             </Dialog>
           </Grid>
@@ -759,60 +837,60 @@ const ShowPage = () => {
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (
                   <Grid item key={recommendation.id}>
-                      <Box
-                      onMouseEnter={() => {setHoveredRecommendationId(recommendation.id)}}
-                      onMouseLeave={() => {setHoveredRecommendationId(null)}}
+                    <Box
+                      onMouseEnter={() => { setHoveredRecommendationId(recommendation.id) }}
+                      onMouseLeave={() => { setHoveredRecommendationId(null) }}
                       sx={{
                         position: 'relative',
                         display: 'flex',
-                        "&:hover":{
-                            cursor: 'pointer',
-                            boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+                        "&:hover": {
+                          cursor: 'pointer',
+                          boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
                         }
                       }}
-                      >
-                        <Image
-                          width="175px"
-                          height="275px"
-                          src={
-                            recommendation.poster_path
-                              ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}`
-                              : "https://via.placeholder.com/150x250.png?text=No+Image"
-                          }
-                          alt={`${recommendation.title} poster`}
-                        />
-                        {hoveredRecommendationId === recommendation.id && (
-                          <Box 
+                    >
+                      <Image
+                        width="175px"
+                        height="275px"
+                        src={
+                          recommendation.poster_path
+                            ? `https://image.tmdb.org/t/p/w500${recommendation.poster_path}`
+                            : "https://via.placeholder.com/150x250.png?text=No+Image"
+                        }
+                        alt={`${recommendation.title} poster`}
+                      />
+                      {hoveredRecommendationId === recommendation.id && (
+                        <Box
                           onClick={() => {
                             navigate(`/TV Shows/${recommendation.id}`);
                             window.scrollTo({ top: 0, behavior: "smooth" });
-                            }}
-                            className="hover" sx={{
-                              display:'flex',
-                              position: 'absolute',
+                          }}
+                          className="hover" sx={{
+                            display: 'flex',
+                            position: 'absolute',
+                            width: '100%',
+                            height: '100%',
+                            opacity: 0.8,
+                            backgroundColor: 'black',
+                          }}>
+                          <Box
+                            className="infoContainer" sx={{
                               width: '100%',
                               height: '100%',
-                              opacity: 0.8,
-                              backgroundColor: 'black',
-                          }}>
-                              <Box
-                              className="infoContainer" sx={{
-                                  width: '100%',
-                                  height: '100%',
-                                  display:'grid',
-                                  alignItems: 'center',
-                                  justifyContent: 'center'
+                              display: 'grid',
+                              alignItems: 'center',
+                              justifyContent: 'center'
 
-                              }}>
-                                  <Typography sx={{
-                                      fontSize: '1.25rem',
-                                      fontWeight: 'bold',
-                                      
-                                  }}>{recommendation.name}</Typography>
-                              </Box>       
+                            }}>
+                            <Typography sx={{
+                              fontSize: '1.25rem',
+                              fontWeight: 'bold',
+
+                            }}>{recommendation.name}</Typography>
                           </Box>
+                        </Box>
                       )}
-                      </Box>
+                    </Box>
                   </Grid>
                 ))}
               </Grid>

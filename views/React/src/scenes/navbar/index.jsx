@@ -1,4 +1,6 @@
 import { useState } from "react";
+import SearchBar2 from "./Searchbar2";
+import NavbarCover from "../../assets/image/navbarCover2.png";
 import {
     AppBar,
     Box,
@@ -37,8 +39,11 @@ import logo from "../../assets/images/Logo.png";
 import textLogo from "../../assets/images/textLogo.png";
 import Image from "mui-image";
 import { fontSize, spacing } from "@mui/system";
+import IconListComponent from "./IconListComponent";
 
-const Navbar = ({ }) => {
+
+
+const Navbar = ({ currentPage }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.user);
@@ -79,7 +84,7 @@ const Navbar = ({ }) => {
     const handleLogout = () => {
         dispatch(setLogout());
         navigate("/")
-      };
+    };
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
     const primaryPink = theme.palette.primary.main;
@@ -87,54 +92,26 @@ const Navbar = ({ }) => {
     const background = theme.palette.primary.dark;
 
     const fullName = user ? `${user.firstName} ${user.lastName}` : "undefined";
-    const firstName =  user ?`${user.firstName}` : "undefined";
-    const email =  user ? `${user.email}` : "undefined";
+    const firstName = user ? `${user.firstName}` : "undefined";
+    const email = user ? `${user.email}` : "undefined";
     const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
     return (
         <AppBar sx={{
             top: "0",
             zIndex: "100",
-            backgroundColor: "black",
+            backgroundColor: "#060047",
+            backgroundImage: `url(${NavbarCover})`,
+            height: "100px",
+            width: "100%",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+
         }} position="sticky">
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" sx={{ marginTop: "15px" }} >
                 <Toolbar disableGutters>
-                    <Box
-                        component="img"
-                        right="0"
-                        bottom="0"
-                        height="4.5rem"
-                        zIndex="10"
-                        src={logo}
-                        alt="logo"
-                        sx={{
-                            display: { xs: 'none', md: 'flex' },
-                            mr: 0,
-                            cursor: 'pointer',
-                            '&:hover':{
-                                opacity: 0.5,
-                            }
-                        }}
-                        onClick={() => {
-                            window.location.href = "/Home";
-                        }}
-                    />
-                    <Box sx={{
-                        mr: 2,
-                        display: { xs: 'none', md: 'flex' },
-                    }}>
-                        {pages.map((page) => (
-                            <MenuItem key={`link-${page}`}>
-                                <Link href={`/${page}`} sx={{
-                                    textDecoration: 'none',
-                                    color: 'white',
-                                    fontSize: '1rem',
-                                    fontWeight: 'bold',
-                                    '&:hover': {
-                                        opacity: 0.5,
-                                    }
-                                }}>{page}</Link>
-                            </MenuItem>
-                        ))}
+
+                    <Box sx={{ marginLeft: "-10px", }}>
+                        <IconListComponent currentPage={currentPage} />
                     </Box>
                     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton size="large" onClick={handleOpenNavMenu}>
@@ -159,7 +136,7 @@ const Navbar = ({ }) => {
                             }}
                         >
                             <Box sx={{ display: 'flex', padding: '0 1rem', margin: '0 0 0.5rem 0' }}>
-                                <SearchBar></SearchBar>
+
                             </Box>
                             {pages.map((page) => (
                                 <MenuItem key={`link-${page}`} onClick={handleCloseNavMenu}>
@@ -190,10 +167,8 @@ const Navbar = ({ }) => {
                             }}
                         />
                     </Box>
+                    <SearchBar></SearchBar>
                     <Box gap="1rem" sx={{ display: "flex", marginLeft: 'auto' }} >
-                        <FlexBetween backgroundColor={neutralLight} sx={{ borderRadius: "15px", padding: "0 1.5rem", margin: '1rem 0.5rem', display: { xs: 'none', md: 'flex' } }} >
-                            <SearchBar></SearchBar>
-                        </FlexBetween>
                         <Box sx={{ flexGrow: 0, margin: "0.5rem" }}>
                             <Tooltip title={firstName}>
                                 <IconButton onClick={handleClick}>
@@ -207,7 +182,7 @@ const Navbar = ({ }) => {
                                         }}
                                         max={99}
                                     >
-                                        <AccountCircle style={{ color: 'white', fontSize: '3rem' }} />
+                                        <AccountCircle style={{ color: '#FF5F9E', backgroundColor: 'white', borderRadius: '50%', fontSize: '3.4rem' }} />
                                     </Badge>
                                 </IconButton>
                             </Tooltip>

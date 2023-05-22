@@ -6,7 +6,7 @@ import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
 import Verification_model from "../models/Verification_model.js"
 dotenv.config()
-const expiresIn = (60 * 60)*7; 
+const expiresIn = (60 * 60) * 7;
 
 
 
@@ -65,7 +65,7 @@ const login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." })
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn});
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn });
         const salt = await bcrypt.genSalt();
         const tokenHash = await bcrypt.hash(token, salt);
         //save token to DB

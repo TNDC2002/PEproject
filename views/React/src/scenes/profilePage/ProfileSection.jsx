@@ -34,7 +34,7 @@ const ProfileSection = () => {
     }
 
     const handleSaveClick = async (values, onSubmitProps) => {
-        fetch(`http://localhost:5000/profile/${user._id}`, {
+        fetch(`${VITE_BASE_URL}/profile/${user._id}`, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ const ProfileSection = () => {
                         justifyContent="space-between"
                         alignItems="stretch"
                         sx={{ flex: 1 }}
-                        
+
                     >
                         {/* First Stack */}
                         <Stack
@@ -84,9 +84,9 @@ const ProfileSection = () => {
                             spacing={2}
                             justifyContent="start"
                             alignItems="center"
-                            
 
-                            
+
+
                             sx={{
                                 width: isNonMobileScreens ? "30%" : "100%",
                             }}
@@ -121,7 +121,7 @@ const ProfileSection = () => {
                                 <Stack
                                     marginRight={1}
                                     sx={{
-                                        
+
                                         width: "180px",
                                         height: "45px",
                                         justifyContent: "center",
@@ -152,7 +152,7 @@ const ProfileSection = () => {
                                 </Stack>
                                 <Stack
                                     sx={{
-                                        
+
                                         width: "180px",
                                         height: "45px",
                                         justifyContent: "center",
@@ -184,7 +184,7 @@ const ProfileSection = () => {
 
                             <Stack
                                 sx={{
-                                    
+
                                     width: "368px",
                                     height: "45px",
                                     justifyContent: "center",

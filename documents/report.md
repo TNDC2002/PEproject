@@ -1,245 +1,464 @@
-# REPORT<a name = "report">
-## Preface<a name = "preface">
-- [REPORT](#report)
-  - [Preface](#preface)
-  - [Member](#member)
-  - [Introduction](#introduction)
-    - [Overview](#overview)
-    - [Technology](#technology)
-  - [UX/UI](#uxui)
-    - [Overview ](#overview-)
-    - [Pages and Images](#pages-and-images)
-  - [Functionality](#functionality)
-    - [Movie Fetching](#movie-fetching)
-    - [***GET*** /api/movie/list?category=\&page=\<page\_number\>](#get-apimovielistcategorypagepage_number)
-      - [RESPONSE](#response)
-    - [***GET*** /api/movie/detail/:movieID](#get-apimoviedetailmovieid)
-      - [RESPONSE](#response-1)
-    - [***POST*** /api/movie/favourite](#post-apimoviefavourite)
-      - [REQUEST](#request)
-      - [RESPONSE](#response-2)
-    - [Showcase Movie Trailer](#showcase-movie-trailer)
-    - [***GET*** api/movie/trailer/:movieID](#get-apimovietrailermovieid)
-      - [RESPONSE](#response-3)
-    - [YoutubePlayer.jsx](#youtubeplayerjsx)
-    - [Search Engine](#search-engine)
-    - [Payment System](#payment-system)
-  - [Performance and Sercurity](#performance-and-sercurity)
-  - [Test Case](#test-case)
-  - [Summary](#summary)
-## Member<a name = "member">
-| Full Name  | Student Id | Task |
-| ---------  | :---: | :--- |
-| Nguyễn Ngọc Vĩnh  | 18691 | Documentation, Data API |
-| Hà Quách Phú Thành | 18840 | Backend |
-| Thái Quang Nam | 18770 | User Interface |
-| Phạm Hoàng Việt | 18334 | User Interface |
-| Nguyễn Xuân Khang | 18973 | Profile Interface |
-| Nguyễn Khắc Hoàng | 18230 | User Interface |
-| Lê Duy | 17434 | Sercurity |
-| Trần Ngọc Duy Chương | 17197 | Backend |
-## Introduction<a name = "introduction">
-### Overview<a name = "overview">
->Our **movie renting website** offers the following features to ensure a diverse and convenient user experience:
->- **Extensive movie selection**: We strive to offer an extensive and diverse selection of movies from every genre, year, and more, ensuring there is something for every user's taste.
->- **Rental model**: Users can browse through a vast catalog of available movies and rent specific titles for a limited period by paying a rental fee.
->- **User account**: Users can create an account on our website to access features such as user reviews, ratings, personalized recommendations based on viewing history, and a search function to help them find specific titles.
->- **Secure payment system**: Our website offers a secure payment system to process transactions and protect users' sensitive information.
->- **Affordable rental model**: We aim to provide a convenient and affordable rental model for our users, making it accessible to everyone.
-### Technology<a name="technology">
->Our movie renting website is built using the **MERN** stack, with the addition of the **Material-UI** (MUI) library for the user interface. This includes the following technologies:
->- **MongoDB**: a document-based NoSQL database used to store and manage movie data, user data, and transactional data.
->- **Express**: a web application framework used to build the backend API that communicates with the database and provides functionality for the frontend of the website.
->- **React**: a front-end JavaScript library used to build the user interface and manage the state of the website.
->- **Node.js**: a JavaScript runtime environment used to execute server-side code and provide a backend for the website.
->- **Material-UI (MUI)**: a popular React component library that provides pre-built, customizable UI components for building modern and responsive user interfaces.
-## UX/UI<a name = "uxui">
-### Overview <a name = "overview-1">
-> The **Smash Bruh** movie renting website offers the following features:
->- **Visually appealing UI**: The website's UI is designed to be visually appealing and user-friendly, providing a pleasant and intuitive browsing experience.
->- **Easy Navigation**: Users can quickly navigate to different parts of the website, such as the movie page to view details and trailers, the settings page to customize their preferences, or the "My Favorites" page to access their saved movies. 
->- **Responsive and accessible design**: The website is intuitive and responsive, optimized for both desktop and mobile devices, making it easy for users to navigate and rent movies from any device.
-### Pages and Images<a name="pages-and-images">
->Our website offers a variety of **user-friendly** and **informative** pages to enhance your movie rental experience. Here are some of the key features of our four main pages:
->- **Home Page**: The homepage is designed to be user-friendly and informative, featuring relevant images to accompany movie titles and descriptions, as well as a search bar and categories to help users easily find the movies they are interested in.
->- **Movie Page**: The movie page includes a detailed description of the movie, as well as information such as the cast, director, and release year. It also displays user reviews and ratings, as well as related movies that users may be interested in.
->- **Settings Page**: The settings page allows users to customize their experience on the website, including options such as language preferences, notification settings, and account information.
->- **My Favorites Page**: The "My Favorites" page displays a user's saved list of favorite movies, allowing them to easily access and rent them again in the future.
-## Functionality<a name = "functionality">
-### Movie Fetching<a name="movie-fetching">
-> As the world of cinema continues to expand with new movies and genres, navigating it can be an overwhelming task. That's why our system is designed to provide a **comprehensive and highly informative** platform for movie exploration and discovery, leveraging the extensive data available through the **TMDB[^1] database API**.
->- **Extensive collection of data**: The TMDB API offers a vast repository of movie-related data, including plot summaries, cast information, user reviews, and ratings. This wealth of information can be invaluable for users looking to explore the world of cinema.
->- **Regular updates**: The TMDB API is regularly updated with new movie releases, ensuring that users have access to the latest information on new and upcoming movies.
->- **Customizable queries**: The TMDB API allows users to customize their queries to retrieve only the data they need. This can save time and resources by reducing the amount of irrelevant data that needs to be processed.
->- **Integration with other applications**: The TMDB API can be integrated with other applications, such as movie review websites or mobile apps, to provide a seamless and comprehensive user experience.
->- **Community-driven**: The TMDB API is maintained by a community of movie enthusiasts and developers, ensuring that it remains up-to-date and relevant to the needs of its users.
+## **1. _SmashBruh_ Movie Renting Website - Documentation**
 
-### ***GET*** /api/movie/list?category=<category>&page=<page_number>  
-#### RESPONSE
-```js
-{
-  "page": number,
-  "results": [
-    {
-      "adult": boolean,
-      "backdrop_path": string,
-      "genre_ids": [
-        number
-      ],
-      "id": number,
-      "original_language": string,
-      "original_title": string,
-      "overview": string,
-      "popularity": number,
-      "poster_path": string,
-      "release_date": string,
-      "title": string,
-      "video": boolean,
-      "vote_average": number,
-      "vote_count": number
-    },
-    ...
-  ]
-}
-```  
-### ***GET*** /api/movie/detail/:movieID
-#### RESPONSE
-```js
-{
-  "adult": bool,
-  "backdrop_path": string,
-  "belongs_to_collection": {
-    "id": int,
-    "name": string,
-    "poster_path": string,
-    "backdrop_path": string
-  },
-  "budget": int,
-  "genres": [
-    {
-      "id": int,
-      "name": string
-    }
-  ],
-  "homepage": string,
-  "id": int,
-  "imdb_id": string,
-  "original_language": string,
-  "original_title": string,
-  "overview": string,
-  "popularity": float,
-  "poster_path": string,
-  "production_companies": [
-    {
-      "id": int,
-      "logo_path": string,
-      "name": string,
-      "origin_country": string
-          }
-  ],
-  "production_countries": [
-    {
-      "iso_3166_1": string,
-      "name": string
-    }
-  ],
-  "release_date": string,
-  "revenue": int,
-  "runtime": int,
-  "spoken_languages": [
-    {
-      "english_name": string,
-      "iso_639_1": string,
-      "name": string
-    }
-  ],
-  "status": string,
-  "tagline": string,
-  "title": string,
-  "video": bool,
-  "vote_average": float,
-  "vote_count": int
-}
-```  
-### ***POST*** /api/movie/favourite
-#### REQUEST
-```js
-Headers:
-Authorization: Bearer [token]
-{
-"userID": string,
-"movieID": string
-}
-```
-#### RESPONSE
-```
-{
-"userID": string,
-"movieID": string,
-"_id": string,
-"createdAt": date,
-"updatedAt": date,
-"__v": number
-}
-```
-### Showcase Movie Trailer<a name = "showcase-movie-trailer">
-> Our website can utilize the following **APIs** to display **movie trailers** for users:
->- **TMDB API**: Fetches movie information using the movie ID, including details such as the movie title, release date, synopsis, and more.
->- **YouTube V3 API[^2]**: Searches for the corresponding trailer using the movie title and release date, and retrieves the video ID.
->- **React YouTube API**: Embeds the trailer video into our website using the retrieved video ID.
+### **1.1. Team member**
 
-### ***GET*** api/movie/trailer/:movieID
-#### RESPONSE
-```js
-{
-"trailerID": string
-}
-```  
-  
-### YoutubePlayer.jsx
-```jsx YoutubePlayer
-import React from 'react';
-import ReactPlayer from 'react-player/youtube';
-import { Box } from '@mui/material';
+| Full Name            | Student Id |                                                                                                 Tasks                                                                                                  |
+| -------------------- | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| Nguyễn Ngọc Vĩnh     |   18691    | _Movie and TV Shows details, trailers, and recommendations backend API; Movie Search and Filtering API; UI/UX of Homepage and MoviePage; Markdown and Swagger Documentation, Analytics and Reporting._ |
+| Hà Quách Phú Thành   |   18840    |                                                                                                _Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                                                           |
+| Thái Quang Nam       |   18770    |                                          _Design Navbar, HomePage, FeatureMoviePage, TVShowsPage, MyListPage, SearchPage; Markdown Documentation, Reporting_                                           |
+| Phạm Hoàng Việt      |   18334    |                                                                                             User Interface                                                                                             |
+| Nguyễn Xuân Khang    |   18973    |                                                                                           Profile Interface                                                                                            |
+| Nguyễn Khắc Hoàng    |   18230    |                                                                                             User Interface                                                                                             |
+| Lê Duy               |   17434    |                                                                                                Security                                                                                                |
+| Trần Ngọc Duy Chương |   17197    |                                                                                                Backend                                                                                                 |
 
-const YouTubePlayer = ({ videoId }) => {
-  return (
-    <Box sx={{ backgroundColor: 'black', padding: '0 0%', display: 'flex', justifyContent: 'center' }}>
-      <ReactPlayer
-        url={`https://www.youtube.com/watch?v=${videoId}`}
-        controls={true}
-        playing={true}
-        volume={1.0}
-      />
-    </Box>
-  );
-};
+### **1.2. About our project**
 
-export default YouTubePlayer;
-```
-### Search Engine<a name="search-engine">
-> At the heart of our movie renting webpage is a powerful **search engine** that helps users find the movies they want to watch quickly and easily. Here's an overview of how it works:
->- **Utilizing the TMDB API**: Our search engine harnesses the power of the TMDB API to retrieve movie information from a vast database. By leveraging the movie ID, the API can retrieve details such as the movie title, release date, synopsis, cast, and ratings.
->- **Employing Fuzzy Matching Algorithms**: To help users find the right movies, we use fuzzy matching algorithms that take into account the similarity between the user's search query and the movie titles in our database. This allows us to return a list of search results that are tailored to the user's interests.
->- **Ranking Results by Popularity and Release Date**: To improve the accuracy of the search results, our search engine uses data such as the movie's popularity and release date to rank the results. This ensures that the most relevant and recent movies appear at the top of the search results.
-### Payment System<a name = "payment-system">
-> At our movie renting website, we understand that the payment process needs to be **simple, secure, and seamless**. That's why we've developed a payment system that is easy to use and ensures that users can rent movies quickly and securely. Here's an overview of how it works:
->- **Payment Gateway Integration**: Our payment system integrates with leading payment gateways, such as PayPal and Stripe, to ensure that users can pay using their preferred payment method.
->- **Secure Transactions**: We take security seriously and use SSL encryption to ensure that all payment transactions are secure and protected from unauthorized access
->- **User-Friendly Interface**: Our payment system has a user-friendly interface that guides users through the payment process step-by-step, making it easy for them to rent movies.
->- **Automatic Billing**: To make renting movies even easier, we offer automatic billing, so users don't have to worry about remembering to pay for their rental. Once the rental period is over, we automatically charge the user's payment method on file.
->- **Refunds and Cancellations**: We understand that sometimes plans change, so we offer easy refunds and cancellations. Users can cancel their rental or request a refund with just a few clicks, and our customer support team is always available to help if needed.
+In an era dominated by media streaming platforms and social media, the virtual realm has become the primary avenue for various activities. However, traditional methods of buying or renting media, such as movies and TV shows, often involve frustrating in-person transactions. Moreover, managing and tracking favorite content across multiple limited streaming services can be complicated and confusing.
 
-## Performance and Sercurity<a name = "security">
-> To ensure optimal database performance and storage, we have implemented a **verification procedure** that is simple and easy to use. The following is a brief overview of how this procedure works:
->- **Automatic mailing**: When a user register on our web page, an email is automatically sent to the user. The email contain a 6 digits PIN code as well as the remaining time the user have to finish the verification.
->- **Optimal resource usage**: By verifying users, we can skim out on inactive and spam accounts, reducing the amount of memory needed on the database.
-## Test Case
-    - Test Case 1
-    - Test Case 2
-  
-## Summary
->Our rental movie website offers a vast selection of movies with personalized recommendations, user-friendly search options, and secure payment processing. With a responsive design optimized for all devices and prioritizing user feedback, our service provides a seamless and convenient rental model for all users.
+Now with our media rental web application, you can now keep track of rented movies and TV show, as well as keeping track of your favourites and rate them accordingly, provided to you with one of the largest movie database - The Movie Database (TMDB) - a free and open movie database for developers, which also acts as our main API for working with movies/shows.
+## **2. Table of content**
 
-[^1]: *TMDb stands for The Movie Database, which is an online database of information related to movies, TV shows, and other forms of visual entertainment. It provides a platform for users to discover information about movies, including release dates, cast and crew members, plot summaries, reviews, and ratings. TMDb is free to use and is maintained by a community of volunteers who contribute content to the site. It also offers an API that allows developers to access its database and use its information in their own applications.*
-[^2]: *The YouTube v3 API is a tool provided by Google for developers to interact with YouTube's platform. It allows developers to perform tasks such as uploading videos, managing playlists, and retrieving video analytics data. It was released in 2015 to replace the previous v2 API and supports OAuth 2.0 authentication, JSON and XML data formats, and new features such as live streaming data and caption management.*
+- [**1. _SmashBruh_ Movie Renting Website - Documentation**](#1-smashbruh-movie-renting-website---documentation)
+  - [**1.1. Team member**](#11-team-member)
+  - [**1.2. About our project**](#12-about-our-project)
+- [**2. Table of content**](#2-table-of-content)
+- [**3. Introduction**](#3-introduction)
+  - [**3.1. Project Overview**](#31-project-overview)
+  - [**3.2. Objective**](#32-objective)
+  - [**3.3. Goals**](#33-goals)
+- [**4. System Analysis**](#4-system-analysis)
+  - [**4.1. Business Requirements**](#41-business-requirements)
+  - [**4.2. User Requirements**](#42-user-requirements)
+  - [**4.3. Functional Requirements**](#43-functional-requirements)
+  - [**4.4. Non-Functional Requirements**](#44-non-functional-requirements)
+  - [**4.5. Deployment Plan**](#45-deployment-plan)
+- [**5. System Design**](#5-system-design)
+  - [**5.1. System Architecture**](#51-system-architecture)
+    - [**5.1.1. MVC Models for Web Development**](#511-mvc-models-for-web-development)
+  - [**5.2. Components Design**](#52-components-design)
+    - [**5.2.1. Users Interface:**](#521-users-interface)
+    - [**5.2.2. Authentication Interface:**](#523-authentication-interface)
+  - [**5.3. Structure and Relationships**](#53-structure-and-relationships)
+  - [**5.4. Data Model**](#54-data-model)
+  - [**5.5. GUI**](#55-gui)
+  - [**5.6. Functionality Design**](#56-functionality-design)
+- [**6. Implementation**](#6-implementation)
+  - [**6.1. Development Environment and Technology Stack**](#61-development-environment-and-technology-stack)
+  - [**6.2. CI/CD Testing and Docker**](#62-ci/cd-testing-and-docker)
+  - [**6.3. File Structure**](#63-file-structure)
+
+- [**7. User Guide**](#7-user-guide)
+  - [**7.1. Getting Started**](#71-getting-started)
+- [**8. Conclusion**](#8-conclusion)
+  - [**8.1. Summary of Project**](#81-summary-of-project)
+  - [**8.2. Future Work**](#82-future-work)
+  - [**8.3. References**](#83-references)
+
+## **3. Introduction**
+
+### **3.1. Project Overview**
+
+_SmashBruh_ is an movie rental web application that aims to simplify the way people discover and rent movies. Our project aims to provide options for users to view the information related to movies and shows. They also have the choice to choose which movies or shows to rent and have their rented information saved for later use. The web app also allows users to perform actions such as liking and rating, which can be viewed, easily accessed and managed.
+
+### **3.2. Objective**
+
+- **_Extensive Movie Library:_** Curate a diverse collection of films across genres, eras, and cultures to cater to the varied preferences of our users. From classic masterpieces to the latest releases, ensure a wide range of options that cover different cinematic experiences.
+
+- **_User-Friendly Interface:_** Develop an intuitive and easy-to-navigate website interface that allows users to seamlessly explore and discover movies. Implement robust search functionality, filters, and sorting options to facilitate effortless movie browsing.
+
+- **_Detailed Movie Information:_** Provide comprehensive and accurate movie information to assist users in making informed decisions. Include detailed descriptions, plot summaries, cast and crew details, user ratings, and reviews to give users valuable insights into each film.
+
+- **_Personalized Recommendations:_** Implement a sophisticated recommendation system that analyzes user preferences on the movies and shows currently accessed. Generate personalized movie suggestions that align with users' tastes, helping them discover new films and broaden their cinematic horizons.
+
+- **_Easy Rental Process:_** Streamline the movie rental process to make it convenient and hassle-free for users. Implement a straightforward rental system where users can choose their desired movies, rental duration, and complete secure online payments.
+
+## **4. System Analysis**
+
+### **4.1. Business Requirements**
+
+The business requirements of _SmashBruh_ are as follows:
+
+- **_Broad Selection of Content:_** Users expect a wide variety of movies and TV shows across different genres, including popular releases, classics, and niche titles. They want access to a diverse library that caters to their individual preferences and interests.
+- **_User Account Management:_** _SmashBruh_ requires a user account management system to allow users to create profiles, save preferences, manage their watch lists, and track their searching history. This feature provides a personalized experience and enables users to easily access and organize their preferred content.
+- **_Cross-Platform Accessibility:_** _SmashBruh_ should be accessible across different devices and platforms, including web browsers, mobile devices, and smart TVs. This ensures that users can enjoy their favorite content conveniently, regardless of the device they are using.
+- **_Analytics and Reporting:_** The platform requires robust analytics and reporting capabilities to track user behavior, content popularity, and performance metrics. These insights help in making data-driven decisions, improving the user experience, and optimizing the content library.
+
+By fulfilling these business requirements, _SmashBruh_ can create a user-friendly interface, up-to-date information and a stable searching and recommendation system inside the rental movie system to maintain the flow of the website.
+
+### **4.2. User Requirements**
+
+The user requirements of _SmashBruh_ are as follows:
+
+- **_Firt Time User Experience:_** _SmashBruh_ provides visitors latest movie that the system have to offer and other information of available movies and shows ath the moment so that the system keeps up with user's interest.
+- **_Efficient Search and Filtering:_** Users require an efficient search functionality that allows them to search for specific titles, genres, actors, directors, or keywords. They also expect advanced filtering options to refine their search results based on criteria such as release year, ratings, and language.
+- **_Movie Information Based Recommendations:_** Users appreciate personalized recommendations based on their current accessed movies and shows. It could be based on names, genres, cast.
+- **_Ratings:_** Users value the ability to read and contribute to ratings. They want a platform that encourages user feedback, enabling them to make informed decisions and engage in discussions with other movie enthusiasts.
+- **_Flexible Rental Options:_** Users prefer flexible rental options, including various pricing plans with understandable cost to spend. They want the freedom to choose the rental plan that suits their preferences and viewing habits.
+- **_Cross-Platform Compatibility:_** Users want the flexibility to access _SmashBruh_ on multiple devices, including web browsers, smartphones, tablets, and smart TVs. They expect a seamless experience that allows them to pick up where they left off across different devices.
+- **Simple Payment Processing:\_** Users don't have to worry about payment system because we uses simple calculation (addtion, subtraction, multiplication and division) based on what users have chosen to be their pricing plan mentioned in the previous part.
+
+By addressing these user requirements, _SmashBruh_ can provide a user-centric experience that meets the expectations of movie enthusiasts, offering them a vast selection of content, seamless navigation and personalized recommendations.
+
+### **4.3. Functional Requirements**
+
+The functional requirements of _SmashBruh_ are as follows:
+
+- **_User Registration and Account Management:_**
+  - Users should be able to create an account and provide necessary information.
+  - Users should be able to log in securely and manage their account settings.
+- **_Content Catalog and Search:_**
+  - The platform should maintain a comprehensive catalog of movies and TV shows.
+  - Users should be able to search for content by title.
+  - Advanced filtering options should be available to refine search results.
+- **_Movie and TV Show Details:_**
+  - Users should be able to view detailed information about each movie or TV show, including synopsis, cast, director, ratings, and reviews.
+  - The platform should display relevant recommendations and similar content.
+- **_Rental Options:_**
+  - Users should be able to select rental pricing plans.
+  - The platform should provide pricing details, rental durations, and availability information.
+- **_Payment Processing:_**
+  - The platform should securely process payments using simple calculations.
+  - Users should receive a decreasing amount of money in their net balance
+- **My list and Favourites:\_**
+  - Users should be able to create and manage a watch list of movies and TV shows.
+  - The platform should provide personalized recommendations based on user preferences and ratings.
+- **_Ratings:_**
+  - Users should be able to rate stars score for movies and TV shows.
+  - The platform should display average ratings and aggregate reviews for each title.
+- **_Analytics and Reporting:_**
+  - The platform should collect and analyze data to generate insights on user behavior, content popularity, and platform performance.
+
+### **4.4. Non-Functional Requirements**
+
+The non-functional requirements of _SmashBruh_ are as follows:
+
+- **_Performance:_**
+  - The platform should have fast loading times and responsive navigation to provide a seamless user experience.
+  - Streaming of movies and TV shows should be smooth and uninterrupted, with minimal buffering.
+- **_Scalability and Availability:_**
+  - The platform should be designed to handle a growing user base and increasing traffic without compromising performance.
+  - It should be scalable to accommodate a large number of concurrent users and a growing content library.
+  - The platform should have a high level of availability, minimizing downtime and ensuring users can access the service whenever they need it.
+  - Measures such as redundancy, load balancing, and backup systems should be in place to maintain availability.
+- **_Security:_**
+  - The platform should implement robust security measures to protect users' personal information, payment details, and viewing history.
+  - Secure encryption protocols should be used to ensure the confidentiality and integrity of data.
+- **_Compatibility:_**
+  - The platform should be compatible with various operating systems, web browsers, and devices to accommodate a wide range of user preferences.
+  - It should adapt to different screen sizes and resolutions, providing a consistent and optimized experience across devices.
+- **_Usability:_**
+  - The platform should have a user-friendly and intuitive interface, making it easy for users to navigate, search for content, and manage their account.
+  - Clear and concise instructions and tooltips should be provided to guide users through different features and functionalities.
+- **_Data Privacy:_**
+  - The platform should comply with data protection regulations and ensure the privacy of user data.
+  - Clear privacy policies and consent mechanisms should be in place, informing users about data collection, storage, and usage practices.
+- **_Performance Monitoring and Optimization:_**
+  - The platform should have monitoring mechanisms in place to track performance metrics, identify bottlenecks, and optimize system performance.
+  - Regular performance testing and optimization should be conducted to ensure optimal user experience.
+- **_Cross-Platform Accessibility:_**
+  - The platform should be accessible across devices and platforms, including web browsers, mobile devices, and smart TVs.
+
+### **4.5. Deployment Plan**
+
+- **_Infrastructure Setup:_** Determine the hosting environment for your application, whether it's a cloud-based solution like on-premises server. Set up the necessary infrastructure, including MongoDB servers, databases, and networking components, ensuring scalability, reliability, and security.
+
+- **_Code Packaging:_** Prepare your application for deployment by packaging the code, including all dependencies, libraries, and configurations, into a deployable package. This may involve bundling the frontend code (HTML, CSS, JavaScript, MUI Library for CSS) and containerizing the backend code using technologies like Docker.
+
+- **_Configuration Management:_** Define and manage the application's configuration settings, such as database credentials, API keys, and other environment-specific variables. Ensure that these settings are securely stored and easily configurable for different deployment environments (e.g., development, staging, production).
+
+- **_Testing and Quality Assurance:_** Conduct thorough testing of the application to identify and fix any issues or bugs. Perform functional testing, integration testing, and load testing to ensure the application performs well under expected loads and behaves as intended.
+
+- **_Data Migration:_** If you are migrating from a previous version of the application or integrating with existing data sources, plan and execute a data migration strategy to ensure a smooth transition of data to the new deployment environment. This may involve transforming and importing data from legacy systems or integrating with external APIs.
+
+- **_Deployment Automation:_** Implement an automated deployment process using tools like GitLab CI/CD. This allows for consistent and efficient deployment of new code changes, reduces human error, and enables easy rollbacks if necessary.
+
+- **_Monitoring and Error Logging:_** Set up monitoring and logging systems to track the health, performance, and usage of your application. Implement error tracking and logging mechanisms to identify and resolve issues promptly, ensuring the application runs smoothly and providing valuable insights for future improvements.
+
+- **_Security Measures:_** Implement robust security measures to protect the application and user data. This includes implementing user authentication and authorization mechanisms, and applying security best practices to safeguard against common web vulnerabilities.
+
+- **_User Acceptance Testing:_** Conduct user acceptance testing with a select group of users to gather feedback, identify any usability issues, and validate that the application meets their expectations. Make necessary adjustments based on user feedback before the final release.
+
+## **5. System Design**
+
+### **5.1. System Architecture**
+
+- **_Model:_**
+
+  - The Model represents the data and the business logic of the application. It includes entities, data access layer, and the necessary operations and validations related to the movie rental domain. In the context of a movie rental app, the Model component would handle tasks such as managing movie data, user profiles, rental history, and integrating with external APIs for movie information.
+
+- **_View:_**
+
+  - The View is responsible for presenting the user interface to the users. It encompasses the visual elements, user interfaces, and user experience components of the application. In the movie rental app, the View component would include screens, forms, and other UI elements that allow users to browse movies, search for movies, view movie details, manage rental queues, and interact with the application.
+
+- **_Controller:_**
+
+  - The Controller acts as the intermediary between the Model and the View. It receives user input from the View, processes it, and interacts with the Model to fetch or update the data accordingly. In the context of a movie rental app, the Controller component would handle tasks such as processing user requests, managing user authentication and authorization, managing rental transactions, and coordinating the flow of data between the Model and the View.
+
+#### **5.1.1. MVC Models for Web Development**
+
+**_The Model-View-Controller (MVC)_** architecture is a popular design pattern used in the development of software applications. In the context of a movie rental app, the MVC architecture provides a structured and organized approach to manage the different components of the application.
+
+- **_The Model_** component of the movie rental app represents the data and the business logic. It encapsulates entities such as movies, users, rentals, and other related data. The Model component includes the data access layer, which interacts with the underlying database or data storage system to perform operations like retrieving, creating, updating, and deleting data. The Model also handles business logic operations, such as validating user inputs, managing rental transactions, integrating with external APIs for fetching movie information, and enforcing data integrity.
+
+- **_The View_** component in the movie rental app is responsible for presenting the user interface to the users. It encompasses all the visual elements and user experience components of the application. The View component includes screens, forms, buttons, and other user interface elements that allow users to browse movies, search for movies based on different criteria, view detailed movie information, manage their rental queue, and interact with the application. The View component is designed to be visually appealing, intuitive, and responsive to enhance the overall user experience.
+
+- **_The Controller_** component acts as the intermediary between the Model and the View. It receives user input from the View, processes it, and interacts with the Model to fetch or update the data accordingly. The Controller component handles tasks such as processing user requests, managing user authentication and authorization, managing rental transactions, coordinating the flow of data between the Model and the View, and triggering appropriate actions based on user interactions. It ensures that the user input is validated and appropriately acted upon, orchestrating the overall functionality and behavior of the movie rental app.
+
+By adopting the _MVC architecture_, the movie rental app achieves modularity, code reusability, and easier maintenance. The separation of concerns enables developers to work independently on different components, allowing for better collaboration and development efficiency. Changes in one component can be made without affecting the others, making it easier to test, debug, and enhance specific parts of the application. Moreover, the MVC architecture promotes scalability and extensibility, as new features or modifications can be incorporated without disrupting the existing functionality, facilitating the continuous evolution of the movie rental app to meet the changing needs of its users.
+
+### **5.2. Components Design**
+
+#### **5.2.1. Users Interface:**
+
+- **_Users are able to access:_**
+  - Home Page
+  - Feature Movies Page
+  - Movie Pages
+  - TV Shows Page
+  - Show Pages
+  - Profile Pages
+  - Login/Register Pages
+  - Search Page
+
+#### **5.2.2. Authentication Interface:**
+
+The authentication interface and features of _SmashBruh_ are as follows:
+- **_Oauth2 and cookie based authentication:_**
+  - In order to streamline the registration process even further, _SmashBruh_ has also implements the Open Authorization 2.0 protocol(Oauth2).
+  - _SmashBruh_ Oauth2 implements support registering using other well known platform such as Google, GitHUb and Facebook, providing a near instant registering experience.
+  - To further increase security, _SmashBruh_ also implements a variant cookies based authentication.
+  - The token is hashed and saved to the database to prevent cookie forging, the token is hashed and set using the bcrypt and jwt library.
+
+### **5.3. Structure and Relationships**
+
+- **_User_**: A user can have many rentals (one-to-many relationship)
+
+- **_Movie_** - Show: A movie can be associated with one rental (one-to-one relationship)
+
+- **_Rental_**: A rental belongs to a user (many-to-one relationship) and a movie (many-to-one relationship)
+
+- **_Favourite_**: A movie can be favourited by many users (one-to-many relationship)
+
+- **_Rating_**: A movie can be rated by many users (one-to-many relationship)
+
+- **_History_**: A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship) 
+
+### **5.4. Data Model**
+
+- **_User:_**
+
+  Attributes: firstName, lastName, password, picturePath, verified, balance, token, isAdmin, FbId, GgId, TwId, GhId
+
+- **UserFavouriteMovie:**
+
+  Attributes: userID, movieID, media_type, season
+
+- **UserRateMovie:**
+
+  Attributes: userID, movieID, rating, media_type, season
+
+- **_UserRentMovie:_**
+
+  Attributes: userID, movieID, rentalBeginDate, rentalExpireDate, media_type, season
+
+- **UserRateMovie:**
+
+  Attributes: userID, movieID, rating, media_type, season
+
+- **UserSearchHistory:**
+
+  Attributes: userID, searchedString, raticreatedAt
+
+### **5.5. GUI**
+
+HOME PAGE
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/HomePage.png" alt="Home page" width="700">
+
+LOGIN PAGE
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/LoginPage.png" alt="Login page" width="700">
+
+FEATURE MOVIES PAGE
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/FeatureMoviePage.png" alt="Feature Movie page" width="700">
+
+MOVIE PAGES
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/MoviePage.png" alt="Movie page" width="700">
+
+TV SHOWS PAGE
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/TVShowsPage.png" alt="TV Shows page" width="700">
+
+SHOW PAGES
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/ShowPage.png" alt="Show page" width="700">
+
+PROFILE PAGES
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/ProfilePage.png" alt="Profile page" width="700">
+
+SEARCH PAGES
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/SearchPage.png" alt="Search page" width="700">
+
+MY LIST PAGE WHEN NO INFORMATION
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/NoInfoMyList.png" alt="No Info My List page" width="700">
+
+MY LIST PAGE WHEN HAVE INFORMATION
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/InfoMyList.png" alt="Info My List page" width="700">
+
+COLOR PALETTE
+
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;"
+    src="Images/ColorPalette.png" alt="Color palette" width="700">
+
+### **5.6. Functionality Design**
+
+- **Key features:**
+
+  - View movies/shows: display information of available movies/shows on the internet at the moment.
+  - Favourite: press heart button and that movies/shows are stored inside collections of favourites of everything.
+  - Rent: rent a movie or show for a period of time then the movie or show automatically expires after the expiration day of the movie or show is exceeded.
+  - Rate: rate a movie or show for a number of stars and it is stored in the database storage of individuals.
+
+- **Other features:**
+  - Search: find what users are interested in.
+  - History searches: your searches are archived and 5 most recent searches can be seen when you first click on the search bar.
+  - Recommendation: recommend based on the genres, cast of movies or shows accessed at real-time by users on any given movie and show page.
+
+## **6. Implementation**
+
+### **6.1. Development Environment and Technology Stack**
+
+The development of _SmashBruh_ Movie Renting Website requires a robust and efficient development environment to ensure the smooth creation and deployment of the platform. Here's an overview of the key components of the development environment:
+
+- **_Programming Languages:_** 
+- JavaScript takes center stage in the development process of the _SmashBruh_ movie renting website. As a dynamic and versatile programming language, JavaScript empowers the website with interactivity and functionality. It enables features like seamless search functionality, dynamic recommendations, interactive elements, and smooth navigation. JavaScript's integration with backend APIs ensures efficient data retrieval and real-time updates.
+- **_Frameworks and Libraries:_** 
+- We decided to use a combination of libaries and database to assist us in implementing the app. The combination or MERN stack, consists of Node.js - a premier JavaScript web server, Express.js - a Node.js web framework, React - a client-side JavaScript framework and MongoDB - a document database. The middle or application tier of our system is built using Express and Node. Express.js serves as the server-side web framework, while Node.js acts as the robust and widely adopted JavaScript server platform. Together, these technologies form a powerful foundation for developing and delivering web applications. Express provides a streamlined and efficient framework for handling web requests and managing routes, while Node enables the execution of server-side JavaScript code, allowing for scalable and high-performance server applications.
+- **_Database Management System:_** MongoDB, a popular NoSQL database management system, serves as the foundation for storing and managing data in the _SmashBruh_ movie renting website. MongoDB offers a flexible and scalable approach to data storage, making it ideal for handling movie information, user profiles, rental history, and other pertinent data.
+- **_Version Control System:_** With Git and GitLab, _SmashBruh_ benefits from features like branch management, version control, and the ability to roll back changes if needed. This combination ensures that the development team can work concurrently, seamlessly integrate new features, resolve conflicts, and track the evolution of the codebase.
+- **_Development Tools and Integrated Development Environment (IDE):_** With its intuitive interface and customizable settings, developers working on _SmashBruh_ can personalize their coding environment according to their preferences. VS Code provides essential tools such as syntax highlighting, code completion, and linting, ensuring clean and error-free code. The built-in debugger enables efficient troubleshooting and debugging, helping to identify and fix issues quickly.
+- **_Cloud Services:_** Leveraging cloud services can provide scalability, flexibility, and reliability to the website. Cloud platforms such as Amazon Web Services (AWS), Microsoft Azure, or Google Cloud can be utilized for hosting, storage, and managing infrastructure components.
+- **_Security Measures:_** Implementing robust security measures is vital to safeguard user data and protect against potential threats. This includes secure coding practices, encryption techniques, user authentication mechanisms, and adherence to industry-standard security protocols.
+- **_Continuous Integration and Deployment:_** With the help of GitLab, our implementation of CI/CD (Continuous Integration/Continuous Deployment) pipeline ensures integration of code changes, automated testing, and efficient deployment to staging and production environments.
+
+By establishing a comprehensive development environment encompassing these components, _SmashBruh_ can ensure efficient development processes, high-quality code, and a scalable platform that meets the needs and expectations of clients
+
+## **7. User Guide**
+
+### **7.1. Getting Started**
+
+Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Website:
+
+1. **_Create an Account:_**
+   To access all the features and benefits of _SmashBruh_, start by creating your account. Click on the "Sign Up" button on the homepage and provide the required information, including your name, email address, and a secure password. Once you've filled in the details, click "Finish" to proceed.
+
+2. **_Explore Movie Catalog:_**
+   After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Feature Movies" or "Shows" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
+
+3. **_Select and Rent Movies:_**
+   When you find a movie you want to rent, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. Click on "Rent" to proceed to the checkout. You can also "favourite" a movie and rate them with the corresponding icons.
+
+4. **_Make Payment:_**
+   At the checkout, review your selected movie and rental duration. _SmashBruh_ provides secure payment options. Choose your preferred payment method, enter the required details, and click "Smash" to finalize your rental.
+
+5. **_Enjoy Your Movie:_**
+   Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented.
+
+6. **_Manage Your Account:_**
+   _SmashBruh_ provides a user-friendly account management interface to help you keep track of your rentals, update your personal information, and manage your payment methods. Access the "My Profile" section to view and modify your profile, change your password, or update your payment details.
+
+7. **_Explore Additional Features:_**
+   While movie rentals are at the core of _SmashBruh_, we offer additional features to your movie-watching experience. Explore our curated playlists, personalized recommendations.
+
+
+## **8. Conclusion**
+
+### **8.1. Summary of Project**
+
+In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a streaming platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like. 
+
+### **8.2. Future Work**
+- Despite facing time constraints and limited experience working on a large-scale team project, we encountered challenges in meeting deadlines and fully achieving our initial ideas and objectives. However, it is important to acknowledge the significant progress we have made and the invaluable lessons we have learned in the realms of web development and collaborative teamwork. Drawing from these experiences, we can identify future objectives aimed at refining and optimizing the app
+
+- **Parental Control System**
+
+  - With our vast database of movies and shows, it becomes necessary to address the potential exposure to explicit and graphic content. This concern is particularly crucial when our platform caters to young audiences, as it can lead to harmful interpretations and misuse of media. To mitigate these risks, we prioritize the implementation of a robust parental control system. The parental control system allows registered users to act as parents or guardians and exercise control over the content accessible to their children. By enabling this feature, explicit and inappropriate content can be effectively filtered out. This ensures that young users are protected from encountering material that is not suitable for their age group or could have a negative impact.
+
+- **Further Admin's Interface**
+
+  - Despite implementing an admin checking function and establishing a conducive work environment within the database for administrators, we currently lack dedicated admin interfaces for them to efficiently operate and moderate the system. To address this limitation, it is crucial to develop a comprehensive admin interface that offers an extensive range of functionalities. The interface should provide an overview of user information and rental details, enabling administrators to gain insights and perform necessary actions. Examples of these actions include the ability to ban or unban users, disable specific movies from being rented or viewed, and execute other administrative tasks. By providing a robust and user-friendly admin interface, we empower administrators with the tools they need to effectively carry out their responsibilities and streamline their workflow.
+
+- **Interactive Movie Discussion**
+
+  - Introduce a feature where users can engage in discussions, comment on movies, and participate in forums or live chats with other movie enthusiasts.
+
+- **Social Integration**
+
+  - Integrate social media features that allow users to share their favorite movies, reviews, and recommendations with friends.
+
+- **Augmented Reality (AR) Movie Posters**
+  - Users can scan movie posters using their smartphones or tablets and access interactive content such as trailers, behind-the-scenes footage, or exclusive interviews with the cast and crew.
+
+- **Recommendation System**
+
+  - In today's rapidly evolving landscape, the integration of machine learning and AI algorithms has become increasingly vital for app development. By incorporating such technologies into our app, we not only embrace modernity but also enhance our ability to provide users with superior services. A prime example of this is a recommendation system that leverages a user's favorite movies/shows collection to compute relevant metrics, enabling personalized suggestions tailored to their preferences. These metrics can include factors such as genres, actors/actresses, directors, or even the countries of production.
+### **8.3. References**
+
+- Color Palette: https://colorhunt.co/palette/060047b3005ee90064ff5f9e
+- GitLab: https://gitlab.com/galvdat/vgu_tinyprojects/pe2023/vgupe2023_team5
+- MongoDB: https://www.mongodb.com/
+- MUI Library: https://mui.com/material-ui/getting-started/overview/
+- OAuth2: https://oauth.net/2/
+
+<p style="text-align: right;">©️ Vinh Nguyen Ngoc</p>

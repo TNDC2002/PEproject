@@ -96,7 +96,7 @@ const LoginPage = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "http://localhost:5000/auth/register",
+      `${VITE_BASE_URL}/auth/register`,
       {
         method: "POST",
         body: formData,
@@ -111,7 +111,7 @@ const LoginPage = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:5000/auth/login", {
+    const loggedInResponse = await fetch(`${VITE_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -130,15 +130,15 @@ const LoginPage = () => {
   };
 
   const google = () => {
-    window.open("http://localhost:5000/auth/google", "_self");
+    window.open(`${VITE_BASE_URL}/auth/google`, "_self");
   };
 
   const facebook = () => {
-    window.open("http://localhost:5000/auth/facebook", "_self");
+    window.open(`${VITE_BASE_URL}/auth/facebook`, "_self");
   };
 
   const github = () => {
-    window.open("http://localhost:5000/auth/github", "_self");
+    window.open(`${VITE_BASE_URL}/auth/github`, "_self");
   };
 
   const {
@@ -177,6 +177,7 @@ const LoginPage = () => {
               : t.palette.grey[900],
           backgroundSize: "cover",
           backgroundPosition: "center",
+          
         }}
       >
         <Container>
@@ -185,8 +186,12 @@ const LoginPage = () => {
             justifyContent="center"
             alignItems="center"
             minHeight="100vh"
+
+            
+
+            
           >
-            <Grid container justifyContent="center">
+            <Grid container justifyContent="center"  display="flex" >
               <CssBaseline />
 
               <Grid
@@ -213,6 +218,7 @@ const LoginPage = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+
                   }}
                 >
                   <Stack direction="row" spacing={0} justifyContent="center">
@@ -349,7 +355,21 @@ const LoginPage = () => {
                             Boolean(errors.firstName)
                           }
                           helperText={touched.firstName && errors.firstName}
-                          sx={{ gridColumn: "span 2" }}
+                          sx={{
+                            
+                            
+                            boxShadow: "0 0 0 0 black",
+                            transition: "all 0.3s ease-in-out",
+                            "&:hover": {
+                              transform: "translateY(-4px) translateX(-2px)",
+                              boxShadow: "2px 5px 0 0 black",
+                              backgroundColor: "whitesmoke",
+                            },
+                            "&:active": {
+                              transform: "translateY(2px) translateX(1px)",
+                              boxShadow: "0 0 0 0 black",
+                            },
+                          }}
                           margin="normal"
                           required
                           fullWidth
@@ -366,7 +386,21 @@ const LoginPage = () => {
                             Boolean(errors.lastName)
                           }
                           helperText={touched.lastName && errors.lastName}
-                          sx={{ gridColumn: "span 2" }}
+                          sx={{
+                            
+                            
+                            boxShadow: "0 0 0 0 black",
+                            transition: "all 0.3s ease-in-out",
+                            "&:hover": {
+                              transform: "translateY(-4px) translateX(-2px)",
+                              boxShadow: "2px 5px 0 0 black",
+                              backgroundColor: "whitesmoke",
+                            },
+                            "&:active": {
+                              transform: "translateY(2px) translateX(1px)",
+                              boxShadow: "0 0 0 0 black",
+                            },
+                          }}
                           margin="normal"
                           required
                           fullWidth
@@ -403,7 +437,21 @@ const LoginPage = () => {
                             Boolean(touched.email) && Boolean(errors.email)
                           }
                           helperText={touched.email && errors.email}
-                          sx={{ gridColumn: "span 4" }}
+                          sx={{
+                            
+                            
+                            boxShadow: "0 0 0 0 black",
+                            transition: "all 0.3s ease-in-out",
+                            "&:hover": {
+                              transform: "translateY(-4px) translateX(-2px)",
+                              boxShadow: "2px 5px 0 0 black",
+                              backgroundColor: "whitesmoke",
+                            },
+                            "&:active": {
+                              transform: "translateY(2px) translateX(1px)",
+                              boxShadow: "0 0 0 0 black",
+                            },
+                          }}
                           margin="normal"
                           required
                           fullWidth
@@ -420,7 +468,21 @@ const LoginPage = () => {
                             Boolean(errors.password)
                           }
                           helperText={touched.password && errors.password}
-                          sx={{ gridColumn: "span 4" }}
+                          sx={{
+                            
+                            
+                            boxShadow: "0 0 0 0 black",
+                            transition: "all 0.3s ease-in-out",
+                            "&:hover": {
+                              transform: "translateY(-4px) translateX(-2px)",
+                              boxShadow: "2px 5px 0 0 black",
+                              backgroundColor: "whitesmoke",
+                            },
+                            "&:active": {
+                              transform: "translateY(2px) translateX(1px)",
+                              boxShadow: "0 0 0 0 black",
+                            },
+                          }}
                           margin="normal"
                           required
                           fullWidth
@@ -436,7 +498,28 @@ const LoginPage = () => {
                           type="submit"
                           fullWidth
                           variant="contained"
-                          sx={{ height: 40, mt: 3, mb: 2 }}
+                          sx={{
+                            backgroundColor: "#B3005E",
+                            color: "black",
+                            borderRadius: "40em",
+                            fontSize: "17px",
+                            fontWeight: 600,
+                            padding: "1em 2em",
+                            cursor: "pointer",
+                           
+                            border: "1px solid black",
+                            boxShadow: "0 0 0 0 black",
+                            transition: "all 0.3s ease-in-out",
+                            "&:hover": {
+                              transform: "translateY(-4px) translateX(-2px)",
+                              boxShadow: "2px 5px 0 0 black",
+                              backgroundColor: "#E90064",
+                            },
+                            "&:active": {
+                              transform: "translateY(2px) translateX(1px)",
+                              boxShadow: "0 0 0 0 black",
+                            },
+                          }}
                         >
                           <Typography
                             style={{ color: "whitesmoke" }}
@@ -445,11 +528,26 @@ const LoginPage = () => {
                             Sign in
                           </Typography>
                         </Button>
-                        <FlexBetween>
+                        <FlexBetween sx ={{marginTop:"30px"}}>
                           <Button
                             variant="outlined"
                             startIcon={<GoogleIcon />}
                             onClick={google}
+                            sx={{
+                            
+                            
+                              boxShadow: "0 0 0 0 black",
+                              transition: "all 0.3s ease-in-out",
+                              "&:hover": {
+                                transform: "translateY(-4px) translateX(-2px)",
+                                boxShadow: "2px 5px 0 0 black",
+                                backgroundColor: "whitesmoke",
+                              },
+                              "&:active": {
+                                transform: "translateY(2px) translateX(1px)",
+                                boxShadow: "0 0 0 0 black",
+                              },
+                            }}
                           >
                             GOOGLE
                           </Button>
@@ -457,6 +555,21 @@ const LoginPage = () => {
                             variant="outlined"
                             startIcon={<FacebookIcon />}
                             onClick={facebook}
+                            sx={{
+                            
+                            
+                              boxShadow: "0 0 0 0 black",
+                              transition: "all 0.3s ease-in-out",
+                              "&:hover": {
+                                transform: "translateY(-4px) translateX(-2px)",
+                                boxShadow: "2px 5px 0 0 black",
+                                backgroundColor: "whitesmoke",
+                              },
+                              "&:active": {
+                                transform: "translateY(2px) translateX(1px)",
+                                boxShadow: "0 0 0 0 black",
+                              },
+                            }}
                           >
                             FACEBOOK
                           </Button>
@@ -464,6 +577,21 @@ const LoginPage = () => {
                             variant="outlined"
                             startIcon={<GitHubIcon />}
                             onClick={github}
+                            sx={{
+                            
+                            
+                              boxShadow: "0 0 0 0 black",
+                              transition: "all 0.3s ease-in-out",
+                              "&:hover": {
+                                transform: "translateY(-4px) translateX(-2px)",
+                                boxShadow: "2px 5px 0 0 black",
+                                backgroundColor: "whitesmoke",
+                              },
+                              "&:active": {
+                                transform: "translateY(2px) translateX(1px)",
+                                boxShadow: "0 0 0 0 black",
+                              },
+                            }}
                           >
                             GITHUB
                           </Button>
@@ -493,6 +621,21 @@ const LoginPage = () => {
                               display: "flex",
                               justifyContent: "center",
                               alignItems: "center",
+                             
+                            
+                            
+                                boxShadow: "0 0 0 0 black",
+                                transition: "all 0.3s ease-in-out",
+                                "&:hover": {
+                                  transform: "translateY(-4px) translateX(-2px)",
+                                  boxShadow: "2px 5px 0 0 black",
+                                  backgroundColor: "whitesmoke",
+                                },
+                                "&:active": {
+                                  transform: "translateY(2px) translateX(1px)",
+                                  boxShadow: "0 0 0 0 black",
+                                },
+                             
                             }}
                           >
                             <Dropzone
@@ -575,7 +718,21 @@ const LoginPage = () => {
                             Boolean(touched.email) && Boolean(errors.email)
                           }
                           helperText={touched.email && errors.email}
-                          sx={{ gridColumn: "span 4" }}
+                          sx={{
+                            
+                            
+                            boxShadow: "0 0 0 0 black",
+                            transition: "all 0.3s ease-in-out",
+                            "&:hover": {
+                              transform: "translateY(-4px) translateX(-2px)",
+                              boxShadow: "2px 5px 0 0 black",
+                              backgroundColor: "whitesmoke",
+                            },
+                            "&:active": {
+                              transform: "translateY(2px) translateX(1px)",
+                              boxShadow: "0 0 0 0 black",
+                            },
+                          }}
                           margin="normal"
                           required
                           fullWidth
@@ -592,7 +749,21 @@ const LoginPage = () => {
                             Boolean(errors.password)
                           }
                           helperText={touched.password && errors.password}
-                          sx={{ gridColumn: "span 4" }}
+                          sx={{
+                            
+                            
+                            boxShadow: "0 0 0 0 black",
+                            transition: "all 0.3s ease-in-out",
+                            "&:hover": {
+                              transform: "translateY(-4px) translateX(-2px)",
+                              boxShadow: "2px 5px 0 0 black",
+                              backgroundColor: "whitesmoke",
+                            },
+                            "&:active": {
+                              transform: "translateY(2px) translateX(1px)",
+                              boxShadow: "0 0 0 0 black",
+                            },
+                          }}
                           margin="normal"
                           required
                           fullWidth
