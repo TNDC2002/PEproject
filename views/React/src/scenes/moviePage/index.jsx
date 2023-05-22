@@ -137,10 +137,10 @@ const MoviePage = () => {
     const addFavouriteResponse = await fetch(url, {
       method: method,
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
+      credentials: "include",
     });
   };
 
@@ -161,10 +161,10 @@ const MoviePage = () => {
     const addRatingResponse = await fetch(url, {
       method: method,
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
+      credentials: "include",
     });
   };
 
@@ -181,10 +181,10 @@ const MoviePage = () => {
       {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
+        credentials: "include",
       }
     );
   };
@@ -203,7 +203,6 @@ const MoviePage = () => {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
@@ -226,6 +225,8 @@ const MoviePage = () => {
     const checkFavoriteResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
+
     });
 
     const result = await checkFavoriteResponse.json();
@@ -246,6 +247,8 @@ const MoviePage = () => {
     const checkRatedResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
+
     });
 
     const result = await checkRatedResponse.json();
@@ -266,6 +269,8 @@ const MoviePage = () => {
     const checkRentedResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
+
     });
     const result = await checkRentedResponse.json();
     return result;
@@ -337,7 +342,10 @@ const MoviePage = () => {
     const fetchCredits = async () => {
       try {
         const response = await fetch(
-          `${VITE_BASE_URL}/movie/credits/${movieID}`
+          `${VITE_BASE_URL}/movie/credits/${movieID}`, {
+            credentials: "include",
+          }
+          
         );
         const data = await response.json();
         setCredits(data.cast);
