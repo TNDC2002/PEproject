@@ -10,7 +10,7 @@ stages:
   - build
 
 run-frontend-tests:
-  image: node:15
+  image: node:16
   stage: test
   before_script:
     - cd views/React
@@ -21,7 +21,7 @@ run-frontend-tests:
     - npm test
 
 run-backend-tests:
-  image: node:15
+  image: node:16
   stage: test
   before_script:
     - cd server
