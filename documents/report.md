@@ -3,16 +3,15 @@
 ### **1.1. Team member**
 
 | Full Name            | Student Id |                                                                                                 Tasks                                                                                                  |
-| -------------------- | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| Nguyễn Ngọc Vĩnh     |   18691    | _Movie and TV Shows details, trailers, and recommendations backend API; Movie Search and Filtering API; UI/UX of Homepage and MoviePage; Markdown and Swagger Documentation, Analytics and Reporting._ |
+| -------------------- | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | --- |
+| Nguyễn Ngọc Vĩnh     |   18691    | _Movie and TV Shows details, trailers, and recommendations backend API; Movie Search and Filtering API; UI/UX of Homepage and MoviePage; Markdown and Swagger Documentation, Analytics and Reporting._ |     |
 | Hà Quách Phú Thành   |   18840    |                                 \_Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                  |
-| Hà Quách Phú Thành   |   18840    |                                 \_Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                  |
-| Thái Quang Nam       |   18770    |                                          _Design Navbar, HomePage, FeatureMoviePage, TVShowsPage, MyListPage, SearchPage; Markdown Documentation, Reporting_                                           |
-| Phạm Hoàng Việt      |   18334    |                                                                                             User Interface                                                                                             |
-| Nguyễn Xuân Khang    |   18973    |                                                                                           Profile Interface                                                                                            |
-| Nguyễn Khắc Hoàng    |   18230    |                                                                                             User Interface                                                                                             |
-| Lê Duy               |   17434    |                                                                                                Security                                                                                                |
-| Trần Ngọc Duy Chương |   17197    |                                                                                                Backend                                                                                                 |
+| Thái Quang Nam       |   18770    |                                       _Design UI for Navbar, HomePage, FeatureMoviePage, TVShowsPage, MyListPage, SearchPage; Markdown Documentation, Reporting_                                       |
+| Phạm Hoàng Việt      |   18334    |                                                          _Design MoviePages and ShowPages ; Markdown Documentation, Reporting_ User Interface                                                          |
+| Nguyễn Xuân Khang    |   18973    |                                                                   _Set up Frontend and Backend ProfilePage; Markdown Documentation_                                                                    |
+| Nguyễn Khắc Hoàng    |   18230    |                                                     _Overall UI, ProfilePage, Login/RegisterPage, AccountPage; Markdown Documentation, Reporting_                                                      |
+| Lê Duy               |   17434    |                                                                _Set up Email Verification, Security; Markdown Documentation; Reporting_                                                                |
+| Trần Ngọc Duy Chương |   17197    |                                                                _Backend for OAuth2, Authentication; Markdown Documentation; Reporting_                                                                 |
 
 ### **1.2. About our project**
 
