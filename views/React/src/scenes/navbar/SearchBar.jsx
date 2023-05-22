@@ -30,7 +30,9 @@ const SearchBar = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json"
-          }
+          },
+          credentials: "include",
+
         }
       )
       const data = await fetchSearchResultResponse.json();
@@ -53,9 +55,10 @@ const SearchBar = () => {
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"
-          }
+          },
+          credentials: "include",
+
         }
       );
       if (!fetchUserSearchResponse.ok) {
@@ -101,7 +104,6 @@ const SearchBar = () => {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify(requestData),
