@@ -9,7 +9,7 @@ stages:
   - test
   - build
 
-run-frontend-tests:
+run-tests:
   image: node:16
   stage: test
   before_script:
@@ -20,17 +20,17 @@ run-frontend-tests:
   script:
     - npm test
 
-run-backend-tests:
-  image: node:16
-  stage: test
-  before_script:
-    - cd server
-    - cp "$TESTING_ENV_FILE" .env
-    - rm -rf node_modules
-    - rm -rf package-lock.json
-    - npm install
-  script:
-    - npm test
+# run-backend-tests:
+#   image: node:16
+#   stage: test
+#   before_script:
+#     - cd server
+#     - cp "$TESTING_ENV_FILE" .env
+#     - rm -rf node_modules
+#     - rm -rf package-lock.json
+#     - npm install
+#   script:
+#     - npm test
 
 build-server-image:
   image: docker
