@@ -46,6 +46,9 @@ Now with our media rental web application, you can now keep track of rented movi
   - [**5.6. Functionality Design**](#56-functionality-design)
 - [**6. Implementation**](#6-implementation)
   - [**6.1. Development Environment and Technology Stack**](#61-development-environment-and-technology-stack)
+  - [**6.2. CI/CD Testing and Docker**](#62-ci/cd-testing-and-docker)
+  - [**6.3. File Structure**](#63-file-structure)
+
 - [**7. User Guide**](#7-user-guide)
   - [**7.1. Getting Started**](#71-getting-started)
 - [**8. Conclusion**](#8-conclusion)
@@ -222,12 +225,6 @@ By adopting the _MVC architecture_, the movie rental app achieves modularity, co
 #### **5.2.2. Authentication Interface:**
 
 The authentication interface and features of _SmashBruh_ are as follows:
-
-- **_Email Verification System:_**
-  - _SmashBruh_ implements a comprehensive email verification system to avoid account spamming and reduce wasted database storage.
-  - The system employs an automatic email sender every time a user register.
-  - The email contains a 6 digits PIN code that is randomly generated, as well as the remaining time before the code becomes invalid.
-  - The verification system aims to provide adequate security measure while maintaining a streamlined user experience.
 - **_Oauth2 and cookie based authentication:_**
   - In order to streamline the registration process even further, _SmashBruh_ has also implements the Open Authorization 2.0 protocol(Oauth2).
   - _SmashBruh_ Oauth2 implements support registering using other well known platform such as Google, GitHUb and Facebook, providing a near instant registering experience.
@@ -245,6 +242,8 @@ The authentication interface and features of _SmashBruh_ are as follows:
 - **_Favourite_**: A movie can be favourited by many users (one-to-many relationship)
 
 - **_Rating_**: A movie can be rated by many users (one-to-many relationship)
+
+- **_History_**: A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship) 
 
 ### **5.4. Data Model**
 
@@ -368,13 +367,13 @@ COLOR PALETTE
 
   - View movies/shows: display information of available movies/shows on the internet at the moment.
   - Favourite: press heart button and that movies/shows are stored inside collections of favourites of everything.
-  - Rent: rent a movie or show for a period of time then the movie or show automatically disappear after the expiration day of the movie or show is exceeded.
-  - Rate: rate a movie or show for a number of stars and it is stored on different database storage of individuals.
+  - Rent: rent a movie or show for a period of time then the movie or show automatically expires after the expiration day of the movie or show is exceeded.
+  - Rate: rate a movie or show for a number of stars and it is stored in the database storage of individuals.
 
 - **Other features:**
   - Search: find what users are interested in.
-  - Admin: special feature only available for admin when log into our web application.
-  - Recommendation: recommend based on the genres, cast, duration of movies or shows accessed at real-time by users.
+  - History searches: your searches are archived and 5 most recent searches can be seen when you first click on the search bar.
+  - Recommendation: recommend based on the genres, cast of movies or shows accessed at real-time by users on any given movie and show page.
 
 ## **6. Implementation**
 
@@ -382,16 +381,18 @@ COLOR PALETTE
 
 The development of _SmashBruh_ Movie Renting Website requires a robust and efficient development environment to ensure the smooth creation and deployment of the platform. Here's an overview of the key components of the development environment:
 
-- **_Programming Languages:_** JavaScript takes center stage in the development process of the _SmashBruh_ movie renting website. As a dynamic and versatile programming language, JavaScript empowers the website with interactivity and functionality. It enables features like seamless search functionality, dynamic recommendations, interactive elements, and smooth navigation. JavaScript's integration with backend APIs ensures efficient data retrieval and real-time updates. With JavaScript, in addition to HTML and CSS _SmashBruh_ delivers an immersive and user-centric movie renting experience.
-- **_Frameworks and Libraries:_** By harnessing the power of Node.js, Express.js, React, and MUI, _SmashBruh_ leverages a comprehensive and modern tech stack. This combination enables efficient backend operations, seamless frontend interactivity, and visually stunning user interfaces, resulting in an immersive and enjoyable movie renting experience for users.
+- **_Programming Languages:_** 
+- JavaScript takes center stage in the development process of the _SmashBruh_ movie renting website. As a dynamic and versatile programming language, JavaScript empowers the website with interactivity and functionality. It enables features like seamless search functionality, dynamic recommendations, interactive elements, and smooth navigation. JavaScript's integration with backend APIs ensures efficient data retrieval and real-time updates.
+- **_Frameworks and Libraries:_** 
+- We decided to use a combination of libaries and database to assist us in implementing the app. The combination or MERN stack, consists of Node.js - a premier JavaScript web server, Express.js - a Node.js web framework, React - a client-side JavaScript framework and MongoDB - a document database. The middle or application tier of our system is built using Express and Node. Express.js serves as the server-side web framework, while Node.js acts as the robust and widely adopted JavaScript server platform. Together, these technologies form a powerful foundation for developing and delivering web applications. Express provides a streamlined and efficient framework for handling web requests and managing routes, while Node enables the execution of server-side JavaScript code, allowing for scalable and high-performance server applications.
 - **_Database Management System:_** MongoDB, a popular NoSQL database management system, serves as the foundation for storing and managing data in the _SmashBruh_ movie renting website. MongoDB offers a flexible and scalable approach to data storage, making it ideal for handling movie information, user profiles, rental history, and other pertinent data.
 - **_Version Control System:_** With Git and GitLab, _SmashBruh_ benefits from features like branch management, version control, and the ability to roll back changes if needed. This combination ensures that the development team can work concurrently, seamlessly integrate new features, resolve conflicts, and track the evolution of the codebase.
 - **_Development Tools and Integrated Development Environment (IDE):_** With its intuitive interface and customizable settings, developers working on _SmashBruh_ can personalize their coding environment according to their preferences. VS Code provides essential tools such as syntax highlighting, code completion, and linting, ensuring clean and error-free code. The built-in debugger enables efficient troubleshooting and debugging, helping to identify and fix issues quickly.
 - **_Cloud Services:_** Leveraging cloud services can provide scalability, flexibility, and reliability to the website. Cloud platforms such as Amazon Web Services (AWS), Microsoft Azure, or Google Cloud can be utilized for hosting, storage, and managing infrastructure components.
 - **_Security Measures:_** Implementing robust security measures is vital to safeguard user data and protect against potential threats. This includes secure coding practices, encryption techniques, user authentication mechanisms, and adherence to industry-standard security protocols.
-- **_Continuous Integration and Deployment:_** Implementing a CI/CD (Continuous Integration/Continuous Deployment) pipeline ensures seamless integration of code changes, automated testing, and efficient deployment to staging and production environments.
+- **_Continuous Integration and Deployment:_** With the help of GitLab, our implementation of CI/CD (Continuous Integration/Continuous Deployment) pipeline ensures integration of code changes, automated testing, and efficient deployment to staging and production environments.
 
-By establishing a comprehensive development environment encompassing these components, _SmashBruh_ can ensure efficient development processes, high-quality code, and a scalable platform that meets the needs and expectations of movie enthusiasts.
+By establishing a comprehensive development environment encompassing these components, _SmashBruh_ can ensure efficient development processes, high-quality code, and a scalable platform that meets the needs and expectations of clients
 
 ## **7. User Guide**
 
@@ -403,7 +404,7 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
    To access all the features and benefits of _SmashBruh_, start by creating your account. Click on the "Sign Up" button on the homepage and provide the required information, including your name, email address, and a secure password. Once you've filled in the details, click "Finish" to proceed.
 
 2. **_Explore Movie Catalog:_**
-   After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Movies" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
+   After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Feature Movies" or "Shows" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
 
 3. **_Select and Rent Movies:_**
    When you find a movie you want to rent, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. Click on "Rent" to proceed to the checkout. You can also "favourite" a movie and rate them with the corresponding icons.
@@ -425,12 +426,16 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
 
 ### **8.1. Summary of Project**
 
-In conclusion, our project is a small
+In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a streaming platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like. 
 
 ### **8.2. Future Work**
 - Despite facing time constraints and limited experience working on a large-scale team project, we encountered challenges in meeting deadlines and fully achieving our initial ideas and objectives. However, it is important to acknowledge the significant progress we have made and the invaluable lessons we have learned in the realms of web development and collaborative teamwork. Drawing from these experiences, we can identify future objectives aimed at refining and optimizing the app
 
-- **Admin's Interface**
+- **Parental Control System**
+
+  - With our vast database of movies and shows, it becomes necessary to address the potential exposure to explicit and graphic content. This concern is particularly crucial when our platform caters to young audiences, as it can lead to harmful interpretations and misuse of media. To mitigate these risks, we prioritize the implementation of a robust parental control system. The parental control system allows registered users to act as parents or guardians and exercise control over the content accessible to their children. By enabling this feature, explicit and inappropriate content can be effectively filtered out. This ensures that young users are protected from encountering material that is not suitable for their age group or could have a negative impact.
+
+- **Further Admin's Interface**
 
   - Despite implementing an admin checking function and establishing a conducive work environment within the database for administrators, we currently lack dedicated admin interfaces for them to efficiently operate and moderate the system. To address this limitation, it is crucial to develop a comprehensive admin interface that offers an extensive range of functionalities. The interface should provide an overview of user information and rental details, enabling administrators to gain insights and perform necessary actions. Examples of these actions include the ability to ban or unban users, disable specific movies from being rented or viewed, and execute other administrative tasks. By providing a robust and user-friendly admin interface, we empower administrators with the tools they need to effectively carry out their responsibilities and streamline their workflow.
 
