@@ -5,7 +5,8 @@
 | Full Name            | Student Id |                                                                                                 Tasks                                                                                                  |
 | -------------------- | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | Nguyễn Ngọc Vĩnh     |   18691    | _Movie and TV Shows details, trailers, and recommendations backend API; Movie Search and Filtering API; UI/UX of Homepage and MoviePage; Markdown and Swagger Documentation, Analytics and Reporting._ |
-| Hà Quách Phú Thành   |   18840    |                                                                                                _Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                                                           |
+| Hà Quách Phú Thành   |   18840    |                                 \_Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                  |
+| Hà Quách Phú Thành   |   18840    |                                 \_Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                  |
 | Thái Quang Nam       |   18770    |                                          _Design Navbar, HomePage, FeatureMoviePage, TVShowsPage, MyListPage, SearchPage; Markdown Documentation, Reporting_                                           |
 | Phạm Hoàng Việt      |   18334    |                                                                                             User Interface                                                                                             |
 | Nguyễn Xuân Khang    |   18973    |                                                                                           Profile Interface                                                                                            |
@@ -18,6 +19,7 @@
 In an era dominated by media streaming platforms and social media, the virtual realm has become the primary avenue for various activities. However, traditional methods of buying or renting media, such as movies and TV shows, often involve frustrating in-person transactions. Moreover, managing and tracking favorite content across multiple limited streaming services can be complicated and confusing.
 
 Now with our media rental web application, you can now keep track of rented movies and TV show, as well as keeping track of your favourites and rate them accordingly, provided to you with one of the largest movie database - The Movie Database (TMDB) - a free and open movie database for developers, which also acts as our main API for working with movies/shows.
+
 ## **2. Table of content**
 
 - [**1. _SmashBruh_ Movie Renting Website - Documentation**](#1-smashbruh-movie-renting-website---documentation)
@@ -27,23 +29,25 @@ Now with our media rental web application, you can now keep track of rented movi
 - [**3. Introduction**](#3-introduction)
   - [**3.1. Project Overview**](#31-project-overview)
   - [**3.2. Objective**](#32-objective)
-  - [**3.3. Goals**](#33-goals)
 - [**4. System Analysis**](#4-system-analysis)
   - [**4.1. Business Requirements**](#41-business-requirements)
   - [**4.2. User Requirements**](#42-user-requirements)
   - [**4.3. Functional Requirements**](#43-functional-requirements)
   - [**4.4. Non-Functional Requirements**](#44-non-functional-requirements)
   - [**4.5. Deployment Plan**](#45-deployment-plan)
+  - [**Deployment Environment**](#deployment-environment)
+  - [**Configuration Instructions**](#configuration-instructions)
 - [**5. System Design**](#5-system-design)
-  - [**5.1. System Architecture**](#51-system-architecture)
-    - [**5.1.1. MVC Models for Web Development**](#511-mvc-models-for-web-development)
-  - [**5.2. Components Design**](#52-components-design)
-    - [**5.2.1. Users Interface:**](#521-users-interface)
-    - [**5.2.2. Authentication Interface:**](#523-authentication-interface)
-  - [**5.3. Structure and Relationships**](#53-structure-and-relationships)
-  - [**5.4. Data Model**](#54-data-model)
-  - [**5.5. GUI**](#55-gui)
-  - [**5.6. Functionality Design**](#56-functionality-design)
+  - [**5.1. System Diagrams**](#51-system-diagrams)
+  - [**5.2. System Architecture**](#52-system-architecture)
+    - [**5.2.1. MVC Models for Web Development**](#521-mvc-models-for-web-development)
+  - [**5.3. Components Design**](#53-components-design)
+    - [**5.3.1. Users Interface:**](#531-users-interface)
+    - [**5.3.2. Authentication Interface:**](#532-authentication-interface)
+  - [**5.4. Structure and Relationships**](#54-structure-and-relationships)
+  - [**5.5. Data Model**](#55-data-model)
+  - [**5.6. GUI**](#56-gui)
+  - [**5.7. Functionality Design**](#57-functionality-design)
 - [**6. Implementation**](#6-implementation)
   - [**6.1. Development Environment and Technology Stack**](#61-development-environment-and-technology-stack)
 - [**7. User Guide**](#7-user-guide)
@@ -88,7 +92,7 @@ By fulfilling these business requirements, _SmashBruh_ can create a user-friendl
 
 The user requirements of _SmashBruh_ are as follows:
 
-- **_Firt Time User Experience:_** _SmashBruh_ provides visitors latest movie that the system have to offer and other information of available movies and shows ath the moment so that the system keeps up with user's interest.
+- **_First Time User Experience:_** _SmashBruh_ provides visitors latest movie that the system have to offer and other information of available movies and shows ath the moment so that the system keeps up with user's interest.
 - **_Efficient Search and Filtering:_** Users require an efficient search functionality that allows them to search for specific titles, genres, actors, directors, or keywords. They also expect advanced filtering options to refine their search results based on criteria such as release year, ratings, and language.
 - **_Movie Information Based Recommendations:_** Users appreciate personalized recommendations based on their current accessed movies and shows. It could be based on names, genres, cast.
 - **_Ratings:_** Users value the ability to read and contribute to ratings. They want a platform that encourages user feedback, enabling them to make informed decisions and engage in discussions with other movie enthusiasts.
@@ -133,7 +137,6 @@ The non-functional requirements of _SmashBruh_ are as follows:
 
 - **_Performance:_**
   - The platform should have fast loading times and responsive navigation to provide a seamless user experience.
-  - Streaming of movies and TV shows should be smooth and uninterrupted, with minimal buffering.
 - **_Scalability and Availability:_**
   - The platform should be designed to handle a growing user base and increasing traffic without compromising performance.
   - It should be scalable to accommodate a large number of concurrent users and a growing content library.
@@ -159,27 +162,51 @@ The non-functional requirements of _SmashBruh_ are as follows:
 
 ### **4.5. Deployment Plan**
 
-- **_Infrastructure Setup:_** Determine the hosting environment for your application, whether it's a cloud-based solution like on-premises server. Set up the necessary infrastructure, including MongoDB servers, databases, and networking components, ensuring scalability, reliability, and security.
+### **Deployment Environment**
 
-- **_Code Packaging:_** Prepare your application for deployment by packaging the code, including all dependencies, libraries, and configurations, into a deployable package. This may involve bundling the frontend code (HTML, CSS, JavaScript, MUI Library for CSS) and containerizing the backend code using technologies like Docker.
+--- vercel in gitlab
 
-- **_Configuration Management:_** Define and manage the application's configuration settings, such as database credentials, API keys, and other environment-specific variables. Ensure that these settings are securely stored and easily configurable for different deployment environments (e.g., development, staging, production).
+### **Configuration Instructions**
 
-- **_Testing and Quality Assurance:_** Conduct thorough testing of the application to identify and fix any issues or bugs. Perform functional testing, integration testing, and load testing to ensure the application performs well under expected loads and behaves as intended.
-
-- **_Data Migration:_** If you are migrating from a previous version of the application or integrating with existing data sources, plan and execute a data migration strategy to ensure a smooth transition of data to the new deployment environment. This may involve transforming and importing data from legacy systems or integrating with external APIs.
-
-- **_Deployment Automation:_** Implement an automated deployment process using tools like GitLab CI/CD. This allows for consistent and efficient deployment of new code changes, reduces human error, and enables easy rollbacks if necessary.
-
-- **_Monitoring and Error Logging:_** Set up monitoring and logging systems to track the health, performance, and usage of your application. Implement error tracking and logging mechanisms to identify and resolve issues promptly, ensuring the application runs smoothly and providing valuable insights for future improvements.
-
-- **_Security Measures:_** Implement robust security measures to protect the application and user data. This includes implementing user authentication and authorization mechanisms, and applying security best practices to safeguard against common web vulnerabilities.
-
-- **_User Acceptance Testing:_** Conduct user acceptance testing with a select group of users to gather feedback, identify any usability issues, and validate that the application meets their expectations. Make necessary adjustments based on user feedback before the final release.
+--- ci/cd pipeline
 
 ## **5. System Design**
 
-### **5.1. System Architecture**
+### **5.1. System Diagrams**
+
+**_Use Cases_**
+
+User Use Case Diagrams
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;" 
+      src="UseCases/User/UserUseCaseDiagrams.png" alt="User Use Case" width="700">
+
+**_Sequence_**
+
+- Admin Sequence
+  <img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;" 
+      src="Sequence/AdminSequenceDiagrams.png" alt="AdminSequenceDiagrams" width="700">
+
+- User Sequence
+  <img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;" 
+      src="Sequence/UserSequenceDiagrams.png" alt="UserSequenceDiagrams" width="700">
+
+**_Database_**
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 100%;" 
+      src="DatabaseDiagram.png" alt="Database" width="700">
+
+### **5.2. System Architecture**
 
 - **_Model:_**
 
@@ -193,7 +220,7 @@ The non-functional requirements of _SmashBruh_ are as follows:
 
   - The Controller acts as the intermediary between the Model and the View. It receives user input from the View, processes it, and interacts with the Model to fetch or update the data accordingly. In the context of a movie rental app, the Controller component would handle tasks such as processing user requests, managing user authentication and authorization, managing rental transactions, and coordinating the flow of data between the Model and the View.
 
-#### **5.1.1. MVC Models for Web Development**
+#### **5.2.1. MVC Models for Web Development**
 
 **_The Model-View-Controller (MVC)_** architecture is a popular design pattern used in the development of software applications. In the context of a movie rental app, the MVC architecture provides a structured and organized approach to manage the different components of the application.
 
@@ -205,9 +232,9 @@ The non-functional requirements of _SmashBruh_ are as follows:
 
 By adopting the _MVC architecture_, the movie rental app achieves modularity, code reusability, and easier maintenance. The separation of concerns enables developers to work independently on different components, allowing for better collaboration and development efficiency. Changes in one component can be made without affecting the others, making it easier to test, debug, and enhance specific parts of the application. Moreover, the MVC architecture promotes scalability and extensibility, as new features or modifications can be incorporated without disrupting the existing functionality, facilitating the continuous evolution of the movie rental app to meet the changing needs of its users.
 
-### **5.2. Components Design**
+### **5.3. Components Design**
 
-#### **5.2.1. Users Interface:**
+#### **5.3.1. Users Interface:**
 
 - **_Users are able to access:_**
   - Home Page
@@ -219,22 +246,17 @@ By adopting the _MVC architecture_, the movie rental app achieves modularity, co
   - Login/Register Pages
   - Search Page
 
-#### **5.2.2. Authentication Interface:**
+#### **5.3.2. Authentication Interface:**
 
 The authentication interface and features of _SmashBruh_ are as follows:
 
-- **_Email Verification System:_**
-  - _SmashBruh_ implements a comprehensive email verification system to avoid account spamming and reduce wasted database storage.
-  - The system employs an automatic email sender every time a user register.
-  - The email contains a 6 digits PIN code that is randomly generated, as well as the remaining time before the code becomes invalid.
-  - The verification system aims to provide adequate security measure while maintaining a streamlined user experience.
 - **_Oauth2 and cookie based authentication:_**
   - In order to streamline the registration process even further, _SmashBruh_ has also implements the Open Authorization 2.0 protocol(Oauth2).
   - _SmashBruh_ Oauth2 implements support registering using other well known platform such as Google, GitHUb and Facebook, providing a near instant registering experience.
   - To further increase security, _SmashBruh_ also implements a variant cookies based authentication.
   - The token is hashed and saved to the database to prevent cookie forging, the token is hashed and set using the bcrypt and jwt library.
 
-### **5.3. Structure and Relationships**
+### **5.4. Structure and Relationships**
 
 - **_User_**: A user can have many rentals (one-to-many relationship)
 
@@ -246,7 +268,10 @@ The authentication interface and features of _SmashBruh_ are as follows:
 
 - **_Rating_**: A movie can be rated by many users (one-to-many relationship)
 
-### **5.4. Data Model**
+- **_History_**: A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship)
+- **_History_**: A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship)
+
+### **5.5. Data Model**
 
 - **_User:_**
 
@@ -272,7 +297,7 @@ The authentication interface and features of _SmashBruh_ are as follows:
 
   Attributes: userID, searchedString, raticreatedAt
 
-### **5.5. GUI**
+### **5.6. GUI**
 
 HOME PAGE
 
@@ -362,19 +387,82 @@ COLOR PALETTE
            width: 100%;"
     src="Images/ColorPalette.png" alt="Color palette" width="700">
 
-### **5.6. Functionality Design**
+### **5.7. Functionality Design**
 
 - **Key features:**
 
-  - View movies/shows: display information of available movies/shows on the internet at the moment.
-  - Favourite: press heart button and that movies/shows are stored inside collections of favourites of everything.
-  - Rent: rent a movie or show for a period of time then the movie or show automatically disappear after the expiration day of the movie or show is exceeded.
-  - Rate: rate a movie or show for a number of stars and it is stored on different database storage of individuals.
+  - **_View movies/shows_**: display information of available movies/shows on the internet at the moment.
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/home_page_2.png" alt="Home Page" width="700">
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/home_page.png" alt="Home Page" width="700">
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/movie-page.png" alt="Movie Page" width="700">
+
+- **_Favourite_**: press heart button and that movies/shows are stored inside collections of favourites of everything.
+
+<img style="display: block; 
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;"
+        src="Images/heart_movie.png" alt="Heart" width="700">
+
+- Rent: rent a movie or show for a period of time then the movie or show automatically expires after the expiration day of the movie or show is exceeded.
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/rent_movie.png" alt="Rent" width="700">
+
+- **_Rate_**: rate a movie or show for a number of stars and it is stored in the database storage of individuals.
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/rate_movie.png" alt="Rate" width="700">
+
+- **_My list_**: where you can view your liked movies or tv shows
+
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;"
+    src="Images/my_list.png" alt="List 1" width="700">
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;"
+    src="Images/my_list_2.png" alt="List 2" width="700">
 
 - **Other features:**
-  - Search: find what users are interested in.
-  - Admin: special feature only available for admin when log into our web application.
-  - Recommendation: recommend based on the genres, cast, duration of movies or shows accessed at real-time by users.
+  - **_Search and History searched_**: find what users are interested in and what you searched will remain in your history up to 5 most recent searches:
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/search_movie.png" alt="Searches" width="700">
+
+- **_Recommendation_**: recommend based on the genres, cast of movies or shows accessed at real-time by users on any given movie and show page.
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/movie-page-2.png" alt="Recommendations" width="700">
 
 ## **6. Implementation**
 
@@ -382,16 +470,18 @@ COLOR PALETTE
 
 The development of _SmashBruh_ Movie Renting Website requires a robust and efficient development environment to ensure the smooth creation and deployment of the platform. Here's an overview of the key components of the development environment:
 
-- **_Programming Languages:_** JavaScript takes center stage in the development process of the _SmashBruh_ movie renting website. As a dynamic and versatile programming language, JavaScript empowers the website with interactivity and functionality. It enables features like seamless search functionality, dynamic recommendations, interactive elements, and smooth navigation. JavaScript's integration with backend APIs ensures efficient data retrieval and real-time updates. With JavaScript, in addition to HTML and CSS _SmashBruh_ delivers an immersive and user-centric movie renting experience.
-- **_Frameworks and Libraries:_** By harnessing the power of Node.js, Express.js, React, and MUI, _SmashBruh_ leverages a comprehensive and modern tech stack. This combination enables efficient backend operations, seamless frontend interactivity, and visually stunning user interfaces, resulting in an immersive and enjoyable movie renting experience for users.
+- **_Programming Languages:_**
+- JavaScript takes center stage in the development process of the _SmashBruh_ movie renting website. As a dynamic and versatile programming language, JavaScript empowers the website with interactivity and functionality. It enables features like seamless search functionality, dynamic recommendations, interactive elements, and smooth navigation. JavaScript's integration with backend APIs ensures efficient data retrieval and real-time updates.
+- **_Frameworks and Libraries:_**
+- We decided to use a combination of libaries and database to assist us in implementing the app. The combination or MERN stack, consists of Node.js - a premier JavaScript web server, Express.js - a Node.js web framework, React - a client-side JavaScript framework and MongoDB - a document database. The middle or application tier of our system is built using Express and Node. Express.js serves as the server-side web framework, while Node.js acts as the robust and widely adopted JavaScript server platform. Together, these technologies form a powerful foundation for developing and delivering web applications. Express provides a streamlined and efficient framework for handling web requests and managing routes, while Node enables the execution of server-side JavaScript code, allowing for scalable and high-performance server applications.
 - **_Database Management System:_** MongoDB, a popular NoSQL database management system, serves as the foundation for storing and managing data in the _SmashBruh_ movie renting website. MongoDB offers a flexible and scalable approach to data storage, making it ideal for handling movie information, user profiles, rental history, and other pertinent data.
 - **_Version Control System:_** With Git and GitLab, _SmashBruh_ benefits from features like branch management, version control, and the ability to roll back changes if needed. This combination ensures that the development team can work concurrently, seamlessly integrate new features, resolve conflicts, and track the evolution of the codebase.
 - **_Development Tools and Integrated Development Environment (IDE):_** With its intuitive interface and customizable settings, developers working on _SmashBruh_ can personalize their coding environment according to their preferences. VS Code provides essential tools such as syntax highlighting, code completion, and linting, ensuring clean and error-free code. The built-in debugger enables efficient troubleshooting and debugging, helping to identify and fix issues quickly.
 - **_Cloud Services:_** Leveraging cloud services can provide scalability, flexibility, and reliability to the website. Cloud platforms such as Amazon Web Services (AWS), Microsoft Azure, or Google Cloud can be utilized for hosting, storage, and managing infrastructure components.
 - **_Security Measures:_** Implementing robust security measures is vital to safeguard user data and protect against potential threats. This includes secure coding practices, encryption techniques, user authentication mechanisms, and adherence to industry-standard security protocols.
-- **_Continuous Integration and Deployment:_** Implementing a CI/CD (Continuous Integration/Continuous Deployment) pipeline ensures seamless integration of code changes, automated testing, and efficient deployment to staging and production environments.
+- **_Continuous Integration and Deployment:_** With the help of GitLab, our implementation of CI/CD (Continuous Integration/Continuous Deployment) pipeline ensures integration of code changes, automated testing, and efficient deployment to staging and production environments.
 
-By establishing a comprehensive development environment encompassing these components, _SmashBruh_ can ensure efficient development processes, high-quality code, and a scalable platform that meets the needs and expectations of movie enthusiasts.
+By establishing a comprehensive development environment encompassing these components, _SmashBruh_ can ensure efficient development processes, high-quality code, and a scalable platform that meets the needs and expectations of clients
 
 ## **7. User Guide**
 
@@ -402,17 +492,37 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
 1. **_Create an Account:_**
    To access all the features and benefits of _SmashBruh_, start by creating your account. Click on the "Sign Up" button on the homepage and provide the required information, including your name, email address, and a secure password. Once you've filled in the details, click "Finish" to proceed.
 
-2. **_Explore Movie Catalog:_**
-   After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Movies" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/login.png" alt="Login" width="700"> 2. **_Explore Movie Catalog:_**
+After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Feature Movies" or "Shows" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
+
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/home_page.png" alt="Look up Movies" width="700">
 
 3. **_Select and Rent Movies:_**
    When you find a movie you want to rent, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. Click on "Rent" to proceed to the checkout. You can also "favourite" a movie and rate them with the corresponding icons.
 
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/movie-page.png" alt="" width="700">
+
 4. **_Make Payment:_**
    At the checkout, review your selected movie and rental duration. _SmashBruh_ provides secure payment options. Choose your preferred payment method, enter the required details, and click "Smash" to finalize your rental.
 
-5. **_Enjoy Your Movie:_**
-   Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented.
+<img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;"
+        src="Images/rent_movie.png" alt="" width="700"> 5. **_Enjoy Your Movie:_**
+Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented.
 
 6. **_Manage Your Account:_**
    _SmashBruh_ provides a user-friendly account management interface to help you keep track of your rentals, update your personal information, and manage your payment methods. Access the "My Profile" section to view and modify your profile, change your password, or update your payment details.
@@ -420,17 +530,22 @@ Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Webs
 7. **_Explore Additional Features:_**
    While movie rentals are at the core of _SmashBruh_, we offer additional features to your movie-watching experience. Explore our curated playlists, personalized recommendations.
 
-
 ## **8. Conclusion**
 
 ### **8.1. Summary of Project**
 
-In conclusion, our project is a small
+In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a streaming platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like.
+In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a streaming platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like.
 
 ### **8.2. Future Work**
+
 - Despite facing time constraints and limited experience working on a large-scale team project, we encountered challenges in meeting deadlines and fully achieving our initial ideas and objectives. However, it is important to acknowledge the significant progress we have made and the invaluable lessons we have learned in the realms of web development and collaborative teamwork. Drawing from these experiences, we can identify future objectives aimed at refining and optimizing the app
 
-- **Admin's Interface**
+- **Parental Control System**
+
+  - With our vast database of movies and shows, it becomes necessary to address the potential exposure to explicit and graphic content. This concern is particularly crucial when our platform caters to young audiences, as it can lead to harmful interpretations and misuse of media. To mitigate these risks, we prioritize the implementation of a robust parental control system. The parental control system allows registered users to act as parents or guardians and exercise control over the content accessible to their children. By enabling this feature, explicit and inappropriate content can be effectively filtered out. This ensures that young users are protected from encountering material that is not suitable for their age group or could have a negative impact.
+
+- **Further Admin's Interface**
 
   - Despite implementing an admin checking function and establishing a conducive work environment within the database for administrators, we currently lack dedicated admin interfaces for them to efficiently operate and moderate the system. To address this limitation, it is crucial to develop a comprehensive admin interface that offers an extensive range of functionalities. The interface should provide an overview of user information and rental details, enabling administrators to gain insights and perform necessary actions. Examples of these actions include the ability to ban or unban users, disable specific movies from being rented or viewed, and execute other administrative tasks. By providing a robust and user-friendly admin interface, we empower administrators with the tools they need to effectively carry out their responsibilities and streamline their workflow.
 
@@ -443,11 +558,13 @@ In conclusion, our project is a small
   - Integrate social media features that allow users to share their favorite movies, reviews, and recommendations with friends.
 
 - **Augmented Reality (AR) Movie Posters**
+
   - Users can scan movie posters using their smartphones or tablets and access interactive content such as trailers, behind-the-scenes footage, or exclusive interviews with the cast and crew.
 
 - **Recommendation System**
 
   - In today's rapidly evolving landscape, the integration of machine learning and AI algorithms has become increasingly vital for app development. By incorporating such technologies into our app, we not only embrace modernity but also enhance our ability to provide users with superior services. A prime example of this is a recommendation system that leverages a user's favorite movies/shows collection to compute relevant metrics, enabling personalized suggestions tailored to their preferences. These metrics can include factors such as genres, actors/actresses, directors, or even the countries of production.
+
 ### **8.3. References**
 
 - Color Palette: https://colorhunt.co/palette/060047b3005ee90064ff5f9e
