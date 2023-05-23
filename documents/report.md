@@ -15,9 +15,9 @@
 
 ### 1.2. About our project
 
-In an era dominated by media streaming platforms and social media, the virtual realm has become the primary avenue for various activities. However, traditional methods of buying or renting media, such as movies and TV shows, often involve frustrating in-person transactions. Moreover, managing and tracking favorite content across multiple limited streaming services can be complicated and confusing.
+Introducing our advanced movie rental application, providing an exceptional cinematic experience. With a user-friendly interface, diverse movie collection, and personalized rental queues, our app offers navigation and immersive film exploration. Discover captivating narratives, acclaimed works, and a wide range of genres on your screen.
 
-Now with our media rental web application, you can now keep track of rented movies and TV show, as well as keeping track of your favourites and rate them accordingly, provided to you with one of the largest movie database - The Movie Database (TMDB) - a free and open movie database for developers, which also acts as our main API for working with movies/shows.
+With our media rental web application, you can now keep track of rented movies and TV show, as well as keeping track of your favourites and rate them accordingly, provided to you with one of the largest movie database - The Movie Database (TMDB) - a free and open movie database for developers, which also acts as our main API for working with movies/shows.
 
 ### 1.3. Table of content
 
@@ -70,7 +70,7 @@ _SmashBruh_ is an movie rental web application that aims to simplify the way peo
 
 - _Extensive Movie Library:_ Curate a diverse collection of films across genres, eras, and cultures to cater to the varied preferences of our users. From classic masterpieces to the latest releases, ensure a wide range of options that cover different cinematic experiences.
 
-- _User-Friendly Interface:_ Develop an intuitive and easy-to-navigate website interface that allows users to seamlessly explore and discover movies. Implement robust search functionality, filters, and sorting options to facilitate effortless movie browsing.
+- _User-Friendly Interface:_ Develop an intuitive and easy-to-navigate website interface that allows users to explore and discover movies. Implement robust search functionality, filters, and sorting options to facilitate effortless movie browsing.
 
 - _Detailed Movie Information:_ Provide comprehensive and accurate movie information to assist users in making informed decisions. Include detailed descriptions, plot summaries, cast and crew details, user ratings, and reviews to give users valuable insights into each film.
 
@@ -95,13 +95,13 @@ By fulfilling these business requirements, _SmashBruh_ can create a user-friendl
 
 The user requirements of _SmashBruh_ are as follows:
 
-- _First Time User Experience:_ _SmashBruh_ provides visitors latest movie that the system have to offer and other information of available movies and shows ath the moment so that the system keeps up with user's interest.
+- _First Time User Experience:_ _SmashBruh_ provides visitors latest movie that the system have to offer and other information of available movies and shows at the giving moment so that the system keeps up with user's interest.
 - _Efficient Search and Filtering:_ Users require an efficient search functionality that allows them to search for specific titles, genres, actors, directors, or keywords. They also expect advanced filtering options to refine their search results based on criteria such as release year, ratings, and language.
 - _Movie Information Based Recommendations:_ Users appreciate personalized recommendations based on their current accessed movies and shows. It could be based on names, genres, cast.
 - _Ratings:_ Users value the ability to read and contribute to ratings. They want a platform that encourages user feedback, enabling them to make informed decisions and engage in discussions with other movie enthusiasts.
 - _Flexible Rental Options:_ Users prefer flexible rental options, including various pricing plans with understandable cost to spend. They want the freedom to choose the rental plan that suits their preferences and viewing habits.
 - _Cross-Platform Compatibility:_ Users want the flexibility to access _SmashBruh_ on multiple devices, including web browsers, smartphones, tablets, and smart TVs. They expect a seamless experience that allows them to pick up where they left off across different devices.
-- Simple Payment Processing:\_ Users don't have to worry about payment system because we uses simple calculation (addtion, subtraction, multiplication and division) based on what users have chosen to be their pricing plan mentioned in the previous part.
+- _Simple Payment Processing:_ Users don't have to worry about payment system because we uses simple calculation (addtion, subtraction, multiplication and division) based on what users have chosen to be their pricing plan mentioned in the previous part.
 
 By addressing these user requirements, _SmashBruh_ can provide a user-centric experience that meets the expectations of movie enthusiasts, offering them a vast selection of content, seamless navigation and personalized recommendations.
 
@@ -125,7 +125,7 @@ The functional requirements of _SmashBruh_ are as follows:
 - _Payment Processing:_
   - The platform should securely process payments using simple calculations.
   - Users should receive a decreasing amount of money in their net balance
-- My list and Favourites:\_
+- _My list and Favourites:_
   - Users should be able to create and manage a watch list of movies and TV shows.
   - The platform should provide personalized recommendations based on user preferences and ratings.
 - _Ratings:_
@@ -353,11 +353,11 @@ COLOR PALETTE
            width: 100%;"
     src="Images/ColorPalette.png" alt="Color palette" width="700">
 
-### 4.7. Functionality Design
+### **4.7. Functionality Design**
 
-- Key features:
+**- Key features:**
 
-  - _View movies/shows_: display information of available movies/shows on the internet at the moment.
+- _View movies/shows_: display information of available movies/shows on the internet at the moment.
 
 <img style="display: block; 
                margin-left: auto;
@@ -413,8 +413,9 @@ COLOR PALETTE
             width: 100%;"
     src="Images/my_list_2.png" alt="List 2" width="700">
 
-- Other features:
-  - _Search and History searched_: find what users are interested in and what you searched will remain in your history up to 5 most recent searches:
+**- Other features:**
+
+- _Search and History searched_: find what users are interested in and what you searched will remain in your history up to 5 most recent searches:
 
 <img style="display: block; 
                margin-left: auto;
@@ -430,9 +431,9 @@ COLOR PALETTE
                width: 100%;"
         src="Images/movie-page-2.png" alt="Recommendations" width="700">
 
-## 5. Implementation
+## **5. Implementation**
 
-### 5.1. File Structure
+### **5.1. File Structure**
 
 ```
 C:.
@@ -698,7 +699,7 @@ C:.
             test.ejs
 ```
 
-### 5.2. Development Environment and Technology Stack
+### **5.2. Development Environment and Technology Stack**
 
 The development of _SmashBruh_ Movie Renting Website requires a robust and efficient development environment to ensure the smooth creation and deployment of the platform. Here's an overview of the key components of the development environment:
 
@@ -711,18 +712,18 @@ The development of _SmashBruh_ Movie Renting Website requires a robust and effic
   With Git and GitLab, _SmashBruh_ benefits from features like branch management, version control, and the ability to roll back changes if needed. This combination ensures that the development team can work concurrently, seamlessly integrate new features, resolve conflicts, and track the evolution of the codebase.
 - _Development Tools and Integrated Development Environment (IDE):_ With its intuitive interface and customizable settings, developers working on _SmashBruh_ can personalize their coding environment according to their preferences. VS Code provides essential tools such as syntax highlighting, code completion, and linting, ensuring clean and error-free code. The built-in debugger enables efficient troubleshooting and debugging, helping to identify and fix issues quickly.
 - _Cloud Services:_ Leveraging cloud services can provide scalability, flexibility, and reliability to the website. We were able to achieve by using Vercel - a serverless platform for static and hybrid applications.
-- _Security Measures:_ Implementing robust security measures is vital to safeguard user data and protect against potential threats. This includes secure coding practices, encryption techniques, user authentication mechanisms, and adherence to industry-standard security protocols.
+- _Security Measures:_ Implementing robust security measures is vital to safeguard user data and protect against potential threats. This includes secure coding practices, user verification and authentication mechanisms, and also adherence to industry-standard security protocols.
 - _Continuous Integration and Deployment:_ With the help of GitLab, our implementation of CI/CD (Continuous Integration/Continuous Deployment) pipeline ensures integration of code changes, automated testing, and efficient deployment to staging and production environments.
 
 By establishing a comprehensive development environment encompassing these components, _SmashBruh_ can ensure efficient development processes, high-quality code, and a scalable platform that meets the needs and expectations of clients
 
-### 5.3. CI/CD Testing and Docker
+### **5.3. CI/CD Testing and Docker**
 
-### 5.4. Deployment
+### **5.4. Deployment**
 
-### 5.5. API Utilization
+### **5.5. API Utilization**
 
-#### 5.5.1. Movies
+#### **5.5.1. Movies**
 
 | API                | Purpose                                                                                           | Request Type | Parameter      |
 | ------------------ | ------------------------------------------------------------------------------------------------- | ------------ | -------------- |
@@ -733,7 +734,7 @@ By establishing a comprehensive development environment encompassing these compo
 | getList            | allows you to retrieve a list of movies based on a specified category.                            | GET          | category, page |
 |                    |                                                                                                   |              |
 
-#### 5.5.2. TV Shows
+#### **5.5.2. TV Shows**
 
 | API                    | Purpose                                                                                        | Request Type | Parameter      |
 | ---------------------- | ---------------------------------------------------------------------------------------------- | ------------ | -------------- |
@@ -744,7 +745,7 @@ By establishing a comprehensive development environment encompassing these compo
 | getShowList            | allows you to retrieve a list of tv shows based on a specified category.                       | GET          | category, page |
 |                        |                                                                                                |              |
 
-#### 5.5.3. Discovery
+#### **5.5.3. Discovery**
 
 | API               | Purpose                                                                                                           | Request Type | Parameter |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------- | ------------ | --------- |
@@ -754,9 +755,9 @@ By establishing a comprehensive development environment encompassing these compo
 | getAnimeDiscovery | allows you to retrieve a list of anime based on discovery parameters, enabling users to discover popular anime.   | GET          | page      |
 |                   |                                                                                                                   |              |
 
-## 6. User Guide
+## **6. User Guide**
 
-### 6.1. Getting Started
+### **6.1. Getting Started**
 
 Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Website:
 
@@ -801,14 +802,13 @@ Once the payment is processed successfully, you'll receive a confirmation messag
 7. _Explore Additional Features:_
    While movie rentals are at the core of _SmashBruh_, we offer additional features to your movie-watching experience. Explore our curated playlists, personalized recommendations.
 
-## 7. Conclusion
+## **7. Conclusion**
 
-### 7.1. Summary of Project
+### **7.1. Summary of Project**
 
-In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a streaming platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like.
-In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a streaming platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like.
+In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a rental platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like.
 
-### 7.2. Future Work
+### **7.2. Future Work**
 
 - Despite facing time constraints and limited experience working on a large-scale team project, we encountered challenges in meeting deadlines and fully achieving our initial ideas and objectives. However, it is important to acknowledge the significant progress we have made and the invaluable lessons we have learned in the realms of web development and collaborative teamwork. Drawing from these experiences, we can identify future objectives aimed at refining and optimizing the app
 
@@ -832,11 +832,7 @@ In conclusion, our project aims to assist people in renting movies/shows and kee
 
   - Users can scan movie posters using their smartphones or tablets and access interactive content such as trailers, behind-the-scenes footage, or exclusive interviews with the cast and crew.
 
-- Recommendation System
-
-  - In today's rapidly evolving landscape, the integration of machine learning and AI algorithms has become increasingly vital for app development. By incorporating such technologies into our app, we not only embrace modernity but also enhance our ability to provide users with superior services. A prime example of this is a recommendation system that leverages a user's favorite movies/shows collection to compute relevant metrics, enabling personalized suggestions tailored to their preferences. These metrics can include factors such as genres, actors/actresses, directors, or even the countries of production.
-
-### 7.3. References
+### **7.3. References**
 
 - Color Palette: https://colorhunt.co/palette/060047b3005ee90064ff5f9e
 - GitLab: https://gitlab.com/galvdat/vgu_tinyprojects/pe2023/vgupe2023_team5
