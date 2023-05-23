@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography, Grid, Rating, useTheme } from "@mui/material";
+import { Box, Typography, Grid, Rating, useTheme } from '@mui/material';
 import Image from "mui-image";
 import Navbar from "../navbar";
 import { styled } from "@mui/system";
@@ -141,47 +141,47 @@ const MyListPage = () => {
             filter: "drop-shadow(0 0 10px #f5f5f5)",
             marginRight: "0.2em",
             marginLeft: "0.2em",
-            "&:nth-child(1)": {
+            "&:nth-of-type(1)": {
                 animationDelay: "0s",
             },
-            "&:nth-child(2)": {
+            "&:nth-of-type(2)": {
                 animationDelay: "0.25s",
                 padding: "0 5rem 0 0"
             },
-            "&:nth-child(3)": {
+            "&:nth-of-type(3)": {
                 animationDelay: "0.5s",
             },
-            "&:nth-child(4)": {
+            "&:nth-of-type(4)": {
                 animationDelay: "0.75s",
             },
-            "&:nth-child(5)": {
+            "&:nth-of-type(5)": {
                 animationDelay: "1s",
             },
-            "&:nth-child(6)": {
+            "&:nth-of-type(6)": {
                 animationDelay: "1.25s",
             },
-            "&:nth-child(7)": {
+            "&:nth-of-type(7)": {
                 animationDelay: "1.5s",
             },
-            "&:nth-child(8)": {
+            "&:nth-of-type(8)": {
                 animationDelay: "1.75s",
             },
-            "&:nth-child(9)": {
+            "&:nth-of-type(9)": {
                 animationDelay: "2s",
             },
-            "&:nth-child(10)": {
+            "&:nth-of-type(10)": {
                 animationDelay: "2.25s",
             },
-            "&:nth-child(11)": {
+            "&:nth-of-type(11)": {
                 animationDelay: "2.5s",
             },
-            "&:nth-child(12)": {
+            "&:nth-of-type(12)": {
                 animationDelay: "2.75s",
             },
-            "&:nth-child(13)": {
+            "&:nth-of-type(13)": {
                 animationDelay: "3s",
             },
-            "&:nth-child(14)": {
+            "&:nth-of-type(14)": {
                 animationDelay: "3.25s",
             },
         },
@@ -214,15 +214,6 @@ const MyListPage = () => {
                         <Typography>I</Typography>
                         <Typography>O</Typography>
                         <Typography>N</Typography>
-                        {/* <ReactPlayer
-                            url={`https://www.youtube.com/watch?v=6Cr_8tvvQ0k`}
-                            controls={false}
-                            playing={true}
-                            loop={true}
-                            volume={1}
-                            width="500px"
-                            height="500px"
-                        /> */}
                     </Spinner>
                     :
                     <Box
@@ -314,7 +305,6 @@ const MyListPage = () => {
                                                     {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
                                                     {/* <Typography></Typography> */}
                                                 </Box>
-
                                             </Box>
                                         )}
                                     </Box>
@@ -635,47 +625,15 @@ const MyListPage = () => {
                                                     {/*      TIME-RENTED ( CALCULATE TO THE TIME EXPIRED )        */}
                                                     {/* <Typography></Typography> */}
                                                 </Box>
-
                                             </Box>
                                         )}
                                     </Box>
                                 </Grid>
                             ))}
                         </Box>
-                        {/* <Typography sx={{
-                            fontSize:'1.5rem',
-                            fontWeight:'bold',
-                            borderBottom: '2px solid white',
-                            paddingBottom: '0.5rem'
-                        }}>Your favourite shows</Typography>
-                        <Box sx={{ padding:'1rem 0', display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
-                            {favouriteShow.map((show) => (
-                            <Grid title={show.name} key={show.id} item lg={3}>
-                                <Box sx={{
-                                    display: 'inline-block',
-                                    "&:hover":{
-                                        cursor: 'pointer',
-                                        boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
-                                    }
-                                }}>
-                                    <Image width="175px" height="275px" src={`https://image.tmdb.org/t/p/w500${show.seasons[show.intendedSeason].poster_path}`}/>
-                                </Box>
-                            </Grid>
-                            ))}
-                        </Box> */}
                     </Box>
-
                 }
             </Box>
-            {/* <ReactPlayer
-                url={`https://www.youtube.com/watch?v=QZTDZFtbrec`}
-                controls={true}
-                playing={true}
-                loop={true}
-                volume={0.1}
-                width='0'
-                height='0'
-            /> */}
         </Box>
     )
 }
