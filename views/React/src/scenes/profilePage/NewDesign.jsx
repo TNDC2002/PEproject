@@ -1133,7 +1133,6 @@ const NewDesign = () => {
                                 <Stack
                                   direction={'row'}
                                   style={{
-                                    marginLeft: '50px',
                                     opacity: 1,
                                     overflow: 'visible', // Allow content to overflow
                                     position: 'relative',
