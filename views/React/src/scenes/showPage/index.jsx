@@ -224,6 +224,8 @@ const ShowPage = () => {
     const checkFavoriteResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      credentials: 'include'
+
     });
 
     const result = await checkFavoriteResponse.json();
@@ -244,6 +246,8 @@ const ShowPage = () => {
     const checkRatedResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      credentials: 'include'
+
     });
 
     const result = await checkRatedResponse.json();
@@ -263,6 +267,8 @@ const ShowPage = () => {
     const checkRentedResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      credentials: 'include'
+
     });
     const result = await checkRentedResponse.json();
     return result;
@@ -434,7 +440,6 @@ const ShowPage = () => {
     return <Loading />;
   }
 
-  const imageUrl = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
 
   return (
     <div>
@@ -451,7 +456,7 @@ const ShowPage = () => {
             }}
           >
             <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}>
-              <h3>Home</h3>
+              <strong>Home</strong>
             </Typography>
           </Link>
 
@@ -464,10 +469,14 @@ const ShowPage = () => {
               window.location.href = "/TV Shows";
             }}
           >
-            <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}><h3>Shows</h3></Typography>
+            <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}><strong>Shows</strong></Typography>
           </Link>
           <Typography fontWeight="lighter">
-            <h3>{show.original_name}</h3>
+            <strong>
+              {show ? (show.original_name):
+              ("undefined")}
+            
+            </strong>
           </Typography>
         </Breadcrumbs>
 
@@ -497,8 +506,8 @@ const ShowPage = () => {
               >
                 <Image
                   sx={{ borderRadius: "10px" }}
-                  src={imageUrl}
-                  alt={`${show.original_name} poster`}
+                  src={show ? (`https://image.tmdb.org/t/p/w500${show.poster_path}`) : ("https://via.placeholder.com/150x250.png?text=No+Image")}
+                  alt={show ? `${show.original_name} poster` : "Undefined"}
                 />
               </Box>
             </Box>
@@ -506,7 +515,7 @@ const ShowPage = () => {
 
           <Grid item xs={12} sm={6} md={9} lg={9}>
             <Typography sx={{ fontSize: 40, fontWeight: "medium" }}>
-              {show.original_name}
+              {show ? show.original_name : "undefined"}
             </Typography>
             <HdOutlinedIcon sx={{ fontSize: "35px" }}></HdOutlinedIcon>
             <ClosedCaptionOffIcon sx={{ fontSize: "35px" }}></ClosedCaptionOffIcon>
@@ -519,11 +528,11 @@ const ShowPage = () => {
                     value={selectedSeason}
                     onChange={handleSeasonChange}
                   >
-                    {seasonOptions.map((optionValue) => (
+                    {seasonOptions ? (seasonOptions.map((optionValue) => (
                       <MenuItem key={optionValue} value={optionValue}>
                         Season {optionValue}
                       </MenuItem>
-                    ))}
+                    ))) : (<div>undefined</div>)}
                   </Select>
                 </FormControl>
               </Box>
@@ -568,8 +577,8 @@ const ShowPage = () => {
               ></Rating>
             </Popover>
 
-            <Typography padding="4px">
-              {seasonOptions[0] === 1 ? (
+            <Typography padding="4px" component="div">
+              {seasonOptions ? (seasonOptions[0] === 1 ? (
                 <div>
                   <strong>Overview: </strong> {show.overview}
                 </div>
@@ -578,49 +587,38 @@ const ShowPage = () => {
                   <strong>Overview: </strong>
                   {show.seasons[selectedSeason].overview}
                 </div>
-              )}
+              )) : (<div>undefined</div>)}
             </Typography>
-
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
                 <Typography padding="4px">
-                  <strong>Release Date:</strong> {show.first_air_date}
+                  <strong>Release Date:</strong> {show ? show.first_air_date : "undefined"}
                 </Typography>
                 <Typography padding="4px">
                   <strong>Directors:</strong>{" "}
-                  {show.created_by.map((g) => g.name).join(", ")}
+                  {show ? (show.created_by.map((g) => g.name).join(", ")) : "undefined"}
                 </Typography>
                 <Typography padding="4px">
                   <strong>Production:</strong>{" "}
-                  {show.production_companies.map((g) => g.name).join(", ")}
+                  {show ? show.production_companies.map((g) => g.name).join(", ") : "undefined"}
                 </Typography>
               </Grid>
 
               <Grid item xs={12} md={6}>
                 <Typography padding="4px">
-                  <strong>Air:</strong> {show.episode_run_time} min
-                </Typography>
-                <Typography padding="4px">
                   <strong>Genre:</strong>{" "}
-                  {show.genres.map((g) => g.name).join(", ")}
+                  {show ? show.genres.map((g) => g.name).join(", ") : "undefined"}
                 </Typography>
                 <Typography padding="4px">
                   <strong>Cast:</strong>{" "}
-                  {credits
+                  {show ? credits
                     ?.slice(0, 5)
                     ?.map((g) => g.name)
-                    ?.join(", ")}
+                    ?.join(", ") : 
+                    "undefined"}
                 </Typography>
               </Grid>
             </Grid>
-
-            {/* <IconButton onClick={() => {}} sx={{ my: 2 }}>
-            {!isRented ? (
-              <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
-            ) : (
-              <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
-            )}
-          </IconButton> */}
 
             <Button
               variant="contained"
@@ -682,8 +680,8 @@ const ShowPage = () => {
                   <Box py={6} textAlign="center" display="flex">
                     <Box mb={3}>
                       <Container maxWidth="lg">
-                        <Typography variant="h3" component="span">
-                          <h2>Pricing Plan</h2>
+                      <Typography variant="h2" component="h2">
+                            <strong>Pricing Plan</strong>
                         </Typography>
                       </Container>
                     </Box>
@@ -786,9 +784,9 @@ const ShowPage = () => {
         {trailerVideoId !== null && trailerVideoId.length > 0 ? (
           <div>
             <Box>
-              <Typography>
-                <h3>Other Trailer:</h3>
-              </Typography>
+            <Typography variant="h3">
+              <strong>Other Trailer:</strong>
+            </Typography>
             </Box>
             <Box sx={{ overflowX: "auto" }}>
               {trailerVideoId && (
@@ -825,14 +823,14 @@ const ShowPage = () => {
             </Box>
           </div>
         ) : (
-          <></>
+          <div></div>
         )}
 
         <Box sx={{ paddingTop: "20px" }}>
           {recommendations && (
             <Box>
-              <Typography sx={{ pb: 1 }}>
-                <h2>You may also like:</h2>
+              <Typography variant="h3" sx={{ pb: 1 }}>
+                <strong>You may also like:</strong>
               </Typography>
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (
@@ -903,27 +901,3 @@ const ShowPage = () => {
 };
 
 export default ShowPage;
-
-/**
- * <Box>
-              <Typography>
-                Other Trailer
-              </Typography>
-            </Box>
-            <Box sx={{ overflowX: "auto" }}>
-              {trailerVideoId && (
-                <Box>
-                  <Box sx={{ display: "flex", flexDirection: "row", overflowY: "hidden" }}>
-                    {trailerVideoId.map((video) => (
-                      <Grid item key={video.key} onClick={() => {
-                        setSelectedVideo(video.key)
-                        mainPlayerRef.current.scrollIntoView({ behavior: "smooth" });
-                      }}>
-                        <img src={`https://img.youtube.com/vi/${video.key}/0.jpg`} alt="Thumbnail" width={356} height={220} />
-                      </Grid>
-                    ))}
-                  </Box>
-                </Box>
-              )}
-            </Box>
- */
