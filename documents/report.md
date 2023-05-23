@@ -718,7 +718,25 @@ By establishing a comprehensive development environment encompassing these compo
 
 ### 5.3. CI/CD Testing and Docker
 
+Continuous Integration and Continuous Deployment (CI/CD) testing is a crucial aspect of software development and deployment processes. In the context of SmashBruh, CI/CD testing plays a vital role in ensuring the reliability and stability of the website's codebase before it is deployed to production.
+
+To facilitate efficient and consistent testing, Docker containers are employed within the CI/CD pipeline of SmashBruh. Docker allows for the creation of isolated and reproducible environments that encapsulate the necessary dependencies and configurations required for testing the application. By utilizing Docker, SmashBruh can achieve consistency across different testing stages, ensuring that the application behaves consistently across various environments.
+
+The CI/CD pipeline incorporates a series of automated tests, such as unit tests, integration tests, and end-to-end tests, to verify the functionality, performance, and compatibility of the website. These tests help identify and address any potential bugs, issues, or regressions early in the development cycle, enabling rapid feedback and iterative improvements.
+
+By leveraging CI/CD testing and Docker, SmashBruh benefits from a streamlined and reliable deployment process. Code changes are automatically tested, and if the tests pass successfully, the updated code is deployed to the production environment. This automated approach minimizes human error, reduces the time required for manual testing, and ensures a more efficient release cycle.
+
 ### 5.4. Deployment
+
+The deployment process is a critical phase in the lifecycle of SmashBruh, as it involves making the website accessible to its users. During deployment, the latest tested and approved version of the application is released to the production environment, allowing users to access the updated features and improvements.
+
+To ensure a smooth deployment process, SmashBruh utilizes a structured deployment strategy. This strategy involves careful planning and coordination to minimize disruptions and downtime for users. It may include techniques such as rolling deployments, blue-green deployments, or canary releases, depending on the specific requirements of the website.
+
+The deployment process also involves considerations for scalability, availability, and load balancing. SmashBruh aims to provide a seamless user experience even during periods of high traffic, and therefore employs strategies to distribute the workload efficiently across multiple servers or instances.
+
+Monitoring and logging mechanisms are integrated into the deployment process to track and analyze the performance of the deployed application. This allows for real-time insights into system health, error tracking, and performance optimization.
+
+Through an effective deployment process, SmashBruh ensures that updates and enhancements are rolled out to users in a controlled and reliable manner, providing a stable and continuously improving movie rental experience.
 
 ### 5.5. API Utilization
 
