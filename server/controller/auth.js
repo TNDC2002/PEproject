@@ -162,7 +162,8 @@ const login = async (req, res) => {
             maxAge: 36000000, // Cookie expiration time (in milliseconds)
             httpOnly: true, // Restrict cookie access to HTTP requests only
             signed: true, // Enable cookie signing
-            sameSite: 'Lax'
+            // sameSite: 'Lax',
+            secure: process.env.ENV === 'PRODUCTION'
         };
         res.cookie('token', token, cookieOptions);
         res.status(200).json({ user });

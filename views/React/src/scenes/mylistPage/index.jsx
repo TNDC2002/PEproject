@@ -37,7 +37,9 @@ const MyListPage = () => {
                 `${VITE_BASE_URL}/user/${userID}/favourite`,
                 {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+
                 }
             )
 
@@ -58,7 +60,9 @@ const MyListPage = () => {
                 `${VITE_BASE_URL}/user/${userID}/rent`,
                 {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+
                 }
             )
 
@@ -92,19 +96,25 @@ const MyListPage = () => {
 
         const checkFavoriteResponse = await fetch(favourite_url, {
             method: "GET",
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+
         });
         const checkFavouriteResult = await checkFavoriteResponse.json();
 
         const checkRateResponse = await fetch(rate_url, {
             method: "GET",
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+
         });
         const checkRateResult = await checkRateResponse.json();
 
         const checkRentResponse = await fetch(rent_url, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            credentials: "include",
+
         });
         const checkRentResult = await checkRentResponse.json();
 
