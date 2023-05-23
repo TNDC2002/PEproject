@@ -4,13 +4,14 @@ import bcrypt from "bcrypt";
 export const verifyToken = async (req, res, next) => {
     try {
         let token = req.signedCookies.token;
+        console.log("The token is: " + token + " /////////");
         const UUID = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findOne({ _id: UUID.id });
         const isMatch = await bcrypt.compare(token, user.token);
-        if (isMatch){
+        if (isMatch) {
             req.user = UUID;
             next();
-        }else{
+        } else {
             console.log("Access Denied")
             return res.status(403).send("Access Denied");
         }
