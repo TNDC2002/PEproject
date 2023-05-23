@@ -1,7 +1,6 @@
-import { useState } from "react";
-import React from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { sizing } from "@mui/system";
+import React, { useState } from 'react'
+
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 import {
   Box,
@@ -14,163 +13,163 @@ import {
   Stack,
   CssBaseline,
   Paper,
-  Grid,
-} from "@mui/material";
+  Grid
+} from '@mui/material'
 
-import AppRegistrationTwoToneIcon from "@mui/icons-material/AppRegistrationTwoTone";
-import LoginIcon from "@mui/icons-material/Login";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import { styled } from "@mui/material/styles";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import Image from "../../assets/images/background.png";
-import Card from "../../assets/images/SmashBruh.png";
+import AppRegistrationTwoToneIcon from '@mui/icons-material/AppRegistrationTwoTone'
+import LoginIcon from '@mui/icons-material/Login'
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 
-import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import { Formik } from "formik";
-import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setMode, setLogin } from "../../states";
-import Dropzone from "react-dropzone";
-import FlexBetween from "../../components/FlexBetween";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext'
+import Image from '../../assets/images/background.png'
+import Card from '../../assets/images/SmashBruh.png'
+
+import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined'
+import { Formik } from 'formik'
+import * as yup from 'yup'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setLogin } from '../../states'
+import Dropzone from 'react-dropzone'
+import FlexBetween from '../../components/FlexBetween'
 
 const registerSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
+  firstName: yup.string().required('required'),
+  lastName: yup.string().required('required'),
   email: yup
     .string()
-    .email("invalid email")
-    .required("required"),
-  password: yup.string().required("required"),
-  picture: yup.string().required("required"),
-});
+    .email('invalid email')
+    .required('required'),
+  password: yup.string().required('required'),
+  picture: yup.string().required('required')
+})
 
 const loginSchema = yup.object().shape({
   email: yup
     .string()
-    .email("invalid email")
-    .required("required"),
-  password: yup.string().required("required"),
-});
+    .email('invalid email')
+    .required('required'),
+  password: yup.string().required('required')
+})
 
 const initialValuesRegister = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  picture: "",
-};
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  picture: ''
+}
 
 const initialValuesLogin = {
-  email: "",
-  password: "",
-};
+  email: '',
+  password: ''
+}
 
 const theme = createTheme({
   components: {
     MuiTextField: {
       styleOverrides: {
         root: {
-          "& .MuiInputBase-input": {
-            color: "black",
-          },
-        },
-      },
-    },
-  },
-});
+          '& .MuiInputBase-input': {
+            color: 'black'
+          }
+        }
+      }
+    }
+  }
+})
 
-const SignInButton = ({ image, size = "100%" }) => {
+// eslint-disable-next-line no-empty-pattern
+const SignInButton = ({ }) => {
   return (
     <Button
       type="submit"
       fullWidth
       variant="contained"
       sx={{
-        backgroundColor: "#B3005E",
-        color: "black",
-        borderRadius: "40em",
-        fontSize: "17px",
+        backgroundColor: '#B3005E',
+        color: 'black',
+        borderRadius: '40em',
+        fontSize: '17px',
         fontWeight: 600,
-        padding: "1em 2em",
-        cursor: "pointer",
-        transition: "all 0.3s ease-in-out",
-        border: "1px solid black",
-        boxShadow: "0 0 0 0 black",
-        "&:hover": {
-          transform: "translateY(-4px) translateX(-2px)",
-          boxShadow: "2px 5px 0 0 black",
-          backgroundColor: "#E90064",
+        padding: '1em 2em',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease-in-out',
+        border: '1px solid black',
+        boxShadow: '0 0 0 0 black',
+        '&:hover': {
+          transform: 'translateY(-4px) translateX(-2px)',
+          boxShadow: '2px 5px 0 0 black',
+          backgroundColor: '#E90064'
         },
-        "&:active": {
-          transform: "translateY(2px) translateX(1px)",
-          boxShadow: "0 0 0 0 black",
-        },
+        '&:active': {
+          transform: 'translateY(2px) translateX(1px)',
+          boxShadow: '0 0 0 0 black'
+        }
       }}
     >
-      <Typography style={{ color: "whitesmoke" }} fontSize={15}>
+      <Typography style={{ color: 'whitesmoke' }} fontSize={15}>
         Sign in
       </Typography>
     </Button>
-  );
-};
+  )
+}
 
 const NewDesign = () => {
-  const [pageType, setPageType] = useState("login");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [pageType, setPageType] = useState('login')
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const isLogin = pageType === "login";
-  const isRegister = pageType === "register";
-  const picRegister = pageType === "picRegister";
-  const newAcc = pageType === "newAcc";
+  const isLogin = pageType === 'login'
+  const isRegister = pageType === 'register'
+  const picRegister = pageType === 'picRegister'
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
+    const formData = new FormData()
+    for (const value in values) {
+      formData.append(value, values[value])
     }
-    formData.append("picturePath", values.picture.name);
+    formData.append('picturePath', values.picture.name)
 
     const savedUserResponse = await fetch(
-      "http://localhost:5000/auth/register",
+      'http://localhost:5000/auth/register',
       {
-        method: "POST",
-        body: formData,
+        method: 'POST',
+        body: formData
       }
-    );
-    const savedUser = await savedUserResponse.json();
-    onSubmitProps.resetForm();
+    )
+    const savedUser = await savedUserResponse.json()
+    onSubmitProps.resetForm()
 
     if (savedUser) {
-      setPageType("login");
+      setPageType('login')
     }
-  };
+  }
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:5000/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
+    const loggedInResponse = await fetch('http://localhost:5000/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    })
+    const loggedIn = await loggedInResponse.json()
+    onSubmitProps.resetForm()
     if (loggedIn) {
       dispatch(
         setLogin({
           user: loggedIn.user,
-          token: loggedIn.token,
+          token: loggedIn.token
         })
-      );
-      navigate("/home");
+      )
+      navigate('/home')
     }
-  };
+  }
 
   const handleFormSubmit = async (values, onSubmitProps) => {
-    if (isLogin) await login(values, onSubmitProps);
-    if (isRegister) await register(values, onSubmitProps);
-  };
+    if (isLogin) await login(values, onSubmitProps)
+    if (isRegister) await register(values, onSubmitProps)
+  }
 
   return (
     <Formik
@@ -186,7 +185,7 @@ const NewDesign = () => {
         handleChange,
         handleSubmit,
         setFieldValue,
-        resetForm,
+        resetForm
       }) => (
         <form onSubmit={handleSubmit}>
           <Container
@@ -194,11 +193,11 @@ const NewDesign = () => {
             sx={{
               backgroundImage: `url(${Image})`,
               backgroundColor: (t) =>
-                t.palette.mode === "light"
+                t.palette.mode === 'light'
                   ? t.palette.grey[50]
                   : t.palette.grey[900],
-              backgroundSize: "cover",
-              backgroundPosition: "center",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
             }}
           >
              <Container>
@@ -213,12 +212,12 @@ const NewDesign = () => {
                   justifyContent="center"
                   width="90%"
                   sx={{
-                    transition: "all 0.3s ease-in-out",
-                    "&:hover": {
-                      transform: "translateY(-4px) translateX(-2px)",
-                      boxShadow: "2px 5px 0 0 black",
-                      backgroundColor: "#E90064",
-                    },
+                    transition: 'all 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'translateY(-4px) translateX(-2px)',
+                      boxShadow: '2px 5px 0 0 black',
+                      backgroundColor: '#E90064'
+                    }
                   }}
                 >
                   <CssBaseline />
@@ -232,35 +231,35 @@ const NewDesign = () => {
                     elevation={6}
                     square
                     sx={{
-                      height: "100%",
+                      height: '100%',
 
-                      backgroundColor: "whitesmoke",
-                      opacity: "0.9",
+                      backgroundColor: 'whitesmoke',
+                      opacity: '0.9'
                     }}
                     color="black"
                   >
                     <Box
                       sx={{
-                        height: "100%",
+                        height: '100%',
 
                         my: 10,
                         mx: 4,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center'
                       }}
                     >
-                      
+
                       <Stack
                         direction="row"
                         spacing={0}
                         justifyContent="center"
                       >
-                        <Typography style={{ color: "#B3005E" }} fontSize={40}>
+                        <Typography style={{ color: '#B3005E' }} fontSize={40}>
                           Smash
                         </Typography>
 
-                        <Typography style={{ color: "#060047" }} fontSize={40}>
+                        <Typography style={{ color: '#060047' }} fontSize={40}>
                           Bruh
                         </Typography>
                       </Stack>
@@ -274,111 +273,116 @@ const NewDesign = () => {
                           startIcon={<LoginIcon />}
                           variant="text"
                           style={{
-                            maxWidth: "200px",
-                            maxHeight: "50px",
-                            minWidth: "30px",
-                            minHeight: "30px",
+                            maxWidth: '200px',
+                            maxHeight: '50px',
+                            minWidth: '30px',
+                            minHeight: '30px'
                           }}
                           onClick={() => {
-                            setPageType("login");
-                            resetForm();
+                            setPageType('login')
+                            resetForm()
                           }}
                           sx={{
                             height: 70,
-                            color: "#B3005E",
+                            color: '#B3005E'
                           }}
                         >
-                          {isLogin ? (
+                          {isLogin
+                            ? (
                             <Typography
                               sx={{
-                                color: "#B3005E",
-                                textDecoration: "underline",
-                                "&:hover": {
-                                  textDecoration: "underline black",
-                                },
+                                color: '#B3005E',
+                                textDecoration: 'underline',
+                                '&:hover': {
+                                  textDecoration: 'underline black'
+                                }
                               }}
                               display="inline"
-                              style={{ color: "#B3005E" }}
+                              style={{ color: '#B3005E' }}
                               fontSize={20}
                             >
                               Sign in
                             </Typography>
-                          ) : (
+                              )
+                            : (
                             <Typography
                               sx={{
-                                color: "#B3005E",
+                                color: '#B3005E',
 
-                                "&:hover": {
-                                  textDecoration: "underline black",
-                                },
+                                '&:hover': {
+                                  textDecoration: 'underline black'
+                                }
                               }}
                               display="inline"
-                              style={{ color: "#B3005E" }}
+                              style={{ color: '#B3005E' }}
                               fontSize={20}
                             >
                               Sign in
                             </Typography>
-                          )}
+                              )}
                         </Button>
 
                         <Button
                           startIcon={<AppRegistrationTwoToneIcon />}
                           variant="text"
                           style={{
-                            maxWidth: "200px",
-                            maxHeight: "50px",
-                            minWidth: "30px",
-                            minHeight: "30px",
+                            maxWidth: '200px',
+                            maxHeight: '50px',
+                            minWidth: '30px',
+                            minHeight: '30px'
                           }}
                           onClick={() => {
-                            setPageType("register");
-                            resetForm();
+                            setPageType('register')
+                            resetForm()
                           }}
                           sx={{
                             height: 70,
-                            color: "#B3005E",
-                            "&:hover": {
-                              backgroundColor: "whitesmoke",
-                              color: "black",
-                            },
+                            color: '#B3005E',
+                            '&:hover': {
+                              backgroundColor: 'whitesmoke',
+                              color: 'black'
+                            }
                           }}
                         >
-                          {isLogin ? (
+                          {isLogin
+                            ? (
                             <Typography
                               sx={{
-                                color: "#B3005E",
+                                color: '#B3005E',
 
-                                "&:hover": {
-                                  textDecoration: "underline black",
-                                },
+                                '&:hover': {
+                                  textDecoration: 'underline black'
+                                }
                               }}
                               display="inline"
-                              style={{ color: "#B3005E" }}
+                              style={{ color: '#B3005E' }}
                               fontSize={20}
                             >
                               Registrate
                             </Typography>
-                          ) : (
+                              )
+                            : (
                             <Typography
                               sx={{
-                                color: "#B3005E",
-                                textDecoration: "underline",
-                                "&:hover": {
-                                  textDecoration: "underline black",
-                                },
+                                color: '#B3005E',
+                                textDecoration: 'underline',
+                                '&:hover': {
+                                  textDecoration: 'underline black'
+                                }
                               }}
                               display="inline"
-                              style={{ color: "#B3005E" }}
+                              style={{ color: '#B3005E' }}
                               fontSize={20}
                             >
                               Registrate
                             </Typography>
-                          )}
+                              )}
                         </Button>
                       </Stack>
 
                       <ThemeProvider theme={theme}>
-                        {isRegister ? (
+                        {isRegister
+                          ? (
                           <Box>
                             <Typography fontSize={18} color="#B3005E">
                               What is your name?
@@ -394,7 +398,7 @@ const NewDesign = () => {
                                 Boolean(errors.firstName)
                               }
                               helperText={touched.firstName && errors.firstName}
-                              sx={{ gridColumn: "span 2" }}
+                              sx={{ gridColumn: 'span 2' }}
                               margin="normal"
                               required
                               fullWidth
@@ -411,7 +415,7 @@ const NewDesign = () => {
                                 Boolean(errors.lastName)
                               }
                               helperText={touched.lastName && errors.lastName}
-                              sx={{ gridColumn: "span 2" }}
+                              sx={{ gridColumn: 'span 2' }}
                               margin="normal"
                               required
                               fullWidth
@@ -426,17 +430,19 @@ const NewDesign = () => {
                                 endIcon={<NavigateNextIcon />}
                                 sx={{
                                   height: 70,
-                                  color: "#B3005E",
+                                  color: '#B3005E'
                                 }}
                                 onClick={() => {
-                                  setPageType("picRegister");
+                                  setPageType('picRegister')
                                 }}
                               >
                                 Next step
                               </Button>
                             </Stack>
                           </Box>
-                        ) : isLogin ? (
+                            )
+                          : isLogin
+                            ? (
                           <Box>
                             <TextField
                               label="Email Address"
@@ -449,14 +455,14 @@ const NewDesign = () => {
                               }
                               helperText={touched.email && errors.email}
                               sx={{
-                                gridColumn: "span 4",
-                                transition: "all 0.3s ease-in-out",
-                                "&:hover": {
+                                gridColumn: 'span 4',
+                                transition: 'all 0.3s ease-in-out',
+                                '&:hover': {
                                   transform:
-                                    "translateY(-4px) translateX(-2px)",
-                                  boxShadow: "2px 5px 0 0 black",
-                                  backgroundColor: "#E90064",
-                                },
+                                    'translateY(-4px) translateX(-2px)',
+                                  boxShadow: '2px 5px 0 0 black',
+                                  backgroundColor: '#E90064'
+                                }
                               }}
                               margin="normal"
                               required
@@ -475,14 +481,14 @@ const NewDesign = () => {
                               }
                               helperText={touched.password && errors.password}
                               sx={{
-                                gridColumn: "span 4",
-                                transition: "all 0.3s ease-in-out",
-                                "&:hover": {
+                                gridColumn: 'span 4',
+                                transition: 'all 0.3s ease-in-out',
+                                '&:hover': {
                                   transform:
-                                    "translateY(-4px) translateX(-2px)",
-                                  boxShadow: "2px 5px 0 0 black",
-                                  backgroundColor: "#E90064",
-                                },
+                                    'translateY(-4px) translateX(-2px)',
+                                  boxShadow: '2px 5px 0 0 black',
+                                  backgroundColor: '#E90064'
+                                }
                               }}
                               margin="normal"
                               required
@@ -497,66 +503,70 @@ const NewDesign = () => {
                             />
                             <SignInButton></SignInButton>
                           </Box>
-                        ) : picRegister ? (
+                              )
+                            : picRegister
+                              ? (
                           <Box maxWidth="100%" width="100%" px={2}>
                             <Typography fontSize={18} color="#B3005E">
                               Add your profile picture
                             </Typography>
                             <Box
                               sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                height: "23.3vh",
-                                marginTop: "16px",
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: '23.3vh',
+                                marginTop: '16px'
                               }}
                             >
                               <Box
                                 gridColumn="span 4"
-                                border={`1px solid #B3005E`}
+                                border={'1px solid #B3005E'}
                                 borderRadius="5px"
                                 sx={{
-                                  width: "180px",
-                                  height: "180px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
+                                  width: '180px',
+                                  height: '180px',
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  alignItems: 'center'
                                 }}
                               >
                                 <Dropzone
                                   acceptedFiles=".jpg,.jpeg,.png"
                                   multiple={false}
                                   onDrop={(acceptedFiles) =>
-                                    setFieldValue("picture", acceptedFiles[0])
+                                    setFieldValue('picture', acceptedFiles[0])
                                   }
                                 >
                                   {({ getRootProps, getInputProps }) => (
                                     <Box
                                       {...getRootProps()}
-                                      border={`2px dashed #B3005E`}
+                                      border={'2px dashed #B3005E'}
                                       sx={{
-                                        "&:hover": { cursor: "pointer" },
-                                        width: "150px",
-                                        height: "150px",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
+                                        '&:hover': { cursor: 'pointer' },
+                                        width: '150px',
+                                        height: '150px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
                                       }}
                                     >
                                       <input
                                         {...getInputProps()}
                                         name="picture"
                                       />
-                                      {!values.picture ? (
+                                      {!values.picture
+                                        ? (
                                         <p>Add Picture Here</p>
-                                      ) : (
+                                          )
+                                        : (
                                         <FlexBetween>
                                           <Typography>
                                             {values.picture.name}
                                           </Typography>
                                           <ModeEditOutlinedIcon />
                                         </FlexBetween>
-                                      )}
+                                          )}
                                     </Box>
                                   )}
                                 </Dropzone>
@@ -568,10 +578,10 @@ const NewDesign = () => {
                                 startIcon={<NavigateBeforeIcon />}
                                 sx={{
                                   height: 70,
-                                  color: "#B3005E",
+                                  color: '#B3005E'
                                 }}
                                 onClick={() => {
-                                  setPageType("register");
+                                  setPageType('register')
                                 }}
                               >
                                 Last step
@@ -581,17 +591,18 @@ const NewDesign = () => {
                                 endIcon={<NavigateNextIcon />}
                                 sx={{
                                   height: 70,
-                                  color: "#B3005E",
+                                  color: '#B3005E'
                                 }}
                                 onClick={() => {
-                                  setPageType("");
+                                  setPageType('')
                                 }}
                               >
                                 Next step
                               </Button>
                             </Box>
                           </Box>
-                        ) : (
+                                )
+                              : (
                           <Box>
                             <Typography fontSize={18} color="#B3005E">
                               Enter your email and password
@@ -606,7 +617,7 @@ const NewDesign = () => {
                                 Boolean(touched.email) && Boolean(errors.email)
                               }
                               helperText={touched.email && errors.email}
-                              sx={{ gridColumn: "span 4" }}
+                              sx={{ gridColumn: 'span 4' }}
                               margin="normal"
                               required
                               fullWidth
@@ -623,7 +634,7 @@ const NewDesign = () => {
                                 Boolean(errors.password)
                               }
                               helperText={touched.password && errors.password}
-                              sx={{ gridColumn: "span 4" }}
+                              sx={{ gridColumn: 'span 4' }}
                               margin="normal"
                               required
                               fullWidth
@@ -634,10 +645,10 @@ const NewDesign = () => {
                                 startIcon={<NavigateBeforeIcon />}
                                 sx={{
                                   height: 70,
-                                  color: "#B3005E",
+                                  color: '#B3005E'
                                 }}
                                 onClick={() => {
-                                  setPageType("picRegister");
+                                  setPageType('picRegister')
                                 }}
                               >
                                 Last step
@@ -648,19 +659,19 @@ const NewDesign = () => {
                                 endIcon={<NavigateNextIcon />}
                                 sx={{
                                   height: 70,
-                                  color: "#B3005E",
+                                  color: '#B3005E'
                                 }}
                                 onClick={() => {
-                                  handleSubmit();
-                                  resetForm();
-                                  setPageType("login");
+                                  handleSubmit()
+                                  resetForm()
+                                  setPageType('login')
                                 }}
                               >
                                 Finish registration
                               </Button>
                             </Box>
                           </Box>
-                        )}
+                                )}
                       </ThemeProvider>
                     </Box>
                   </Grid>
@@ -671,13 +682,13 @@ const NewDesign = () => {
                     md={6}
                     sx={{
                       backgroundImage: `url(${Card})`,
-                      backgroundRepeat: "no-repeat",
+                      backgroundRepeat: 'no-repeat',
                       backgroundColor: (t) =>
-                        t.palette.mode === "light"
+                        t.palette.mode === 'light'
                           ? t.palette.grey[50]
                           : t.palette.grey[900],
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
                     }}
                   />
                 </Grid>
@@ -687,7 +698,7 @@ const NewDesign = () => {
         </form>
       )}
     </Formik>
-  );
-};
+  )
+}
 
-export default NewDesign;
+export default NewDesign
