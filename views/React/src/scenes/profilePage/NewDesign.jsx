@@ -1050,7 +1050,7 @@ const NewDesign = () => {
                                   {!editMode
                                     ? (
                                     <Typography
-                                      marginLeft={1}
+                                      marginleft={1}
                                       fontSize={15}
                                       fontWeight="bold"
                                       data-testid="user-last-name"
@@ -1064,7 +1064,7 @@ const NewDesign = () => {
                                     : (
                                     <StyledForm>
                                       <StyledInput
-                                        marginLeft={1}
+                                        marginleft={1}
                                         placeholder="Type your text"
                                         required
                                         type="text"
