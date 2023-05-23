@@ -307,7 +307,7 @@ const ShowPage = () => {
     const fetchCredits = async () => {
       try {
         const response = await fetch(
-          `${VITE_BASE_URL}/movie/credits/${showID}`
+          `${VITE_BASE_URL}/movie/tvCredits/${showID}`
         );
         const data = await response.json();
         setCredits(data.cast);
