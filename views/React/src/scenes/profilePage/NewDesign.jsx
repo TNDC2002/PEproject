@@ -30,6 +30,7 @@ import {
   Button,
   createTheme,
   ThemeProvider,
+
   Input
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -1090,7 +1091,7 @@ const NewDesign = () => {
                                     fontSize={15}
                                     fontWeight="bold"
                                     marginRight={1}
-                                    marginleft={20}
+                                    marginLeft={2}
                                     style={{
                                       color: '#B3005E'
                                     }}
