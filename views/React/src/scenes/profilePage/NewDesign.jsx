@@ -30,6 +30,7 @@ import {
   Button,
   createTheme,
   ThemeProvider,
+
   Input
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -1090,7 +1091,7 @@ const NewDesign = () => {
                                     fontSize={15}
                                     fontWeight="bold"
                                     marginRight={1}
-                                    marginleft={20}
+                                    marginLeft={2}
                                     style={{
                                       color: '#B3005E'
                                     }}
@@ -1100,7 +1101,7 @@ const NewDesign = () => {
                                   {!editMode
                                     ? (
                                     <Typography
-                                      marginleft={1}
+                                      marginLeft={1}
                                       fontSize={15}
                                       fontWeight="bold"
                                       data-testid="user-email"
@@ -1133,10 +1134,6 @@ const NewDesign = () => {
                                 <Stack
                                   direction={'row'}
                                   style={{
-<<<<<<< HEAD
-                                    marginleft: '50px',
-=======
->>>>>>> c8f410fb792a0106fb3e0e6b2fac351f5584dd77
                                     opacity: 1,
                                     overflow: 'visible', // Allow content to overflow
                                     position: 'relative',
