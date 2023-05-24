@@ -161,7 +161,7 @@ const SearchBar = () => {
               Search
             </Typography>
           }
-          backgroundColor = "white"
+          backgroundcolor = "white"
           variant="standard"
           size='small'
           onClick={handleFocus}
@@ -172,7 +172,7 @@ const SearchBar = () => {
           border: '2px solid transparent',
           borderRadius: '20px',
           outline: 'none',
-          backgroundColor: '#060047',
+          backgroundcolor: '#060047',
           color: '#060047',
           boxShadow: '0 0 5px #FF5F9E, 0 0 0 10px #E90064',
           transition: '.3s ease',
@@ -214,7 +214,7 @@ const SearchBar = () => {
             display="flex"
             alignitems="center"
             p={1}
-            sx={{ backgroundColor: selected ? theme.palette.primary.main : 'transparent' }}
+            sx={{ backgroundcolor: selected ? theme.palette.primary.main : 'transparent' }}
             onClick={() => {
               option.media_type === 'movie'
                 ? (

@@ -586,9 +586,9 @@ const NewDesign = () => {
       const response = await fetch(`${VITE_BASE_URL}/profile/${user._id}`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
-        }
+        },
+        credentials: "include",
       })
 
       if (response.ok) {
@@ -626,10 +626,10 @@ const NewDesign = () => {
     fetch(`${VITE_BASE_URL}/profile/${user._id}`, {
       method: 'PUT',
       headers: {
-        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(values)
+      body: JSON.stringify(values),
+      credentials: "include",
     })
       .then((response) => response.json())
       .then((data) => {
@@ -1133,7 +1133,10 @@ const NewDesign = () => {
                                 <Stack
                                   direction={'row'}
                                   style={{
+<<<<<<< HEAD
                                     marginleft: '50px',
+=======
+>>>>>>> c8f410fb792a0106fb3e0e6b2fac351f5584dd77
                                     opacity: 1,
                                     overflow: 'visible', // Allow content to overflow
                                     position: 'relative',

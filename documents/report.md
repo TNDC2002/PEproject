@@ -239,17 +239,25 @@ The authentication interface and features of _SmashBruh_ are as follows:
 
 ### 4.4. Structure and Relationships
 
-- _User_: A user can have many rentals (one-to-many relationship)
+- _User_:
+  - _Description_: 
+    - In our website, a user can rent, rate and like as many movies or TV shows as they like, so we have built our database which revolve around such requirements. A user document is linked with 3 other documents, which are User's favorite, rental and ratings.
+  - _Realtionship_:
+    - A user can have many rentals (one-to-many relationship)
+    - A user can like many rentals (one-to-many relationship)
+    - A user can rate many rentals (one-to-many relationship)
 
-- _Movie_ - Show: A movie can be associated with one rental (one-to-one relationship)
+- _Movie/Show_:
+  - _Description_:
+    - Since there are more than thousands of movies and TV shows current, in order to accurately and realistically access the infomation, we have opted to use an online movie and show database to fetch information. This means that there are no documents to store all of the movies and shows. Instead, we only fetch what we need, and store them.
+   - _Realtionship_:
+    - A movie/show can be associated with one user, user rating, user order and user favorite (one-to-one relationship)
 
-- _Rental_: A rental belongs to a user (many-to-one relationship) and a movie (many-to-one relationship)
-
-- _Favourite_: A movie can be favourited by many users (one-to-many relationship)
-
-- _Rating_: A movie can be rated by many users (one-to-many relationship)
-
-- _History_: A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship)
+- _History_:
+  - _Description_:
+    When a user search on the web page, a copy of the search string is saved to the database to enhance the user's experience.
+  - _Realtionship_:
+    - A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship)
 
 ### 4.5. Data Model
 
