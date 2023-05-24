@@ -152,8 +152,7 @@ const Navbar = ({ currentPage }) => {
                             bottom="0"
                             height="4rem"
                             zIndex="10"
-                            src={textLogo}
-                            alt="textLogo"
+                           
                             sx={{
                                 display: { xs: 'flex', md: 'none' },
                                 mr: 0,
