@@ -1090,7 +1090,7 @@ const NewDesign = () => {
                                     fontSize={15}
                                     fontWeight="bold"
                                     marginRight={1}
-                                    marginLeft={2}
+                                    marginleft={20}
                                     style={{
                                       color: '#B3005E'
                                     }}
@@ -1100,7 +1100,7 @@ const NewDesign = () => {
                                   {!editMode
                                     ? (
                                     <Typography
-                                      marginLeft={1}
+                                      marginleft={1}
                                       fontSize={15}
                                       fontWeight="bold"
                                       data-testid="user-email"
@@ -1133,7 +1133,7 @@ const NewDesign = () => {
                                 <Stack
                                   direction={'row'}
                                   style={{
-                                    marginLeft: '50px',
+                                    marginleft: '50px',
                                     opacity: 1,
                                     overflow: 'visible', // Allow content to overflow
                                     position: 'relative',
