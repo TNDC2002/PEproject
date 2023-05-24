@@ -38,6 +38,7 @@ function App() {
           setAuthenticated(true);
           return;
         }
+
         if (currentPath === "/auth/google") {
           setLoading(false);
           setAuthenticated(true);
@@ -57,7 +58,8 @@ function App() {
           }
           window.location.href = "/home";
           return;
-        } else if (currentPath === "/auth/github") {
+        }
+        else if (currentPath === "/auth/github") {
           setLoading(false);
           setAuthenticated(true);
           const response = await fetch(`${VITE_BASE_URL}/login/github`, {
@@ -75,7 +77,8 @@ function App() {
           }
           window.location.href = "/home";
           return;
-        } else if (currentPath === "/auth/facebook") {
+        }
+        else if (currentPath === "/auth/facebook") {
           setLoading(false);
           setAuthenticated(true);
           const response = await fetch(`${VITE_BASE_URL}/login/facebook`, {
