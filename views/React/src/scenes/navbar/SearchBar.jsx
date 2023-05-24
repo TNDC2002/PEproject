@@ -152,52 +152,81 @@ const SearchBar = () => {
       onInputChange={handleInputChange}
       onKeyDown={handleKeyDown}
       renderInput={(params) => (
+        
+
         <TextField
-          {...params}
-          label={
-            <Typography color={'white'} fontSize={'20px'} marginLeft={'20px'} top={'10px'} sx={{
-             
-              
-              
-            }}>
-              Search
-            </Typography>
-          }
-          variant="standard"
-          size="small"
-          onClick={handleFocus}
-          onBlur={handleBlur}
-          sx={{
-            width: '100%',
-            border: '2px solid transparent',
-            borderRadius: '20px',
-            outline: 'none',
-            backgroundColor: '#060047',
-            color: '#060047',
-            boxShadow: '0 0 5px #FF5F9E, 0 0 0 10px #E90064',
-            transition: '.3s ease',
-            '& input::placeholder': {
-              color: 'red',
-              '&::placeholder': {
-                // Make the border transparent
-                borderColor: 'transparent',
-              },
-            },
-            '@media (min-width: 1000px)': {
-              width: '300px',
-            },
-            '@media (max-width: 1000px)': {
-              width: '500px',
-            },
-            '@media (max-width: 800px)': {
-              width: '300px',
-            },
-            '@media (max-width: 500px)': {
-              width: '300px',
-            },
-            
-          }}
-        />
+  {...params}
+  label={
+    <Typography color={'white'} fontSize={'20px'} marginLeft={'20px'} sx={{ position: 'relative', top: '-10px', zIndex: 1, marginTop: '2px' }}>
+      Search
+    </Typography>
+  }
+  variant="standard"
+  size="small"
+  onClick={handleFocus}
+  onBlur={handleBlur}
+  sx={{
+    width: '100%',
+    border: '2px solid transparent',
+    borderRadius: '20px',
+    outline: 'none',
+    backgroundColor: '#060047',
+    color: '#060047',
+    boxShadow: '0 0 5px #FF5F9E, 0 0 0 10px #E90064',
+    transition: '.3s ease',
+    '& input::placeholder': {
+      color: 'red',
+      '&::placeholder': {
+        borderColor: 'transparent',
+      },
+    },
+    '& .MuiInput-underline:before': {
+      borderBottom: 'none', // Remove the underline
+    },
+    '& .MuiInput-underline.Mui-focused': {
+      '&:before': {
+        borderBottom: 'none', // Remove the underline on focus
+      },
+      '&:after': {
+        borderBottom: 'none', // Remove the outline on focus
+      },
+    },
+    '&:hover': {
+      transform: 'scale(1.2)',
+      boxShadow: '2px 5px 0 0 black',
+      backgroundColor: '#E90064',
+      '& .MuiInput-underline:before': {
+        borderBottom: 'none', // Remove the underline on hover
+      },
+    },
+    '& .MuiInput-underline.Mui-disabled:before': {
+      borderBottomStyle: 'none', // Remove the underline for disabled state
+    },
+    '& .MuiInput-underline.Mui-disabled:after': {
+      borderBottomStyle: 'none', // Remove the outline for disabled state
+    },
+    '@media (min-width: 1000px)': {
+      width: '300px',
+    },
+    '@media (max-width: 1000px)': {
+      width: '600px',
+    },
+    '@media (max-width: 800px)': {
+      width: '300px',
+    },
+    '@media (max-width: 500px)': {
+      width: '300px',
+    },
+  }}
+/>
+
+      
+      
+
+
+      
+
+
       )}
       renderOption={(_props, option, { selected }) =>
         !option.poster_path & !option.media_type ? (
