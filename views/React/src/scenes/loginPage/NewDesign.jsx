@@ -151,8 +151,7 @@ const NewDesign = () => {
     const loggedInResponse = await fetch('http://localhost:5000/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values),
-      credentials: "include"
+      body: JSON.stringify(values)
     })
     const loggedIn = await loggedInResponse.json()
     onSubmitProps.resetForm()
@@ -201,7 +200,7 @@ const NewDesign = () => {
               backgroundPosition: 'center'
             }}
           >
-            <Container>
+             <Container>
               <Box
                 display="flex"
                 justifyContent="center"
@@ -290,37 +289,37 @@ const NewDesign = () => {
                         >
                           {isLogin
                             ? (
-                              <Typography
-                                sx={{
-                                  color: '#B3005E',
-                                  textDecoration: 'underline',
-                                  '&:hover': {
-                                    textDecoration: 'underline black'
-                                  }
-                                }}
-                                display="inline"
-                                style={{ color: '#B3005E' }}
-                                fontSize={20}
-                              >
-                                Sign in
-                              </Typography>
-                            )
+                            <Typography
+                              sx={{
+                                color: '#B3005E',
+                                textDecoration: 'underline',
+                                '&:hover': {
+                                  textDecoration: 'underline black'
+                                }
+                              }}
+                              display="inline"
+                              style={{ color: '#B3005E' }}
+                              fontSize={20}
+                            >
+                              Sign in
+                            </Typography>
+                              )
                             : (
-                              <Typography
-                                sx={{
-                                  color: '#B3005E',
+                            <Typography
+                              sx={{
+                                color: '#B3005E',
 
-                                  '&:hover': {
-                                    textDecoration: 'underline black'
-                                  }
-                                }}
-                                display="inline"
-                                style={{ color: '#B3005E' }}
-                                fontSize={20}
-                              >
-                                Sign in
-                              </Typography>
-                            )}
+                                '&:hover': {
+                                  textDecoration: 'underline black'
+                                }
+                              }}
+                              display="inline"
+                              style={{ color: '#B3005E' }}
+                              fontSize={20}
+                            >
+                              Sign in
+                            </Typography>
+                              )}
                         </Button>
 
                         <Button
@@ -347,332 +346,332 @@ const NewDesign = () => {
                         >
                           {isLogin
                             ? (
-                              <Typography
-                                sx={{
-                                  color: '#B3005E',
+                            <Typography
+                              sx={{
+                                color: '#B3005E',
 
-                                  '&:hover': {
-                                    textDecoration: 'underline black'
-                                  }
-                                }}
-                                display="inline"
-                                style={{ color: '#B3005E' }}
-                                fontSize={20}
-                              >
-                                Registrate
-                              </Typography>
-                            )
+                                '&:hover': {
+                                  textDecoration: 'underline black'
+                                }
+                              }}
+                              display="inline"
+                              style={{ color: '#B3005E' }}
+                              fontSize={20}
+                            >
+                              Registrate
+                            </Typography>
+                              )
                             : (
-                              <Typography
-                                sx={{
-                                  color: '#B3005E',
-                                  textDecoration: 'underline',
-                                  '&:hover': {
-                                    textDecoration: 'underline black'
-                                  }
-                                }}
-                                display="inline"
-                                style={{ color: '#B3005E' }}
-                                fontSize={20}
-                              >
-                                Registrate
-                              </Typography>
-                            )}
+                            <Typography
+                              sx={{
+                                color: '#B3005E',
+                                textDecoration: 'underline',
+                                '&:hover': {
+                                  textDecoration: 'underline black'
+                                }
+                              }}
+                              display="inline"
+                              style={{ color: '#B3005E' }}
+                              fontSize={20}
+                            >
+                              Registrate
+                            </Typography>
+                              )}
                         </Button>
                       </Stack>
 
                       <ThemeProvider theme={theme}>
                         {isRegister
                           ? (
-                            <Box>
-                              <Typography fontSize={18} color="#B3005E">
-                                What is your name?
-                              </Typography>
-                              <TextField
-                                label="First Name"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.firstName}
-                                name="firstName"
-                                error={
-                                  Boolean(touched.firstName) &&
-                                  Boolean(errors.firstName)
-                                }
-                                helperText={touched.firstName && errors.firstName}
-                                sx={{ gridColumn: 'span 2' }}
-                                margin="normal"
-                                required
-                                fullWidth
-                              />
+                          <Box>
+                            <Typography fontSize={18} color="#B3005E">
+                              What is your name?
+                            </Typography>
+                            <TextField
+                              label="First Name"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.firstName}
+                              name="firstName"
+                              error={
+                                Boolean(touched.firstName) &&
+                                Boolean(errors.firstName)
+                              }
+                              helperText={touched.firstName && errors.firstName}
+                              sx={{ gridColumn: 'span 2' }}
+                              margin="normal"
+                              required
+                              fullWidth
+                            />
 
-                              <TextField
-                                label="Last Name"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.lastName}
-                                name="lastName"
-                                error={
-                                  Boolean(touched.lastName) &
-                                  Boolean(errors.lastName)
-                                }
-                                helperText={touched.lastName && errors.lastName}
-                                sx={{ gridColumn: 'span 2' }}
-                                margin="normal"
-                                required
-                                fullWidth
-                              />
-                              <Stack
-                                direction="row"
-                                spacing={8}
-                                justifyContent="right"
+                            <TextField
+                              label="Last Name"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.lastName}
+                              name="lastName"
+                              error={
+                                Boolean(touched.lastName) &
+                                Boolean(errors.lastName)
+                              }
+                              helperText={touched.lastName && errors.lastName}
+                              sx={{ gridColumn: 'span 2' }}
+                              margin="normal"
+                              required
+                              fullWidth
+                            />
+                            <Stack
+                              direction="row"
+                              spacing={8}
+                              justifyContent="right"
+                            >
+                              <Button
+                                variant="text"
+                                endIcon={<NavigateNextIcon />}
+                                sx={{
+                                  height: 70,
+                                  color: '#B3005E'
+                                }}
+                                onClick={() => {
+                                  setPageType('picRegister')
+                                }}
                               >
-                                <Button
-                                  variant="text"
-                                  endIcon={<NavigateNextIcon />}
-                                  sx={{
-                                    height: 70,
-                                    color: '#B3005E'
-                                  }}
-                                  onClick={() => {
-                                    setPageType('picRegister')
-                                  }}
-                                >
-                                  Next step
-                                </Button>
-                              </Stack>
-                            </Box>
-                          )
+                                Next step
+                              </Button>
+                            </Stack>
+                          </Box>
+                            )
                           : isLogin
                             ? (
-                              <Box>
-                                <TextField
-                                  label="Email Address"
-                                  onBlur={handleBlur}
-                                  onChange={handleChange}
-                                  value={values.email}
-                                  name="email"
-                                  error={
-                                    Boolean(touched.email) && Boolean(errors.email)
-                                  }
-                                  helperText={touched.email && errors.email}
-                                  sx={{
-                                    gridColumn: 'span 4',
-                                    transition: 'all 0.3s ease-in-out',
-                                    '&:hover': {
-                                      transform:
-                                        'translateY(-4px) translateX(-2px)',
-                                      boxShadow: '2px 5px 0 0 black',
-                                      backgroundColor: '#E90064'
-                                    }
-                                  }}
-                                  margin="normal"
-                                  required
-                                  fullWidth
-                                />
-                                <TextField
-                                  label="Password"
-                                  type="password"
-                                  onBlur={handleBlur}
-                                  onChange={handleChange}
-                                  value={values.password}
-                                  name="password"
-                                  error={
-                                    Boolean(touched.password) &&
-                                    Boolean(errors.password)
-                                  }
-                                  helperText={touched.password && errors.password}
-                                  sx={{
-                                    gridColumn: 'span 4',
-                                    transition: 'all 0.3s ease-in-out',
-                                    '&:hover': {
-                                      transform:
-                                        'translateY(-4px) translateX(-2px)',
-                                      boxShadow: '2px 5px 0 0 black',
-                                      backgroundColor: '#E90064'
-                                    }
-                                  }}
-                                  margin="normal"
-                                  required
-                                  fullWidth
-                                />
+                          <Box>
+                            <TextField
+                              label="Email Address"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.email}
+                              name="email"
+                              error={
+                                Boolean(touched.email) && Boolean(errors.email)
+                              }
+                              helperText={touched.email && errors.email}
+                              sx={{
+                                gridColumn: 'span 4',
+                                transition: 'all 0.3s ease-in-out',
+                                '&:hover': {
+                                  transform:
+                                    'translateY(-4px) translateX(-2px)',
+                                  boxShadow: '2px 5px 0 0 black',
+                                  backgroundColor: '#E90064'
+                                }
+                              }}
+                              margin="normal"
+                              required
+                              fullWidth
+                            />
+                            <TextField
+                              label="Password"
+                              type="password"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.password}
+                              name="password"
+                              error={
+                                Boolean(touched.password) &&
+                                Boolean(errors.password)
+                              }
+                              helperText={touched.password && errors.password}
+                              sx={{
+                                gridColumn: 'span 4',
+                                transition: 'all 0.3s ease-in-out',
+                                '&:hover': {
+                                  transform:
+                                    'translateY(-4px) translateX(-2px)',
+                                  boxShadow: '2px 5px 0 0 black',
+                                  backgroundColor: '#E90064'
+                                }
+                              }}
+                              margin="normal"
+                              required
+                              fullWidth
+                            />
 
-                                <FormControlLabel
-                                  control={
-                                    <Checkbox value="remember" color="primary" />
-                                  }
-                                  label="Remember me"
-                                />
-                                <SignInButton></SignInButton>
-                              </Box>
-                            )
+                            <FormControlLabel
+                              control={
+                                <Checkbox value="remember" color="primary" />
+                              }
+                              label="Remember me"
+                            />
+                            <SignInButton></SignInButton>
+                          </Box>
+                              )
                             : picRegister
                               ? (
-                                <Box maxWidth="100%" width="100%" px={2}>
-                                  <Typography fontSize={18} color="#B3005E">
-                                    Add your profile picture
-                                  </Typography>
-                                  <Box
-                                    sx={{
-                                      display: 'flex',
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                      height: '23.3vh',
-                                      marginTop: '16px'
-                                    }}
-                                  >
+                          <Box maxWidth="100%" width="100%" px={2}>
+                            <Typography fontSize={18} color="#B3005E">
+                              Add your profile picture
+                            </Typography>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: '23.3vh',
+                                marginTop: '16px'
+                              }}
+                            >
+                              <Box
+                                gridColumn="span 4"
+                                border={'1px solid #B3005E'}
+                                borderRadius="5px"
+                                sx={{
+                                  width: '180px',
+                                  height: '180px',
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  alignItems: 'center'
+                                }}
+                              >
+                                <Dropzone
+                                  acceptedFiles=".jpg,.jpeg,.png"
+                                  multiple={false}
+                                  onDrop={(acceptedFiles) =>
+                                    setFieldValue('picture', acceptedFiles[0])
+                                  }
+                                >
+                                  {({ getRootProps, getInputProps }) => (
                                     <Box
-                                      gridColumn="span 4"
-                                      border={'1px solid #B3005E'}
-                                      borderRadius="5px"
+                                      {...getRootProps()}
+                                      border={'2px dashed #B3005E'}
                                       sx={{
-                                        width: '180px',
-                                        height: '180px',
+                                        '&:hover': { cursor: 'pointer' },
+                                        width: '150px',
+                                        height: '150px',
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center'
                                       }}
                                     >
-                                      <Dropzone
-                                        acceptedFiles=".jpg,.jpeg,.png"
-                                        multiple={false}
-                                        onDrop={(acceptedFiles) =>
-                                          setFieldValue('picture', acceptedFiles[0])
-                                        }
-                                      >
-                                        {({ getRootProps, getInputProps }) => (
-                                          <Box
-                                            {...getRootProps()}
-                                            border={'2px dashed #B3005E'}
-                                            sx={{
-                                              '&:hover': { cursor: 'pointer' },
-                                              width: '150px',
-                                              height: '150px',
-                                              display: 'flex',
-                                              justifyContent: 'center',
-                                              alignItems: 'center'
-                                            }}
-                                          >
-                                            <input
-                                              {...getInputProps()}
-                                              name="picture"
-                                            />
-                                            {!values.picture
-                                              ? (
-                                                <p>Add Picture Here</p>
-                                              )
-                                              : (
-                                                <FlexBetween>
-                                                  <Typography>
-                                                    {values.picture.name}
-                                                  </Typography>
-                                                  <ModeEditOutlinedIcon />
-                                                </FlexBetween>
-                                              )}
-                                          </Box>
-                                        )}
-                                      </Dropzone>
+                                      <input
+                                        {...getInputProps()}
+                                        name="picture"
+                                      />
+                                      {!values.picture
+                                        ? (
+                                        <p>Add Picture Here</p>
+                                          )
+                                        : (
+                                        <FlexBetween>
+                                          <Typography>
+                                            {values.picture.name}
+                                          </Typography>
+                                          <ModeEditOutlinedIcon />
+                                        </FlexBetween>
+                                          )}
                                     </Box>
-                                  </Box>
-                                  <Box display="flex" justifyContent="space-between">
-                                    <Button
-                                      variant="text"
-                                      startIcon={<NavigateBeforeIcon />}
-                                      sx={{
-                                        height: 70,
-                                        color: '#B3005E'
-                                      }}
-                                      onClick={() => {
-                                        setPageType('register')
-                                      }}
-                                    >
-                                      Last step
-                                    </Button>
-                                    <Button
-                                      variant="text"
-                                      endIcon={<NavigateNextIcon />}
-                                      sx={{
-                                        height: 70,
-                                        color: '#B3005E'
-                                      }}
-                                      onClick={() => {
-                                        setPageType('')
-                                      }}
-                                    >
-                                      Next step
-                                    </Button>
-                                  </Box>
-                                </Box>
-                              )
+                                  )}
+                                </Dropzone>
+                              </Box>
+                            </Box>
+                            <Box display="flex" justifyContent="space-between">
+                              <Button
+                                variant="text"
+                                startIcon={<NavigateBeforeIcon />}
+                                sx={{
+                                  height: 70,
+                                  color: '#B3005E'
+                                }}
+                                onClick={() => {
+                                  setPageType('register')
+                                }}
+                              >
+                                Last step
+                              </Button>
+                              <Button
+                                variant="text"
+                                endIcon={<NavigateNextIcon />}
+                                sx={{
+                                  height: 70,
+                                  color: '#B3005E'
+                                }}
+                                onClick={() => {
+                                  setPageType('')
+                                }}
+                              >
+                                Next step
+                              </Button>
+                            </Box>
+                          </Box>
+                                )
                               : (
-                                <Box>
-                                  <Typography fontSize={18} color="#B3005E">
-                                    Enter your email and password
-                                  </Typography>
-                                  <TextField
-                                    label="Email Address"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    value={values.email}
-                                    name="email"
-                                    error={
-                                      Boolean(touched.email) && Boolean(errors.email)
-                                    }
-                                    helperText={touched.email && errors.email}
-                                    sx={{ gridColumn: 'span 4' }}
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                  />
-                                  <TextField
-                                    label="Password"
-                                    type="password"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    value={values.password}
-                                    name="password"
-                                    error={
-                                      Boolean(touched.password) &&
-                                      Boolean(errors.password)
-                                    }
-                                    helperText={touched.password && errors.password}
-                                    sx={{ gridColumn: 'span 4' }}
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                  />
-                                  <Box display="flex" justifyContent="space-between">
-                                    <Button
-                                      variant="text"
-                                      startIcon={<NavigateBeforeIcon />}
-                                      sx={{
-                                        height: 70,
-                                        color: '#B3005E'
-                                      }}
-                                      onClick={() => {
-                                        setPageType('picRegister')
-                                      }}
-                                    >
-                                      Last step
-                                    </Button>
-                                    <Button
-                                      variant="text"
-                                      type="submit"
-                                      endIcon={<NavigateNextIcon />}
-                                      sx={{
-                                        height: 70,
-                                        color: '#B3005E'
-                                      }}
-                                      onClick={() => {
-                                        handleSubmit()
-                                        resetForm()
-                                        setPageType('login')
-                                      }}
-                                    >
-                                      Finish registration
-                                    </Button>
-                                  </Box>
-                                </Box>
-                              )}
+                          <Box>
+                            <Typography fontSize={18} color="#B3005E">
+                              Enter your email and password
+                            </Typography>
+                            <TextField
+                              label="Email Address"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.email}
+                              name="email"
+                              error={
+                                Boolean(touched.email) && Boolean(errors.email)
+                              }
+                              helperText={touched.email && errors.email}
+                              sx={{ gridColumn: 'span 4' }}
+                              margin="normal"
+                              required
+                              fullWidth
+                            />
+                            <TextField
+                              label="Password"
+                              type="password"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.password}
+                              name="password"
+                              error={
+                                Boolean(touched.password) &&
+                                Boolean(errors.password)
+                              }
+                              helperText={touched.password && errors.password}
+                              sx={{ gridColumn: 'span 4' }}
+                              margin="normal"
+                              required
+                              fullWidth
+                            />
+                            <Box display="flex" justifyContent="space-between">
+                              <Button
+                                variant="text"
+                                startIcon={<NavigateBeforeIcon />}
+                                sx={{
+                                  height: 70,
+                                  color: '#B3005E'
+                                }}
+                                onClick={() => {
+                                  setPageType('picRegister')
+                                }}
+                              >
+                                Last step
+                              </Button>
+                              <Button
+                                variant="text"
+                                type="submit"
+                                endIcon={<NavigateNextIcon />}
+                                sx={{
+                                  height: 70,
+                                  color: '#B3005E'
+                                }}
+                                onClick={() => {
+                                  handleSubmit()
+                                  resetForm()
+                                  setPageType('login')
+                                }}
+                              >
+                                Finish registration
+                              </Button>
+                            </Box>
+                          </Box>
+                                )}
                       </ThemeProvider>
                     </Box>
                   </Grid>
