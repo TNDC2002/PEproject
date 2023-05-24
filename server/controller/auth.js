@@ -163,6 +163,7 @@ const login = async (req, res) => {
             httpOnly: true, // Restrict cookie access to HTTP requests only
             signed: true, // Enable cookie signing
             sameSite: 'Lax',
+            secure: true
         };
         res.cookie('token', token, cookieOptions);
         res.status(200).json({ user });
