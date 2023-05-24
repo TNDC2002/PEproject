@@ -179,6 +179,7 @@ const logout = async (req, res) => {
 const GetAUTH = async (req, res) => {
     try {
         let token = req.signedCookies.token;
+        console.log(req);
         if (!token) {
             return res.status(200).json({ authenticated: false });
         }
