@@ -319,8 +319,8 @@ let initWebRoutes = (app) => {
   router.get("/movie/showDiscovery/:page", movieAPI.default.getShowDiscovery);
   router.get("/movie/animeDiscovery/:page", movieAPI.default.getAnimeDiscovery);
   router.get("/search", movieAPI.default.fetchSearchResult);
-  router.get("/user/:userID/favourite", middleware.default.verifyToken, user.default.fetchFavourites);
-  router.get("/user/:userID/rent", middleware.default.verifyToken, user.default.fetchRentals);
+  router.get("/user/:userID/favourite", user.default.fetchFavourites);
+  router.get("/user/:userID/rent", user.default.fetchRentals);
   router.get("/movie/featureImage", movieAPI.default.getImageCarousel);
   router.get("/movie/list", movieAPI.default.getList);
   router.get("/movie/showList", movieAPI.default.getShowList);
