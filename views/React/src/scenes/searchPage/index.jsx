@@ -38,6 +38,7 @@ const SearchPage = () => {
             headers: {
               "Content-Type": "application/json",
             },
+            credentials: "include",
           }
         );
         const data = await fetchSearchResultResponse.json();

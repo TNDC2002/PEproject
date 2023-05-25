@@ -63,10 +63,11 @@ export default function PurchaseCard() {
     fetch(`${VITE_BASE_URL}/profile/${user._id}/purchase`, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ balance: amount }),
+      credentials: "include",
+
     })
       .then((response) => response.json())
       .then((data) => {

@@ -137,10 +137,10 @@ const MoviePage = () => {
     const addFavouriteResponse = await fetch(url, {
       method: method,
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
+      credentials: "include",
     });
   };
 
@@ -161,10 +161,10 @@ const MoviePage = () => {
     const addRatingResponse = await fetch(url, {
       method: method,
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
+      credentials: "include",
     });
   };
 
@@ -181,10 +181,10 @@ const MoviePage = () => {
       {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
+        credentials: "include",
       }
     );
   };
@@ -203,7 +203,6 @@ const MoviePage = () => {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
@@ -226,6 +225,8 @@ const MoviePage = () => {
     const checkFavoriteResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
+
     });
 
     const result = await checkFavoriteResponse.json();
@@ -246,6 +247,8 @@ const MoviePage = () => {
     const checkRatedResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
+
     });
 
     const result = await checkRatedResponse.json();
@@ -266,6 +269,8 @@ const MoviePage = () => {
     const checkRentedResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
+
     });
     const result = await checkRentedResponse.json();
     return result;
@@ -337,7 +342,10 @@ const MoviePage = () => {
     const fetchCredits = async () => {
       try {
         const response = await fetch(
-          `${VITE_BASE_URL}/movie/credits/${movieID}`
+          `${VITE_BASE_URL}/movie/credits/${movieID}`, {
+            credentials: "include",
+          }
+          
         );
         const data = await response.json();
         setCredits(data.cast);
@@ -424,8 +432,7 @@ const MoviePage = () => {
   if (!movie || youtubeIDs === null) {
     return <Loading />;
   }
-  const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-  return (
+    return (
     <div>
       <Navbar></Navbar>
       <Container maxWidth="lg">
@@ -439,7 +446,7 @@ const MoviePage = () => {
               window.location.href = "/Home";
             }}
           >
-            <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}><h3>Home</h3></Typography>
+            <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}><strong>Home</strong></Typography>
           </Link>
 
           <Link
@@ -448,10 +455,10 @@ const MoviePage = () => {
               window.location.href = "/Feature Movies";
             }}
           >
-            <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}><h3>Movies</h3></Typography>
+            <Typography sx={{ "&:hover": { textDecoration: 'underline' } }}><strong>Movies</strong></Typography>
           </Link>
           <Typography fontWeight="lighter">
-            <h3>{movie.title}</h3>
+          <strong>{movie.title}</strong>
           </Typography>
         </Breadcrumbs>
 
@@ -481,7 +488,7 @@ const MoviePage = () => {
               >
                 <Image
                   sx={{ borderRadius: "10px" }}
-                  src={imageUrl}
+                  src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "https://via.placeholder.com/150x250.png?text=No+Image"}
                   alt={`${movie.title} poster`}
                 />
               </Box>
@@ -573,14 +580,6 @@ const MoviePage = () => {
               </Grid>
             </Grid>
 
-            {/* <IconButton onClick={handleFavouriteClick} sx={{ my: 2 }}>
-            {!isFavourited ? (
-              <FavoriteBorderOutlinedIcon sx={{ fontSize: "40px" }} />
-            ) : (
-              <FavoriteOutlinedIcon sx={{ fontSize: "40px" }} />
-            )}
-          </IconButton> */}
-
             <Button
               variant="contained"
               onClick={handleOpen}
@@ -636,40 +635,16 @@ const MoviePage = () => {
             </Button>
 
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
-              {!user.verified ? (
-                <DialogContent sx={{ backgroundImage: `url(${ImageTest})`, backgroundSize: '100% 100%', backgroundPosition: 'center' }}>
-                  <Box sx={{ height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} maxWidth="lg">
-                    <Box py={6}>
-                      <Box mb={3}>
-                        <Box maxWidth="lg" >
-                          <Typography variant="h3" component="span" sx={{}}>
-                            <h2>Your email is not verified</h2>
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Box>
-                  <Box sx={{ width: '100%' }}>
-                    <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                      <Grid display="flex" justifyContent="right" item xs={6}>
-                        <Button onClick={() => navigate(`/profile/` + user._id)} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": { backgroundColor: '#63004a' } }}>Verify</Button>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Button onClick={handleClose} sx={{ backgroundColor: '#B3005E', color: 'white', width: '10rem', fontWeight: 'bold', fontSize: '15px', "&:hover": { backgroundColor: '#63004a' } }}>Close</Button>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </DialogContent>
-
-              ) : (
+              
                 <DialogContent sx={{ backgroundImage: `url(${ImageTest})`, backgroundSize: '100% 100%', backgroundPosition: 'center' }}>
                   <Container sx={{ height: '100%' }} maxWidth="lg">
                     <Box py={6} textAlign="center" display="flex">
                       <Box mb={3}>
                         <Container maxWidth="lg">
-                          <Typography variant="h3" component="span" sx={{}}>
-                            <h2>Pricing Plan</h2>
-                          </Typography>
+                        <Typography variant="h2" component="h2">
+                            <strong>Pricing Plan</strong>
+                        </Typography>
+
                         </Container>
                       </Box>
                       <Grid container spacing={3}>
@@ -748,8 +723,6 @@ const MoviePage = () => {
                     </Box>
                   </Container>
                 </DialogContent>
-
-              )}
               <DialogActions>
                 <Button variant="contained" onClick={handleClose}>
                   Close
@@ -762,9 +735,9 @@ const MoviePage = () => {
         {youtubeIDs !== null && youtubeIDs.length > 0 ? (
           <div>
             <Box>
-              <Typography>
-                <h3>Other Trailer:</h3>
-              </Typography>
+            <Typography variant="h3">
+              <strong>Other Trailer:</strong>
+            </Typography>
               <Box sx={{ overflowX: "auto" }}>
                 <Box
                   sx={{
@@ -802,8 +775,8 @@ const MoviePage = () => {
         <Box sx={{ paddingTop: "20px" }}>
           {recommendations && (
             <Box>
-              <Typography variant="h5" sx={{ pb: 1 }}>
-                <h2>You may also like:</h2>
+              <Typography variant="h3" sx={{ pb: 1 }}>
+                <strong>You may also like:</strong>
               </Typography>
               <Grid container spacing={2}>
                 {recommendations.map((recommendation) => (

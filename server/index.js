@@ -32,6 +32,7 @@ const allowedOrigins = [
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", `${process.env.FRONTEND_URL}`);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials (cookies) in cross-origin requests
   next();
 });
 
@@ -72,16 +73,6 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-
-/* FILE STORAGE */
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/assets");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
 
 /* ROUTES */
 configViewEngine(app);

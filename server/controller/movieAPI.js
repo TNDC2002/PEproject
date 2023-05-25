@@ -119,19 +119,6 @@ export const getDetail = async (req, res) => {
 
 export const getTrailerID = async (req, res) => {
   try {
-    // const {movieID} = req.params;
-    // const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
-    // const movieTitle = movieResponse.data.title;
-    // const response = await axios.get(
-    //   `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(movieTitle)}+trailer&type=video&videoDefinition=high&key=${process.env.YOUTUBE_API_KEY1}`
-    // );
-    // if (response.data.items.length > 0) {
-    //   const data = {
-    //     trailerID: response.data.items[0].id.videoId
-    //   }
-
-    //   res.json(data);
-    // }
     const { movieID } = req.params;
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`
@@ -183,7 +170,7 @@ export const getShowDetail = async (req, res) => {
 
 export const getShowCredits = async (req, res) => {
   try {
-    const { movieID } = req.params;
+    const { showID } = req.params;
     const response = await axios.get(
       `https://api.themoviedb.org/3/tv/${showID}/credits?api_key=${process.env.TMDB_API_KEY}`
     );
@@ -267,6 +254,20 @@ export const getShowDiscovery = async (req, res) => {
   }
 };
 
+export const getAnimeDiscovery = async (req, res) => {
+  try {
+    const { page } = req.params;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}&with_genres=16&with_keywords=210024|287501&with_text_query=death`
+    );
+    if (response.data !== null) {
+      res.json(response.data.results);
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export const getList = async (req, res) => {
   try {
     const { category } = req.query;
@@ -314,5 +315,6 @@ var output = {
   getImageCarousel,
   getList,
   getShowList,
+  getAnimeDiscovery,
 };
 export default output;

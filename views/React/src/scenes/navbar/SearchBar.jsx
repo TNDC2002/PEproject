@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import Autocomplete from '@mui/material/Autocomplete';
-import { useTheme, Typography, Box, Button } from '@mui/material';
+import { useTheme, Typography, Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -67,7 +67,6 @@ const SearchBar = () => {
 
   const theme = useTheme();
   const user = useSelector((state) => state.user);
-  const token = useSelector((state) => state.token);
   const navigate = useNavigate();
 
 
@@ -76,35 +75,38 @@ const SearchBar = () => {
       const fetchSearchResultResponse = await fetch(
         `${VITE_BASE_URL}/search/?query=${value}&page=1`,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json"
-          }
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
         }
-      )
+      );
       const data = await fetchSearchResultResponse.json();
-      const results = data.results.filter((movie) => movie.media_type === 'tv' || movie.media_type === 'movie').map((movie) => ({
-        label: movie.original_name ? movie.original_name : movie.original_title,
-        id: movie.id,
-        poster_path: movie.backdrop_path,
-        media_type: movie.media_type
-      }));
+      const results = data.results
+        .filter((movie) => movie.media_type === 'tv' || movie.media_type === 'movie')
+        .map((movie) => ({
+          label: movie.original_name ? movie.original_name : movie.original_title,
+          id: movie.id,
+          poster_path: movie.backdrop_path,
+          media_type: movie.media_type,
+        }));
       setSearchedMovies(results);
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 
   const fetchUserSearch = async (userID, numberOfEntry) => {
     try {
       const fetchUserSearchResponse = await fetch(
         `${VITE_BASE_URL}/api/history/get?userID=${userID}&limit=${numberOfEntry}`,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
         }
       );
       if (!fetchUserSearchResponse.ok) {
@@ -113,15 +115,17 @@ const SearchBar = () => {
       const userSearchData = await fetchUserSearchResponse.json();
       const searchedStrings = userSearchData.History_return.map((search) => search.searchedString);
 
-      setDefaultSearchOptions(await searchedStrings.map((search) => {
-        return {
-          label: search,
-          history: true
-        };
-      }));
+      setDefaultSearchOptions(
+        await searchedStrings.map((search) => {
+          return {
+            label: search,
+            history: true,
+          };
+        })
+      );
     } catch (error) {
       console.error(error);
-    };
+    }
   };
 
   useEffect(() => {
@@ -136,28 +140,15 @@ const SearchBar = () => {
     if (options.at(0) === '') {
       options.push();
     }
-  }, [options])
+  }, [options]);
 
   const insertUserSearch = async (userID, searchedString) => {
     const requestData = {
-      userID: userID,
-      searchedString: searchedString,
-      createdAt: new Date()
+      userID,
+      searchedString,
+      createdAt: new Date(),
     };
-
-    const insertUserSearchResponse = await fetch(
-      `${VITE_BASE_URL}/api/history/insert`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(requestData),
-        credentials: 'include'
-      }
-    );
-  }
+  };
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -166,11 +157,10 @@ const SearchBar = () => {
   const handleBlur = () => {
     setIsFocused(false);
     setSelectedOption(false);
-
   };
 
   const handleSearch = async (value) => {
-    if (!selectedOption && value !== "") {
+    if (!selectedOption && value !== '') {
       await insertUserSearch(user._id, value);
       fetchUserSearch(user._id, 5);
       navigate(`/home/search/?query=${value}`);
@@ -178,7 +168,7 @@ const SearchBar = () => {
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       if (selectedOption) {
         setSelectedOption(false);
       }
@@ -186,13 +176,13 @@ const SearchBar = () => {
     }
   };
 
-  const handleInputChange = async (event, newInputValue) => {
+  const handleInputChange = async (_event, newInputValue) => {
     setInputValue(newInputValue);
     fetchSearchResult(newInputValue);
     const alreadyExists = options.some((option) => option.label === newInputValue);
     if (!alreadyExists) {
       setOptions([{ label: newInputValue }, ...defaultSearchOptions, ...searchedMovies]);
-      if (newInputValue == "") {
+      if (newInputValue === '') {
         setOptions(defaultSearchOptions);
       }
     }
@@ -206,60 +196,91 @@ const SearchBar = () => {
       freeSolo
       options={options}
       inputValue={inputValue}
-      getOptionLabel={(option) => option.label || ""}
-      sx={{ width: '300px' }}
-      onHighlightChange={(event, option) =>
+      getOptionLabel={(option) => option.label || ''}
+      sx={{ width: '100%' }}
+      onHighlightChange={(_event, option) =>
         option === null ? setSelectedOption(false) : setSelectedOption(true)
       }
       onInputChange={handleInputChange}
       onKeyDown={handleKeyDown}
       renderInput={(params) => (
+        
+
         <TextField
-          {...params}
-          placeholder={
-            "Search"
-          }
-          sx = {{
-            height: "40px",
-            lineHeight: "28px",
-            padding: "0 1rem",
-            width: "100%",
-            paddingLeft: "2.5rem",
-            border: "2px solid transparent",
-            borderRadius: "8px",
-            outline: "none",
-            backgroundColor: "#D9E8D8",
-            color: "#0d0c22",
-            boxShadow: "0 0 5px #C1D9BF, 0 0 0 10px #f5f5f5eb",
-            transition: "3s ease",
-            '& input::placeholder': {
-              color: 'red',
-              '&::placeholder': {
-                // Make the border transparent
-                borderColor: 'transparent',
-              },}
-          }}
-          onClick={handleFocus}
-          onBlur={handleBlur}
-          InputProps={{
-            ...params.InputProps,
-            startAdornment: (
-              <>
-                <SearchIcon className="icon" />
-                {inputValue && (
-                  <ClearIcon
-                    className="icon"
-                    onClick={() => setInputValue('')}
-                    sx={{ cursor: 'pointer' }}
-                  />
-                )}
-              </>
-            ),
-          }}
-        />
+  {...params}
+  label={
+    <Typography color={'white'} fontSize={'20px'} marginLeft={'20px'} sx={{ position: 'relative', top: '-10px', zIndex: 1, marginTop: '2px' }}>
+      Search
+    </Typography>
+  }
+  variant="standard"
+  size="small"
+  onClick={handleFocus}
+  onBlur={handleBlur}
+  sx={{
+    width: '100%',
+    border: '2px solid transparent',
+    borderRadius: '20px',
+    outline: 'none',
+    backgroundColor: '#060047',
+    color: '#060047',
+    boxShadow: '0 0 5px #FF5F9E, 0 0 0 10px #E90064',
+    transition: '.3s ease',
+    '& input::placeholder': {
+      color: 'red',
+      '&::placeholder': {
+        borderColor: 'transparent',
+      },
+    },
+    '& .MuiInput-underline:before': {
+      borderBottom: 'none', // Remove the underline
+    },
+    '& .MuiInput-underline.Mui-focused': {
+      '&:before': {
+        borderBottom: 'none', // Remove the underline on focus
+      },
+      '&:after': {
+        borderBottom: 'none', // Remove the outline on focus
+      },
+    },
+    '&:hover': {
+      transform: 'scale(1.2)',
+      boxShadow: '2px 5px 0 0 black',
+      backgroundColor: '#E90064',
+      '& .MuiInput-underline:before': {
+        borderBottom: 'none', // Remove the underline on hover
+      },
+    },
+    '& .MuiInput-underline.Mui-disabled:before': {
+      borderBottomStyle: 'none', // Remove the underline for disabled state
+    },
+    '& .MuiInput-underline.Mui-disabled:after': {
+      borderBottomStyle: 'none', // Remove the outline for disabled state
+    },
+    '@media (min-width: 1000px)': {
+      width: '300px',
+    },
+    '@media (max-width: 1000px)': {
+      width: '600px',
+    },
+    '@media (max-width: 800px)': {
+      width: '300px',
+    },
+    '@media (max-width: 500px)': {
+      width: '300px',
+    },
+  }}
+/>
+
+      
+      
+
+
+      
+
 
       )}
-      renderOption={(props, option, { selected }) =>
+      renderOption={(_props, option, { selected }) =>
         !option.poster_path & !option.media_type ? (
           <Button
             variant="contained"
@@ -284,24 +305,26 @@ const SearchBar = () => {
             p={1}
             sx={{ backgroundColor: selected ? theme.palette.primary.main : 'transparent' }}
             onClick={() => {
-              option.media_type === "movie" ? (
-                navigate(`../movie/${option.id}`)
-              ) : (
-                navigate(`../TV Shows/${option.id}`)
-              )
+              option.media_type === 'movie'
+                ? navigate(`../movie/${option.id}`)
+                : navigate(`../TV Shows/${option.id}`);
             }}
           >
             {option.poster_path ? (
-              <Image height='100px' width='200px' src={`https://image.tmdb.org/t/p/w500${option.poster_path}`} />
+              <Image height="100px" width="200px" src={`https://image.tmdb.org/t/p/w500${option.poster_path}`} />
             ) : (
-              <Image height='100px' width='200px' src={`https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930`} />
+              <Image
+                height="100px"
+                width="200px"
+                src={'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930'}
+              />
             )}
             <strong>{option.label}</strong>
           </Button>
-        )}
+        )
+      }
     />
   );
 };
 
 export default SearchBar;
-

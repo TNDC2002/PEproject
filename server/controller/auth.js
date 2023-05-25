@@ -5,7 +5,7 @@ import EmailVerification from "../models/EmailVerification_Schema.js"
 import nodemailer from "nodemailer"
 import * as dotenv from 'dotenv'
 dotenv.config()
-const expiresIn = (60 * 60)*7; 
+const expiresIn = (60 * 60) * 7;
 
 //transporter stuff
 let transporter = nodemailer.createTransport({
@@ -145,7 +145,7 @@ const login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." })
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn});
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn });
         const salt = await bcrypt.genSalt();
         const tokenHash = await bcrypt.hash(token, salt);
         //save token to DB
@@ -162,7 +162,8 @@ const login = async (req, res) => {
             maxAge: 36000000, // Cookie expiration time (in milliseconds)
             httpOnly: true, // Restrict cookie access to HTTP requests only
             signed: true, // Enable cookie signing
-            sameSite: 'Lax'
+            sameSite: 'none',
+            secure: true
         };
         res.cookie('token', token, cookieOptions);
         res.status(200).json({ user });
@@ -179,6 +180,7 @@ const logout = async (req, res) => {
 const GetAUTH = async (req, res) => {
     try {
         let token = req.signedCookies.token;
+        console.log(req);
         if (!token) {
             return res.status(200).json({ authenticated: false });
         }

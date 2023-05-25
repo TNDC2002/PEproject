@@ -57,13 +57,14 @@ export default function PurchaseCard2() {
 
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = (amount) => {
-    fetch(`${VITE_BASE_URL}profile/${user._id}/purchase`, {
+    fetch(`${VITE_BASE_URL}/profile/${user._id}/purchase`, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ balance: amount }),
+      credentials: "include",
+
     })
       .then((response) => response.json())
       .then((data) => {

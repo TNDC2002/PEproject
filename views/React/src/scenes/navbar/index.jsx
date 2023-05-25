@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SearchBar2 from "./Searchbar2";
-import NavbarCover from "../../assets/image/navbarCover5.png";
+import NavbarCover from "../../assets/image/navbarCover3.png";
 import {
     AppBar,
     Box,
@@ -152,8 +152,7 @@ const Navbar = ({ currentPage }) => {
                             bottom="0"
                             height="4rem"
                             zIndex="10"
-                            src={textLogo}
-                            alt="textLogo"
+                           
                             sx={{
                                 display: { xs: 'flex', md: 'none' },
                                 mr: 0,
@@ -167,7 +166,9 @@ const Navbar = ({ currentPage }) => {
                             }}
                         />
                     </Box>
+                    <Box right={"150px"} position={"absolute"}>
                     <SearchBar></SearchBar>
+                    </Box>
                     <Box gap="1rem" sx={{ display: "flex", marginLeft: 'auto' }} >
                         <Box sx={{ flexGrow: 0, margin: "0.5rem" }}>
                             <Tooltip title={firstName}>
