@@ -49,7 +49,7 @@ const TabLabel = styled('label')`
   }
 
   &.active {
-    color:white ;
+    color: white;
   }
 
   > a {
@@ -59,9 +59,22 @@ const TabLabel = styled('label')`
   }
 
   &:hover > a {
-    color: #white;
+    color: white;
     transform: scale(1.1);
     transition: 0.3s;
+  }
+
+  @media (max-width: 1200px) {
+    height: 30px;
+    width: 100px;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 1000px) {
+    height: 0px;
+    width: 0px;
+    font-size: 0.9rem;
+    opacity: 0;
   }
 `;
 
@@ -75,6 +88,17 @@ const Glider = styled('div')`
   border-radius: 99px;
   transition: transform 0.25s ease-out;
   transform: translateX(${(props) => props.translateX}%);
+
+  @media (max-width: 1200px) {
+    height: 30px;
+    width: 100px;
+  }
+  @media (max-width: 1000px) {
+    height: 0px;
+    width: 0px;
+    font-size: 0.9rem;
+    opacity: 0;
+  }
 `;
 
 const IconListComponent = ({ currentPage }) => {
@@ -105,17 +129,17 @@ const IconListComponent = ({ currentPage }) => {
     if (hoveredTab !== null) {
       return 100 * hoveredTab;
     }
-  
+
     const activeTabIndex = currentPage ? pages.indexOf(currentPage) : 0;
     return 100 * activeTabIndex;
   };
 
   const pages = ['Home', 'Feature Movies', 'TV Shows', 'My List'];
   const icons = [
-    <CottageSharpIcon sx = {{marginRight:"10px"}}/>,
-    <AutoAwesomeSharpIcon sx = {{marginRight:"10px"}}/>,
-    <TheaterComedySharpIcon sx = {{marginRight:"10px"}}/>,
-    <FormatListBulletedSharpIcon sx = {{marginRight:"10px"}} />,
+    <CottageSharpIcon sx={{ marginRight: '10px' }} />,
+    <AutoAwesomeSharpIcon sx={{ marginRight: '10px' }} />,
+    <TheaterComedySharpIcon sx={{ marginRight: '10px' }} />,
+    <FormatListBulletedSharpIcon sx={{ marginRight: '10px' }} />,
   ];
 
   return (
