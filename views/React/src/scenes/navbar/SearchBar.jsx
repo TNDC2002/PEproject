@@ -220,7 +220,8 @@ const SearchBar = () => {
   }}
 />
 
-      
+
+
       
 
 
