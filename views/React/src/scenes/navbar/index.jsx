@@ -18,6 +18,7 @@ import {
     Toolbar,
 } from "@mui/material";
 import {
+    AccessibleForward,
     AccountCircle,
     FormatListBulleted,
     Help,
@@ -80,6 +81,9 @@ const Navbar = ({ currentPage }) => {
     };
     const redirectHelp = () => {
         navigate("/help");
+    };
+    const redirectAdmin = () => {
+        navigate("/admin");
     };
     const handleLogout = () => {
         dispatch(setLogout());
@@ -258,6 +262,10 @@ const Navbar = ({ currentPage }) => {
                                 <MenuItem onClick={redirectHelp}>
                                     <Help />
                                     <Typography padding="0.25rem 1rem">Help</Typography>
+                                </MenuItem>
+                                <MenuItem onClick={redirectAdmin}>
+                                    <AccessibleForward />
+                                    <Typography padding="0.25rem 1rem">Admin</Typography>
                                 </MenuItem>
                                 <Divider />
                                 <MenuItem onClick={handleLogout}>
