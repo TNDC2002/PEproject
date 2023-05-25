@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar2 from "./Searchbar2";
 import NavbarCover from "../../assets/image/navbarCover3.png";
 import {
@@ -52,6 +52,33 @@ const Navbar = ({ currentPage }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorElNav, setAnchorElNav] = useState(null);
     const open = Boolean(anchorEl);
+    const [imageUrl, setImageUrl] = useState('')
+
+    useEffect(() => {
+        fetchImage()
+    }, [])
+
+    const fetchImage = async () => {
+        try {
+            const response = await fetch(`${VITE_BASE_URL}/profile/${user._id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: "include",
+            })
+
+            if (response.ok) {
+                const blob = await response.blob()
+                const url = URL.createObjectURL(blob)
+                setImageUrl(url)
+            } else {
+                console.log('Error fetching image')
+            }
+        } catch (error) {
+            console.log('Error fetching image:', error)
+        }
+    }
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -168,7 +195,7 @@ const Navbar = ({ currentPage }) => {
                         />
                     </Box>
                     <Box right={"150px"} position={"absolute"}>
-                    <SearchBar></SearchBar>
+                        <SearchBar></SearchBar>
                     </Box>
                     <Box gap="1rem" sx={{ display: "flex", marginLeft: 'auto' }} >
                         <Box sx={{ flexGrow: 0, margin: "0.5rem" }}>
@@ -184,7 +211,7 @@ const Navbar = ({ currentPage }) => {
                                         }}
                                         max={99}
                                     >
-                                        <AccountCircle style={{ color: '#FF5F9E', backgroundColor: 'white', borderRadius: '50%', fontSize: '3.4rem' }} />
+                                        <img src={imageUrl} style={{ color: '#FF5F9E', backgroundColor: 'white', borderRadius: '50%', fontSize: '3.4rem' }} />
                                     </Badge>
                                 </IconButton>
                             </Tooltip>
