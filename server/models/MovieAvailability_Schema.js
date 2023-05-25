@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const AdminSchema = new mongoose.Schema(
+const MovieAvailabilitySchema = new mongoose.Schema(
   {
     movieID: {
       type: String,
@@ -18,11 +18,11 @@ const AdminSchema = new mongoose.Schema(
     isAvailable: {
       type: Boolean,
       required: true,
-      default: 1,
+      default: false,
     },
   },
   { timestamps: true }
 );
 
-const Admin = mongoose.model("Admin", AdminSchema);
-export default Admin;
+const MovieAvailability = mongoose.model("MovieAvailability", MovieAvailabilitySchema);
+export default MovieAvailability;
