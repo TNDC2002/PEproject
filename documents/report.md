@@ -2,16 +2,16 @@
 
 ### 1.1. Team member
 
-| Full Name            | Student Id | Tasks                                                                                                                                                                                                |     |
-| -------------------- | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
-| Nguyễn Ngọc Vĩnh     |   18691    | Movie and TV Shows details, trailers, and recommendations backend API; Movie Search and Filtering API; UI/UX of Homepage and MoviePage; Markdown and Swagger Documentation, Analytics and Reporting. |     |
-| Hà Quách Phú Thành   |   18840    | Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                                                  |
-| Thái Quang Nam       |   18770    | Design UI for Navbar, HomePage, FeatureMoviePage, TVShowsPage, MyListPage, SearchPage; Markdown Documentation, Reporting                                                                             |
-| Phạm Hoàng Việt      |   18334    | Design MoviePages and ShowPages ; Markdown Documentation, Reporting User Interface                                                                                                                   |
-| Nguyễn Xuân Khang    |   18973    | Set up Frontend and Backend ProfilePage; Markdown Documentation                                                                                                                                      |
-| Nguyễn Khắc Hoàng    |   18230    | Overall UI, ProfilePage, Login/RegisterPage, AccountPage; Markdown Documentation, Reporting                                                                                                          |
-| Lê Duy               |   17434    | Set up Email Verification, Security; Markdown Documentation; Reporting                                                                                                                               |
-| Trần Ngọc Duy Chương |   17197    | Backend for OAuth2, Authentication; Markdown Documentation; Reporting                                                                                                                                |
+| Full Name            | Student Id | Tasks                                                                                                                                                                                                                |     |
+| -------------------- | :--------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| Nguyễn Ngọc Vĩnh     |   18691    | Movie and TV Shows details, trailers, and recommendations backend API; Movie Search and Filtering API; UI/UX of Homepage and MoviePage; Responsible for Markdown and Swagger Documentation, Analytics and Reporting. |     |
+| Hà Quách Phú Thành   |   18840    | Moderate and in charge of frontend and backend; Manage members work and meetings; configure CI/CD, pipeline and Docker development;                                                                                  |
+| Thái Quang Nam       |   18770    | Design UI for Navbar, HomePage, FeatureMoviePage, TVShowsPage, MyListPage, SearchPage; Markdown Documentation, Reporting                                                                                             |
+| Phạm Hoàng Việt      |   18334    | Design MoviePages and ShowPages ; Markdown Documentation, Reporting User Interface                                                                                                                                   |
+| Nguyễn Xuân Khang    |   18973    | Set up Frontend and Backend ProfilePage; Markdown Documentation                                                                                                                                                      |
+| Nguyễn Khắc Hoàng    |   18230    | Overall UI, ProfilePage, Login/RegisterPage, AccountPage; Markdown Documentation, Reporting                                                                                                                          |
+| Lê Duy               |   17434    | Set up Email Verification, Security; Markdown Documentation; Reporting                                                                                                                                               |
+| Trần Ngọc Duy Chương |   17197    | Backend for OAuth2, Authentication; Markdown Documentation; Reporting                                                                                                                                                |
 
 ### 1.2. About our project
 
@@ -100,7 +100,7 @@ The user requirements of SmashBruh are as follows:
 - Ratings: Users value the ability to read and contribute to ratings. They want a platform that encourages user feedback, enabling them to make informed decisions and engage in discussions with other movie enthusiasts.
 - Flexible Rental Options: Users prefer flexible rental options, including various pricing plans with understandable cost to spend. They want the freedom to choose the rental plan that suits their preferences and viewing habits.
 - Cross-Platform Compatibility: Users want the flexibility to access SmashBruh on multiple devices, including web browsers, smartphones, tablets, and smart TVs. They expect a seamless experience that allows them to pick up where they left off across different devices.
-- Simple Payment Processing: Users don't have to worry about payment system because we uses simple calculation (addtion, subtraction, multiplication and division) based on what users have chosen to be their pricing plan mentioned in the previous part.
+- Simple Payment Processing: Users don't have to worry about payment system because we uses simple calculation (addition, subtraction, multiplication and division) based on what users have chosen to be their pricing plan mentioned in the previous part.
 
 By addressing these user requirements, SmashBruh can provide a user-centric experience that meets the expectations of movie enthusiasts, offering them a vast selection of content, seamless navigation and personalized recommendations.
 
@@ -273,7 +273,7 @@ The authentication interface and features of SmashBruh are as follows:
 - Schema: user-movie favorites
   - userID<String>: the ID of a valid user
   - movieID<String>: the ID of a movie or show
-  - meida_type<String>: Used to distinguish between movies and shows. The API we are using can have 2 duplicate ID, so specifying the type is necessary
+  - media_type<String>: Used to distinguish between movies and shows. The API we are using can have 2 duplicate ID, so specifying the type is necessary
   - IMAGE
 - Schema: user-movie ratings
   - userID, movieID, media_type: Similar to user-movie favorites
@@ -676,7 +676,7 @@ The development of SmashBruh Movie Renting Website requires a robust and efficie
 
 - Programming Languages: JavaScript takes center stage in the development process of the SmashBruh movie renting website. As a dynamic and versatile programming language, JavaScript empowers the website with interactivity and functionality. It enables features like seamless search functionality, dynamic recommendations, interactive elements, and smooth navigation. JavaScript's integration with backend APIs ensures efficient data retrieval and real-time updates.
 - Frameworks and Libraries:
-  We decided to use a combination of libaries and database to assist us in implementing the app. The combination or MERN stack, consists of Node.js - a premier JavaScript web server, Express.js - a Node.js web framework, React - a client-side JavaScript framework and MongoDB - a document database. The middle or application tier of our system is built using Express and Node. Express.js serves as the server-side web framework, while Node.js acts as the robust and widely adopted JavaScript server platform. Together, these technologies form a powerful foundation for developing and delivering web applications. Express provides a streamlined and efficient framework for handling web requests and managing routes, while Node enables the execution of server-side JavaScript code, allowing for scalable and high-performance server applications.
+  We decided to use a combination of libraries and database to assist us in implementing the app. The combination or MERN stack, consists of Node.js - a premier JavaScript web server, Express.js - a Node.js web framework, React - a client-side JavaScript framework and MongoDB - a document database. The middle or application tier of our system is built using Express and Node. Express.js serves as the server-side web framework, while Node.js acts as the robust and widely adopted JavaScript server platform. Together, these technologies form a powerful foundation for developing and delivering web applications. Express provides a streamlined and efficient framework for handling web requests and managing routes, while Node enables the execution of server-side JavaScript code, allowing for scalable and high-performance server applications.
 - Database Management System:
   MongoDB, a popular NoSQL database management system, serves as the foundation for storing and managing data in the SmashBruh movie renting website. MongoDB offers a flexible and scalable approach to data storage, making it ideal for handling movie information, user profiles, rental history, and other pertinent data.
 - Version Control System:
@@ -697,7 +697,7 @@ The CI/CD pipeline consists of three stages: test, build and deploy. Information
 
 - Environment: The test stage uses the node:16 Docker image as the execution environment.
 - Actions:
-  - The pipeline changes the directory to views/React, removes existing nodemodules and package-lock.json files, and installs dependencies using npm install.
+  - The pipeline changes the directory to views/React, removes existing node-modules and package-lock.json files, and installs dependencies using npm install.
   - Finally, it runs the tests using the npm test command.
 
 2. Build Stage:
@@ -823,7 +823,7 @@ In conclusion, our project aims to assist people in renting movies/shows and kee
 
 - Further Admin's Interface
 
-  - Despite implementing an admin checking function and establishing a conducive work environment within the database for administrators, we currently lack dedicated admin interfaces for them to efficiently operate and moderate the system. To address this limitation, it is crucial to develop a comprehensive admin interface that offers an extensive range of functionalities. The interface should provide an overview of user information and rental details, enabling administrators to gain insights and perform necessary actions. Examples of these actions include the ability to ban or unban users, disable specific movies from being rented or viewed, and execute other administrative tasks. By providing a robust and user-friendly admin interface, we empower administrators with the tools they need to effectively carry out their responsibilities and streamline their workflow.
+  - Despite implementing an admin checking function and establishing a conducive work environment within the database for administrators, we currently lack dedicated admin interfaces for them to efficiently operate and moderate the system. To address this limitation, it is crucial to develop a comprehensive admin interface that offers an extensive range of functionalities. The interface should provide an overview of user information and rental details, enabling administrators to gain insights and perform necessary actions. Examples of these actions include the ability to ban or un-ban users, disable specific movies from being rented or viewed, and execute other administrative tasks. By providing a robust and user-friendly admin interface, we empower administrators with the tools they need to effectively carry out their responsibilities and streamline their workflow.
 
 - Interactive Movie Discussion
 
