@@ -713,7 +713,12 @@ The CI/CD pipeline consists of three stages: test, build and deploy. Information
 - Deploy Stage Configuration:
   - Environment: The deploy stage utilizes the Vercel app integration, which requires setting up appropriate environment variables in the Vercel app.
   - Actions: When a new commit is pushed to GitLab, the pipeline initiates the deployment process by interacting with the Vercel app.
-- Deploying to Vercel:The pipeline integrates with the Vercel app, which allows for easy and automated deployment of the Node.js application.
+- Deploying to Vercel:
+  - The pipeline integrates with the Vercel app, which allows for easy and automated deployment of the Node.js application.
+
+In addition to the existing CI/CD pipeline stages, there is a specific section dedicated to deploying the backend of the application to the Render app. Due to limitations in the free tier of the Render app, automated deployment of the latest backend commit is not possible. Therefore, the deployment process for the backend needs to be done manually by deploying the most recent commit.
+
+IMAGE (X3)
 
 ### 5.5. API Utilization
 
