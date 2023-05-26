@@ -92,9 +92,10 @@ const HomeList = () => {
 
 
   return (
-    <div>
+    
+      <Box >
       <Carousel movie={discovery[Math.floor(Math.random() * discovery.length)]} />
-      <Box>
+      <Box >
         <Box>
           <Typography
             variant="h3"
@@ -265,7 +266,8 @@ const HomeList = () => {
           </FlexBetween>
         </Box>
       </Box>
-    </div>
+      </Box>
+   
   );
 };
 
