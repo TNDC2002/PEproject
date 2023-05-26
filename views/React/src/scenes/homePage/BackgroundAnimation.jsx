@@ -53,7 +53,7 @@ const generateRandomScale = () => {
 };
 
 const BackgroundAnimation = () => {
-  const numSnowflakes = 300; // Adjust the number of snowflakes here
+  const numSnowflakes = 100; // Adjust the number of snowflakes here
 
   const generateSnowflakes = () => {
     const snowflakes = [];
