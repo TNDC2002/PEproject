@@ -47,8 +47,7 @@ With our media rental web application, you can now keep track of rented movies a
 - [5. Implementation](#5-implementation)
   - [5.1. File Structure](#51-file-structure)
   - [5.2. Development Environment and Technology Stack](#52-development-environment-and-technology-stack)
-  - [5.3. CI/CD Testing and Docker](#53-cicd-testing-and-docker)
-  - [5.4. Deployment](#54-deployment)
+  - [5.3. CI/CD Testing, Docker and Deployment](#53-cicd-testing-docker-and-deployment)
   - [5.5. API Utilization](#55-api-utilization)
     - [5.5.1. Movies](#551-movies)
     - [5.5.2. TV Shows](#552-tv-shows)
@@ -652,35 +651,38 @@ The development of _SmashBruh_ Movie Renting Website requires a robust and effic
 
 By establishing a comprehensive development environment encompassing these components, _SmashBruh_ can ensure efficient development processes, high-quality code, and a scalable platform that meets the needs and expectations of clients
 
-### 5.3. CI/CD Testing and Docker
+### 5.3. CI/CD Testing, Docker and Deployment
 
-Continuous Integration and Continuous Deployment (CI/CD) testing is a crucial aspect of software development and deployment processes. In the context of SmashBruh, CI/CD testing plays a vital role in ensuring the reliability and stability of the website's codebase before it is deployed to production.
+The CI/CD pipeline automates the testing, building, and deployment of the application, ensuring efficient and reliable software delivery. The pipeline described in this document utilizes GitLab CI/CD and Docker for containerization.
+The CI/CD pipeline consists of three stages: test, build and deploy. Information about each stage in detail:
 
-To facilitate efficient and consistent testing, Docker containers are employed within the CI/CD pipeline of SmashBruh. Docker allows for the creation of isolated and reproducible environments that encapsulate the necessary dependencies and configurations required for testing the application. By utilizing Docker, SmashBruh can achieve consistency across different testing stages, ensuring that the application behaves consistently across various environments.
+1. Test Stage:
 
-The CI/CD pipeline incorporates a series of automated tests, such as unit tests, integration tests, and end-to-end tests, to verify the functionality, performance, and compatibility of the website. These tests help identify and address any potential bugs, issues, or regressions early in the development cycle, enabling rapid feedback and iterative improvements.
+- Environment: The test stage uses the node:16 Docker image as the execution environment.
+- Actions:
+  - The pipeline changes the directory to views/React, removes existing node_modules and package-lock.json files, and installs dependencies using npm install.
+  - Finally, it runs the tests using the npm test command.
 
-By leveraging CI/CD testing and Docker, SmashBruh benefits from a streamlined and reliable deployment process. Code changes are automatically tested, and if the tests pass successfully, the updated code is deployed to the production environment. This automated approach minimizes human error, reduces the time required for manual testing, and ensures a more efficient release cycle.
+2. Build Stage:
 
-Continuous Integration and Continuous Deployment (CI/CD) testing is a crucial aspect of software development and deployment processes. In the context of SmashBruh, CI/CD testing plays a vital role in ensuring the reliability and stability of the website's codebase before it is deployed to production.
+- Environment: The build stage utilizes the docker image and the docker:dind service, allowing Docker commands within the job. This stage involves two actions: constructing the server application image and creating the client application image.
+- Actions:
+  - For the build-server-image job:
+    - The pipeline changes the directory to the server
+    - It performs a Docker login to the specified registry using the provided credentials.
+    - The server image is built using docker build, tagged with the specified names and tags, and pushed to the registry.
+  - For the build-client-image job:
+    - The pipeline changes the directory to views/React.
+    - It performs a Docker login to the specified registry using the provided credentials.
+    - The client image is built using docker build, tagged, and pushed to the registry.
 
-To facilitate efficient and consistent testing, Docker containers are employed within the CI/CD pipeline of SmashBruh. Docker allows for the creation of isolated and reproducible environments that encapsulate the necessary dependencies and configurations required for testing the application. By utilizing Docker, SmashBruh can achieve consistency across different testing stages, ensuring that the application behaves consistently across various environments.
+3. Deploy Stage:
 
-The CI/CD pipeline incorporates a series of automated tests, such as unit tests, integration tests, and end-to-end tests, to verify the functionality, performance, and compatibility of the website. These tests help identify and address any potential bugs, issues, or regressions early in the development cycle, enabling rapid feedback and iterative improvements.
-
-By leveraging CI/CD testing and Docker, SmashBruh benefits from a streamlined and reliable deployment process. Code changes are automatically tested, and if the tests pass successfully, the updated code is deployed to the production environment. This automated approach minimizes human error, reduces the time required for manual testing, and ensures a more efficient release cycle.
-
-### 5.4. Deployment
-
-The deployment process is a critical phase in the lifecycle of SmashBruh, as it involves making the website accessible to its users. During deployment, the latest tested and approved version of the application is released to the production environment, allowing users to access the updated features and improvements.
-
-To ensure a smooth deployment process, SmashBruh utilizes a structured deployment strategy. This strategy involves careful planning and coordination to minimize disruptions and downtime for users. It may include techniques such as rolling deployments, blue-green deployments, or canary releases, depending on the specific requirements of the website.
-
-The deployment process also involves considerations for scalability, availability, and load balancing. SmashBruh aims to provide a seamless user experience even during periods of high traffic, and therefore employs strategies to distribute the workload efficiently across multiple servers or instances.
-
-Monitoring and logging mechanisms are integrated into the deployment process to track and analyze the performance of the deployed application. This allows for real-time insights into system health, error tracking, and performance optimization.
-
-Through an effective deployment process, SmashBruh ensures that updates and enhancements are rolled out to users in a controlled and reliable manner, providing a stable and continuously improving movie rental experience.
+- The deploy stage follows the build stage and is responsible for deploying the application to the Vercel app.
+- Deploy Stage Configuration:
+  - Environment: The deploy stage utilizes the Vercel app integration, which requires setting up appropriate environment variables in the Vercel app.
+  - Actions: When a new commit is pushed to GitLab, the pipeline initiates the deployment process by interacting with the Vercel app.
+- Deploying to Vercel:The pipeline integrates with the Vercel app, which allows for easy and automated deployment of the Node.js application.
 
 ### 5.5. API Utilization
 
