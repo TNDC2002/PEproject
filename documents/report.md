@@ -41,7 +41,7 @@ With our media rental web application, you can now keep track of rented movies a
     - [4.3.1. Users Interface:](#431-users-interface)
     - [4.3.2. Authentication Interface:](#432-authentication-interface)
   - [4.4. Structure and Relationships](#44-structure-and-relationships)
-  - [4.5. Data Model](#45-data-model)
+  - [4.5. Data Model:](#45-data-model)
   - [4.6. GUI](#46-gui)
   - [4.7. Functionality Design](#47-functionality-design)
 - [5. Implementation](#5-implementation)
@@ -259,139 +259,145 @@ The authentication interface and features of SmashBruh are as follows:
     - When a user search on the web page, a copy of the search string is saved to the database to enhance the user's experience.
   - Relationship:
     - A user can have many searched strings, and a searched string can belong to many users (many-to-many relationship)
-- Data Model:
-  - Schema: user
-    - firstName, lastName<String>: The name of the user
-    - password<String>: the user’s password, hashed using bcrypt library
-    - picturepath<String>: the user’s profile pictures
-    - verified<bool>: a value to determine whether the user has been verified or not
-    - token<String>: a token used for session control
-    - FbId, GgId, ghId<String>: Data for using Oauth2 with Facebook, Google and GitHub
-    - IMAGE
-  - Schema: user-movie favorites
-    - userID<String>: the ID of a valid user
-    - movieID<String>: the ID of a movie or show
-    - meida_type<String>: Used to distinguish between movies and shows. The API we are using can have 2 duplicate ID, so specifying the type is necessary
-    - IMAGE
-  - Schema: user-movie ratings
-    - userID, movieID, media_type: Similar to user-movie favorites
-    - Rating<int>: store the user’s rating
-    - season<int>: an additional index that store the season of a TV show, if the rental was a movie, then this index value is 0
-    - IMAGE
-  - Schema: user-movie rentals
-    - userID, movieID, media_type, season: Similar to user-movie favorites
-    - rentalBeginDate, rentalExpireDate<date>: store the date the movie/show was rented, and the expire date
-    - IMAGE
-  - Schema: user-searches
-    - userID: Similar to user-movie favorites
-    - searchedString<String>: Store a search string, when a user searches something, a new document of this type is created.
-    - IMAGE
-  - Schema: movie-availability
-    - movieID, media_type, season: Similar to user-movie favorites
-    - isAvailable: To specify whether a particular movie or show can be rented or not. This index can only be edited by SmashBruh’s admin.
-    - IMAGE
 
-### 4.5. Data Model
+### 4.5. Data Model:
 
-| Schema             | Attributes                                                                                            |
-| ------------------ | :---------------------------------------------------------------------------------------------------- |
-| User               | firstName, lastName, password, picturePath, verified, balance, token, isAdmin, FbId, GgId, TwId, GhId |
-| UserFavouriteMovie | userID, movieID, mediatype, season                                                                    |
-| UserRateMovie      | userID, movieID, rating, mediatype, season                                                            |
-| UserRentMovie      | userID, movieID, rentalBeginDate, rentalExpireDate, mediatype, season                                 |
-| UserRateMovie      | userID, movieID, rating, mediatype, season                                                            |
-| UserSearchHistory  | userID, searchedString, createdAt                                                                     |
-|                    |                                                                                                       |
+- Schema: user
+  - firstName, lastName<String>: The name of the user
+  - password<String>: the user’s password, hashed using bcrypt library
+  - picturepath<String>: the user’s profile pictures
+  - verified<bool>: a value to determine whether the user has been verified or not
+  - token<String>: a token used for session control
+  - FbId, GgId, ghId<String>: Data for using Oauth2 with Facebook, Google and GitHub
+  - IMAGE
+- Schema: user-movie favorites
+  - userID<String>: the ID of a valid user
+  - movieID<String>: the ID of a movie or show
+  - meida_type<String>: Used to distinguish between movies and shows. The API we are using can have 2 duplicate ID, so specifying the type is necessary
+  - IMAGE
+- Schema: user-movie ratings
+  - userID, movieID, media_type: Similar to user-movie favorites
+  - Rating<int>: store the user’s rating
+  - season<int>: an additional index that store the season of a TV show, if the rental was a movie, then this index value is 0
+  - IMAGE
+- Schema: user-movie rentals
+  - userID, movieID, media_type, season: Similar to user-movie favorites
+  - rentalBeginDate, rentalExpireDate<date>: store the date the movie/show was rented, and the expire date
+  - IMAGE
+- Schema: user-searches
+  - userID: Similar to user-movie favorites
+  - searchedString<String>: Store a search string, when a user searches something, a new document of this type is created.
+  - IMAGE
+- Schema: movie-availability
+  - movieID, media_type, season: Similar to user-movie favorites
+  - isAvailable: To specify whether a particular movie or show can be rented or not. This index can only be edited by SmashBruh’s admin.
+  - IMAGE
 
 ### 4.6. GUI
 
-HOME PAGE
+1. Login Screen
 
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/HomePage.png" alt="Home page" width="700">
+| Identification | Login Module                                                                                                                        |
+| :------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+| Type           | User Interface                                                                                                                      |
+| Purpose        | The Login module provides a secure and authenticated login screen for user to access the website                                    |
+| Subordinates   | None                                                                                                                                |
+| Dependencies   | The system must be connected to the database to verify user’s credentials, access permissions and register a new account            |
+| Interfaces     | The module will have buttons and fields for user to log in and sign up                                                              |
+| Resources      | The module requires a user interface for users to provide their information and backend system to validate and register new account |
+| Processing     | The module processes user’s requests to access the webpage, verifying their credentials and access permission                       |
+| Data           | The module validate user’s login account and register for a new one                                                                 |
 
-LOGIN PAGE
+2. Homepage
 
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/LoginPage.png" alt="Login page" width="700">
+| Identification | Home Page Module                                                                                                            |
+| :------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+| Type           | User Interface                                                                                                              |
+| Purpose        | Allows user to access different movies and TV Shows                                                                         |
+| Subordinates   | None                                                                                                                        |
+| Dependencies   | The system must be connected to the database and retrieve movies and TV shows using API from TMDB                           |
+| Interfaces     | The module has a navigation bar with buttons to route to another pages and movie and shows card for user to choose          |
+| Resources      | The module requires database and information from TMDB API                                                                  |
+| Processing     | The module processes user’s requests to view a specific film or TV series, retrieving data from the database and present it |
+| Data           | The module retrieves movie and TV shows information from the database                                                       |
 
-FEATURE MOVIES PAGE
+3. Feature Movies
 
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/FeatureMoviePage.png" alt="Feature Movie page" width="700">
+| Identification | Movie Module                                                                                                   |
+| :------------- | :------------------------------------------------------------------------------------------------------------- |
+| Type           | User Interface                                                                                                 |
+| Purpose        | Allow user to access different movies                                                                          |
+| Subordinates   | None                                                                                                           |
+| Dependencies   | The system must connect to the database using TMDB API to retrieve movies                                      |
+| Interfaces     | The module display movies with different criteria                                                              |
+| Resources      | The module requires database and information from TMDB API                                                     |
+| Processing     | The module processes user’s requests to view a specific film and retrieve data from the database to present it |
+| Data           | The module retrieves movie information from the database                                                       |
 
-MOVIE PAGES
+4. TV Shows
 
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/MoviePage.png" alt="Movie page" width="700">
+| Identification | Show Module                                                                                                         |
+| :------------- | :------------------------------------------------------------------------------------------------------------------ |
+| Type           | User Interface                                                                                                      |
+| Purpose        | Allows user to access different TV shows                                                                            |
+| Subordinates   | None                                                                                                                |
+| Dependencies   | The system must connect to the database using TMDB API to retrieve movies                                           |
+| Interfaces     | The module display TV shows with different criteria                                                                 |
+| Resources      | The module requires database and information from TMDB API                                                          |
+| Processing     | The module processes user’s requests to view a specific TV series and retrieve data from the database to present it |
+| Data           | The module retrieves TV shows information from the database                                                         |
 
-TV SHOWS PAGE
+5. My Lists
 
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/TVShowsPage.png" alt="TV Shows page" width="700">
+| Identification | List Module                                                                                                           |
+| :------------- | :-------------------------------------------------------------------------------------------------------------------- |
+| Type           | User Interface                                                                                                        |
+| Purpose        | Allow users to access their favorited and rented movies and TV series                                                 |
+| Subordinates   | None                                                                                                                  |
+| Dependencies   | The system must connect to the database to get user favorite and rented movies and tv shows as well as using TMDB API |
+| Interfaces     | The module display user favorite and rented movies and TV series                                                      |
+| Resources      | The module requires database and information from TMDB API                                                            |
+| Processing     | The module retrieve user favorite and rented movies or tv shows from the database and display them                    |
+| Data           | The module retrieve information from user’s database schema                                                           |
 
-SHOW PAGES
+6. Profile Page
 
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/ShowPage.png" alt="Show page" width="700">
+| Identification | Profile Module                                                                 |
+| :------------- | :----------------------------------------------------------------------------- |
+| Type           | User Interface                                                                 |
+| Purpose        | Allow user to access and modify profile page                                   |
+| Subordinates   | None                                                                           |
+| Dependencies   | The system must connect to the database to get user information                |
+| Interfaces     | The module has fields displaying user’s information and buttons to change them |
+| Resources      | The module requires user database schema                                       |
+| Processing     | The module retrieve user’s information from the database and display them      |
+| Data           | The module retrieve information from user’s database schema                    |
 
-PROFILE PAGES
+7. Movie Page
 
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/ProfilePage.png" alt="Profile page" width="700">
+| Identification | Movie Page Module                                                                                                                                                          |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type           | User Interface                                                                                                                                                             |
+| Purpose        | Allow user to view a movie’s further information, to rate a movie and to like and add it into their list                                                                   |
+| Subordinates   | None                                                                                                                                                                       |
+| Dependencies   | The system must connect to the database to get user information and TMDB API to fetch a movie’s information                                                                |
+| Interfaces     | The module display the movie’s trailer and information, buttons to like and favorite and recommendations                                                                   |
+| Resources      | The module requires user database schema                                                                                                                                   |
+| Processing     | The module retrieve user’s information from the database and display the rating and whether they like it or not as well as using TMDB API to fetch and display information |
+| Data           | The module retrieve information from user’s database schema and TMDB api                                                                                                   |
 
-SEARCH PAGES
+8. TV Page Module
 
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/SearchPage.png" alt="Search page" width="700">
-
-MY LIST PAGE WHEN NO INFORMATION
-
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/NoInfoMyList.png" alt="No Info My List page" width="700">
-
-MY LIST PAGE WHEN HAVE INFORMATION
-
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/InfoMyList.png" alt="Info My List page" width="700">
-
-COLOR PALETTE
-
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 100%;"
-    src="Images/ColorPalette.png" alt="Color palette" width="700">
+| Identification | TV Page Module                                                                                                                                                             |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type           | User Interface                                                                                                                                                             |
+| Purpose        | Allow user to view a series’s further information, to rate a series and to like and add it into their list                                                                 |
+| Subordinates   | None                                                                                                                                                                       |
+| Dependencies   | The system must connect to the database to get user information and TMDB API to fetch a show’s information                                                                 |
+| Interfaces     | The module display the TV show’s trailer and information, buttons to like and favorite and recommendations                                                                 |
+| Resources      | The module requires user database schema                                                                                                                                   |
+| Processing     | The module retrieve user’s information from the database and display the rating and whether they like it or not as well as using TMDB API to fetch and display information |
+| Data           | The module retrieve information from user’s database schema and TMDB api                                                                                                   |
 
 ### 4.7. Functionality Design
 
