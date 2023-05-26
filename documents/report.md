@@ -269,29 +269,53 @@ The authentication interface and features of SmashBruh are as follows:
   - verified<bool>: a value to determine whether the user has been verified or not
   - token<String>: a token used for session control
   - FbId, GgId, ghId<String>: Data for using Oauth2 with Facebook, Google and GitHub
-  - IMAGE
+    <img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;" 
+          src="Images\schema\schema_1.png" alt="Schema 1" width="700">
 - Schema: user-movie favorites
   - userID<String>: the ID of a valid user
   - movieID<String>: the ID of a movie or show
   - media_type<String>: Used to distinguish between movies and shows. The API we are using can have 2 duplicate ID, so specifying the type is necessary
-  - IMAGE
+    <img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;" 
+          src="Images\schema\schema_2.png" alt="Schema 2" width="700">
 - Schema: user-movie ratings
   - userID, movieID, media_type: Similar to user-movie favorites
   - Rating<int>: store the user’s rating
   - season<int>: an additional index that store the season of a TV show, if the rental was a movie, then this index value is 0
-  - IMAGE
+    <img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;" 
+          src="Images\schema\schema_3.png" alt="Schema 3" width="700">
 - Schema: user-movie rentals
   - userID, movieID, media_type, season: Similar to user-movie favorites
   - rentalBeginDate, rentalExpireDate<date>: store the date the movie/show was rented, and the expire date
-  - IMAGE
+    <img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;" 
+          src="Images\schema\schema_4.png" alt="Schema 4" width="700">
 - Schema: user-searches
   - userID: Similar to user-movie favorites
   - searchedString<String>: Store a search string, when a user searches something, a new document of this type is created.
-  - IMAGE
+    <img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;" 
+          src="Images\schema\schema_5.png" alt="Schema 5" width="700">
 - Schema: movie-availability
   - movieID, media_type, season: Similar to user-movie favorites
   - isAvailable: To specify whether a particular movie or show can be rented or not. This index can only be edited by SmashBruh’s admin.
-  - IMAGE
+    <img style="display: block; 
+               margin-left: auto;
+               margin-right: auto;
+               width: 100%;" 
+          src="Images\schema\schema_6.png" alt="Schema 6" width="700">
 
 ### 4.6. GUI
 
