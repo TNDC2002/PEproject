@@ -43,22 +43,22 @@ With our media rental web application, you can now keep track of rented movies a
   - [4.4. Structure and Relationships](#44-structure-and-relationships)
   - [4.5. Data Model](#45-data-model)
   - [4.6. GUI](#46-gui)
-  - [**4.7. Functionality Design**](#47-functionality-design)
-- [**5. Implementation**](#5-implementation)
-  - [**5.1. File Structure**](#51-file-structure)
-  - [**5.2. Development Environment and Technology Stack**](#52-development-environment-and-technology-stack)
-  - [**5.3. CI/CD Testing and Docker**](#53-cicd-testing-and-docker)
+  - [4.7. Functionality Design](#47-functionality-design)
+- [5. Implementation](#5-implementation)
+  - [5.1. File Structure](#51-file-structure)
+  - [5.2. Development Environment and Technology Stack](#52-development-environment-and-technology-stack)
+  - [5.3. CI/CD Testing and Docker](#53-cicd-testing-and-docker)
   - [5.4. Deployment](#54-deployment)
   - [5.5. API Utilization](#55-api-utilization)
-    - [**5.5.1. Movies**](#551-movies)
-    - [**5.5.2. TV Shows**](#552-tv-shows)
-    - [**5.5.3. Discovery**](#553-discovery)
-- [**6. User Guide**](#6-user-guide)
-  - [**6.1. Getting Started**](#61-getting-started)
-- [**7. Conclusion**](#7-conclusion)
-  - [**7.1. Summary of Project**](#71-summary-of-project)
-  - [**7.2. Future Work**](#72-future-work)
-  - [**7.3. References**](#73-references)
+    - [5.5.1. Movies](#551-movies)
+    - [5.5.2. TV Shows](#552-tv-shows)
+    - [5.5.3. Discovery](#553-discovery)
+- [6. User Guide](#6-user-guide)
+  - [6.1. Getting Started](#61-getting-started)
+- [7. Conclusion](#7-conclusion)
+  - [7.1. Summary of Project](#71-summary-of-project)
+  - [7.2. Future Work](#72-future-work)
+  - [7.3. References](#73-references)
 
 ## 2. Introduction
 
@@ -240,7 +240,8 @@ The authentication interface and features of _SmashBruh_ are as follows:
 ### 4.4. Structure and Relationships
 
 - _User_:
-  - _Description_: 
+
+  - _Description_:
     - In our website, a user can rent, rate and like as many movies or TV shows as they like, so we have built our database which revolve around such requirements. A user document is linked with 3 other documents, which are User's favorite, rental and ratings.
   - _Realtionship_:
     - A user can have many rentals (one-to-many relationship)
@@ -248,10 +249,11 @@ The authentication interface and features of _SmashBruh_ are as follows:
     - A user can rate many rentals (one-to-many relationship)
 
 - _Movie/Show_:
+
   - _Description_:
     - Since there are more than thousands of movies and TV shows current, in order to accurately and realistically access the infomation, we have opted to use an online movie and show database to fetch information. This means that there are no documents to store all of the movies and shows. Instead, we only fetch what we need, and store them.
-   - _Realtionship_:
-    - A movie/show can be associated with one user, user rating, user order and user favorite (one-to-one relationship)
+  - _Realtionship_:
+  - A movie/show can be associated with one user, user rating, user order and user favorite (one-to-one relationship)
 
 - _History_:
   - _Description_:
@@ -361,9 +363,9 @@ COLOR PALETTE
            width: 100%;"
     src="Images/ColorPalette.png" alt="Color palette" width="700">
 
-### **4.7. Functionality Design**
+### 4.7. Functionality Design
 
-**- Key features:**
+- Key features:
 
 - _View movies/shows_: display information of available movies/shows on the internet at the moment.
 
@@ -421,7 +423,7 @@ COLOR PALETTE
             width: 100%;"
     src="Images/my_list_2.png" alt="List 2" width="700">
 
-**- Other features:**
+- Other features:
 
 - _Search and History searched_: find what users are interested in and what you searched will remain in your history up to 5 most recent searches:
 
@@ -439,9 +441,9 @@ COLOR PALETTE
                width: 100%;"
         src="Images/movie-page-2.png" alt="Recommendations" width="700">
 
-## **5. Implementation**
+## 5. Implementation
 
-### **5.1. File Structure**
+### 5.1. File Structure
 
 ```
 C:.
@@ -455,17 +457,6 @@ C:.
 |   |   report.md
 |   |
 |   +---Images
-|   |       ColorPalette.png
-|   |       FeatureMoviePage.png
-|   |       HomePage.png
-|   |       InfoMyList.png
-|   |       LoginPage.png
-|   |       MoviePage.png
-|   |       NoInfoMyList.png
-|   |       ProfilePage.png
-|   |       SearchPage.png
-|   |       ShowPage.png
-|   |       TVShowsPage.png
 |   |
 |   +---Sequence
 |   |       Admin Sequence Diagrams.png
@@ -525,10 +516,6 @@ C:.
 |   |
 |   +---public
 |   |   \---assets
-|   |           307860482_775538183513924_2015211704355308618_n.jpg
-|   |           332081131_1973766242961950_6825159385800828004_n.jpg
-|   |           blood.png
-|   |           images.jpg
 |   |
 |   +---routes
 |   |       WebRoutes.js
@@ -563,71 +550,11 @@ C:.
     |   |   |   theme.js
     |   |   |
     |   |   +---assets
-    |   |   |   |   Color Hunt Palette 060047b3005ee90064ff5f9e.png
+    |   |   |   |
     |   |   |   |
     |   |   |   +---image
-    |   |   |   |       accountBox.png
-    |   |   |   |       backgroundNavpage.png
-    |   |   |   |       backgroundNavPage2.png
-    |   |   |   |       backgroundNavPage3.png
-    |   |   |   |       bob.png
-    |   |   |   |       Buy1000.png
-    |   |   |   |       Buy1500.png
-    |   |   |   |       Buy2000.png
-    |   |   |   |       Buy300.png
-    |   |   |   |       Buy3000.png
-    |   |   |   |       Buy600.png
-    |   |   |   |       Demo.png
-    |   |   |   |       demo2-1.png
-    |   |   |   |       demo2.png
-    |   |   |   |       demo3.png
-    |   |   |   |       demo4.png
-    |   |   |   |       demo5.png
-    |   |   |   |       demo6.png
-    |   |   |   |       demo7.png
-    |   |   |   |       movieBox.png
-    |   |   |   |       navbarCover.png
-    |   |   |   |       navbarCover2.png
-    |   |   |   |       PaymentBackground.png
-    |   |   |   |       PaymentCover.png
-    |   |   |   |       profileBackground.png
-    |   |   |   |       ProfileBehind.png
-    |   |   |   |       profileBox.png
-    |   |   |   |       profileBox2.png
-    |   |   |   |       profileBox3.png
-    |   |   |   |       profileBox4.png
-    |   |   |   |       profileBox5.png
-    |   |   |   |       profileBox6.png
-    |   |   |   |       profileBox7.png
-    |   |   |   |       profileBox8.png
-    |   |   |   |       profileCover.jpg
-    |   |   |   |       profileCover2.jpg
-    |   |   |   |       profileCover3.png
-    |   |   |   |       profileCoverBot.png
-    |   |   |   |       profileCoverBot2.png
-    |   |   |   |       profileCoverBot3.png
-    |   |   |   |       profileCoverBot4.png
-    |   |   |   |       profileCoverBot5.png
-    |   |   |   |       profileCoverBot6.png
-    |   |   |   |       SmashDong.png
-    |   |   |   |       SmashDong1000.png
-    |   |   |   |       SmashDong1500.png
-    |   |   |   |       SmashDong2000.png
-    |   |   |   |       SmashDong300.png
-    |   |   |   |       SmashDong3000.png
-    |   |   |   |       SmashDong600.png
     |   |   |   |
     |   |   |   \---images
-    |   |   |           background.png
-    |   |   |           card.png
-    |   |   |           Logo.png
-    |   |   |           logoCard.png
-    |   |   |           logoCard2.png
-    |   |   |           logoCard3.png
-    |   |   |           logoCard4.png
-    |   |   |           SmashBruh.png
-    |   |   |           test.jpg
-    |   |   |           textLogo.png
     |   |   |
     |   |   +---components
     |   |   |       FlexBetween.jsx
@@ -707,7 +634,7 @@ C:.
             test.ejs
 ```
 
-### **5.2. Development Environment and Technology Stack**
+### 5.2. Development Environment and Technology Stack
 
 The development of _SmashBruh_ Movie Renting Website requires a robust and efficient development environment to ensure the smooth creation and deployment of the platform. Here's an overview of the key components of the development environment:
 
@@ -725,7 +652,7 @@ The development of _SmashBruh_ Movie Renting Website requires a robust and effic
 
 By establishing a comprehensive development environment encompassing these components, _SmashBruh_ can ensure efficient development processes, high-quality code, and a scalable platform that meets the needs and expectations of clients
 
-### **5.3. CI/CD Testing and Docker**
+### 5.3. CI/CD Testing and Docker
 
 Continuous Integration and Continuous Deployment (CI/CD) testing is a crucial aspect of software development and deployment processes. In the context of SmashBruh, CI/CD testing plays a vital role in ensuring the reliability and stability of the website's codebase before it is deployed to production.
 
@@ -757,7 +684,7 @@ Through an effective deployment process, SmashBruh ensures that updates and enha
 
 ### 5.5. API Utilization
 
-#### **5.5.1. Movies**
+#### 5.5.1. Movies
 
 | API                | Purpose                                                                                           | Request Type | Parameter      |
 | ------------------ | ------------------------------------------------------------------------------------------------- | ------------ | -------------- |
@@ -768,7 +695,7 @@ Through an effective deployment process, SmashBruh ensures that updates and enha
 | getList            | allows you to retrieve a list of movies based on a specified category.                            | GET          | category, page |
 |                    |                                                                                                   |              |
 
-#### **5.5.2. TV Shows**
+#### 5.5.2. TV Shows
 
 | API                    | Purpose                                                                                        | Request Type | Parameter      |
 | ---------------------- | ---------------------------------------------------------------------------------------------- | ------------ | -------------- |
@@ -779,7 +706,7 @@ Through an effective deployment process, SmashBruh ensures that updates and enha
 | getShowList            | allows you to retrieve a list of tv shows based on a specified category.                       | GET          | category, page |
 |                        |                                                                                                |              |
 
-#### **5.5.3. Discovery**
+#### 5.5.3. Discovery
 
 | API               | Purpose                                                                                                           | Request Type | Parameter |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------- | ------------ | --------- |
@@ -789,9 +716,9 @@ Through an effective deployment process, SmashBruh ensures that updates and enha
 | getAnimeDiscovery | allows you to retrieve a list of anime based on discovery parameters, enabling users to discover popular anime.   | GET          | page      |
 |                   |                                                                                                                   |              |
 
-## **6. User Guide**
+## 6. User Guide
 
-### **6.1. Getting Started**
+### 6.1. Getting Started
 
 Getting Started Guide for _SmashBruh_ Movie Renting Website after launching Website:
 
@@ -836,13 +763,13 @@ Once the payment is processed successfully, you'll receive a confirmation messag
 7. _Explore Additional Features:_
    While movie rentals are at the core of _SmashBruh_, we offer additional features to your movie-watching experience. Explore our curated playlists, personalized recommendations.
 
-## **7. Conclusion**
+## 7. Conclusion
 
-### **7.1. Summary of Project**
+### 7.1. Summary of Project
 
 In conclusion, our project aims to assist people in renting movies/shows and keeping track of their favourite movies/shows. Our web application is not a rental platform but it can acts as a middleware from clients to one if implemented correctly. With the The Movie Database as our main API, we can provide you information about every movies and TV shows that you like.
 
-### **7.2. Future Work**
+### 7.2. Future Work
 
 - Despite facing time constraints and limited experience working on a large-scale team project, we encountered challenges in meeting deadlines and fully achieving our initial ideas and objectives. However, it is important to acknowledge the significant progress we have made and the invaluable lessons we have learned in the realms of web development and collaborative teamwork. Drawing from these experiences, we can identify future objectives aimed at refining and optimizing the app
 
@@ -866,7 +793,7 @@ In conclusion, our project aims to assist people in renting movies/shows and kee
 
   - Users can scan movie posters using their smartphones or tablets and access interactive content such as trailers, behind-the-scenes footage, or exclusive interviews with the cast and crew.
 
-### **7.3. References**
+### 7.3. References
 
 - Color Palette: https://colorhunt.co/palette/060047b3005ee90064ff5f9e
 - GitLab: https://gitlab.com/galvdat/vgu_tinyprojects/pe2023/vgupe2023_team5
