@@ -403,79 +403,16 @@ The authentication interface and features of SmashBruh are as follows:
 
 - Key features:
 
-- View movies/shows: display information of available movies/shows on the internet at the moment.
-
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/homepage2.png" alt="Home Page" width="700">
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/homepage.png" alt="Home Page" width="700">
-
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/movie-page.png" alt="Movie Page" width="700">
-
-- Favourite: press heart button and that movies/shows are stored inside collections of favourites of everything.
-
-<img style="display: block; 
-                margin-left: auto;
-                margin-right: auto;
-                width: 100%;"
-        src="Images/heartmovie.png" alt="Heart" width="700">
-
-- Rent: rent a movie or show for a period of time then the movie or show automatically expires after the expiration day of the movie or show is exceeded.
-
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/rentmovie.png" alt="Rent" width="700">
-
-- Rate: rate a movie or show for a number of stars and it is stored in the database storage of individuals.
-
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/ratemovie.png" alt="Rate" width="700">
-
-- My list: where you can view your liked movies or tv shows
-
-<img style="display: block; 
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;"
-    src="Images/mylist.png" alt="List 1" width="700">
-<img style="display: block; 
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;"
-    src="Images/mylist2.png" alt="List 2" width="700">
+  - View movies/shows: display information of available movies/shows on the internet at the moment.
+  - Favourite: press heart button and that movies/shows are stored inside collections of favourites of everything.
+  - Rent: rent a movie or show for a period of time then the movie or show automatically expires after the expiration day of the movie or show is exceeded.
+  - Rate: rate a movie or show for a number of stars and it is stored in the database storage of individuals.
 
 - Other features:
 
-- Search and History searched: find what users are interested in and what you searched will remain in your history up to 5 most recent searches:
-
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/searchmovie.png" alt="Searches" width="700">
-
-- Recommendation: recommend based on the genres, cast of movies or shows accessed at real-time by users on any given movie and show page.
-
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/movie-page-2.png" alt="Recommendations" width="700">
+  - Search and History searched: find what users are interested in and what you searched will remain in your history up to 5 most recent searches
+  - My list: where you can view your liked movies or tv shows
+  - Recommendation: recommend based on the genres, cast of movies or shows accessed at real-time by users on any given movie and show page.
 
 ## 5. Implementation
 
@@ -769,37 +706,17 @@ Getting Started Guide for SmashBruh Movie Renting Website after launching Websit
 1. Create an Account:
    To access all the features and benefits of SmashBruh, start by creating your account. Click on the "Sign Up" button on the homepage and provide the required information, including your name, email address, and a secure password. Once you've filled in the details, click "Finish" to proceed.
 
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/login.png" alt="Login" width="700"> 2. Explore Movie Catalog:
-After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Feature Movies" or "Shows" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
-
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/homepage.png" alt="Look up Movies" width="700">
+2. Explore Movie Catalog:
+   After successfully creating your account, it's time to explore our extensive movie catalog. Navigate to the "Feature Movies" or "Shows" section to discover a wide range of genres. Browse through the collections, popular releases, or use the search bar to find specific movies.
 
 3. Select and Rent Movies:
    When you find a movie you want to rent, click on its title to access the movie details page. Here, you'll find a synopsis, cast and crew information, user reviews, and other relevant details. Click on "Rent" to proceed to the checkout. You can also "favourite" a movie and rate them with the corresponding icons.
 
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/movie-page.png" alt="" width="700">
-
 4. Make Payment:
    At the checkout, review your selected movie and rental duration. SmashBruh provides secure payment options. Choose your preferred payment method, enter the required details, and click "Smash" to finalize your rental.
 
-<img style="display: block; 
-               margin-left: auto;
-               margin-right: auto;
-               width: 100%;"
-        src="Images/rentmovie.png" alt="" width="700"> 5. Enjoy Your Movie:
-Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented.
+5. Enjoy Your Movie:
+   Once the payment is processed successfully, you'll receive a confirmation message along with access to the movie. Head to the "My Rentals" section, where you'll find all the movies you've rented.
 
 6. Manage Your Account:
    SmashBruh provides a user-friendly account management interface to help you keep track of your rentals, update your personal information, and manage your payment methods. Access the "My Profile" section to view and modify your profile, change your password, or update your payment details.
