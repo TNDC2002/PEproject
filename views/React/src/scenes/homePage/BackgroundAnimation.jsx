@@ -16,7 +16,7 @@ const fallAnimation = keyframes`
 `;
 
 const SnowContainer = styled('div')`
-  height: 330vh;
+  height: 333vh;
   background: linear-gradient(180deg, rgba(6,0,71,1) 0%, rgba(179,0,94,1) 91%, rgba(233,0,100,1) 100%, rgba(233,0,100,1) 100%);
   overflow: hidden;
   filter: drop-shadow(0 0 10px white);
@@ -53,7 +53,7 @@ const generateRandomScale = () => {
 };
 
 const BackgroundAnimation = () => {
-  const numSnowflakes = 100; // Adjust the number of snowflakes here
+  const numSnowflakes = 80; // Adjust the number of snowflakes here
 
   const generateSnowflakes = () => {
     const snowflakes = [];
