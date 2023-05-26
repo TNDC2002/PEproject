@@ -332,6 +332,12 @@ The authentication interface and features of SmashBruh are as follows:
 | Processing     | The module processes user’s requests to access the webpage, verifying their credentials and access permission                       |
 | Data           | The module validate user’s login account and register for a new one                                                                 |
 
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;" 
+      src="Images\pages\login_page.jpeg" alt="GUI 1" width="700">
+
 2. Homepage
 
 | Identification | Home Page Module                                                                                                            |
@@ -344,6 +350,12 @@ The authentication interface and features of SmashBruh are as follows:
 | Resources      | The module requires database and information from TMDB API                                                                  |
 | Processing     | The module processes user’s requests to view a specific film or TV series, retrieving data from the database and present it |
 | Data           | The module retrieves movie and TV shows information from the database                                                       |
+
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;" 
+      src="Images\pages\home_page.jpeg" alt="GUI 2" width="700">
 
 3. Feature Movies
 
@@ -358,6 +370,12 @@ The authentication interface and features of SmashBruh are as follows:
 | Processing     | The module processes user’s requests to view a specific film and retrieve data from the database to present it |
 | Data           | The module retrieves movie information from the database                                                       |
 
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;" 
+      src="Images\pages\feature_movies_page.jpeg" alt="GUI 3" width="700">
+
 4. TV Shows
 
 | Identification | Show Module                                                                                                         |
@@ -371,7 +389,13 @@ The authentication interface and features of SmashBruh are as follows:
 | Processing     | The module processes user’s requests to view a specific TV series and retrieve data from the database to present it |
 | Data           | The module retrieves TV shows information from the database                                                         |
 
-5. My Lists
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;" 
+      src="Images\pages\tv_shows_page.jpeg" alt="GUI 4" width="700">
+
+1. My Lists
 
 | Identification | List Module                                                                                                           |
 | :------------- | :-------------------------------------------------------------------------------------------------------------------- |
@@ -383,6 +407,12 @@ The authentication interface and features of SmashBruh are as follows:
 | Resources      | The module requires database and information from TMDB API                                                            |
 | Processing     | The module retrieve user favorite and rented movies or tv shows from the database and display them                    |
 | Data           | The module retrieve information from user’s database schema                                                           |
+
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;" 
+      src="Images\pages\my_list_page.jpeg" alt="GUI 5" width="700">
 
 6. Profile Page
 
@@ -397,6 +427,12 @@ The authentication interface and features of SmashBruh are as follows:
 | Processing     | The module retrieve user’s information from the database and display them      |
 | Data           | The module retrieve information from user’s database schema                    |
 
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;" 
+      src="Images\pages\profile_page.jpeg" alt="GUI 6" width="700">
+
 7. Movie Page
 
 | Identification | Movie Page Module                                                                                                                                                          |
@@ -410,6 +446,18 @@ The authentication interface and features of SmashBruh are as follows:
 | Processing     | The module retrieve user’s information from the database and display the rating and whether they like it or not as well as using TMDB API to fetch and display information |
 | Data           | The module retrieve information from user’s database schema and TMDB api                                                                                                   |
 
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;" 
+      src="Images\pages\movie_page_1.jpeg" alt="GUI 7" width="700">
+
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;" 
+      src="Images\pages\movie_page_2.jpeg" alt="GUI 8" width="700">
+
 8. TV Page Module
 
 | Identification | TV Page Module                                                                                                                                                             |
@@ -422,6 +470,18 @@ The authentication interface and features of SmashBruh are as follows:
 | Resources      | The module requires user database schema                                                                                                                                   |
 | Processing     | The module retrieve user’s information from the database and display the rating and whether they like it or not as well as using TMDB API to fetch and display information |
 | Data           | The module retrieve information from user’s database schema and TMDB api                                                                                                   |
+
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;" 
+      src="Images\pages\show_page_1.jpeg" alt="GUI 9" width="700">
+
+<img style="display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;" 
+      src="Images\pages\show_page_2.jpeg" alt="GUI 9" width="700">
 
 ### 4.7. Functionality Design
 
@@ -685,7 +745,23 @@ The CI/CD pipeline consists of three stages: test, build and deploy. Information
 
 In addition to the existing CI/CD pipeline stages, there is a specific section dedicated to deploying the backend of the application to the Render app. Due to limitations in the free tier of the Render app, automated deployment of the latest backend commit is not possible. Therefore, the deployment process for the backend needs to be done manually by deploying the most recent commit.
 
-IMAGE (X3)
+<img style="display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;"
+      src="Images\deploy\deploy_1.png" alt="Schema 1" width="700">
+
+<img style="display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;"
+      src="Images\deploy\deploy_2.png" alt="Schema 2" width="700">
+
+<img style="display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;"
+      src="Images\deploy\deploy_3.png" alt="Schema 3" width="700">
 
 ### 5.5. API Utilization
 
