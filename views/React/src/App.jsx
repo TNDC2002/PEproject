@@ -15,7 +15,7 @@ import MyListPage from "./scenes/mylistPage";
 import FeaturePage from "./scenes/featurePage";
 import TvPage from "./scenes/tvPage";
 import ProfilePage from "./scenes/profilePage/NewDesign";
-
+import AdminPage from "./scenes/adminPage";
 import Loading from "./components/Loading";
 import { setMode, setLogin } from "./states/index.js";
 import { useDispatch } from "react-redux";
@@ -25,6 +25,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -152,6 +153,12 @@ function App() {
               path="/home/search"
               element={authenticated ? <SearchPage /> : <Navigate to="/" />}
             />
+            <Route
+            path="/admin"
+            element={authenticated ? <AdminPage /> : <Navigate to="/" />}
+            >
+
+            </Route>
             <Route
               path="/movie/:movieID"
               element={
