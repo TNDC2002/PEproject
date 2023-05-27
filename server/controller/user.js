@@ -31,7 +31,6 @@ export const getUserImage = async (req, res) => {
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(path.dirname(__filename));
         const imagePath = path.join(__dirname, 'public/assets', user.picturePath);
-        console.log(imagePath);
         fs.readFile(imagePath, (err, data) => {
             if (err) {
                 console.log('Image not found');

@@ -86,9 +86,7 @@ const Fb_Callback = async (req) => {
 const Gh_Callback = async (req) => {
     try {
         const GhId = req.session.passport.user;
-        console.log("GhId:", GhId)
         const user = await User.findOne({ GhId: GhId });
-        console.log(user)
         if (!user) {
             return {
                 status: 400,
