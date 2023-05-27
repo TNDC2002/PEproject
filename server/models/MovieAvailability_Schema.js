@@ -15,11 +15,6 @@ const MovieAvailabilitySchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    isAvailable: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
   },
   { timestamps: true }
 );
