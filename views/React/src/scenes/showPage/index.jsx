@@ -139,6 +139,7 @@ const ShowPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
+      credentials: 'include'
     });
   };
 
@@ -163,6 +164,7 @@ const ShowPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
+      credentials: 'include'
     });
   };
 
@@ -183,6 +185,7 @@ const ShowPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
+        credentials: 'include'
       }
     );
   };
@@ -225,7 +228,6 @@ const ShowPage = () => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: 'include'
-
     });
 
     const result = await checkFavoriteResponse.json();
@@ -247,7 +249,6 @@ const ShowPage = () => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: 'include'
-
     });
 
     const result = await checkRatedResponse.json();
@@ -352,7 +353,6 @@ const ShowPage = () => {
         );
         const data = await response.json();
         setRecommendations(data.results);
-        console.log(recommendations);
       } catch (error) {
         console.error(error);
       }
