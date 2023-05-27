@@ -41,7 +41,6 @@ function App() {
         if (currentPath === "/auth/google") {
           setLoading(false);
           setAuthenticated(true);
-          console.log("Now calling route /login/google")
           const response = await fetch(`${VITE_BASE_URL}/login/google`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },

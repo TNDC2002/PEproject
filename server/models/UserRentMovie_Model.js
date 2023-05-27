@@ -64,7 +64,6 @@ const POST_rental = async (req) => {
               season: season
             });
             const savedRent = await newRent.save();
-            console.log("New object created is: " + savedRent);
           }
     } catch (err) {
         return {

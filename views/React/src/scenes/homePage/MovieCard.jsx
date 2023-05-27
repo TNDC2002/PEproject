@@ -25,15 +25,26 @@ const MovieCard = ({ movie }) => {
       sx={{
         display: 'flex',
         position: 'relative',
+        boxShadow: '.4rem .4rem black',
+        border: ".5vmin solid #05060f",
+        transition: 'all 0.5s',
         "&:hover":{
           cursor: "pointer",
-          boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+          boxShadow: "16px 16px 0 rgba(32,33,37,10)",
+          transform: 'translate(-2px, -4px)',
+          
+        },
+
+        "&:active":{
+          cursor: "pointer",
+          transform: "translate(-2px, -4px)",
+          boxShadow: "4px 4px 0  rgba(32,33,37,.70)",
         }
       }}
     >
       <Image 
         src={imageUrl}
-        width={200 / 1.5}
+        width={190 / 1.5}
         height={300 / 1.5}
         alt={`${movie.title} poster`}
       />

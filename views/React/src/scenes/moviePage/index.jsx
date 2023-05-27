@@ -357,7 +357,6 @@ const MoviePage = () => {
   }, [movieID]);
 
   const fetchInformation = async () => {
-    console.log("now fetching user data")
     const checkFavouriteResponse = await checkFavorite(user._id, movieID);
     setIsFavourited(checkFavouriteResponse);
 

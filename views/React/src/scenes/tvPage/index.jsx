@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import Navbar from "../navbar";
 import TvList from "./tvList";
-
+import BackgroundAnimation from "../homePage/BackgroundAnimation";
 const CATEGORY_API_ENDPOINTS = {
   popular: "popular",
   topRated: "top_rated",
@@ -86,6 +86,10 @@ const TvPage = () => {
   return (
     <Box>
       <Navbar currentPage='TV Shows' />
+      <div style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
+          <BackgroundAnimation />
+        </div>
       <TvList
         shows={topRatedShows}
         category="critically acclaimed"
@@ -110,7 +114,9 @@ const TvPage = () => {
         page={onTheAirPage}
         setPage={setOnTheAirPage}
       />
+      </div>
     </Box>
+
   );
 };
 

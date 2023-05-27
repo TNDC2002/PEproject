@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import Navbar from "../navbar";
 import FeatureList from "./featureList";
-
+import BackgroundAnimation from "../homePage/BackgroundAnimation";
 const CATEGORY_API_ENDPOINTS = {
   popular: "popular",
   nowPlaying: "now_playing",
@@ -86,6 +86,12 @@ const FeaturePage = () => {
   return (
     <Box>
       <Navbar currentPage='Feature Movies' />
+
+      <div style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
+          <BackgroundAnimation />
+        </div>
+      
       <FeatureList
         movies={popularMovies}
         category="popular"
@@ -110,6 +116,7 @@ const FeaturePage = () => {
         page={upcomingPage}
         setPage={setUpcomingPage}
       />
+      </div>
     </Box>
   );
 };

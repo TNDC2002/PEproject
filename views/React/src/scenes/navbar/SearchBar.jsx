@@ -272,7 +272,8 @@ const SearchBar = () => {
   }}
 />
 
-      
+
+
       
 
 

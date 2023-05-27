@@ -7,6 +7,41 @@ import { useParams } from "react-router";
 import ShowDiscoveryCard from "./ShowDiscoveryCard";
 import Carousel from "./Carousel";
 import Loading from "../../components/Loading";
+import React from 'react';
+
+import { styled, keyframes } from '@mui/system';
+
+
+const shineAnimation = keyframes`
+  0% {
+    background-position: -250px;
+  }
+  60% {
+    background-position: 250px;
+  }
+  100% {
+    background-position: 250px;
+  }
+`;
+
+const ShiningText = styled(Typography)`
+  
+  margin: "1rem 1.15rem",
+  fontWeight: "bold",
+  padding: 12px 48px;
+  color: #fff;
+  background: linear-gradient(to right, #FF5F9E 0, #fff 10%, #FF5F9E 20%);
+  background-position: 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: ${shineAnimation} 3s infinite linear;
+  animation-fill-mode: forwards;
+  -webkit-text-size-adjust: none;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+`;
+
+
 
 const HomeList = () => {
   const [discovery, setDiscovery] = useState(null);
@@ -92,20 +127,15 @@ const HomeList = () => {
 
 
   return (
-    <div>
+    
+      <Box >
       <Carousel movie={discovery[Math.floor(Math.random() * discovery.length)]} />
-      <Box>
+      <Box >
         <Box>
-          <Typography
-            variant="h3"
-            sx={{
-              margin: "1rem 1.15rem",
-              fontWeight: "bold",
-              color: "white",
-            }}
-          >
-            Movies Discovery
-          </Typography>
+        <ShiningText fontSize={"20px"} sx={{  margin: "1rem 1.15rem",fontWeight: "bold" }}>
+          MOVIES DISCOVERY
+    </ShiningText>
+          
           <Grid container spacing={2.25} justifyContent="center">
             {discovery?.map?.((movie) => (
               <Grid item key={movie.id}>
@@ -153,16 +183,9 @@ const HomeList = () => {
       </Box>
       <Box>
         <Box>
-          <Typography
-            variant="h3"
-            sx={{
-              margin: "1rem 1.15rem",
-              fontWeight: "bold",
-              color: "white",
-            }}
-          >
-            Shows Discovery
-          </Typography>
+        <ShiningText fontSize={"20px"} sx={{  margin: "1rem 1.15rem",fontWeight: "bold" }}>
+          SHOWS DISCOVERY
+    </ShiningText>
           <Grid container spacing={2.25} justifyContent="center">
             {showDiscovery?.map?.((show) => (
               <Grid item key={show.id}>
@@ -210,16 +233,9 @@ const HomeList = () => {
       </Box>
       <Box>
         <Box>
-          <Typography
-            variant="h3"
-            sx={{
-              margin: "1rem 1.15rem",
-              fontWeight: "bold",
-              color: "white",
-            }}
-          >
-            Anime Films Discovery
-          </Typography>
+        <ShiningText fontSize={"20px"} sx={{  margin: "1rem 1.15rem",fontWeight: "bold" }}>
+          ANIME FILM DISCOVERY
+    </ShiningText>
           <Grid container spacing={2.25} justifyContent="center">
             {animeDiscovery?.map?.((anime) => (
               <Grid item key={anime.id}>
@@ -265,7 +281,8 @@ const HomeList = () => {
           </FlexBetween>
         </Box>
       </Box>
-    </div>
+      </Box>
+   
   );
 };
 
