@@ -44,9 +44,13 @@ const MyListPage = () => {
             )
 
             const result = await fetchUserFavouriteResponse.json();
+            const updatedResult = await Promise.all(result.map(async (media) => {
+                const hoveredMediaInfo = await fetchHoveredMediaUser(user._id, media.id, media.media_type, media.intendedSeason);
+                return { ...media, ...hoveredMediaInfo };
+            }));
             // Filter the response based on media_type and update the state variables accordingly
-            const favouriteMoviesResult = result.filter(item => item.media_type === "movie");
-            const favouriteShowsResult = result.filter(item => item.media_type === "tv");
+            const favouriteMoviesResult = updatedResult.filter(item => item.media_type === "movie");
+            const favouriteShowsResult = updatedResult.filter(item => item.media_type === "tv");
 
             setFavouriteMovie(favouriteMoviesResult);
             setFavouriteShow(favouriteShowsResult);
@@ -67,9 +71,13 @@ const MyListPage = () => {
             )
 
             const result = await fetchUserRentResponse.json();
+            const updatedResult = await Promise.all(result.map(async (media) => {
+                const hoveredMediaInfo = await fetchHoveredMediaUser(user._id, media.id, media.media_type, media.intendedSeason);
+                return { ...media, ...hoveredMediaInfo };
+              }));
             // Filter the response based on media_type and update the state variables accordingly
-            const rentedMoviesResult = result.filter(item => item.media_type === "movie");
-            const rentedShowsResult = result.filter(item => item.media_type === "tv");
+            const rentedMoviesResult = updatedResult.filter(item => item.media_type === "movie");
+            const rentedShowsResult = updatedResult.filter(item => item.media_type === "tv");
 
             setRentedMovie(rentedMoviesResult);
             setRentedShow(rentedShowsResult);
@@ -77,6 +85,9 @@ const MyListPage = () => {
         fetchUserRentedMovieShow(user._id);
     }, [])
 
+    useEffect(() => {
+
+    }, [])
     const fetchHoveredMediaUser = async (userID, mediaID, media_type, season) => {
         const requestData = {
             userID: userID,
@@ -119,8 +130,7 @@ const MyListPage = () => {
         const checkRentResult = await checkRentResponse.json();
 
         const hoveredMediaInfo = { ...checkFavouriteResult, ...checkRateResult, ...checkRentResult }
-        setHoveredMediaData(hoveredMediaInfo);
-        console.log(hoveredMediaInfo);
+        return hoveredMediaInfo;
     }
 
     const Spinner = styled("Box")({
@@ -199,7 +209,7 @@ const MyListPage = () => {
         <Box>
             <Navbar currentPage="My List" ></Navbar>
             <Box>
-                {favouriteMovie.length === 0 && favouriteShow.length === 0 ?
+                {favouriteMovie.length === 0 && favouriteShow.length === 0 && rentedMovie.length == 0 && rentedShow.length == 0?
                     <Spinner>
                         <Typography>N</Typography>
                         <Typography>O</Typography>
@@ -239,11 +249,9 @@ const MyListPage = () => {
                                     <Box
                                         onMouseEnter={async () => {
                                             setHoveredFavouriteMovieId(movie.id);
-                                            await fetchHoveredMediaUser(user._id, movie.id, "movie", 0)
                                         }}
                                         onMouseLeave={() => {
                                             setHoveredFavouriteMovieId(null);
-                                            setHoveredMediaData(null)
                                         }}
                                         sx={{
                                             position: 'relative',
@@ -282,8 +290,8 @@ const MyListPage = () => {
 
                                                     }}>{movie.title}</Typography>
                                                     <Avatar>
-                                                        {hoveredMediaData ?
-                                                            (hoveredMediaData.Favourite_return.favourited ? (
+                                                        {movie ?
+                                                            (movie.Favourite_return.favourited ? (
                                                                 <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                                                             ) : (
                                                                 <FavoriteOutlinedIcon
@@ -296,7 +304,7 @@ const MyListPage = () => {
 
                                                     </Avatar>
                                                     <Rating name="read-only"
-                                                        value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0}
+                                                        value={movie ? movie.Rating_return.RateValue ? movie.Rating_return.RateValue : 0 : 0}
                                                         precision="0.5"
                                                         readOnly
                                                         sx={{ fontSize: "25px" }}>
@@ -330,11 +338,9 @@ const MyListPage = () => {
                                     <Box
                                         onMouseEnter={async () => {
                                             setHoveredFavouriteShowId(`${show.id}-${show.intendedSeason}`);
-                                            await fetchHoveredMediaUser(user._id, show.id, "tv", show.intendedSeason)
                                         }}
                                         onMouseLeave={() => {
                                             setHoveredFavouriteShowId(null);
-                                            setHoveredMediaData(null)
                                         }}
                                         sx={{
                                             position: 'relative',
@@ -372,8 +378,8 @@ const MyListPage = () => {
 
                                                     }}>{show.name}</Typography>
                                                     <Avatar>
-                                                        {hoveredMediaData ?
-                                                            (hoveredMediaData.Favourite_return.favourited ? (
+                                                        {show ?
+                                                            (show.Favourite_return.favourited ? (
                                                                 <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                                                             ) : (
                                                                 <FavoriteOutlinedIcon
@@ -386,7 +392,7 @@ const MyListPage = () => {
 
                                                     </Avatar>
                                                     <Rating name="read-only"
-                                                        value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0}
+                                                        value={show ? show.Rating_return.RateValue ? show.Rating_return.RateValue : 0 : 0}
                                                         precision="0.5"
                                                         readOnly
                                                         sx={{ fontSize: "25px" }}
@@ -420,11 +426,9 @@ const MyListPage = () => {
                                     <Box
                                         onMouseEnter={async () => {
                                             setHoveredRentedMovieId(movie.id);
-                                            await fetchHoveredMediaUser(user._id, movie.id, "movie", 0)
                                         }}
                                         onMouseLeave={() => {
                                             setHoveredRentedMovieId(null);
-                                            setHoveredMediaData(null)
                                         }}
                                         sx={{
                                             position: 'relative',
@@ -463,8 +467,8 @@ const MyListPage = () => {
 
                                                     }}>{movie.title}</Typography>
                                                     <Avatar>
-                                                        {hoveredMediaData ?
-                                                            (hoveredMediaData.Favourite_return.favourited ? (
+                                                        {movie ?
+                                                            (movie.Favourite_return.favourited ? (
                                                                 <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                                                             ) : (
                                                                 <FavoriteOutlinedIcon
@@ -477,24 +481,24 @@ const MyListPage = () => {
 
                                                     </Avatar>
                                                     <Rating name="read-only"
-                                                        value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0}
+                                                        value={movie ? movie.Rating_return.RateValue ? movie.Rating_return.RateValue : 0 : 0}
                                                         precision="0.5"
                                                         readOnly
                                                         sx={{ fontSize: "25px" }}
                                                     >
                                                     </Rating>
-                                                    {hoveredMediaData ? (
-                                                        hoveredMediaData.Rental_return ? (
-                                                            hoveredMediaData.Rental_return.Rented ? (
-                                                                hoveredMediaData.Rental_return.Rental_information.rentalExpireDate > new Date().toISOString() ? (
+                                                    {movie ? (
+                                                        movie.Rental_return ? (
+                                                            movie.Rental_return.Rented ? (
+                                                                movie.Rental_return.Rental_information.rentalExpireDate > new Date().toISOString() ? (
                                                                     <div>
                                                                         <EventAvailableOutlinedIcon sx={{ color: 'green', fontSize: '30px' }}></EventAvailableOutlinedIcon>
-                                                                        <Typography> Active till <strong>{hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)}</strong> </Typography>
+                                                                        <Typography> Active till <strong>{movie.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)}</strong> </Typography>
                                                                     </div>
                                                                 ) : (
                                                                     <div>
                                                                         <EventBusyOutlinedIcon sx={{ color: 'red', fontSize: '30px' }}></EventBusyOutlinedIcon>
-                                                                        <Typography> Expired since <strong> {hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)} </strong> </Typography>
+                                                                        <Typography> Expired since <strong> {movie.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)} </strong> </Typography>
                                                                     </div>
                                                                 )
                                                             ) : (
@@ -535,11 +539,9 @@ const MyListPage = () => {
                                     <Box
                                         onMouseEnter={async () => {
                                             setHoveredRentedShowId(`${show.id}-${show.intendedSeason}`);
-                                            await fetchHoveredMediaUser(user._id, show.id, "tv", show.intendedSeason)
                                         }}
                                         onMouseLeave={() => {
                                             setHoveredRentedShowId(null);
-                                            setHoveredMediaData(null)
                                         }}
                                         sx={{
                                             position: 'relative',
@@ -578,8 +580,8 @@ const MyListPage = () => {
 
                                                     }}>{show.name}</Typography>
                                                     <Avatar>
-                                                        {hoveredMediaData ?
-                                                            (hoveredMediaData.Favourite_return.favourited ? (
+                                                        {show ?
+                                                            (show.Favourite_return.favourited ? (
                                                                 <FavoriteBorderOutlinedIcon sx={{ fontSize: "23px" }} />
                                                             ) : (
                                                                 <FavoriteOutlinedIcon
@@ -592,24 +594,24 @@ const MyListPage = () => {
 
                                                     </Avatar>
                                                     <Rating name="read-only"
-                                                        value={hoveredMediaData ? hoveredMediaData.Rating_return.RateValue ? hoveredMediaData.Rating_return.RateValue : 0 : 0}
+                                                        value={show ? show.Rating_return.RateValue ? show.Rating_return.RateValue : 0 : 0}
                                                         precision="0.5"
                                                         readOnly
                                                         sx={{ fontSize: "25px" }}
                                                     >
                                                     </Rating>
-                                                    {hoveredMediaData ? (
-                                                        hoveredMediaData.Rental_return ? (
-                                                            hoveredMediaData.Rental_return.Rented ? (
-                                                                hoveredMediaData.Rental_return.Rental_information.rentalExpireDate > new Date().toISOString() ? (
+                                                    {show ? (
+                                                        show.Rental_return ? (
+                                                            show.Rental_return.Rented ? (
+                                                                show.Rental_return.Rental_information.rentalExpireDate > new Date().toISOString() ? (
                                                                     <div>
                                                                         <EventAvailableOutlinedIcon sx={{ color: 'green', fontSize: '30px' }}></EventAvailableOutlinedIcon>
-                                                                        <Typography> Active till <strong>{hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)}</strong> </Typography>
+                                                                        <Typography> Active till <strong>{show.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)}</strong> </Typography>
                                                                     </div>
                                                                 ) : (
                                                                     <div>
                                                                         <EventBusyOutlinedIcon sx={{ color: 'red', fontSize: '30px' }}></EventBusyOutlinedIcon>
-                                                                        <Typography> Expired since <strong> {hoveredMediaData.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)} </strong> </Typography>
+                                                                        <Typography> Expired since <strong> {show.Rental_return.Rental_information.rentalExpireDate.substring(0, 10)} </strong> </Typography>
                                                                     </div>
                                                                 )
                                                             ) : (
