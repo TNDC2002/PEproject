@@ -155,13 +155,12 @@ const Navbar = ({ currentPage }) => {
             width: "100%",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            
-
-        }} position="sticky">
+            position:"sticky",
+        }}>
             <Container maxWidth="xl" sx={{ marginTop: "15px" }} >
                 <Toolbar disableGutters>
 
-                    <Box sx={{ marginLeft: "-10px", }}>
+                    <Box sx={{ marginLeft: "-10px", display: {xs: 'none', md: 'flex'}}}>
                         <IconListComponent currentPage={currentPage} />
                     </Box>
                     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
@@ -186,12 +185,10 @@ const Navbar = ({ currentPage }) => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            <Box sx={{ display: 'flex', padding: '0 1rem', margin: '0 0 0.5rem 0' }}>
-
-                            </Box>
+                            <SearchBar />
                             {pages.map((page) => (
-                                <MenuItem key={`link-${page}`} onClick={handleCloseNavMenu}>
-                                    <Link href={`/${page}`} sx={{ textDecoration: 'none', color: 'black', fontSize: '1rem' }}>{page}</Link>
+                                <MenuItem sx={{ backgroundColor: '#e90064' , "&:hover" : {backgroundColor: '#060047'}}} key={`link-${page}`} onClick={handleCloseNavMenu}>
+                                    <Link href={`/${page}`} sx={{ textDecoration: 'none', color: 'white', fontSize: '1rem', py: '0.5rem', fontWeight: 'bold' }}>{page}</Link>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -217,7 +214,7 @@ const Navbar = ({ currentPage }) => {
                             }}
                         />
                     </Box>
-                    <Box right={"150px"} position={"absolute"}>
+                    <Box right={"150px"} position={"absolute"} sx={{ display: {xs: 'none', md: 'flex'}}}>
                         <SearchBar></SearchBar>
                     </Box>
                     <Box gap="1rem" sx={{ display: "flex", marginLeft: 'auto' }} >
@@ -296,7 +293,7 @@ const Navbar = ({ currentPage }) => {
                                             textTransform: 'none'
                                         }}>Manage your Bruher Account</Typography>
                                     </Button>
-                                </Box>
+                                </Box>                                
                                 <Divider />
                                 <MenuItem onClick={redirectSettings}>
                                     <Settings />
