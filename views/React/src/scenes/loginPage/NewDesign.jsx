@@ -133,7 +133,7 @@ const NewDesign = () => {
     formData.append('picturePath', values.picture.name)
 
     const savedUserResponse = await fetch(
-      'http://localhost:5000/auth/register',
+      process.env.BACKEND_URL + '/auth/register',
       {
         method: 'POST',
         body: formData
